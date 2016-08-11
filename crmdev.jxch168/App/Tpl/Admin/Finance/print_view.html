@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>收款确认书</title>
+        <style type="text/css">
+            *{
+                margin: 0 auto;
+                padding: 0;
+            }
+            p{
+                font-family: "宋体";
+            }
+            .header{
+                width: 980px;
+                height: 90px;
+                border-bottom: 2px solid black;
+            }
+
+            .header img{
+                margin-top: 25px;
+            }
+            .header span{
+                display: inline-block;
+                margin-left: 100px; 
+                color: ;
+            }
+            .center{
+                width: 980px;
+                text-align: center;
+
+            }
+            .center p{
+                text-indent:2em;
+                text-align: left;
+            }
+
+            h2{
+                text-align: center;
+            }
+            table td{
+                width: 450px;
+                height: 30px;
+                font-size: 22px;
+            }
+            .bold{
+                font-weight:bold;
+            }
+            .underline{
+                text-decoration:underline;
+            }
+            .border{
+                border:1px red solid;
+            }
+            .fl{
+                float: left;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <if condition="$mark">
+                <img class="fl" src="__PUBLIC__/img/jxch_logo.png" height="51" width="147" >
+                <span class="fl" style="margin-top:50px;">公司地址：杭州市桐庐县城迎春南路29号荣正财富广场裙楼B区102室</span>
+                <span class="fl">公司电话：0571-58568552 传真：0571-58568559</span>
+                <else />
+                <img src="__PUBLIC__/img/hmt.png" height="51" width="147" >
+                <span>公司地址：古北南路1881号亚繁国际广场5楼    &nbsp &nbsp&nbsp公司电话：021-64203899</span>     
+            </if>
+        </div>
+        <br/>
+        <br/>
+
+        <div class="center">
+            <h1>收款确认书</h1>
+            <h2>
+                <br/>
+                <br/>
+                <br/>
+                <p>尊敬的<span class="underline">{$info.other.customer_name}</span><if condition="$info.other.receivables_idno|getSexByIdno">先生<else />女士</if>，您好：</p>
+                <br/>
+                <br/>
+                <p>本公司确认于<span class="underline">{$info['pay_time']|date="Y",###}</span>年<span class="underline">{$info['pay_time']|date="m",###}</span>月<span class="underline">{$info['pay_time']|date="d",###}</span>日收到您通过利享投资管理（上海）有限公司介绍用于债权匹配的款项共计人民币<span class="underline">{$info['money']|get_amount}</span>（RMB：<span class='underline'>¥{$info['money']}.00</span>）</p>
+                <br/>
+                <br/>
+                <p>以上款项总计人民币<span class="underline">{$info['money']|get_amount}</span>            （RMB：<span class="underline">¥{$info['money']}.00</span>）  特此证明。</p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <p>该笔出借款项对应的出借编号为：          <span class="underline">{$info.other.number}</span></p></h2>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+        </div>
+        <table>
+            <tr>
+                <td class='bold' style="font-weight:bold;">确认方：上海华陌通金融信息服务有限公司</td>
+                <td rowspan="6" style='width:100px;'></td>
+                <td class='bold'>确认方：利享投资管理（上海）有限公司</td>
+            </tr>
+            <tr>
+                <td>签章</td>
+                <td>签章</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>日期：<span class="">{$info['pay_time']|date="Y-m-d",###}</td>
+                <td>日期：<span class="">{$info['pay_time']|date="Y-m-d",###}</td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            window.print();
+        </script>
+    </body>
+</html>

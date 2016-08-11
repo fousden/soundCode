@@ -1,0 +1,66 @@
+<include file="Public:header" />
+<div class="container">
+    <!--                    应收，应付导航-->
+	<include file="Finance:commnav" />
+	<include file="Public:alert" />
+        <style type="text/css">
+            table{width:1170px;text-align:center;}
+            thead tr{background-color: #ddd;}
+            thead td{height:30px;}
+            tbody td{height:50px;}
+        </style>
+        <form id="search_form" action="{:U('finance/show_pay_details')}" method="POST">
+            {:L('SELECT DATE')}&nbsp; {:L('FROM')}<input type="text" id="start_time" name="start_time" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" value="{$_REQUEST['start_time']}"/>{:L('TO')}<input type="text" id="end_time" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="end_time" class="Wdate" value="{$_REQUEST['end_time']}" />&nbsp;&nbsp;
+            <input type="submit" class="btn" value="搜索"/>
+            <input type="button" class="btn" value="导出" onclick="export_csv_paydata();">
+        </form>
+        <table border=1 cellpadding=0 cellspacing=0>
+            <thead>
+                <tr>
+                    <td style="width:30px;">ID</td>
+                    <td style="width:60px;">客户</td>
+                    <td>合同编号</td>
+                    <td>应付款名</td>
+                    <td>应付金额</td>
+                    <td>应付时间</td>
+                    <td>负责人</td>
+                    <td>创建人</td>
+                    <td>创建时间</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name="repay_data" item="vo" key="key">
+                <tr>
+                    <td>{$vo['id']}</td>
+                    <td><a href="{:U('customer/view','id='.$vo['customer_id'])}">{$vo['customer_name']}</a></td>
+                    <td><a href="{:U('contract/view','id='.$vo['contract_id'])}">{$vo['contract_name']}</a></td>
+                    <td><a href="{:U('finance/view','t=payables&id='.$vo['payables_id'])}">{$vo.name}</a></td>
+                    <td style="text-align:right;padding-right: 10px;">{$vo.price}</td>
+                    <td>{$vo.pay_time}</td>
+                    <td>{$vo.owner_name}</td>
+                    <td>{$vo.creator_name}</td>
+                    <td>{$vo.create_time}</td>
+                    <td>{$vo.status}</td>
+                    <td><a href="{:U('finance/view','t=payables&id='.$vo['payables_id'])}">{:L('VIEW')}</a></td>
+                </tr>
+                </foreach>
+                <tr>
+                    <td colspan="3">合计</td>
+                    <td>应付总额</td>
+                    <td style="text-align:right;padding-right: 10px;">{$statis.money}</td>
+                    <td colspan="6"></td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+<script type="text/javascript">	
+    function export_csv_paydata(){
+        var query = $("#search_form").serialize();
+        var url= '/index.php?m=finance&a=show_pay_details&csv=1&'+query;
+        location.href = url;
+    }	
+</script>
+
+<include file="Public:footer" />

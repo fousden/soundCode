@@ -1,0 +1,553 @@
+<include file="Public:header" />
+<script type="text/javascript" src="__PUBLIC__/js/kindeditor-all-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/zh_CN.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/css/kindeditor.css" type="text/css" />
+<link rel="stylesheet" href="__PUBLIC__/css/jquery.fileupload.css" type="text/css" />
+<script type="text/javascript">
+            <if condition="C('ismobile') neq 1">
+            var editor;
+            KindEditor.ready(function(K) {
+            editor = K.create('textarea[name="content"]', {
+            uploadJson:'{:U("file/editor")}',
+                    allowFileManager : true,
+                    loadStyleMode : false,
+                    fileManagerJson: "{:U('file/manager')}"
+            });
+            });
+            </if>
+</script>
+<div class="container">
+    <!-- Docs nav ================================================== -->
+    <div class="page-header">
+        <h4>{:L('THE_NEW_CONTRACT')}</h4>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <include file="Public:alert"/>
+            <form action="{:U('contract/add')}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="refer_url" value="{$refer_url}">
+                <table class="table" width="95%" border="0" cellspacing="1" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td <if condition="C('ismobile') neq 1">colspan="3"</if>><input name="submit" class="btn btn-primary" type="submit" value="{:L('SAVE')}"/>&nbsp; <input type="button" class="btn" onclick="javascript:history.go( - 1)" value="{:L('RETURN')}"/></td>
+                    </tr>
+                    </thead>
+
+                    <tbody width="100%">
+                        <tr>
+                            <th <if condition="C('ismobile') eq 1">colspan="2"<else />colspan="4"</if>>{:L('BASIC_INFO')}</th>
+                    </tr>
+                    <tr>
+                        <td width="15%" class="tdleft">初始创建者：</td>
+                        <td width="35%">{$user_name}</td>
+                        <if condition="C('ismobile') eq 1"></tr><tr></if>
+                        <!--<td class="tdleft">合同经营方式</td>
+                        <td>
+                            <select name="outer_pack" id="outer_pack">
+                                <option value="1" selected>自营</option>
+                                <option value="2">外包</option>
+                            </select>
+                        </td>-->
+                    </tr>
+                    <tr>
+                        <td width="15%" class="tdleft">{:L('CONTRACT_NO')}</td>
+                        <td width="35%"><input  type="text" name="number" id="number" value="{$contract_custom}"></td>
+                    <if condition="C('ismobile') eq 1"></tr><tr></if>
+                    <td class="tdleft">
+<!--                        {:L('OWNER_ROLE')}-->
+                    业务员：
+                    </td>
+                    <td>
+                        <input type="hidden" name="owner_role_id" id="owner_id" value="{$Think.session.role_id}"/>
+                        <input type="text" name="owner_role_name" id="owner_name" value="{$Think.session.name}"/>
+                    </td>
+                    </tr>
+                    <tr>
+                               <td class="tdleft" width="20%" valign="middle">*{:L('CUSTOMER')}</td>
+                            <td valign="middle"><input name="customer_id" id="customer_id" type="hidden" /><input name="customer" onblur="getCustomerInfo(this);" id="customer" class="text-input large-input" type="text" /></td>
+
+                    <if condition="C('ismobile') eq 1"></tr><tr></if>
+                    <td class="tdleft">签约产品</td>
+                    <td>
+                        <select name="product_id" id="product_id" onchange="getProductInfo(this);create_ht_time();" >
+                            <option value="0">--请选择--</option>
+                            <foreach name="product_info" item="product">
+                                <option value="{$product.product_id}">{$product.name}</option>
+                            </foreach>
+                        </select>
+                    </td>
+                    </tr>
+                    <!-- 新增功能 -->
+                    <tr>
+                        <td class="tdleft">{:L('REPAY_BANK_NAME')}</td>
+                        <td><input  type="text" name="receivables_bank" id="receivables_bank" value="{$info.receivables_bank}"></td>
+                        <if condition="C('ismobile') eq 1"></tr><tr></if>
+                        <td class="tdleft">起息类型</td>
+                        <td>
+                            <select name="qixi_type" id="qixi_type" onchange="get_jiexi_time();">
+                                <option value="0">--请选择--</option>
+                                <option value="1" selected>T+0</option>
+                                <option value="2">T+1</option>
+                            </select>
+                        </td>
+                    <!--<td class="tdleft">{:L('SIGNING_TIME')}/POS日</td>
+                    <td>
+                        <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowWeek:true,onpicked:create_ht_time})"  type="text" id="due_time" name="due_time" class="Wdate" />
+                    </td>-->
+                    </tr>
+                    <tr>
+                        <td class="tdleft">{:L('REPAY_BANK_BRACHE_NAME')}</td>
+                        <td><input type="text" name="receivables_bankzone" id="receivables_bankzone" value="{$info.receivables_bankzone}"/> </td>
+                        <if condition="C('ismobile') eq 1"></tr><tr></if>
+                        <td class="tdleft">{:L('REPAY_BANKCARD')}</td>
+                        <td><input  type="text" name="receivables_bankcard" id="receivables_bankcard" value="{$info.receivables_bankcard}"></td>
+                    </tr>
+                    <tr>
+
+                    <td class="tdleft">{:L('REPAY_USER_NAME')}</td>
+                    <td><input type="text" name="receivables_name" id="receivables_name" value="{$info.receivables_name}"/></td>
+                    <if condition="C('ismobile') eq 1"></tr><tr></if>
+                    <td class="tdleft">{:L('REPAY_DOC_TYPE')}</td>
+                        <td>
+                            <select name="receivables_doc_type" id="receivables_doc_type">
+                                <foreach name="doc_type" item="dtype" key="key">
+                                    <option value="{$key}" <if condition="$key eq 1">selected="selected"</if>>{$dtype}</option>
+                                </foreach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">{:L('INVEST_MONEY')}</td>
+                        <td><input type="text" name="investment_money" onkeyup="getInvestIncome(this);" id="investment_money" value="{$info.investment_money}"/></td>
+                        <if condition="C('ismobile') eq 1"></tr><tr></if>
+                        <td class="tdleft">{:L('REPAY_USER_NAME_ID_CARD')}</td>
+                        <td><input  type="text" name="receivables_idno" id="receivables_idno" value="{$info.receivables_idno}"></td>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">{:L('INVEST_RATE')}</td>
+                        <td><input type="text" name="investment_rate" id="investment_rate" readonly="readonly" value="{$info.investment_rate}"/> </td>
+                        <if condition="C('ismobile') eq 1"></tr><tr></if>
+                        <td class="tdleft">{:L('MONTH_INVEST_RATE')}</td>
+                        <td><input  type="text" name="month_investment_rate" id="month_investment_rate" readonly="readonly" value="{$info.month_investment_rate}"></td>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">{:L('ACTIVE_INVEST_RATE')}</td>
+                        <td><input  type="text" name="active_investment_rate" onblur="getNewInvestIncome(this)" id="active_investment_rate" placeholder="活动利率使用小数形式" value="{$info.active_investment_rate}0">
+                            <Br><span style="color: red;">针对自己营业部活动添加，有活动需手动输入，无活动默认为0。</span>
+                        </td>
+                        <if condition="C('ismobile') eq 1"></tr><tr></if>
+                        <td class="tdleft">{:L('CLOSE_PERIOD')}</td>
+                        <td><input type="text" name="closure_period" id="closure_period" readonly="readonly" value="{$info.closure_period}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">{:L('INTEREST_DAYS')}</td>
+                        <td><input type="text" name="interest_days" id="interest_days" value="30"/></td>
+                    <if condition="C('ismobile') eq 1"></tr><tr></if>
+                    <td class="tdleft">{:L('INTEREST_MONTH')}</td>
+                    <td><input type="text" name="month_interest" id="month_interest" value="{$info.month_interest}" readonly="readonly"/></td>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">{:L('INTEREST_TOTAL')}</td>
+                        <td><input type="text" name="total_interest" id="total_interest" value="{$info.total_interest}"/></td>
+                    <if condition="C('ismobile') eq 1"></tr><tr></if>
+                    <td class="tdleft">{:L('TOTAL_REPAY_MONEY')}</td>
+                    <td><input type="text" name="total_receivables_money" id="total_receivables_money" value="{$info.total_receivables_money}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">{:L('THE_TIME_WHICH_THE_CONTRACT_COMES_INTO_FORCE')}</td>
+                        <td>
+                            <input type="text" id="start_date" name="start_date" onchange="get_jiexi_time();" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
+                        </td>
+                        <td class="tdleft">{:L('CONTRACT_TIME')}</td>
+                        <td colspan="3">
+                            <input type="text" id="end_date" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="end_date" class="Wdate"/>
+                        </td>
+                    </tr>
+                    <!-- 上传图片 -->
+                    <tr>
+                            <td class="tdleft">身份证复印件：</td>
+                            <td style="line-height:60px;margin:0;padding:0;">
+                                <div class="thumbnail thumb80" style="float:left;line-height:60px;">
+                                        <img id="id_card_prev" class="thumb80"/>
+                                </div>
+                                <span id="id_card_prev_size" style="width:130px;display:block;float:left;width:100px;height:25px;line-height:25px;position:relative;top:5px;left:10px;">0 KB</span>
+                                <span id="id_card_prev_name" style="display:block;width:200px;height:25px;line-height:25px;position:relative;top:-60px;left:100px;"></span>
+                                <div class="btn btn-success fileinput-button" style="float:left;position:relative;top:34px;">
+                                        <span>选择文件</span>
+                                        <input type="file" name="id_card[]" id="id_card">
+                                </div>
+                            </td>
+                        <if condition="C('ismobile') eq 1"></tr><tr></if>
+                            <td class="tdleft">银行卡复印件：</td>
+                            <td style="line-height:60px;margin:0;padding:0;">
+                                <div class="thumbnail thumb80" style="float:left;line-height:60px;">
+                                        <img id="bank_card_prev" class="thumb80"/>
+                                </div>
+                                <!--<span style="width:130px;"><span id="main_pic_prev_size" style="display:block;float:left;width:100px;height:25px;line-height:25px;position:relative;top:33px;left:-82px;">0</span> <span style="position:relative;left:-120px;top:14px;">KB</span></span>-->
+                                <span id="bank_card_prev_size" style="width:130px;display:block;float:left;width:100px;height:25px;line-height:25px;position:relative;top:5px;left:10px;">0 KB</span>
+                                <span id="bank_card_prev_name" style="display:block;width:200px;height:25px;line-height:25px;position:relative;top:-60px;left:100px;"></span>
+                                <!--<span id="imgtitle" style="border:1px solid red;display:block;width:200px;height:25px;line-height:25px;position:relative;left:100px;"><span id="main_pic_prev_name" style="position:relative;top:-30px;"></span></span>-->
+                                <div class="btn btn-success fileinput-button" style="float:left;position:relative;top:34px;">
+                                        <span>选择文件</span>
+                                        <input type="file" name="bank_card[]" id="bank_card">
+                                </div>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td class="tdleft">收银小票：</td>
+                            <td style="line-height:60px;margin:0;padding:0;">
+                                <div class="thumbnail thumb80" style="float:left;line-height:60px;">
+                                        <img id="small_ticket_prev" class="thumb80"/>
+                                </div>
+                                <span id="small_ticket_prev_size" style="width:130px;display:block;float:left;width:100px;height:25px;line-height:25px;position:relative;top:5px;left:10px;">0 KB</span>
+                                <span id="small_ticket_prev_name" style="display:block;width:200px;height:25px;line-height:25px;position:relative;top:-60px;left:100px;"></span>
+                                <div class="btn btn-success fileinput-button" style="float:left;position:relative;top:34px;">
+                                        <span>选择文件</span>
+                                        <input type="file" name="small_ticket[]" id="small_ticket">
+                                </div>
+                            </td>
+                        <if condition="C('ismobile') eq 1"></tr><tr></if>
+                            <td class="tdleft">其他相关图片：</td>
+                            <td style="line-height:60px;margin:0;padding:0;">
+                                <div class="thumbnail thumb80" style="float:left;line-height:60px;">
+                                        <img id="other_file_prev" class="thumb80"/>
+                                </div>
+                                <span id="other_file_prev_size" style="width:130px;display:block;float:left;width:100px;height:25px;line-height:25px;position:relative;top:5px;left:10px;">0 KB</span>
+                                <span id="other_file_prev_name" style="display:block;width:200px;height:25px;line-height:25px;position:relative;top:-60px;left:100px;"></span>
+                                <div class="btn btn-success fileinput-button" style="float:left;position:relative;top:34px;">
+                                        <span>选择文件</span>
+                                        <input type="file" name="other_file[]" id="other_file">
+                                </div>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td class="tdleft">附件压缩包：</td>
+                            <td style="line-height:60px;margin:0;padding:0;">
+                                <!--<div class="thumbnail thumb80" style="float:left;line-height:60px;">
+                                        <img id="contract_file_prev" class="thumb80"/>
+                                        <span id="contract_file_prev" class="thumb80"></span>
+                                </div>-->
+                               <div class="thumbnail thumb80" style="float:left;line-height:60px;">
+                                    <span id="contract_file_prev_size" style="width:130px;display:block;width:100px;height:25px;line-height:25px;position:relative;top:0px;left:0px;">0 KB</span>
+                                    <span id="contract_file_prev_name" style="display:block;width:200px;height:25px;line-height:25px;position:relative;top:0px;left:0px;"></span>
+                                    <div class="btn btn-success fileinput-button" style="float:left;position:relative;top:10px;left:-11px;">
+                                            <span>选择文件</span>
+                                            <input type="file" name="contract_file[]" id="contract_file">
+                                    </div>
+                                </div>
+                            </td>
+                        <if condition="C('ismobile') eq 1"></tr><tr></if>
+                    </tr>
+                    <!-- 上传图片 -->
+                    <tr>
+                        <td class="tdleft">{:L('TERMS_AND_CONDITIONS')}</td>
+                        <td <if condition="C('ismobile') neq 1">colspan="3"</if>><textarea class="span6" rows="3" name="content" id="content" style="width: 800px; height: 350px;"></textarea></td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">{:L('THE_CONTRACT_DESCRIPTION')}</td>
+                        <td <if condition="C('ismobile') neq 1">colspan="3"</if>><textarea class="span6" rows="3" name="description" id="description"></textarea></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colspan="3">
+                                <input name="submit" class="btn btn-primary" type="submit" value="{:L('SAVE')}"/> &nbsp;
+                                <input class="btn" type="button" onclick="javascript:history.go( - 1)" value="{:L('RETURN')}"/>&nbsp;&nbsp;
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="dialog-business" title="{:L('SELECT_BUSINESS_OPPORTUNITIES')}">loading...</div>
+<div id="dialog-customer" title="{:L('DIALOG_SELECT_CUSTOMER')}">loading...</div>
+<div id="dialog-role-list2" title="{:L('SELECT_HEAD')}">loading...</div>
+<div id="dialog-message" title="{:L('SELECT THE CUSTOMERS')}">loading...</div>
+<script type="text/javascript" src="__PUBLIC__/js/uploadPreview.js"></script>
+<script>
+
+//$(function(){
+//    $('#due_time').change(function(){
+//
+//        alert(1);
+//    });
+//});
+    function create_ht_time()
+    {
+        if (!$('#due_time').val() || !$('#product_id').val())
+        {
+            return false;
+        }
+        $.ajax({
+                url: '/index.php?m=contract&a=getdate&setdate=' +$('#due_time').val() + '&product_id=' + $('#product_id').val() ,
+                        dataType: "json",
+                        success: function(result){
+                            $('#start_date').val(result.data.beginTime);
+                            $('#end_date').val(result.data.endTime);
+                  }
+         });
+    }
+
+</script>
+<script type="text/javascript">
+        //初始化上传图片
+    $("body").on('click','input[type="file"]', function(){
+            var selector = $(this).attr('id');
+            $("#"+selector).uploadPreview({ Img: selector+"_prev", Width: 120, Height: 120 });
+    });
+    //获取客户信息
+    function getCustomerInfo(obj){
+        var query = new Object();
+                query.customer_name = $.trim($(obj).val());
+                ajaxurl = "index.php?m=contract&a=getCustomerInfo";
+                $.ajax({
+                url: ajaxurl,
+                        data:query,
+                        type: "POST",
+                        dataType: "json",
+                        success: function(result){
+                        if (result.status == 1)
+                        {
+                        $("#receivables_bank").val(result.data.bank);
+                                $("#receivables_bankzone").val(result.data.bankzone);
+                                $("#receivables_bankcard").val(result.data.bankcard);
+                                $("#receivables_name").val(result.data.name);
+                                $("#receivables_idno").val(result.data.idno);
+                                $("#customer_id").val(result.data.customer_id);
+                        } else{
+                        $("#receivables_bank").val("");
+                                $("#receivables_bankzone").val("");
+                                $("#receivables_bankcard").val("");
+                                $("#receivables_name").val("");
+                                $("#receivables_idno").val("");
+                        }
+
+                        }
+                });
+    }
+    //获取产品信息
+    function getProductInfo(obj){
+        var query = new Object();
+        query.product_id = $.trim($(obj).val());
+        query.start_date = $.trim($("#start_date").val());
+        query.qixi_type = $("#qixi_type").val();
+        query.investment_money = parseFloat($.trim($("#investment_money").val()));
+        ajaxurl = "index.php?m=contract&a=getProductInfo";
+        $.ajax({
+        url: ajaxurl,
+                data:query,
+                type: "POST",
+                dataType: "json",
+                success: function(result){
+                    if (result.status == 1)
+                    {
+                            var str_month = result.data.str_month; //封闭期
+                            var year_rate = parseFloat(result.data.year_rate);
+                            var active_rate = parseFloat(result.data.active_rate);
+                            var month_rate = parseInt(((year_rate+active_rate) / 12) * 100) / 100;
+                            $("#month_investment_rate").val(month_rate);
+                            $("#investment_rate").val(year_rate);
+                            $("#closure_period").val(str_month);
+                            $("#active_investment_rate").val(active_rate);
+                            $("#month_interest").val(result.data.month_interest);
+                            $("#total_interest").val(result.data.total_interest);
+                            $("#total_receivables_money").val(result.data.total_receivables_money);
+                            $("#end_date").val(result.data.end_date);
+                    } else{
+                            $("#month_investment_rate").val("");
+                            $("#investment_rate").val("");
+                            $("#closure_period").val("");
+                            $("#month_interest").val("");
+                            $("#active_investment_rate").val("");
+                            $("#total_interest").val("");
+                            $("#total_receivables_money").val("");
+                            $("#end_date").val("");
+                    }
+                }
+        });
+    }
+
+    //获取产品结息时间
+    function get_jiexi_time(){
+        var query = new Object();
+        var product_id = $("#product_id").val();
+        query.start_date = $.trim($("#start_date").val());
+        query.product_id = product_id;
+        query.qixi_type = $("#qixi_type").val();
+        ajaxurl = "index.php?m=contract&a=getProductJiexiTime";
+        $.ajax({
+        url: ajaxurl,
+                data:query,
+                type: "POST",
+                dataType: "json",
+                success: function(result){
+                    if (result.status == 1)
+                    {
+                            var end_date = result.data.end_date;
+                            $("#end_date").val(end_date);
+                    } else{
+                            $("#end_date").val("");
+                            alert(result.info);
+                    }
+                }
+        });
+    }
+
+    //根据活动利率获取新的收益
+    function getNewInvestIncome(){
+        var investment_rate = parseFloat($("#investment_rate").val());
+        var active_investment_rate = parseFloat($("#active_investment_rate").val());
+        if(!active_investment_rate){
+            active_investment_rate = 0;
+        }
+        $("#month_investment_rate").val(parseInt(((investment_rate+active_investment_rate) / 12) * 100) / 100);
+        getInvestIncome();
+    }
+    //获取收益 总收益
+    function getInvestIncome(){
+        var query = new Object();
+        query.invest_money = parseFloat($.trim($("#investment_money").val()));
+        query.product_id = parseInt($.trim($("#product_id").val()));
+        query.active_investment_rate = parseFloat($.trim($("#active_investment_rate").val()));
+        ajaxurl = "index.php?m=contract&a=getInvestIncome";
+        $.ajax({
+        url: ajaxurl,
+                data:query,
+                type: "POST",
+                dataType: "json",
+                success: function(result){
+                if (result.status == 1)
+                {
+                    $("#month_interest").val(result.data.month_interest);
+                    $("#total_interest").val(result.data.total_interest);
+                    $("#total_receivables_money").val(result.data.total_receivables_money);
+                } else{
+                    $("#month_interest").val("");
+                    $("#total_interest").val("");
+                    $("#total_receivables_money").val("");
+                }
+
+                }
+        });
+    }
+    <if condition="C('ismobile') eq 1">width=$('.container').width()*0.9; <else/> width= 800;</if>
+
+            $(function(){
+            $(document).on('click', '#business_name', function () {
+            $('#dialog-business').dialog('open');
+                    $('#dialog-business').load("{:U('business/listDialog')}");
+            });
+                    /*$(document).on('click','#customer_name',function () {
+                     $('#dialog-customer').dialog('open');
+                     $('#dialog-customer').load('{:U("customer/listDialog")}');
+                     });*/
+                    $('#owner_name').click(function () {
+            $('#dialog-role-list2').dialog('open');
+                    $('#dialog-role-list2').load('{:U("user/listDialog")}');
+                    return false;
+            });
+            });
+            $('#dialog-business').dialog({
+    autoOpen: false,
+            modal: true,
+            width: width,
+            maxHeight: 400,
+            buttons: {
+            "Ok": function () {
+            var item = $('input:radio[name="business"]:checked').val();
+                    var name = $('input:radio[name="business"]:checked').parent().next().html();
+                    var name2 = $('input:radio[name="business"]:checked').parent().next().next().find('a').html();
+                    var name3 = $('input:radio[name="business"]:checked').parent().next().next().next().find('a').html();
+                    var dialog_customer_id = $('input:radio[name="business"]:checked').next().val();
+                    $('#business_name').val(name);
+                    $('#business_id').val(item);
+                    $('#customer_name').val(name2);
+                    $('#contacts_name').val(name3);
+                    $('#customer_id').val(dialog_customer_id);
+                    if ($('input[name="name"]').val() == "")$('input[name="name"]').val(name);
+                    $(this).dialog("close");
+            },
+                    "Cancel": function () {
+                    $(this).dialog("close");
+                    }
+            },
+            position:["center", 100]
+    });
+            $("#dialog-role-list2").dialog({
+    autoOpen: false,
+            modal: true,
+            width: width,
+            maxHeight: 400,
+            buttons: {
+            "Ok": function () {
+            var item = $('input:radio[name="owner"]:checked').val();
+                    var name = $('input:radio[name="owner"]:checked').parent().next().html();
+                    $('#owner_id').val(item);
+                    $('#owner_name').val(name);
+                    $(this).dialog("close");
+            },
+                    "Cancel": function () {
+                    $(this).dialog("close");
+                    }
+            },
+            position: ["center", 100]
+    });
+            $("#dialog-customer").dialog({
+    autoOpen: false,
+            modal: true,
+            width: width,
+            maxHeight: 400,
+            buttons: {
+            "Ok": function () {
+            var item = $('input:radio[name="customer"]:checked').val();
+                    var name = $('input:radio[name="customer"]:checked').parent().next().html();
+                    $('#customer_id').val(item);
+                    $('#customer_name').val(name);
+                    $(this).dialog("close");
+            },
+                    "Cancel": function () {
+                    $(this).dialog("close");
+                    }
+            },
+            position: ["center", 100]
+    });
+</script>
+<script type="text/javascript">
+<if condition="C('ismobile') eq 1">width=$('.container').width() * 0.9;<else/>width=800;</if>
+$("#dialog-message").dialog({
+	autoOpen: false,
+	modal: true,
+	width: width,
+	maxHeight: 400,
+	buttons: {
+		"Ok": function () {
+			var item = $('input:radio[name="customer"]:checked').val();
+			var name = $('input:radio[name="customer"]:checked').parent().next().html();
+			if(item){
+				$('#customer').val(name);
+				$('#customer_id').val(item);
+			}
+			$(this).dialog("close");
+		},
+		"Cancel": function () {
+			$(this).dialog("close");
+		}
+	},
+	position: ["center", 100]
+});
+$(function(){
+	$("#customer").click(
+		function(){
+			$('#dialog-message').dialog('open');
+			$('#dialog-message').load('{:U("customer/listDialog","by=all&bid=".$_GET['bid'])}');
+		}
+	);
+});
+</script>
+<include file="Public:footer" />

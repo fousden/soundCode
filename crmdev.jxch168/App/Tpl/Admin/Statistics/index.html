@@ -1,0 +1,76 @@
+<include file="Public:header" />
+{// 引入标签库 }
+<!--<div class="main">
+    <div class="main_title" style="height:30px;"><span style="font-size:16px;line-height:30px;font-weight:bold;">我的签到<span>
+    <button style="float:right;position:relative;top:4px;" class="button" >{:L(EXPORT_ALL)}</button>
+</div>-->
+<div class="container">
+<include file="Statistics:header" />
+<style type="text/css">
+table.gridtable {
+	 border: 1px solid blue;
+}
+table.gridtable th {
+
+}
+table.gridtable td {
+
+}
+</style>
+<div style="height:50px;background-color:#C9C9C9;">
+    <span style="margin-left:10px;position:relative;top:-2px;height:50px;line-height:50px;"><a href="/index.php?m=statistics&a=index&dmonth={$onMonth}"> <img title="上一月" src="__PUBLIC__/img/right.png"></a></span>
+    <span style="margin-left:40%;position:relative;top:0px;align:center;height:50px;line-height:50px;font-size:22px;">{$Month}</span>
+    <span style="margin-right:10px;position:relative;top:6px;height:50px;float:right;line-height:50px;font-size:22px;"><a href="/index.php?m=statistics&a=index&dmonth={$lastMonth}"><img title="下一月" src="__PUBLIC__/img/left.png"></a></span>
+</div>
+   <include file="Public:alert" />
+<style type="text/css">
+    table {width:1400px;align:center;text-align:center;margin-top:10px;}
+    table tr{width:1400px;align:center;text-align:center}
+    table td{width:300px;height:130px;}
+    table td a {text-decoration:none;color:black;}
+    table td a ul {padding:0px;margin:0px;}
+    table td a ul li{list-style:none;padding:0px;margin:0px;text-align:left;margin-left:4px;height:25px;font-size:14px;}
+</style>
+<table style="margin:50px auto; width:100%;" border="1" cellpadding="0" cellspacing="0">
+    <tr>
+    <foreach name="week_info" item="week">
+        <td> {$week} </td>
+    </foreach>
+     </tr>
+    <foreach name="new_calendar" item="calendar">
+        <tr>
+            <foreach name="calendar" item="vo">
+                <td  <?php if ($vo['week_day'] == $today) echo 'style="background: #00ff00"';?> >
+                    <a style="text-decoration:none" >
+                        <ul>
+                            <li style="color:#029be2">{$vo.week_day}</li>
+                            <if condition="$vo.check_in neq ' ' ">
+                                <li style="color:black">上班时间：{$vo.check_in}</li>
+                            </if>
+                            <if condition="$vo.check_out neq ' ' ">
+                                <li style="color:black">下班时间：{$vo.check_out}</li>
+                            </if>
+                            <if condition="$vo.status neq ' ' ">
+                                <li style='color:red;'>状态：{$vo.status}<if condition="$vo.estatus neq ' ' ">&nbsp;{$vo.estatus}</if></li>
+                            </if>
+                            <if condition="$vo.status eq ' ' and $vo.estatus neq ' ' ">
+                                <li style='color:red;'>状态：{$vo.estatus}</li>
+                            </if>
+                        </ul>
+                    </a>
+                </td>
+            </foreach>
+        </tr>
+    </foreach>
+</table>
+<div class="blank5"></div>
+
+<div class="blank5"></div>
+<tr>
+	<td colspan=12 class="hide Text-{$item.l_key}">
+	</td>
+</tr>
+</div>
+</div>
+<include file="Public:footer" />
+

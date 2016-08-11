@@ -1,0 +1,114 @@
+<include file="Public:header" />
+<script type="text/javascript" src="/Public/third_party/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="/Public/third_party/highcharts/exporting.js"></script>
+<script type="text/javascript" src="/Public/third_party/highcharts/chart.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/kindeditor-all-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/zh_CN.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/css/kindeditor.css" type="text/css" />
+<script>
+    var xAxis_pot = <?php echo $xAxis_pot; ?> ;
+            var yAxis_title = "yaxis";
+
+    var data_name = <?php echo $data_name; ?> ;
+            var data_array = <?php echo $data_array; ?> ;
+//var data_array = ;
+            // [[11,23,444,555,666,4,5,6,7,8,9,8],[22,11,23,444,555,666,33,25,36,47,58,39]];
+            var unit = "";
+
+
+    var series_name = "入金表对比表";
+
+
+    var pie_data_array = null;
+
+    $(function () {
+        var abc = $('#line_chart').highcharts(brokenline_plot(xAxis_pot, yAxis_title, data_name, data_array, unit, series_name));
+    })
+
+
+    $(function(){
+        var abc = $('#column_plot').highcharts(column_plot(xAxis_pot,yAxis_title,data_name,data_array,series_name));
+    })
+
+//    $(function(){
+//        var abc = $('#chart').highcharts(stackcolumn_plot(xAxis_pot,yAxis_title,data_name,data_array));
+//    })
+//
+//    $(function(){
+//        var abc = $('#pie_plot').highcharts(pie_plot(series_name,data_name,pie_data_array,pie_title_name));
+//    })
+
+</script>
+
+<div class="container">
+    <!-- Docs nav ================================================== -->
+    <include file="Contracttongji:contractnav" />
+    <include file="Public:alert" />
+
+    <div class="row">
+        <div class="span12">
+            <ul class="nav pull-left">
+
+                <li id="searchContent" class="pull-left">
+                    日期: <input onClick="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:s'})"  type="text" id="due_time" name="due_time" class="Wdate"/>
+                    <!-- <input id="due_time" class="Wdate" type="text" name="due_time" > -->
+                </li>
+                <li class="pull-left">
+                    <input type="hidden" value="contract" name="m">
+                    <button class="btn" type="submit">
+                        <img src="/Public/img/search.png">
+                        搜索
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="span12">
+            <div id="line_chart" style="min-width:700px;height:400px"></div>
+        </div>
+        <div class="span12">
+            <div id="column_plot" style="min-width:700px;height:400px"></div>
+        </div>
+<!--        <div class="span12">
+            <div id="stackcolumn_plot" style="min-width:700px;height:400px"></div>
+        </div>
+        <div class="span12">
+            <div id="pie_plot" style="min-width:700px;height:400px"></div>
+        </div>-->
+
+
+        <div class="span12">
+            <div class="table table-hover table-striped table_thead_fixed">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td  style="width: 49px;">
+                                月份
+                            </td>
+                            <?php  foreach($data_name_arr as $val):  ?>
+                            <td  style="width: 49px;">
+                                <?php echo $val; ?>
+                            </td>
+                            <?php endforeach; ?>
+                        </tr>
+                        <?php
+                        for ($i = 0; $i < count($xAxis_pot_arr); $i++) {
+                        echo "<tr>";
+                        echo "<td  style='width: 49px;'>";
+                        echo $xAxis_pot_arr[$i];
+                        echo "</td>";
+                        for($j=0;$j<count($data_name_arr);$j++)
+                        {
+                        echo "<td style='width: 49px;'>";
+                        echo $data_array_arr[$j][$i];
+                        echo "</td>";
+                        }
+                        echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public:footer" />

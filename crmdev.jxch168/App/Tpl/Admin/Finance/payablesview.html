@@ -1,0 +1,181 @@
+<include file="Public:header" />
+<style>
+    .tdimg{
+        width: 200px;
+    }
+</style>
+<div class="container">
+
+    <include file="Finance:commnavsmall" />
+    <include file="Public:alert" />
+    <div class="row">
+        <div class="span12">
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th <if condition="C('ismobile') neq 1">colspan="4"<else />colspan="2"</if>>{:L('PAYABLES DETAILS')} 
+                            <if condition="$info['number_pid']"><span style="color:#C40000">　　　　续存合同，上级合同编号：{$info['number_pid']}</span></if>
+                            <if condition="$info['redeem_status'] eq 1">
+                                　　　　<span style="color:#C40000">注意：该合同正处于提前赎回申请中，暂时无法添加应付款！</span>
+                            </if></th>
+                </tr>
+                <tr>
+                    <td class="tdleft" width="15%"><b>{:L('PAYABLES NAME')}</b>:</td>
+                    <td width="35%">{$info.name}</td>
+                <if condition="C('ismobile') eq 1"></tr><tr></if>
+                <td class="tdleft" width="15%"><b>{:L('CUSTOMER')}</b>:</td>
+                <td width="35%">{$info['customer_name']}</td>
+                </tr>
+                <tr>
+                    <td class="tdleft"><b>{:L('CONTRACT NUMBER')}</b>:</td>
+                    <td><a href="{:U('contract/view','id='.$info['contract_id'])}">{$info['contract_name']}</a></td>
+                <if condition="C('ismobile') eq 1"></tr><tr></if>
+                <td class="tdleft"><b>结息时间</b>:</td>
+                <td><if condition="$info['redeem_time']">{$info['redeem_time']|date="Y-m-d",###}&nbsp;(<span style="color:#c40000">原始合同到期时间：{$info['end_date']|date="Y-m-d",###}</span>)<else/>{$info['pay_time']|date="Y-m-d",###}</if></td>
+                </tr>
+                <tr>
+                    <td class="tdleft"><b>{:L('PAYMENTS')}</b>:</td>
+                    <td>{$info['price']}</td>
+                    <if condition="C('ismobile') eq 1"></tr><tr></if>
+                    <if condition="$info['redeem_time']">
+                        <td class="tdleft"><b>预计打款时间</b>:</td>
+                        <td><if condition="$info['act_pay_time']">{$info['act_pay_time']|date="Y-m-d",###}&nbsp;</if></td>
+                    </if>
+                </tr>
+                <tr>
+                    <td class="tdleft"><b>{:L('CREATOR_ROLE')}</b>:</td>
+                    <td><a class="role_info" rel="{$info['creator_role_id']}" href="javascript:void(0)">{$info['creator_name']}</a></td>
+                    <if condition="C('ismobile') eq 1"></tr><tr></if>
+                    <td class="tdleft"><b>{:L('OWNER_ROLE')}</b>:</td>
+                    <td><a class="role_info" rel="{$info['owner_role_id']}" href="javascript:void(0)">{$info['owner']['user_name']}</a></td>
+                </tr>
+                <tr>
+                    <td class="tdleft"><b>{:L('CREATE_TIME')}</b>:</td>
+                    <td>{$info['create_time']|date="Y-m-d",###}</td>
+                </tr>
+                <tr>
+                    <td class="tdleft"><b>身份证复印件</b>:</td>
+                    <td calss='tdimg'><img src="{$info.id_card_pic}" height="200px" width="200px;"/><a href="{$info.id_card_pic}" target="_blank"><button>新窗口查看</button></a></td>
+                    <td class="tdleft"><b>银行卡复印件</b>:</td>
+                    <td calss='tdimg'><img src="{$info.bank_card_pic}" height="200px" width="200px;"/><a href="{$info.bank_card_pic}" target="_blank"><button>新窗口查看</button></a></td>
+
+                </tr>
+                <td class="tdleft"><b>小票照片</b>:</td>
+                <td calss='tdimg'><img src="{$info.small_ticket_pic}" height="200px" width="200px;"/><a href="{$info.small_ticket_pic}" target="_blank"><button>新窗口查看</button></a></td>
+                <td class="tdleft"><b>其他相关照片</b>:</td>
+                <td calss='tdimg'><img src="{$info.other_file_pic}" height="200px" width="200px;"/><a href="{$info.other_file_pic}" target="_blank"><button>新窗口查看</button></a></td>
+                </tr>
+                <tr>
+                    <td class="tdleft"><b>{:L('DESCRIPTION')}</b>:</td>
+                    <td <if condition="C('ismobile') neq 1">colspan="3"</if>><if condition="$info.description neq null"><pre>{$info.description}</pre></if></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="span12">
+            <h4>{:L('PAYMENT HISTORY')}
+                <small>- 共计{$info['paymentorder']|count}条记录，共计已付款{$info['num']}元，还有{$info['num_unCheckOut']}元未结账，剩余{$info['num_unPayment']}元未付款。点击
+                    <!-- 合同审核员无权限 续存和赎回 -->
+                            
+                    <if condition="($Think.session.position_id neq 57) AND ($Think.session.position_id neq 58)">
+                        <if condition="$info['is_deleted'] neq 1 && $info.status gt -1 && $info.status lt 2 AND  ($info.role_name eq 出纳  OR  $info.admin eq 1) AND ($info['redeem_status'] eq 2 OR $info['redeem_status'] eq 0)">
+                            <a id="paymentorder" class="btn btn-mini btn-primary" href="javascript:void(0);">{:L('ADD')}</a>
+                        </if>
+                        <if condition="$info['is_deleted'] neq 1 && $info.status eq -1 AND ($info['redeem_status'] eq 2 OR $info['redeem_status'] eq 0) ">
+                             <a class="btn btn-mini btn-primary" href="javascript:;" onclick="alert('未审核，请相关人员审核后收款')">未审核 </a>
+                        </if>
+                    </if>
+                </small>
+            </h4>
+            <table class="table table-hover">
+                <if condition="$info['paymentorder'] eq null"><tr><td>{:L('EMPTY_TPL_DATA')}</td></tr><else />
+                    <thead>
+                        <tr>
+                            <th>{:L('PAYMENTS SINGLE NUMBER')}</th>
+                            <th>{:L('PAYMENTS')}</th>
+                    <if condition="C('ismobile') neq 1"><th>{:L('OWNER_ROLE')}</th>
+                        <th>{:L('PAYMENT TIME')}</th></if>
+                    <th>收款通道</th>
+                    <th>{:L('STATUS')}</th>
+                    <if condition="C('ismobile') neq 1"><th>{:L('OPERATING')}</th></if>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                {$page}
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    <volist name="info['paymentorder']" id="vo">
+                        <tr>
+                            <td>
+                                <a href="{:U('finance/view','t=paymentorder&id='.$vo['paymentorder_id'])}">{$vo.name}</a>
+                            </td>
+                            <td>{$vo['money']}元</td>
+                        <if condition="C('ismobile') neq 1"><td><a class="role_info" rel="{$vo['owner_role_id']}" href="javascript:void(0)">{$vo['owner']['user_name']}</a></td>
+                            <td><if condition="$vo.pay_time gt 0">{$vo['pay_time']|date="Y-m-d",###}</if></td></if>
+                        <td><if condition="$vo['status'] eq 1">{:L('HAS CLOSING')}<else />{:L('NOT CLOSING')}</if></td>
+                        <td>{:fundsGangway($vo['funds_gangway'])}</td>
+                        <if condition="C('ismobile') neq 1"><td>
+                                <a href="{:U('finance/view','t=paymentorder&id='.$vo['paymentorder_id'])}" >{:L('VIEW')}</a>&nbsp;
+                                <!--								<a href="{:U('finance/edit','t=paymentorder&id='.$vo['paymentorder_id'])}" >{:L('EDIT')}</a>
+                                                                                                &nbsp;<a href="{:U('finance/delete','t=paymentorder&id='.$vo['paymentorder_id'].'&refer=payables')}" class="del_confirm">{:L('DELETE')}</a>-->
+                            </td></if>
+                        </tr>
+                    </volist>
+                    </tbody>
+            </table>
+            </if>
+        </div>
+    </div>
+</div>
+<div class="hide" id="dialog-role-info" title="{:L('DIALOG_USER_INFO')}">loading...</div>
+<div class="hide" id="dialog-paymentorder" title="{:L('ADD PAYMENTORDER')}">loading...</div>
+<script type="text/javascript">
+<if condition="C('ismobile') eq 1">width=$('.container').width() * 0.9;<else />width=800;</if>
+	$("#dialog-role-info").dialog({
+		autoOpen: false,
+		modal: true,
+		width: width,
+		maxHeight: 600,
+		position: ["center",100]
+	});
+	$("#dialog-paymentorder").dialog({
+		autoOpen: false,
+		modal: true,
+		width: width,
+		maxHeight: 600,
+		position: ["center",100]
+	});
+	$(function(){
+		$(".role_info").click(function(){
+			$role_id = $(this).attr('rel');
+			$('#dialog-role-info').dialog('open');
+			$('#dialog-role-info').load('{:U("user/dialoginfo","id=")}'+$role_id);
+		});
+		$("#paymentorder").click(function(){
+			$('#dialog-paymentorder').dialog('open');
+			$('#dialog-paymentorder').load('{:U("finance/adddialog","t=paymentorder&id=")}'+{$info['payables_id']});
+		});
+	});
+
+                function financeCheck(id,type)
+        {
+             $.ajax({
+                url: "/index.php?m=finance&a=financecheck&t=payables&id=" + id,    //请求的url地址
+              dataType: "json",   //返回格式为json
+             //   async: true, //请求是否异步，默认为异步，这也是ajax重要特性
+            //    data: { "id": "value" },    //参数值
+                type: "GET",   //请求方式
+                success: function(req) {
+                    alert(req.data.message);
+                     window.location.reload()
+                    //请求成功时处理
+                },
+
+            });
+        }
+</script>
+<include file="Public:footer" />

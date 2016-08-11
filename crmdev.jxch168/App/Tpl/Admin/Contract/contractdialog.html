@@ -1,0 +1,24 @@
+<style type="text/css">
+    .dialogul{width:400px;text-align:left;font-size:16px;}
+    .dialogul li{margin-top:5px;height:60px;line-height:60px;}
+</style>
+<div class="clearfix dialodiv" align="center">
+	<ul class="nav dialogul">
+                <li>
+                    <span class="btn btn-primary">执行操作：</span>&nbsp;&nbsp;合同审批
+                    <input type="hidden" name="contract_id" id="contract_id" value="{$contract_id}"/>
+		</li>
+		<li>
+                    <span class="btn btn-primary">请&nbsp;选&nbsp;择：</span>
+                    &nbsp;&nbsp;
+                    <input type="radio" name="examine_status" value="3"/>审批通过
+                    &nbsp;&nbsp;
+                    <input type="radio" name="examine_status" value="2" checked="checked"/>审批不通过
+		</li>
+		<li style="height:100px;">
+                   <span class="btn btn-primary">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</span>
+                   &nbsp;&nbsp;
+                   <textarea name="examine_remark" style="height:120px;width:220px;" id="examine_remark" placeholder="请输入审批备注..."></textarea>
+		</li>
+	</ul>
+</div>

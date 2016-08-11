@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>社交名片</title>
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable= no ,minimum-scale=1.0">
+        <script src="__PUBLIC__/js/jquery-1.9.0.min.js?t=20140830" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/mapi/main.css?sdfaf">
+    </head>
+    <body>
+        <div id="main">
+            <p id="name">{$data.name}<span class="post">{$data.role_name}</span></p>
+            <div id="info">
+                <if condition="$data.mobile neq ''">
+                    <p id="moble" class="list">
+                        <img src="__PUBLIC__/img/mapi/monlebg.jpg" />
+                        <span>{$data.mobile}</span>
+                    </p>
+                </if>
+                <if condition="$data.email neq ''">
+                    <p id="mail" class="list">
+                        <img src="__PUBLIC__/img/mapi/mailbg.jpg"/>
+                        <span>{$data.email}</span>
+                    </p>
+                </if>
+                <if condition="$data.qq neq ''">
+                    <p id="qq" class="list">
+                        <img src="__PUBLIC__/img/mapi/qqbg.jpg" />
+                        <span>{$data.qq}</span>
+                    </p>
+                </if>
+                <if condition="$data.weixinid neq ''">
+                    <p id="wechat" class="list">
+                        <img src="__PUBLIC__/img/mapi/wechatbg.jpg"/>
+                        <span>{$data.weixinid}</span>
+                    </p>
+                </if>
+            </div>
+            <div id="cardinfo">
+                <div id="adbox">
+                    <img src="__PUBLIC__/img/mapi/logo.png" id="logo">
+                    <p>官网地址：www.chhty.com</p>
+                    <p id="ad">
+                        公司地址：{$data.address}
+                    </p>
+                </div>
+                <img id="weurl" src="__PUBLIC__/img/mapi/weichaturl.png"></img>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var ua = navigator.userAgent;
+                // console.log(navigator.userAgent);
+                // alert(u);
+                var isPc = function () {
+                    var agents = [
+                        "Android", "iPhone",
+                        "SymbianOS", "Windows Phone",
+                        "iPad", "iPod"
+                    ];
+                    var flag = true;
+                    for (var v = 0; v < agents.length; v++) {
+                        if (ua.indexOf(agents[v]) > 0) {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    return flag;
+                };
+                var isIE = function () { //ie?  
+                    if (!!window.ActiveXObject || "ActiveXObject" in window)
+                        return true;
+                    else
+                        return false;
+                }
+                var isEdge = function () {
+                    return ua.indexOf('Edge') > 0 ? true : false;
+                }
+                // alert(isPc)
+                // if(isPc()){
+                // 	setMainCent($('#main'));
+                // }else{
+                // console.log($('#cardwechat').attr('src'));
+                /*$('#cardwechat').get(0).onload = (isIE() || isEdge())?
+                 function(){
+                 // alert(1)
+                 setMainCent($('#main'));
+                 }:
+                 new function(){
+                 // alert(1)
+                 setMainCent($('#main'));
+                 };*/
+
+
+                $('#weurl').get(0).onload = function () {
+                    // alert(1)
+                    setCentY($('#main'));
+                }
+
+                $('#weurl').get(0).onload = new function () {
+                    // alert(1)
+                    setCentY($('#main'));
+                }
+                setCentX($('#main'));
+                // setCentY($('#main'));
+                // }
+                function setCentX(ele) {
+                    $(ele).addClass('visibilityVisible');
+                    var winW = $(window).width(),
+                            eleW = $(ele).outerWidth();
+                    $(ele).css({
+                        'left': (winW - eleW) / 2
+                    })
+                }
+
+                function setCentY(ele) {
+                    // alert();
+                    // $(ele).hide(1);
+                    // var winH = $(window).height(),
+                    // 	winW = $(window).width(),
+                    // 	eleH = $(ele).outerHeight(),
+                    // 	eleW = $(ele).outerWidth();
+                    // if(winH > eleH){
+                    // 	alert(winH+','+eleH);
+                    // 	$(ele).css({
+                    // 		// 'top': (winH - eleH)/2,
+                    // 		'left': (winW - eleW)/2
+                    // 	}).animate({
+                    // 		'top': (winH - eleH)/2
+                    // 		// 'left': (winW - eleW)/2
+                    // 	},500)
+                    // }else{
+                    // alert(2)
+                    $(ele).css({
+                        'padding': '20% 0',
+                        // 'left': (winW - eleW)/2
+                    })
+                    // }
+
+                }
+            })
+        </script>
+    </body>
+</html>

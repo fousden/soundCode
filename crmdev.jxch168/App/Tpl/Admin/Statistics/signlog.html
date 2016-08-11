@@ -1,0 +1,67 @@
+<include file="Public:header" />
+<div class="container">
+<include file="Statistics:header" />
+       <include file="Public:alert" />
+<style type="text/css">
+table.gridtable {
+	 border: 1px solid blue;
+}
+table.gridtable th {
+
+}
+table.gridtable td {
+
+}
+</style>
+<div style="height:50px;background-color:#C9C9C9;">
+    <span style="margin-left:10px;position:relative;top:-2px;height:50px;line-height:50px;"><a href="/index.php?m=statistics&a=index&dmonth={$onMonth}"> <img title="上一月" src="__PUBLIC__/img/right.png"></a></span>
+    <span style="margin-left:40%;position:relative;top:0px;align:center;height:50px;line-height:50px;font-size:22px;">{$Month}</span>
+    <span style="margin-right:10px;position:relative;top:6px;height:50px;float:right;line-height:50px;font-size:22px;"><a href="/index.php?m=statistics&a=index&dmonth={$lastMonth}"><img title="下一月" src="__PUBLIC__/img/left.png"></a></span>
+</div>
+<style type="text/css">
+    table {width:1400px;align:center;text-align:center;margin-top:10px;}
+    table tr{width:1400px;align:center;text-align:center}
+    table td{width:300px;height:100px;}
+    table td a {text-decoration:none;color:black;}
+    table td a ul {padding:0px;margin:0px;}
+    table td a ul li{list-style:none;padding:0px;margin:0px;text-align:left;margin-left:4px;height:25px;font-size:14px;}
+</style>
+<table style="margin:50px auto" style="gridtable" border=1 cellpadding=0 cellspacing=0>
+    <tr>
+    <foreach name="week_info" item="week">
+        <td> {$week} </td>
+    </foreach>
+     </tr>
+    <foreach name="new_calendar" item="calendar">
+        <tr>
+            <foreach name="calendar" item="vo">
+
+                <td  <?php if ($vo['week_day'] == $today) echo 'style="background: #00ff00"';?> >
+                    <a style="text-decoration:none" href="{:U('statistics/show')}&date={$vo.week_day}" >
+                        <ul>
+                            <li>{$vo.week_day}</li>
+                            <li style="color:black">上班人数：{$vo.checkin_count}</li>
+                            <li style="color:black">下班人数：{$vo.checkout_count}</li>
+                            <if condition="$vo.late_count neq 0">
+                            <li style='color:red;'>迟到人数：{$vo.late_count}</li>
+                            </if>
+                            <if condition="$vo.early_count neq 0">
+                            <li style='color:red;'>早退人数：{$vo.early_count}</li>
+                            </if>
+                        </ul>
+                    </a>
+                </td>
+            </foreach>
+        </tr>
+    </foreach>
+</table>
+<div class="blank5"></div>
+
+<div class="blank5"></div>
+<tr>
+	<td colspan=12 class="hide Text-{$item.l_key}">
+	</td>
+</tr>
+</div>
+</div>
+<include file="Public:footer" />

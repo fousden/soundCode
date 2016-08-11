@@ -1,0 +1,247 @@
+<include file="Public:header" />
+<script type="text/javascript" src="__PUBLIC__/js/kindeditor-all-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/zh_CN.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/css/kindeditor.css" type="text/css" />
+<script type="text/javascript" src="/Public/third_party/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="/Public/third_party/highcharts/exporting.js"></script>
+<script type="text/javascript" src="/Public/third_party/highcharts/chart.js"></script>
+<?php
+$thisWeek= thisWeek();
+$thisMonth = thisMonth();
+$thisYear = thisYear();
+?>
+
+<script>
+$(function () {
+    $('#charts_user').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '<?=$_GET['begin_time']?>~<?=$_GET['end_time']?> 新增用户'
+        },
+        tooltip: {
+            pointFormat: ''
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>:<b>{point.y}</b>( {point.percentage:.1f} %)',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: "Brands",
+            colorByPoint: true,
+            data: <?=$charts_user?>
+        }]
+    });
+});
+</script>
+<script>
+$(function () {
+    $('#charts_contractCnt').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '<?=$_GET['begin_time']?>~<?=$_GET['end_time']?> 新增合同'
+        },
+        tooltip: {
+            pointFormat: ''
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                      format: '<b>{point.name}</b>:<b>{point.y}</b>( {point.percentage:.1f} %)',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: "Brands",
+            colorByPoint: true,
+            data: <?=$charts_contractCnt?>
+        }]
+    });
+});
+</script>
+<script>
+$(function () {
+    $('#charts_contractMoneyCnt').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '<?=$_GET['begin_time']?>~<?=$_GET['end_time']?> 新增入金'
+        },
+        tooltip: {
+            pointFormat: ''
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                       format: '<b>{point.name}</b>:<b>{point.ext}</b>( {point.percentage:.1f} %)',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: "Brands",
+            colorByPoint: true,
+            data: <?=$charts_contractMoneyCnt?>
+        }]
+    });
+});
+</script>
+<div class="container">
+    <!-- Docs nav ================================================== -->
+    <include file="Report:nav" />
+
+
+    <div class="row">
+         <div class="span12">
+            <div id="charts_user" style="min-width:700px;height:400px"></div>
+        </div>
+        <div class="span12">
+            <div id="charts_contractCnt" style="min-width:700px;height:400px"></div>
+        </div>
+         <div class="span12">
+            <div id="charts_contractMoneyCnt" style="min-width:700px;height:400px"></div>
+        </div>
+        <div class="span12">
+            <ul class="nav pull-left">
+                <li class="pull-left">
+                    <form class="form-inline" id="searchForm" action="" method="get">
+                        <ul class="nav pull-left">
+
+                            <li id="searchContent" class="pull-left">
+                                开始时间: <input onClick="WdatePicker({dateFmt: 'yyyy-MM-dd'})"  type="text" id="begin_time" name="begin_time" class="Wdate" value="<?=$_GET['begin_time']?>"/>
+                            </li>
+                            <li id="searchContent" class="pull-left">
+                                线束时间: <input onClick="WdatePicker({dateFmt: 'yyyy-MM-dd'})"  type="text" id="end_time" name="end_time" class="Wdate"  value="<?=$_GET['end_time']?>"/>
+                            </li>
+
+                            <li class="pull-left">
+                                <input type="hidden" value="report" name="m">
+                                <input type="hidden" value="store" name="a">
+                                <input type="hidden" value="<?=$_GET['department_id']?>" name="department_id">
+                                <button class="btn" type="submit">
+                                    <img src="/Public/img/search.png">
+                                    搜索
+                                </button>
+                                    <button class="btn" type="button" onclick="window.location.href='/index.php?m=report&a=index'">
+
+                                        <img src="/Public/img/search.png">
+                                        返回
+                                    </button>
+                            </li>
+                             <li class="pull-left">
+                                <button class="btn" type="submit" onclick="$('#begin_time').val('<?=$thisWeek[0]?>');$('#end_time').val('<?=$thisWeek[1]?>');$('#searchForm').submit();">
+                                    <img src="/Public/img/search.png">
+                                    本周
+                                </button>
+                            </li>
+                            <li class="pull-left">
+                                <button class="btn" type="submit" onclick="$('#begin_time').val('<?=$thisMonth[0]?>');$('#end_time').val('<?=$thisMonth[1]?>');$('#searchForm').submit();">
+                                    <img src="/Public/img/search.png">
+                                    本月
+                                </button>
+                            </li>
+                            <li class="pull-left">
+                                <button class="btn" type="submit" onclick="$('#begin_time').val('<?=$thisYear[0]?>');$('#end_time').val('<?=$thisYear[1]?>');$('#searchForm').submit();">
+                                    <img src="/Public/img/search.png">
+                                    本年
+                                </button>
+                            </li>
+                        </ul>
+                        <input type="hidden" name="m" value="report" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+<?php
+function nbf($str)
+{
+return number_format($str,2);
+}
+?>
+        <div class="span10">
+            <div id="report_content">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr >
+                            <th style="text-align:center">销售</th>
+                            <th style="text-align:center">新增客户</th>
+                            <th style="text-align:center">新增合同</th>
+                            <th style="text-align:center">新增入金</th>
+                            <th style="text-align:center">平均年龄</th>
+                            <th style="text-align:center">平均周期</th>
+                            <td style="text-align:center">保有量</td>
+                            <td style="text-align:center">平均利率</td>
+                            <td style="text-align:center">入金排名</td>
+                             <td style="text-align:center">年化提成</td>
+                            <td style="text-align:center">操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="res" id="vo">
+                        <tr>
+                            <td style="text-align:center">{$vo.name}</td>
+                            <td style="text-align:right">{$vo.newUsers|number_format}</td>
+                            <td style="text-align:right">{$vo.contractCnt|number_format}</td>
+                           <td style="text-align:right">{$vo.contractMoneyCnt|number_format}</td>
+                            <td style="text-align:center">{$vo.average_age}</td>
+                            <td style="text-align:center">{$vo.average_cycle|nbf}</td>
+                            <td style="text-align:center">{$vo.retain_quantity}</td>
+                            <td style="text-align:right">{$vo.average_interest|nbf}%</td>
+                            <td style="text-align:right">{$vo.entry_into_gold}</td>
+                             <td style="text-align:center">-</td>
+                            <td style="text-align:center"> <a href="javascript:;" title="平均周期大于50%;实动率70%;保有量[待定]">晋升</a></td>
+                        </tr>
+                    </volist>
+                    <!--                    <tfoot>
+                                            <tr style="background:yellow">
+                                                <td>{:L('SUM_TO')}</td>
+                                                <td colspan="4"><span style="color:red;">{:L('CUSTOMER_COUNT',array($total_report['add_count'],$total_report['own_count'],$total_report['success_count']))}</span></td>
+                                            </tr>
+                                        </tfoot>-->
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<div class="hide" id="dialog-role-info" title="{:L('EMPLOYEE_INFORMATION')}">loading...</div>
+
+<include file="Public:footer" />
+
+

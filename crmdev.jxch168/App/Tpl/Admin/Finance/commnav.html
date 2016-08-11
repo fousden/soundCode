@@ -1,0 +1,28 @@
+<!--                    应收，应付导航-->
+<?php
+if ('show_pay_details' ==ACTION_NAME)
+{
+$_GET['t'] = 'calendar';
+}
+if (!isset($_GET['t']) || empty($_GET['t']) ){
+$_GET['t'] = 'receivables';
+}
+if ('analytics' ==ACTION_NAME)
+{
+$_GET['t'] = 'analytics';
+}
+if ('calendar' ==ACTION_NAME)
+{
+$_GET['t'] = 'calendar';
+}
+?>
+<div class="page-header" style="border:none; font-size:14px;">
+    <ul class="nav nav-tabs">
+        <li <if condition="$_GET['t'] eq receivables">class="active"</if>><a  href="{:U('finance/index','t=receivables')}"><img src="__PUBLIC__/img/yingshoukuan.png"/>&nbsp; {:L('RECEIVABLES')}</a></li>
+        <li <if condition="$_GET['t'] eq receivingorder">class="active"</if>><a href="{:U('finance/index','t=receivingorder')}"><img src="__PUBLIC__/img/shoukuandan.png"/> &nbsp; {:L('RECEIVINGORDER')}</a></li>
+        <li <if condition="$_GET['t'] eq payables">class="active"</if>><a href="{:U('finance/index','t=payables')}"><img src="__PUBLIC__/img/yingfukuan.png"/> &nbsp; {:L('PAYABLES')}</a></li>
+        <li <if condition="$_GET['t'] eq paymentorder">class="active"</if>><a href="{:U('finance/index','t=paymentorder')}"><img src="__PUBLIC__/img/fukuandan.png"/> &nbsp; {:L('PAYMENTORDER')}</a></li>
+        <li <if condition="$_GET['t'] eq analytics">class="active"</if>><a href="{:U('finance/analytics')}"><img src="__PUBLIC__/img/tongji.png"/> &nbsp; {:L('STATISTICS')}</a></li>
+        <if condition="$authority"><li <if condition="$_GET['t'] eq calendar">class="active"</if>><a href="{:U('finance/calendar')}"> &nbsp; 日历</a></li></if>
+    </ul>
+</div>

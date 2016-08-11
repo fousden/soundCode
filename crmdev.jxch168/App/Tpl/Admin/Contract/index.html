@@ -1,0 +1,313 @@
+<include file="Public:header" />
+
+<div class="container">
+    <!-- Docs nav ================================================== -->
+    <include file="Contracttongji:contractnav" />
+    <include file="Public:alert" />
+    <p class="view"><b>{:L('VIEW_NAV')}</b>
+        <img src=" __PUBLIC__/img/by_owner.png"/> <a href="{:U('contract/index')}" <if condition="$Think.get.by eq null">class="active"</if>>{:L('ALL')}</a> |
+        <a href="{:U('contract/index','by=me')}" <if condition="$Think.get.by eq 'me'">class="active"</if>>{:L('MY_RESPONSIBLE')}</a> |
+        <a href="{:U('contract/index','by=sub')}" <if condition="$Think.get.by eq 'sub'">class="active"</if>>{:L('SUBORDINATE_RESPONSIBLE')}</a> |
+        <a href="{:U('contract/index','by=create')}" <if condition="$Think.get.by eq 'create'">class="active"</if>>{:L('I_CREATED')}</a> |
+        <a href="{:U('contract/index','by=subcreate')}" <if condition="$Think.get.by eq 'subcreate'">class="active"</if>>{:L('SUBORDINATE_CREATE')}</a> &nbsp; &nbsp; &nbsp; &nbsp;
+        <!--        <img src="__PUBLIC__/img/by_time.png"/>
+                <a href="{:U('contract/index','by=today')}" <if condition="$Think.get.by eq 'today'">class="active"</if>>{:L('SIGN_UP_TODAY')}</a> |
+                <a href="{:U('contract/index','by=week')}" <if condition="$Think.get.by eq 'week'">class="active"</if>>{:L('THIS_WEEK_SIGNED_A_CONTRACT')}</a> |
+                <a href="{:U('contract/index','by=month')}" <if condition="$Think.get.by eq 'month'">class="active"</if>>{:L('THIS_MONTH_SIGNED_A_CONTRACT')}</a> |
+                <a href="{:U('contract/index','by=add')}" <if condition="$Think.get.by eq 'add'">class="active"</if>>{:L('RECENTLY_CREATED')}</a> |
+                <a href="{:U('contract/index','by=update')}" <if condition="$Think.get.by eq 'update'">class="active"</if>>{:L('RECENT_UPDATES')}</a>  &nbsp;  &nbsp;   &nbsp;  &nbsp;-->
+
+        <a href="{:U('contract/index','by=deleted')}" <if condition="$Think.get.by eq 'deleted'">class="active"</if>><img src="__PUBLIC__/img/task_garbage.png"/> {:L('RECYCLE_BIN')}</a> &nbsp; &nbsp;
+    </p>
+    <!--<div style="display: none" id="condition_data" data="{$Think.get.condition}"></div>-->
+    <div class="row">
+        <div class="span12">
+            <ul class="nav pull-left">
+                <li class="pull-left">
+                    <form class="form-inline" id="searchForm" onsubmit="return checkSearchForm();" action="" method="get">
+                        <ul class="nav pull-left">
+                            <li class="pull-left">
+                                <select id="field" style="width:auto" onchange="changeCondition()" name="field">
+                                    <option class="all" value="all">{:L('ANY_FIELD')}</option>
+                                    <option class="word" value="number">{:L('CONTRACT_NO')}</option>
+                                    <option class="role" value="owner_role_id">{:L('OWNER_ROLE')}</option>
+                                    <option class="customer" value="customer_id" >{:L('CUSTOMER')}</option>
+                                    <option class="date" value="create_time">{:L('CREATION_DATE')}</option>
+                                    <option class="date" value="update_time">{:L('MODIFICATION_DATE')}</option>
+                                    <option class="date" value="due_time">{:L('CONTRACT_TIME')}</option>
+                                    <option class="number" value="price" >{:L('QUOTATION')}</option>
+                                    <option class="word" value="description">{:L('REMARK')}</option>
+                                    <option class="role_department" value="department_id" >门店名称</option>
+                                </select>&nbsp;&nbsp;
+                            </li>
+                            <li id="conditionContent" class="pull-left">
+                                <select id="condition" style="width:auto" name="condition" onchange="changeSearch()">
+                                    <option value="contains">{:L('CONTAINS')}</option>
+                                    <option value="is">{:L('IS')}</option>
+                                    <option value="start_with">{:L('START_WITH')}</option>
+                                    <option value="end_with">{:L('END_WITH')}</option>
+                                    <option value="is_empty">{:L('IS_EMPTY')}</option>
+                                </select>&nbsp;&nbsp;
+                            </li>
+                            <li id="searchContent" class="pull-left">
+                                <input id="search" type="text" class="input-medium search-query" name="search" value="" />&nbsp;&nbsp;
+                            </li>
+                            <li id="status" class="pull-left">
+                                <select name="status" id="" style="width:auto">
+                                    <option value="0">全部</option>
+                                    <option value="1">未提交审核</option>
+                                    <option value="2">审核中</option>
+                                    <option value="3">审核失败</option>
+                                    <option value="4">审核成功</option>
+                                    <option value="5">收款成功</option>
+                                    <option value="6">全部付款结束</option>
+                                    <option value="7">部分付款</option>
+                                </select>
+                            </li>
+                            <li class="pull-left">
+                                <input type="hidden" name="m" value="contract"/>
+                            <if condition="$Think.get.by neq null"><input type="hidden" name="by" value="{$Think.get.by}"/></if>
+                            <button type="submit" class="btn"> <img src="__PUBLIC__/img/search.png"/>  {:L('SEARCH')}</button>
+                            </li>
+                        </ul>
+                    </form>
+                </li>
+            </ul>
+            <script>
+                returnShow("field","{$Think.get.field}","select");
+                changeCondition();
+                returnShow("search","{$Think.get.search}","text");
+                returnShow("condition","{$Think.get.condition}","select");
+                returnShow("status","{$Think.get.status}","select");
+            </script>
+            <div class="pull-right">
+                <!-- 合同审核员无权限 续存和赎回 -->
+                <if condition="$Think.session.position_id neq 57 && $Think.session.position_id neq 58">
+                    <a class="btn btn-primary" href="{:U('contract/add')}"><i class="icon-plus"></i>&nbsp;{:L('ADD_THE_CONTRACT')}</a>
+                </if>
+            </div>
+        </div>
+        <div class="span12">
+            <form id="form1"  method="post">
+                <table class="table table-hover table-striped table_thead_fixed">
+                    <notempty name="list">
+                        <thead>
+                            <tr>
+                                <th><input class="check_all" id="check_all" type="checkbox" /> &nbsp;</th>
+                                <th style="text-align:center;">{:L('CONTRACT_NO')}</th>
+                                <th style="text-align:center;"><a href="#">上级合同</a></th>
+                                <th style="text-align:center;">{:L('CUSTOMER')}</th>
+                        <if condition="C('ismobile') neq 1">
+                            <th style="text-align:center;">{:L('OWNER_ROLE')}</th>
+                            <th style="text-align:center;">门店</th>
+                            <th style="text-align:center;width:40px;">职位</th>
+                            <th style="text-align:center;">
+                            <if condition="$_GET['asc_order'] == 'due_time'">
+                                <a href="{:U('contract/index','desc_order=due_time&'.$parameter)}">
+                                    {:L('SIGNING_DATE')}&nbsp;<img src="__PUBLIC__/img/arrow_up.png">
+                                </a>
+                                <elseif condition="$_GET['desc_order'] == 'due_time'"/>
+                                <a href="{:U('contract/index','asc_order=due_time&'.$parameter)}">
+                                    {:L('SIGNING_DATE')}&nbsp;<img src="__PUBLIC__/img/arrow_down.png">
+                                </a>
+                                <else/>
+                                <a href="{:U('contract/index','desc_order=due_time&'.$parameter)}">{:L('SIGNING_DATE')}</a>
+                            </if>
+                            </th>
+                            <th style="text-align:center;">
+                            <if condition="$_GET['asc_order'] == 'price'">
+                                <a href="{:U('contract/index','desc_order=price&'.$parameter)}">
+                                    {:L('QUOTATION')}&nbsp;<img src="__PUBLIC__/img/arrow_up.png">
+                                </a>
+                                <elseif condition="$_GET['desc_order'] == 'price'"/>
+                                <a href="{:U('contract/index','asc_order=price&'.$parameter)}">
+                                    {:L('QUOTATION')}&nbsp;<img src="__PUBLIC__/img/arrow_down.png">
+                                </a>
+                                <else/>
+                                <a href="{:U('contract/index','desc_order=price&'.$parameter)}">{:L('QUOTATION')}</a>
+                            </if>
+                            </th>
+                        </if>
+                        <if condition="C('ismobile') neq 1 and $Think.get.by eq 'deleted'">
+                            <th style="text-align:center;">{:L('DELETE_ROLE')}</th>
+                            <th style="text-align:center;">{:L('DELETE_TIME')}</th>
+                            <elseif condition="C('ismobile') neq 1" />
+                            <th style="text-align:center;">
+                            <if condition="$_GET['asc_order'] == 'end_date'">
+                                <a href="{:U('contract/index','desc_order=end_date&'.$parameter)}">
+                                    {:L('CONTRACT_OUT_OF_DATE')}&nbsp;<img src="__PUBLIC__/img/arrow_up.png">
+                                </a>
+                                <elseif condition="$_GET['desc_order'] == 'end_date'"/>
+                                <a href="{:U('contract/index','asc_order=end_date&'.$parameter)}">
+                                    {:L('CONTRACT_OUT_OF_DATE')}&nbsp;<img src="__PUBLIC__/img/arrow_down.png">
+                                </a>
+                                <else/>
+                                <a href="{:U('contract/index','desc_order=end_date&'.$parameter)}">{:L('CONTRACT_OUT_OF_DATE')}</a>
+                            </if>
+                            </th>
+                        </if>
+                        <!--<th style="text-align:center;"><a href="#">经营方式</a></th>-->
+                        <th style="text-align:center;">状态</th>
+                        <th style="text-align:center;">续存/赎回</th>
+                        <th>{:L('OPERATING')}</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                            <tr><td colspan="11">{$page}<include file="Public:listrows" /></td></tr>
+                        </tfoot>
+                        <tbody>
+                        <volist name="list" id="vo">
+                            <tr>
+                                <td style="text-align:center;"><input type="checkbox" class="check_list" name="contract_id[]" value="{$vo.contract_id}"/> &nbsp;
+                                </td>
+                                <td style="text-align:center;"><a href="{:U('contract/view','id='.$vo['contract_id'])}">{$vo.number}</a></td>
+                                <td style="text-align:center;"><a href="{:U('contract/view','id='.$vo['pid_contract_id'])}">{$vo.number_pid}</a></td>
+                                <td><a href="{:U('customer/view','id='.$vo['customer_id'])}">{$vo.customer_name}</a></td>
+                            <if condition="C('ismobile') neq 1">
+                                <td style="text-align:center;"><notempty name="vo.owner.user_name"><a class="role_info" rel="{$vo.owner.role_id}" href="javascript:void(0)">{$vo.owner.user_name}</a></notempty></td>
+                                <td style="text-align:center;">{$vo.owner.department_name}</td>
+                                <td style="text-align:center;">{$vo.owner.role_name}</td>
+                                <td style="text-align:center;"><notempty name="vo.due_time">{$vo.due_time|date="Y-m-d",###}</notempty></td>
+                                <td style="text-align:center;">{$vo.investment_money|e2Tonumber}{:L('yuan')}</td>
+                                <!--                                <td>{$vo.status}</td>-->
+                            </if>
+                            <if condition="C('ismobile') neq 1 and $Think.get.by eq 'deleted'">
+                                <td style="text-align:center;"><notempty name="vo.deletor.user_name">
+                                    <a class="role_info" rel="{$vo.deletor.role_id}" href="javascript:void(0)">{$vo.deletor.user_name}</a></notempty></td>
+                                <td style="text-align:center;">
+                                <if condition="$vo.days lt 0"><font color="blue">{:L('DELINQUENCY_DATE')}</font>
+                                    <elseif condition="$vo.days elt 10 and $vo.days egt 0"/><font color="red">{$vo.days}<font>
+                                    <else />{$vo.days}{:L('DAY')}</if>
+                                </td>
+                                <elseif condition="C('ismobile') neq 1" />
+                                <td style="text-align:center;">
+                                <if condition="$vo.days lt 0">
+                                    <font color="blue">{:L('DELINQUENCY_DATE')}</font>
+                                    <elseif condition="$vo.days gt 10"/>
+                                    {$vo.days}{:L('DAY')}
+                                    <elseif condition="$vo.days elt 10 and $vo.days gt 0"/>
+                                    <font color="red">{$vo.days}{:L('DAY')}<font>
+                                    <elseif condition="isset($vo['days'])"/>
+                                    <font color="red">{$vo.days}{:L('DAY')}<font>
+                                    <else />
+                                    {$vo.days}
+                                </if>
+                                </td>
+                            </if>
+                            <!--<td style="text-align:center;">
+                            <if condition="$vo['outer_pack'] eq 1">自营<elseif condition="$vo['outer_pack'] eq 2" />外包</if>
+                            </td>-->
+                            <td style="text-align:center;">
+                                {$vo.examine_name}
+                            </td>
+                            <td style="text-align:center;">
+                            <if condition="$vo['renew_status'] eq 1">已续存<elseif condition="$vo['renew_status'] eq 2" />已赎回<else/>无</if>
+                            </td>
+                            <td>
+                                <a href="{:U('contract/view','id='.$vo['contract_id'])}" title="{:L('VIEW')}">{:L('VIEW')}</a>&nbsp;<Br>
+                                <!-- 合同审核员无权限 续存和赎回 -->
+                            <if condition="($Think.session.position_id eq 57 ) OR $Think.session.admin ">
+                                <if condition="$vo['renew_status'] elt 0">
+                                    <if condition="$vo.examine_status gt 3 and $vo.examine_status lt 6">
+                                        <a href="{:U('contract/renew','contract_id='.$vo['contract_id'])}" title="{:L('VIEW')}">续存/转存</a>&nbsp;<Br>
+                                        <if condition="$vo.redeem_status eq 0">
+                                            <a href="{:U('contract/redeem_apply','contract_id='.$vo['contract_id'])}" title="{:L('VIEW')}">申请赎回</a>&nbsp;<Br>
+                                        <else/>
+                                            <a href="{:U('contract/redeem','contract_id='.$vo['contract_id'])}" title="{:L('VIEW')}">提前赎回</a>&nbsp;<Br>
+                                        </if>
+                                    </if>
+                                </if>
+                            </if>
+                            <if condition="($Think.session.position_id neq 57) AND ($Think.session.position_id neq 58)">
+                                <if condition="$vo.examine_status eq 2 or $vo.examine_status lt 1">
+                                    <a href="{:U('contract/edit','id='.$vo['contract_id'])}">{:L('EDITING')}</a>&nbsp;<Br>
+                                </if>
+                                <if condition="$vo.examine_status lt 1 OR $vo.examine_status eq 2">
+                                    <if condition="$vo.is_deleted eq 0">
+                                        <a href="{:U('contract/delete','contract_id='.$vo['contract_id'])}">移至回收站</a>&nbsp;<Br>
+                                        <else/>
+                                        <a href="{:U('contract/completeDelete','contract_id='.$vo['contract_id'])}">完全删除</a>&nbsp;<Br>
+                                    </if>
+
+                                </if>
+                                <if condition="$Think.get.by eq 'deleted'">
+                                    <a href="{:U('contract/revert','id='.$vo['contract_id'])}">恢复</a>&nbsp;<Br>
+                                </if>
+                                <if condition="$vo.examine_status  lt 1 or $vo.examine_status eq 2">
+                                    <button class="btn" type="button" onclick="submit_check({$vo['contract_id']}, 1)">提交总部审核</button><Br>
+                                </if>
+                            </if>
+                            <!--                            <if condition="$Think.get.by neq 'deleted'">
+                                                             <if condition="$vo.examine_status neq 1">
+                                                                <a href="{:U('contract/edit','id='.$vo['contract_id'])}">{:L('EDITING')}</a>
+                                                            </if>
+                                                       <else />
+                                                            <a href="{:U('contract/revert','id='.$vo['contract_id'])}" title="{:L('RESET')}">{:L('RESET')}</a>
+                                                        </if>-->
+                            </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                        <else/>
+                        <tr><td style="text-align:center;">{:L('EMPTY_TPL_DATA')}</td></tr>
+                    </notempty>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="hide" id="dialog-role-info" title="{:L('DIALOG_USER_INFO')}">loading...</div>
+<script>
+            function submit_check(id, status)
+            {
+            $.ajax({
+            url: "/index.php?m=contract&a=submitcheck&contract_id=" + id + '&examine_status=' + status, //请求的url地址
+                    dataType: "json", //返回格式为json
+                    //   async: true, //请求是否异步，默认为异步，这也是ajax重要特性
+                    //    data: { "id": "value" },    //参数值
+                    type: "GET", //请求方式
+                    success: function(req) {
+                    alert(req.data);
+                            window.location.reload()
+                            //请求成功时处理
+                    },
+            });
+            }
+</script>
+<script type="text/javascript">
+    $("#dialog-role-info").dialog({
+    autoOpen: false,
+            modal: true,
+            width: 600,
+            maxHeight: 400,
+            position: ["center", 100]
+    });
+            $(function(){
+            < if condition = "$Think.get.field neq null" >
+                    $("#field option[value='{$Think.get.field}']").prop("selected", true); changeCondition();
+                    $("#condition option[value='{$Think.get.condition}']").prop("selected", true); changeSearch();
+                    $("#search").prop('value', '{$Think.get.search}');
+                    < /if>
+
+                    $("#check_all").click(function(){
+            $("input[class='check_list']").prop('checked', $(this).prop("checked"));
+            });
+                    $('#delete').click(function(){
+            if (confirm('{:L('ARE_YOU_SURE_YOU_WANT_TO_DELETE')}')){
+            < if condition = "$Think.session.admin eq 1 and $Think.get.by eq 'deleted'" >
+                    $("#form1").attr('action', '{:U("contract/completedelete")}');
+                    $("#form1").submit();
+                    < else / >
+                    $("#form1").attr('action', '{:U("contract/delete")}');
+                    $("#form1").submit();
+                    < /if>
+            }
+            });
+                    $(".role_info").click(function(){
+            $role_id = $(this).attr('rel');
+                    $('#dialog-role-info').dialog('open');
+                    $('#dialog-role-info').load('{:U("user/dialoginfo","id=")}' + $role_id);
+            });
+            });
+</script>
+<include file="Public:footer" />

@@ -1,0 +1,375 @@
+@import "site.less";
+body{
+    background-color: #f5f7fa;
+    width: 100%;
+}
+header{
+    >img{
+        width: 100%;   
+    }
+}
+.Clear{
+    clear: both;
+}
+#cntBody{
+    z-index: 1;
+    >.prodBox{
+        .prod{
+            background-color: white;
+            width: 15%;
+            margin: 3% auto;
+            margin-left: 13%;
+            border-radius: 50%;
+            border:2px solid white;
+            &.current{
+                border:2px solid @colorLightRed;
+            }
+        }
+
+    }
+    .split{
+        border-top: 1px solid @colorFontGray;
+        margin-bottom: 4%;
+    }
+    >.prodShow{
+        background-color: @colorLightRed;
+        height: 12rem;
+        width: 12rem;
+        color: white;
+        border-radius: 12rem;
+        margin: 0 auto;
+        margin-bottom: 4%;
+        ul{
+            display: block;
+            width:100% ;
+            >li{
+                margin: 4% auto;
+                text-align: center;
+                hr{
+                    width: 50%;
+                    margin: 0 auto;  
+                    border-top: 1px solid @colorFontGray;  
+                }
+                &:first-child{
+                    padding-top: 13%;
+                }
+                &.big{
+                    font-size: 2.5rem;
+                }
+                .month{
+                    margin-left:10% ;
+                }
+            }
+        }
+    }
+    >.detailShow{
+        color:@colorFontGray ;
+        >.tit{
+            text-align: left;
+            label:first-child{
+                margin-left: 4%;
+            }
+            label:last-child{
+                float: right;
+                margin-right:4%;
+                color: red;
+            }
+        }
+        >.rate{
+            margin-top: 5%;
+            text-align: center;
+            >label{
+                font-size: 4rem;
+                display: inline-block;
+                margin-left: 2%;
+                width: 25%;
+                height: 6.5rem;
+                line-height: 6.5rem;
+                color: white;
+                background-color:@colorLightRed ;
+                border-radius: 0.5rem;
+                &:last-child{
+                    font-size: 2rem;
+                    line-height: 8rem;
+                }
+                &:first-child{
+                    margin-left: 0;
+                }
+            }
+            >.label_empty{
+                background: transparent;
+                color: @colorLightRed;
+                // width: 5%;
+            }
+        }
+        .infoBox{
+            margin-top: 6%;
+          .deadline,.rateStr,.payMethod{
+              padding: 0.7rem 0;
+              border-bottom:1px solid @colorFontLight ;
+              .tit{
+                  margin-left: 4%;
+              }
+              .msg{
+                  float: right;
+                  margin-right:4%;
+                  color:@colorFont;
+              }
+          }
+        }
+        
+    }
+    >.optBox{
+        .msg,.btn{
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0.7rem 0;
+            border-radius:0.3rem;
+        }
+        .msg{
+            background:url(../images/raw.png) no-repeat;
+            background-size: 1.7rem 1.7rem;
+            background-position: 7% 33%;
+            background-color: white;
+            border: 1px solid @colorFontGray;
+            color: @colorFontLight;
+            label:first-child{
+                position: relative;
+                
+            }
+            label:last-child{
+                float: right;
+                margin-right:4%;
+                color: red;
+            }
+        }
+        .btn{
+            margin-top: 4%;
+            font-size: 1.125rem;
+            color: white;
+            background-color: @colorLightRed;
+        }
+    }
+    
+}
+footer{
+    margin-top: 4%;
+    text-align: center;
+    color: @colorFontGray;
+    font-size: 0.75rem;
+}
+footer.optBox{
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem 0;
+    #calculator{
+        float: left;
+        width: 3rem;
+        margin-left: 5%;
+    }
+    .btn{
+        float: right;
+        margin-right: 5%;
+        width: 70%;
+        text-align: center;
+        padding: 0.7rem 0;
+        border-radius:0.3rem;
+        font-size: 1.125rem;
+        color: white;
+        background-color: @colorLightRed;
+    }
+}
+
+.shadowbox{
+    z-index: 3;
+    background-color: rgba(0,0,0,0.8);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    display: none;
+    .box{
+        position: absolute;
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 30%;
+        border-radius: 3%;
+        background-color: white;
+        text-align: center;
+        padding: 5% 0;
+        .tit,.money,.result,.str{
+            margin: 0 auto;
+            margin-top: 3%;
+        }
+        .tit{
+            font-size: 1.125rem;
+            font-weight: bold;
+             color: @colorFontDrak;
+             margin-top: 0;
+        }
+        .money{
+            border: 1px solid #D68280;
+            border-radius: 0.2rem;
+            width: 70%;
+            overflow: hidden;
+            margin-top: 5%;
+            >label{
+                color:@colorFontDrak;
+            }
+           >label,>input[type=text]{
+               font-size: 100%;
+               padding: 0.7rem 0;
+           }
+            >label:first-child{
+                display: inline-block;
+                width: 35%;
+            }
+             >label:last-child{
+                display: inline-block;
+            }
+            >input[type=text]{
+                border: none;
+                width: 50%;
+            }
+        }
+        .result{
+            margin-top: 3%;
+            font-size: 1.125rem;
+            color: red;
+        }
+        .str{
+            color:@colorFontDrak;
+        }
+        .btngroup{
+            width: 70%;
+            margin: 0 auto;
+            .countbtn,.closebtn{
+                display: block;
+                width: 100%;
+                color: white;
+                padding: 0.7rem 0;
+                text-align: center;
+                margin: 10px 0;
+                border-radius: 5px;
+            }
+            .countbtn{
+                background: @colorLightRed;
+            }
+            .closebtn{
+                background: @colorLightGreen;
+            }
+        }
+    }
+}
+.formcontainer{
+    padding-top: 5%;
+    .name,.mobile,.date,.place{
+        width: 90%;
+        margin: 0 auto;
+        background: white;
+        padding: 0.7rem 0;
+        margin-bottom: 5%;
+        border: 1px solid @colorFontGray;
+        border-radius: 5px;
+        position: relative;
+        .title{
+            float: left;
+            margin-left: 10px;
+        }
+        input[type=text]{
+            float: right;
+            width: 75%;
+            border: none;
+            font-size: 1rem;
+        }
+        .tips{
+            position: absolute;
+            top: 45px;
+            left: 0;
+            z-index: 3;
+            display: block;
+            color: transparent;
+        }
+        .tips_error{
+            color: red;
+        }
+    }
+    .date{
+        .lie{
+            float: right;
+            width: 75%;
+            margin: 0;
+            input{
+                width: 100%;
+            }
+        }
+        #endTime{
+            border: none;
+            padding: 0;
+        }
+    }
+    .place_menu{
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.8);
+        display: none;
+        >.container{
+            width: 80%;
+            background: white;
+            margin: 0 auto;
+            border: 1px solid @colorFontGray;
+            border-bottom: none;
+            border-radius: 6px;
+            .option{
+                display: block;
+                width: 100%;
+                padding: 0.7rem 0;
+                text-align: center;
+                border-bottom: 1px solid @colorFontGray;
+                &:last-child{
+                    border: none;
+                }
+            }
+        }
+        .container_scroll{
+            height: 80%;
+            overflow-y: scroll;
+        }
+    }
+    .submitbtn{
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        background: @colorLightRed;
+        padding: 0.7rem 0;
+        border-radius: 5px;
+        margin-top: 20%;
+        color: white;
+    }
+}
+.tickling{
+    p{
+        width: 80%;
+        margin: 0 auto;
+        color: #999;
+        line-height: 1.5rem;
+    }
+    .red{
+        color: red;
+        margin: 5% auto;
+        font-size: 1.5rem;
+    }
+    .tips{
+        font-size: 1.2rem;
+        margin-top: 5%;
+        color: #666;
+    }
+}

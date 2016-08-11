@@ -1,0 +1,115 @@
+*{
+	font-family:"ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3",Microsoft YaHei,'Microsoft YaHei','微软雅黑',SimHei,'SimHei','黑体';
+	margin: 0;
+	padding: 0;
+}
+*:focus{
+	outline: none;
+}
+body{
+	background: #1b2342 url(cardbg.jpg) top center no-repeat;
+	background-size: 100% auto;
+	position: relative;
+}
+.visibilityVisible{
+	visibility: visible!important;
+}
+#main{
+	width: 94%;
+	// margin: 0 auto;
+	height: 100%;
+	color: white;
+	position: relative;
+	left: 0;
+	top: 0;
+	// display: none;
+	visibility: hidden;
+	// border: 1px solid red;
+	#name{
+		font-size: 2rem;
+		text-align: center;
+		margin-bottom: 10%;
+		span{
+			padding: 4px;
+			background: #2c335b;
+			font-size: 1rem;
+			padding:0.3rem;
+			margin-left: 1rem;
+		}
+	}
+	#info{
+		width: 100%;
+		margin: 4% 0;
+		// height: 10rem;
+		.list{
+			font-size: 1rem;
+			// overflow: hidden;
+			background-color: #0e142d ;
+			border-bottom: 1px solid #1c1f30;
+			img{
+				// float: left;
+				width: 15%;
+				// background-color: #0e142d ;
+				// background-size: auto 100%;
+				// background-repeat: no-repeat;
+				// background-position: left center;
+				// padding: 5% 0 ;
+				vertical-align: middle;
+			}
+			span{
+				// float: left;
+				// width: 90%;
+				font-size: 1rem;
+				// text-indent: 2rem;
+				padding-left: 5%;
+				// line-height: 15rem;
+				vertical-align: middle;
+				// padding: 5% 0;
+			}
+		}
+		#moble i{
+			background-image: url(monlebg.jpg);
+		}
+		#mail i{
+			background-image: url(mailbg.jpg);
+		}
+		#qq i{
+			background-image: url(qqbg.jpg);
+		}
+		#wechat i{
+			background-image: url(wechatbg.jpg);
+		}
+	}
+	#cardwechat{
+		width: 100%;
+		// margin: 5% 0;
+	}
+	#cardinfo{
+		width: 99%;
+		border-radius: 10px;
+		// height: 200px;
+		background-color: #2c335b;
+		border: 1px solid #363f65;
+		padding: 5% 0;
+		// outline: 1px solid #363f65;
+		#adbox{
+			float: left;
+			width: 55%;
+			margin-left: 5%;
+			img{
+				width: 100%;
+			margin-bottom: 5%;
+			}
+			p{
+				display: block;
+				width: 100%;
+				font-size: 0.5rem;
+			}
+		}
+		#weurl{
+			float: right;
+			margin-right: 5%;
+			width: 30%;
+		}
+	}
+}

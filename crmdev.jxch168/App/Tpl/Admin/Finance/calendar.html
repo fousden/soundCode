@@ -1,0 +1,79 @@
+<include file="Public:header" />
+<div class="container">
+    <!--                    应收，应付导航-->
+	<include file="Finance:commnav" />
+	<include file="Public:alert" />
+        
+        <style type="text/css">
+            #nav{height:50px;background-color:#C9C9C9;font-size: 15px;}
+            #nav span a{color:green;}
+            #nav_sp_1{position:relative;left:20px;top:13px;}
+            #nav_sp_2{position:relative;left:470px;top:13px;font-size: 18px;font-weight: bold;}
+            #nav_sp_3{position:relative;top:13px;left:940px;}
+            table {width:1170px;align:center;text-align:center;margin-top:10px;}
+            table tr{width:1170px;align:center;text-align:center}
+            table td{width:300px;height:100px;}
+            table td a {text-decoration:none !important;color:black !important;}
+            table td a ul {padding:0px;margin:0px;}
+            table td a ul li{list-style:none;padding:0px;margin:0px;text-align:center;margin-left:4px;height:25px;font-size:14px;}
+        </style>
+        <div id="nav">
+            <span id="nav_sp_1"><a href="{:U('finance/calendar',array('dMonth' => $last_month))}">上一月</a></span>
+            <span id="nav_sp_2">{$month}</span>
+            <span id="nav_sp_3"><a href="{:U('finance/calendar',array('dMonth' => $next_month))}">下一月</a></span>
+        </div>
+        <table border=1 cellpadding=0 cellspacing=0>
+            <tr>
+            <foreach name="week_info" item="week">
+                <td>{$week}</td>
+            </foreach>
+            </tr>
+            <foreach name="new_calendar" item="calendar">
+                <tr>
+                    <foreach name="calendar" item="vo">
+                        <td <?php if ($vo['week_day'] == $today) echo 'style="background:#FFD700"';?>>
+                            <a href="{:U('finance/show_pay_details',array('start_time' => $vo['week_day'],'end_time' => $vo['week_day']))}">
+                                <ul>
+                                    <li>{$vo.week_day}</li>
+                                    <if condition="$vo.money neq 0">
+                                        <if condition="$vo.confirm_num neq 0">
+                                            <li style='color:red;font-weight:bold;'>未审核笔数：{$vo['confirm_num']}笔</li>
+                                        </if>
+                                        <if condition="$vo.repay_num neq 0">
+                                            <li style='color:red;font-weight:bold;'>未还款笔数：{$vo['repay_num']}笔</li>
+                                        </if>
+                                         <if condition="$vo.has_num neq 0">
+                                            <li>已还款笔数：{$vo['has_num']}笔</li>
+                                        </if>
+                                        <li>还款总额：{$vo['money']}元</li>
+                                    </if>
+                                </ul>
+                            </a>
+                        </td>
+                    </foreach>
+                </tr>
+            </foreach>
+        </table>
+        <div id="total">
+            <p>{$month}应还款情况：</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;待审核<span style='color:red;'>{$static['confirm_num']}</span>笔， 待还款<span style='color:red;'>{$static['repay_num']}</span>笔， 已还款<span>{$static['has_num']}</span>笔。 共需还款<span>{$static['num']}</span>笔， 还款总额为<span>{$static['money']}</span>元</p>
+        </div>	
+</div>
+<style type="text/css">
+    #total{
+        background-color:#8A8A8A;
+        margin-top: 10px;
+        font-size: 15px;
+        padding: 10px 30px;;
+        line-height: 2;
+        color:#fff;
+    }
+    #total p span{
+        color:#FFD700;
+        display: inline-block;
+        padding: 0 5px;
+        font-weight: bold;
+    }
+</style>
+
+<include file="Public:footer" />

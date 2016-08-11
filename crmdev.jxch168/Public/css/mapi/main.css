@@ -1,0 +1,96 @@
+* {
+  font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3", Microsoft YaHei, 'Microsoft YaHei', '微软雅黑', SimHei, 'SimHei', '黑体';
+  margin: 0;
+  padding: 0;
+}
+*:focus {
+  outline: none;
+}
+body {
+  background: #1b2342 url(../../img/mapi/cardbg.jpg) top center no-repeat;
+  background-size: 100% auto;
+  position: relative;
+}
+.visibilityVisible {
+  visibility: visible!important;
+}
+#main {
+  width: 94%;
+  height: 100%;
+  color: white;
+  position: relative;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+}
+#main #name {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 10%;
+}
+#main #name span {
+  padding: 4px;
+  background: #2c335b;
+  font-size: 1rem;
+  padding: 0.3rem;
+  margin-left: 1rem;
+}
+#main #info {
+  width: 100%;
+  margin: 4% 0;
+}
+#main #info .list {
+  font-size: 1rem;
+  background-color: #0e142d ;
+  border-bottom: 1px solid #1c1f30;
+}
+#main #info .list img {
+  width: 15%;
+  vertical-align: middle;
+}
+#main #info .list span {
+  font-size: 1rem;
+  padding-left: 5%;
+  vertical-align: middle;
+}
+#main #info #moble i {
+  background-image: url(monlebg.jpg);
+}
+#main #info #mail i {
+  background-image: url(mailbg.jpg);
+}
+#main #info #qq i {
+  background-image: url(qqbg.jpg);
+}
+#main #info #wechat i {
+  background-image: url(wechatbg.jpg);
+}
+#main #cardwechat {
+  width: 100%;
+}
+#main #cardinfo {
+  width: 99%;
+  border-radius: 10px;
+  background-color: #2c335b;
+  border: 1px solid #363f65;
+  padding: 5% 0;
+}
+#main #cardinfo #adbox {
+  float: left;
+  width: 55%;
+  margin-left: 5%;
+}
+#main #cardinfo #adbox img {
+  width: 100%;
+  margin-bottom: 5%;
+}
+#main #cardinfo #adbox p {
+  display: block;
+  width: 100%;
+  font-size: 0.5rem;
+}
+#main #cardinfo #weurl {
+  float: right;
+  margin-right: 5%;
+  width: 30%;
+}

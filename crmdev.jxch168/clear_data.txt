@@ -1,0 +1,25 @@
+DELETE FROM  new5kcrm_contract;
+
+
+DELETE FROM  new5kcrm_customer;
+DELETE FROM  new5kcrm_customer_attribute;
+DELETE FROM  new5kcrm_customer_attribute_group;
+DELETE FROM  new5kcrm_customer_attribute_relation;
+DELETE FROM  new5kcrm_customer_cares;
+DELETE FROM  new5kcrm_customer_data;
+DELETE FROM  new5kcrm_customer_focus;
+DELETE FROM  new5kcrm_customer_record;
+DELETE FROM  new5kcrm_customer_share;
+
+
+DELETE FROM  new5kcrm_payables;
+DELETE FROM  new5kcrm_paymentorder;
+
+DELETE FROM  new5kcrm_receivables;
+DELETE FROM  new5kcrm_receivingorder;
+
+
+DELETE FROM  new5kcrm_action_log;
+
+
+DELETE FROM  new5kcrm_login_history;

@@ -1,0 +1,30 @@
+<div class="page-header">
+    <h4>{:L('FINANCE')}<small> - <a <if condition="$_GET['t'] eq 'receivables'">class="active"</if> href="{:U('finance/index','t=receivables')}">{:L('RECEIVABLES')}</a> |
+            <a <if condition="$_GET['t'] eq 'receivingorder'">class="active"</if> href="{:U('finance/index','t=receivingorder')}">{:L('RECEIVINGORDER')}</a> |
+            <a <if condition="$_GET['t'] eq 'payables'">class="active"</if> href="{:U('finance/index','t=payables')}">{:L('PAYABLES')}</a> |
+
+            <a <if condition="$_GET['t'] eq 'paymentorder'">class="active"</if> href="{:U('finance/index','t=paymentorder')}">{:L('PAYMENTORDER')}</a> | <a href="{:U('finance/analytics')}">{:L('STATISTICS')}</a></small> </h4>
+    <div class="pull-right" style="margin:-30px 0 0 0;">
+        <!-- 合同审核员无权限 续存和赎回 -->
+
+        <if condition="($Think.session.position_id neq 57) AND ($Think.session.position_id neq 58) ">
+            <if condition="($Think.get.t eq 'payables') AND ($info.is_deleted neq 1) AND ($info.status eq -1)   AND ($info.role_name eq '会计' or $info.admin eq 1) AND ($info['redeem_status'] eq 2 OR $info['redeem_status'] eq 0)">
+                <a href="javascript:;" onclick="financeCheck({$info.payables_id},'payables');" class="btn btn-primary">审核通过</a>
+            <elseif condition="($Think.get.t eq 'receivables') AND ($info.is_deleted neq 1) AND ($info.status eq 2) AND ($info.verify_status lt 1) AND ($info.role_name eq '会计' or $info.admin eq 1)"/>
+                <a href="javascript:;" onclick="financeCheck({$info.receivables_id},'receivables');" class="btn btn-primary">审核通过</a>
+
+            </if>
+        </if>
+
+
+         <if condition="($Think.get.t eq 'receivables') AND ($info.is_deleted neq 1) AND ($info.status eq 2) AND ($info.verify_status eq 1)  AND ($info.role_name eq '会计' or $info.admin eq 1)">
+            <a class="btn btn-primary" href="{:U('finance/view','t=receivingorder&act=print_view&id='.$info['receivingorder'][0]['receivingorder_id'])}" >打印</a>&nbsp;
+          </if>
+
+        <!--<if condition="$info['is_deleted'] eq 0">
+            <a href="{:U('finance/edit','t=receivables&id='.$info['receivables_id'])}" class="btn btn-primary">{:L('EDIT')}</a>
+            <a href="{:U('finance/delete','t=receivables&id='.$info['receivables_id'])}" class="btn btn-primary del_confirm">{:L('DELETE')}</a>
+            </if>-->
+        <a href="javascript:viod(0);" class="btn btn-primary" onclick="javascript:history.go(-1)" >{:L('RETURN')}</a>
+    </div>
+</div>

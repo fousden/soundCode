@@ -1,0 +1,130 @@
+<include file="Public:header" />
+<div class="container">
+    <!-- Docs nav ================================================== -->
+    <include file="Contracttongji:contractnav" />
+    <include file="Public:alert" />
+    <div class="row">
+        <div class="span12">
+            <form action="{:U('contracttongji/select')}" method="get">
+                <ul class="nav pull-left">
+                    <li class="pull-left">
+                        &nbsp;门店：
+                        <select id="field" style="width:auto" name="department_id" id="department_id">
+                            <option  value="0" <if condition="$_GET['department_id'] lt 1"> selected = "selected" </if> >全部</option>
+                            <volist name="department_list" id="vo">
+                                <option  value="{$vo.department_id}" <if condition="$_GET['department_id'] eq $vo['department_id']"> selected = "selected" </if> >{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li class="pull-left">
+                        &nbsp;&nbsp;&nbsp;产品：
+                        <select id="field" style="width:auto" name="product_id" id="product_id">
+                            <option  value="0" <if condition="$_GET['product_id'] lt 1"> selected = "selected" </if> >全部</option>
+                            <volist name="productList" id="vo">
+
+                                <option  value="{$vo.product_id}" <if condition="$_GET['product_id'] eq $vo['product_id']"> selected = "selected" </if> >{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </li>
+                </ul>
+                <ul class="nav pull-left">
+                    <li class="pull-left">
+                        &nbsp;&nbsp;&nbsp;合同生效时间：
+                        <select id="field" style="width:auto" name="start_date_type" id="start_date_type">
+                            <option  value="0" <if condition="$_GET['start_date_type'] lt 1"> selected = "selected" </if> >全部</option>
+                            <option  value="eq" <if condition="$_GET['start_date_type'] eq eq"> selected = "selected" </if> >等于</option>
+                            <option  value="egt" <if condition="$_GET['start_date_type'] eq egt"> selected = "selected" </if> >大于等于</option>
+                            <option  value="elt" <if condition="$_GET['start_date_type'] eq elt"> selected = "selected" </if> >小于等于</option>
+                        </select>
+                        <input onClick="WdatePicker({dateFmt: 'yyyy-MM-dd'})"  type="text" id="start_date" name="start_date" class="Wdate"/>
+                    </li>
+                    <li class="pull-left">
+                        &nbsp;&nbsp;合同结束时间：
+                        <select id="field" style="width:auto" name="end_date_type" id="start_date_type">
+                            <option  value="0" <if condition="$_GET['end_date_type'] lt 1"> selected = "selected" </if> >全部</option>
+                            <option  value="eq" <if condition="$_GET['end_date_type'] eq eq"> selected = "selected" </if> >等于</option>
+                            <option  value="egt" <if condition="$_GET['end_date_type'] eq egt"> selected = "selected" </if> >大于等于</option>
+                            <option  value="elt" <if condition="$_GET['end_date_type'] eq elt"> selected = "selected" </if> >小于等于</option>
+                        </select>
+                        <input onClick="WdatePicker({dateFmt: 'yyyy-MM-dd'})"  type="text" id="end_date" name="end_date" class="Wdate"/>
+                    </li>
+
+                </ul>
+                <ul class="nav ">
+                    <li class="pull-left">
+                        &nbsp;&nbsp;&nbsp;付息日：
+                        <select id="field" style="width:auto" name="pay_money_type" id="pay_money_type">
+                            <option  value="0" <if condition="$_GET['pay_money_type'] lt 1"> selected = "selected" </if> >全部</option>
+                            <option  value="eq" <if condition="$_GET['pay_money_type'] eq eq"> selected = "selected" </if> >等于</option>
+                            <option  value="egt" <if condition="$_GET['pay_money_type'] eq egt"> selected = "selected" </if> >大于等于</option>
+                            <option  value="elt" <if condition="$_GET['pay_money_type'] eq elt"> selected = "selected" </if> >小于等于</option>
+                        </select>
+                        <input onClick="WdatePicker({dateFmt: 'yyyy-MM-dd'})"  type="text" id="pay_money" name="pay_money" class="Wdate"/>
+                    </li>
+                </ul>
+                <input type="hidden" name="m" value="<?php echo MODULE_NAME;?>"/>
+                <input type="hidden" name="a" value="<?php echo ACTION_NAME;?>"/>
+                <button class="btn" type="submit">
+                    <img src="/Public/img/search.png">
+                    搜索
+                </button>
+            </form>
+        </div>
+        <div class="span12">
+            <form id="form1"  method="post">
+                <table class="table table-hover table-striped table_thead_fixed">
+                    <notempty name="list">
+                        <thead>
+                            <tr>
+                                <th>门店</th>
+                                <th>销售</th>
+                                <th>合同号</th>
+                                <th>客户名</th>
+                                <th>回款银行开户行</th>
+                                <th>回款银行帐号</th>
+                                <th>合同开始时间</th>
+                                <th>合同结束时间</th>
+                                <th>产品名</th>
+                                <th>投资金额</th>
+                                <th>产品收益率</th>
+                                <th>活动收益率</th>
+                                <th>总收益</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <volist name="list" id="vo">
+                            <tr>
+                                <td>{$vo.department_name}</td>
+                                <td>{$vo.owner_role_id}</td>
+                                <td>{$vo.number}</td>
+                                <td>{$vo.receivables_name}</td>
+                                <td>{$vo.receivables_bank}{$vo.receivables_bankzone}</td>
+                                <td>{$vo.receivables_bankcard}</td>
+                                <td>{$vo.start_date}</td>
+                                <td>{$vo.end_date}</td>
+                                <td>{$vo.product_name}</td>
+                                <td><?php echo number_format($vo['investment_money']/100,2);?></td>
+                                <td><?php echo number_format($vo['investment_rate']/100,2);?>%</td>
+                                <td><?php echo number_format($vo['active_rate']/100,2);?>% </td>
+                                <td><?php echo number_format($vo['total_receivables_money']/100,2);?></td>
+                            </tr>
+
+
+                        </volist>
+                        </tbody>
+                        <else/>
+                        <tr><td>{:L('EMPTY_TPL_DATA')}</td></tr>
+                    </notempty>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="hide" id="dialog-role-info" title="{:L('DIALOG_USER_INFO')}">loading...</div>
+<script>
+
+</script>
+<script type="text/javascript">
+
+</script>
+<include file="Public:footer" />
