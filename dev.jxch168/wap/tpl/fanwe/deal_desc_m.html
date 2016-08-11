@@ -1,0 +1,365 @@
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<title></title>
+		<style type="text/css">
+			* {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			}
+
+			html,
+			body {
+				background-color: #f4f4f4;
+				color: #333;
+				font-size: 14px;
+				-webkit-text-size-adjust: none;
+			}
+
+			body {
+				color: #333;
+				background-color: #eee;
+				font-size: 16px;
+				width: 100%;
+				overflow: hidden;
+			}
+
+			body,
+			html {
+				min-height: 100%;
+				width: 100%;
+			}
+
+			input {
+				outline: 0;
+			}
+
+			a,
+			body,
+			dd,
+			div,
+			dl,
+			dt,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			html,
+			input,
+			li,
+			ol,
+			p,
+			span,
+			ul {
+				-moz-appearance: none;
+				-moz-text-size-adjust: none;
+				-ms-appearance: none;
+				-ms-text-size-adjust: none;
+				-o-appearance: none;
+				-o-text-size-adjust: none;
+				-webkit-appearance: none;
+				-webkit-text-size-adjust: none;
+				appearance: none;
+				font-family: -apple-system-font, simhei, "Helvetica Neue", "Hiragino Sans GB", "冬青黑体", 'Microsoft Yahei', Helvetica, Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				text-size-adjust: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex,
+			meter,
+			progress {
+				-webkit-writing-mode: horizontal-tb;
+				font-size: 100%;
+			}
+
+			input,
+			select,
+			textarea {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				-webkit-appearance: none;
+				border: none;
+				border-radius: 0;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			li,
+			ol,
+			ul {
+				list-style: none;
+			}
+
+			.clearfix {
+				clear: both;
+			}
+
+			.content {}
+
+			.content .warp {
+				height: 4rem;
+			}
+
+			.content .item {
+				background-color: white;
+				margin-bottom: 20px;
+				border-bottom: 1px solid #ccc;
+			}
+
+			.content .item .image {
+				width: 100%;
+			}
+
+			.content .item img {
+				width: auto;
+				height: auto;
+			}
+
+			.content .item .title {
+				height: 40px;
+				line-height: 40px;
+				border-bottom: 1px solid #ccc;
+				border-top: 1px solid #ccc;
+				text-indent: 10px;
+				font-size: 16px;
+			}
+
+			.content .item .title span {
+				margin-right: 5px;
+				background-color: #FA6602;
+				border: none;
+				height: 1.5rem;
+				width: 0.5rem;
+				display: block;
+				float: left;
+				margin-top: 0.8rem;
+				margin-left: 1rem;
+			}
+
+			.content .item .doc {
+				height: 120px;
+				overflow: hidden;
+			}
+
+			.content .item .doc.expend {
+				height: auto;
+				min-height: 75px;
+				overflow: auto;
+			}
+
+			.content .item .doc p {
+				width: 90%;
+				margin: 5px auto;
+				font-size: 14px;
+				min-height: 60px;
+			}
+
+			.content .item a {
+				display: block;
+				text-align: right;
+				width: 90%;
+				margin: 0px auto;
+				color: skyblue;
+				padding-bottom: 5px;
+			}
+
+			.figure {
+				border-radius: 5px;
+				background: @box_color;
+				border: 1px solid @border_color;
+				position: relative;
+				margin: 10px;
+				height: 40px;
+				padding-left: 80px;
+			}
+
+			.figure span {
+				position: absolute;
+				line-height: 40px;
+				font-size: 15px;
+				color: @font_black;
+				padding: 0 10px;
+				left: 0px;
+			}
+
+			.figure input {
+				line-height: 40px;
+				width: 100%;
+				background: none;
+				font-size: 16px;
+				color: @font_main;
+			}
+
+			.bank_list {
+				border-radius: 5px;
+				background: @box_color;
+				border: 1px solid @border_color;
+				margin: 10px;
+			}
+
+			.bank_list li {
+				margin-left: 10px;
+				padding-right: 50px;
+				border-bottom: 1px solid @border_color;
+				position: relative;
+			}
+
+			.bank_list li:last-child {
+				border: none;
+			}
+
+			.pay_detail h5 {
+				font-size: 15px;
+				line-height: 25px;
+			}
+
+			.pay_detail {
+				color: @font_black;
+				padding: 5px;
+			}
+
+			.pay_detail .info .peoplo {
+				padding-right: 10px;
+			}
+
+			.pay_detail .info {
+				font-size: 12px;
+				line-height: 20px;
+			}
+
+			.pay_detail p {
+				font-size: 12px;
+				line-height: 20px;
+			}
+
+			.inline_pay_img_show {
+				float: left;
+				overflow: hidden;
+				height: 35px;
+				max-width: 50%;
+				margin: 15px 0 0 0px;
+			}
+
+			.inline_pay_name {
+				line-height: 65px;
+				font-size: 18px;
+				padding-left: 10px;
+				float: left;
+			}
+			/*橙色按钮css---本页定位*/
+
+			.mt {
+				position: absolute;
+				right: 10px;
+				top: 30px;
+			}
+		</style>
+		<script type="text/javascript" src="/wap/tpl/fanwe/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="item">
+				<div class="title"><span></span>项目描述</div>
+				<div class="doc">
+					<p>{$data.deal.description}</p>
+				</div>
+				<a class="expend" href="javascript:void(0);">展开全部</a>
+			</div>
+			<div class="item">
+				<div class="title"><span></span>风险控制</div>
+				<div class="doc">
+					<p>{$data.deal.risk_security}</p>
+				</div>
+				<a class="expend" href="javascript:void(0);">展开全部</a>
+			</div>
+			<div class="item">
+				<div class="title"><span></span>本息保障凭据</div>
+				<div class="doc">
+					<p>{$data.deal.agency_info}</p>
+				</div>
+				<a class="expend" href="javascript:void(0);">展开全部</a>
+			</div>
+			<div class="item">
+				<div class="title"><span></span>担保凭证</div>
+				<div class="image">
+					{foreach from=$data.deal_gallery item="gallery"}
+					<img src="{$gallery.icon_url}" s_src="{$gallery.icon_url_s}" /> {/foreach}
+				</div>
+			</div>
+			<div class="warp">
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$(function() {
+				$(".content .item .expend").click(function() {
+					var self = $(this);
+					$(this).siblings('.doc').toggleClass(function() {
+						if ($(this).is(".expend")) {
+							$(this).removeClass("expend");
+							self.text("展开全部");
+						} else {
+							$(this).addClass("expend");
+							self.text("收起全部");
+						}
+						return '';
+					});
+				});
+				$.each($('.doc p:first-child'), function() {
+					if ($(this).text() == "") {
+						$(this).remove();
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

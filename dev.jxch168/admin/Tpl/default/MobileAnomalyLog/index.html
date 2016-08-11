@@ -1,0 +1,86 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<php>
+    function get_date_url($date){
+    return "<a href=\"m.php?m=WebsiteStatistics&a=website_recharge_info&time=$date\">$date</a>";
+    }
+</php>
+<script type="text/javascript">
+	    function export_csv_invest_total()
+	    {
+		    var query = $("#search_form").serialize();
+		    var url = ROOT + "?" + VAR_MODULE + "=" + MODULE_NAME + "&" + VAR_ACTION + "=statistics_terrace" + "&" + query+"&xls=true";
+		    location.href = url;
+	    }
+  
+</script>
+<div class="main">
+    <div class="main_title">崩溃日志</div>
+    <div class="blank5"></div>
+
+    <form name="search" id = "search_form"  action="__APP__" method="get">	
+	<input type="hidden" value='{$q_date_diff}' name="q_date_diff" id="q_date_diff"  />
+	时间：<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+	手机号:<input class="textbox" type="text" name="mobile" value="{:trim($_REQUEST['mobile'])}"/>
+    设备号:<input class="textbox" type="text" name="udid" value="{:trim($_REQUEST['udid'])}" />
+	APP版本:
+    <select name='app_version' id='app_version'>
+            <option value="">全部</option>
+        <foreach name="app_version_list" item="item">
+            <option value="{$item.app_version}">{$item.app_version}</option>
+        </foreach>
+    </select>
+        <input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+	<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />
+        <div class="blank5"></div>
+	    <input type="submit" class="button" name="submit" value="{%SEARCH}" />
+    </form>
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+    <html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal"
+	datasource="list"
+        checkbox="true"
+	action="true"
+	show="id:编号
+	,create_time|to_date:创建时间
+	,terminal|get_terminal_name:客户端
+	,mobile|get_user_name_real_by_mobile:用户信息
+	,udid:设备号
+	,app_version:app版本
+	,agent:设备类型
+        "
+        actionlist="show_info:错误详情"
+	/>
+<php>
+    function get_terminal_name($terminal){
+        if($terminal=='3'){
+            return '安卓';
+        }else if($terminal=='4'){
+            return '苹果';
+        }else{
+            return '无';
+        }
+    }
+    
+    
+</php>
+    <script>
+        returnShow('app_version',GetQueryString('app_version'),'select');
+        function show_info(id){
+            $.weeboxs.open(ROOT+'?m=MobileAnomalyLog&a=show_info&id='+id,{contentType:'ajax',showButton:false,title:"详情的错误",width:800,height:600});
+        }
+    </script>
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>

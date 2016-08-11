@@ -1,0 +1,42 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+                  <div class="blank5"></div>
+	<form name="search" action="__APP__" method="get">
+                                   {%ADM_NAME}：<input type="text" class="textbox" name="adm_name" value="{:trim($_REQUEST['adm_name'])}" style="width:100px;" />
+		{%ROLE}：<input type="text" class="textbox" name="role" value="{:trim($_REQUEST['role'])}" style="width:100px;" />
+		<div class="blank5"></div>
+		最后登录时间：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+		<input type="hidden" value="Admin" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="admin"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px,adm_name:{%ADM_NAME}:edit,role_id|get_role_name:{%ROLE},is_effect|get_is_effect=$admin['id']:{%IS_EFFECT},work_id:员工编号,mobile:员工电话,login_time|to_date:{%LOGIN_TIME},login_ip:{%LOGIN_IP}"
+	actionlist="edit:{%EDIT}, del:{%DEL}, id|set_default=$admin['id']" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

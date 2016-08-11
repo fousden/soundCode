@@ -1,0 +1,47 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<script type="text/javascript">
+    //按要求搜索排行榜记录
+    function export_invite(){
+            do_ajax = true;
+            var begin_time = $("#begin_time").val();
+            var end_time = $("#end_time").val();
+            var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_invite";
+            var param = "&begin_time="+begin_time+"&end_time="+end_time;
+            location.href = url+param;
+    }
+</script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">会员邀请排行榜</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		投资时间：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($show_start_time)}" onfocus="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" style="width:120px" />
+		<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($show_last_time)}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" style="width:120px" />
+		<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" />
+
+		<input type="hidden" value="Loads" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		<input type="button" class="button" value="导出全部" onclick="export_invite();" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="item"
+	datasource="list"
+	show="key:编号|100px,user_info.id:会员ID|100px,user_info.id|get_user_name_real:会员名称,total_money|number_format=2:投资金额"  />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

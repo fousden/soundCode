@@ -1,0 +1,120 @@
+{include file="./inc/header.html"}
+<?php
+		$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/Log_recharge.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/public.css";
+?>
+<link rel="stylesheet" type="text/css" href='{function name="parse_css" v="$pagecss"}' />
+<!--充值日志-->
+<div class="new_p-m">
+	{if $data.withdrawals==0}
+	<table class="Journal_table">
+		<tr>
+			<th>充值单号</th>
+			<th>应付金额</th>
+			<th>充值时间</th>
+			<th>状态</th>
+		</tr>
+		{foreach from=$data.item item="item"}
+		<tr>
+			<td>{$item.notice_sn}</td>
+			<td>{$item.money_format}</td>
+			<td>{$item.create_time_format}</td>
+			{if $item.is_paid == 0}
+			<td>失败</td>
+			{else}
+			<td>成功</td>
+			{/if}
+		</tr>
+		{/foreach}
+	</table>
+	{/if}
+	{if $data.withdrawals==1}
+	<table class="Journal_table">
+		<tr>
+			<th>金额</th>
+			<th>提现时间</th>
+			<th>银行卡号</th>
+			<th>状态</th>
+		</tr>
+		{foreach from=$data.item item="item"}
+		<tr>
+			<td>{function name="format_price" value=$item.money}</td>
+			<td>{function name="to_date" value=$item.create_time}</td>
+			<td><p>{$item.bank_name}</p>****{function name="msubstr" v=$item.bankcard s="-4" l="4" charset="utf-8" su=false}</td>
+			<td>{$item.status_format}</td>
+		</tr>
+
+		{/foreach}
+	</table>
+	{/if}
+</div>
+<div class="new-but-block">
+	{if $data.withdrawals == 0}
+	<div class="but-block incharge_btn" id="inchang">充值</div>
+    {/if}
+    {if $data.withdrawals == 1}
+    <div class="but-block incharge_btn" id="withdrawals">提现</div>
+    {/if}
+</div>
+
+<script type="text/javascript">
+
+	$('div.new-but-block').click(function(){
+		if('{$data.response_code}' == '2'){
+			alert('{$data.show_err}');
+			window.location.href = '{wap_url a="index" r="uc_real_name"}';
+		}else if('{$data.response_code}' == '3'){
+			alert('{$data.show_err}');
+			window.location.href = '{wap_url a="index" r="uc_bound_bank"}';
+		}
+	});
+
+
+	function getUrlParam(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+		if (r != null) return unescape(r[2]); return null; //返回参数值
+	}
+
+	if('{$data.resp_code}'){
+		if('{$data.resp_code}' =='0000'){
+		    alert('{$data.resp_desc}');
+		}else if('{$data.resp_code}' !='0000'){
+		    alert('{$data.resp_desc}');
+		    {if $data.withdrawals==0}
+		    window.location.href ="/wap/member.php?ctl=uc_incharge_feedback&mchnt_txn_ssn={$data.mchnt_txn_ssn}";
+		    {/if}
+		}
+	}
+
+	$("#inchang").click(function(){
+		if({$data.response_code} == 0){
+			alert('{$data.show_err}');
+		}
+		else if({$data.response_code} == 2){
+			alert('{$data.show_err}');
+		}
+		else if({$data.response_code} == 3){
+			alert('{$data.show_err}');
+		}
+		else{
+			window.location.href = "/wap/member.php?ctl=uc_incharge";
+		}
+	});
+
+	$("#withdrawals").click(function(){
+        if({$data.response_code} == 0){
+        	alert('{$data.show_err}');
+        }
+		else if({$data.response_code} == 2){
+			alert('{$data.show_err}');
+		}
+        else if({$data.response_code} == 3){
+			alert('{$data.show_err}');
+		}
+        else{
+			window.location.href ="/wap/index.php?ctl=uc_withdrawals";
+		}
+	});
+</script>
+{include file="./inc/footer.html"}

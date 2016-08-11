@@ -1,0 +1,293 @@
+{include file="inc/header.html"}
+<div class="wrap">
+<?php
+$this->_var['PlatformDataCss'][] = $this->_var['TMPL_REAL']."/css/PlatformData.css";
+$this->_var['PlatformDataJS'][] = $this->_var['TMPL_REAL']."/js/Chart.js";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$PlatformDataCss"}" />
+<!--分析图js 必须要-->
+<script src="{function name="parse_script" v="$PlatformDataJS"}"></script>
+
+<!--统计数据 begin-->
+<div id="dataStatistics">
+            <div class="blank0"></div>
+            <p class="title">平台数据总览</p>
+            <div id="accumulatedInvestment">
+                <p class="name">累计投资金额</p>
+                <div id="accumulatedChart" class="chart"></div>
+                <dl class="adv">
+                    <dd>
+                        <p class="tit">总共还款期数</p>
+                        <p class="cnt" style="color:#3598db;">763&nbsp;期</p>
+                    </dd>
+                    <dd>
+                        <p class="tit">累计交易额</p>
+                        <p class="cnt" style="color:#f8b54b ;">{$sum_money_all}&nbsp;亿元</p>
+                    </dd>
+                    <dd>
+                        <p class="tit">累计预期收益</p>
+                        <p class="cnt" style="color: #e84c3d;">{$sum_interest_all}&nbsp;千万元</p>
+                    </dd>
+                    <dd>
+                        <p class="tit">累计投资用户数</p>
+                        <p class="cnt" style="color: #9a59b5;">15.2&nbsp;万人</p>
+                    </dd>
+                </dl>
+                <div class="Clear"></div>
+            </div>
+            <div id="distribution">
+                <div class="left">
+                    <p class="name">产品类型分布</p>
+                    <div id="productChart" class="chart"></div>
+                    <dl class="content">
+                        <dd>
+                            <p class="tit">
+                                <img src="front/images/tu_1.jpg" width="60" height="60" />
+                            </p>
+                            <p class="cnt">
+                                <label class="top">个人最高投资金额</label>
+                                <label class="bottom">3,235,510元</label>
+                            </p>
+                            <div class="Clear"></div>
+                        </dd>
+                        <dd>
+                            <p class="tit">
+                                <img src="front/images/tu_2.jpg" width="60" height="60" />
+                            </p>
+                            <p class="cnt">
+                                <label class="top">平均投资金额</label>
+                                <label class="bottom">21,478元</label>
+                            </p>
+                            <div class="Clear"></div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="right">
+                    <p class="name">投资笔数占比</p>
+                    <div id="investChart" class="chart"></div>
+                    <dl class="content">
+                        <dd>
+                            <p class="tit">
+                                <img src="front/images/tu_3.jpg" width="60" height="60" />
+                            </p>
+                            <p class="cnt">
+                                <label class="top">个人最高投资笔数</label>
+                                <label class="bottom">309笔</label>
+                            </p>
+                            <div class="Clear"></div>
+                        </dd>
+                        <dd>
+                            <p class="tit">
+                                <img src="front/images/tu_4.jpg" width="60" height="60" />
+                            </p>
+                            <p class="cnt">
+                                <label class="top">平均投资收益</label>
+                                <label class="bottom">2,117.71元</label>
+                            </p>
+                            <div class="Clear"></div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="Clear"></div>
+            </div>
+            <!--<div id="dataCollection">
+            <p class="name">累计投资金额</p>
+            <div class="left">
+                <div class="list">
+                    <span class="icon" style="background-image: url(front/images/tu_5.jpg)"><span class="frt">28</span></span>
+                    <p class="txt">28个合作保障机构（包括融资性担保公司、融资租赁公司、商业保理公司等</p>
+                </div>
+                <div class="list">
+                    <p class="icon" style="background-image: url(front/images/tu_6.jpg)">
+                        <span class="sed">680</span></p>
+                    <p class="txt">我们至今共完成了680期标的</p>
+                </div>
+                <div class="list">
+                    <p class="icon" style="background-image: url(front/images/tu_7.jpg)">
+                        <span class="trd">N</span></p>
+                    <p class="txt">金享财行的总部桐庐，并且同时在上海N个重要城市设有分支办事机构</p>
+                </div>
+            </div>
+            <div class="right">
+                <img src="front/images/dataCollection_map.png" width="470" height="380"/>
+            </div>
+            <div class="Clear"></div>
+        </div>-->
+            <!--<table id="dataExplain" cellpadding="0" cellspacing="0">
+            <caption>
+                平台逾期、损失数据：<span class="txt">自2014年3月1日以来无损失</span>
+            </caption>
+            <tr>
+                <th>逾期金额</th>
+                <th>逾期比例</th>
+                <th>损失金额</th>
+                <th>损失比例</th>
+                <th>项目展期</th>
+            </tr>
+            <tr>
+                <td>0.00元</td>
+                <td>0.00%</td>
+                <td>0.00元</td>
+                <td>0.00%</td>
+                <td>0期</td>
+            </tr>
+        </table>-->
+    <div id="dataCollection">
+        <p class="name">全国收集中心数据</p>
+        <div class="left">
+            <div class="list list1">
+                <span class="icon" style="background-image: url(/front/images/tu_5.jpg)"><span class="frt">28</span></span>
+                <p class="txt">在上海拥有<b>28</b>个合作保障机构（包括融资性担保公司、融资租赁公司、商业保理公司等）
+                </p>
+            </div>
+            <div class="list list2">
+                <p class="icon" style="background-image: url(/front/images/tu_7.jpg)">
+                    <span class="sed">860</span>
+                </p>
+                <p class="txt">我们至今共完成了<b>860</b>期标的
+                </p>
+            </div>
+            <div class="list list3">
+                <p class="icon" style="background-image: url(/front/images/tu_6.jpg)">
+                    <span class="trd">15</span>
+                </p>
+                <p class="txt">金享财行的理财人遍布中国<b>15</b>个城市
+                </p>
+            </div>
+        </div>
+        <div class="right">
+            <div id="dcChart" class="chart"></div>
+        </div>
+        <div class="Clear"></div>
+    </div>
+            <p class="title">金享大数据揭秘</p>
+            <div id="dataExpose">
+                <dl class="content fst">
+                    <dd class="tit">投资年龄比例</dd>
+                    <dd class="cnt">
+                        <div id="ageChart" class="chart"></div>
+                        <label class="txt">70后、80后成为新一代的投资主力。</label>
+                    </dd>
+                </dl>
+                <dl class="content sed">
+                    <dd class="tit">性别比例</dd>
+                    <dd class="cnt">
+                        <div id="sexChart" class="chart"></div>
+                        <label class="txt">男士承家庭经济的重担，在投资理财方面更显著。</label>
+                    </dd>
+                </dl>
+                <dl class="content trd">
+                    <dd class="tit">从事的职业比例</dd>
+                    <dd class="cnt">
+                        <div id="jobChart" class="chart"></div>
+                        <label class="txt">毋庸置疑，金享财行为您稳定的收入再添一笔！</label>
+                    </dd>
+                </dl>
+                <div class="Clear"></div>
+            </div>
+
+            <div id="register">
+	    {if $user_info}
+		<a href="/index.php?ctl=deals" target="_blank">立即投资</a>
+	    {else}
+                <a href="/index.php?ctl=user&amp;act=register" target="_blank">立即注册</a>
+	    {/if}
+            </div>
+            <script src="/front/js/echarts/echarts.js"></script>
+            <script src="/front/js/echarts/charts.js"></script>
+            <script type="text/javascript">
+                //自定义参数
+                var grop1Color = '#3598db';
+                var grop2Color = '#f8b54b';
+                var grop3Color = '#e84c3d';
+                var grop4Color = '#9a59b5';
+                var tooptipBGColor = 'rgba(0,0,0,0.4)';
+                // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
+                require.config({
+                    paths: {
+                        echarts: 'front/js/echarts'
+                    }
+                });
+                // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+                require(
+                    [
+                        'echarts',
+                        'echarts/chart/bar',
+                        'echarts/chart/pie',
+                        'echarts/chart/map'
+                    ],
+                    function (ec) {
+                        //--- 累计投资 ---
+                        var accumulated = [
+                            { name: "金享票号", data: [ 835, 868, 897, 977, 993, 1079,1157,1253,1303,1576,1699,1720,3687,3974], color: grop1Color },
+                            { name: "金享租赁", data: [ 930, 1055, 1577, 1523, 1708, 1857,1923,2015,2133,2047,2101,2067,3045,3514], color: grop2Color },
+                            { name: "金享保理", data: [ 1020, 1247, 1330, 1455, 1901, 2166,2231,2722,2810,2628,2549,2498,3547,3741], color: grop3Color },
+                            { name: "金享银行", data: [ 225, 240, 285, 308, 345, 375,394,421,453,398,367,322,121,0], color: grop4Color }
+                        ];
+                        //TODO x轴文字 显示到前一个月
+                        var xAxisArr = [ '2015年2月', '2015年3月', '2015年4月', '2015年5月', '2015年6月', '2015年7月','2015年8月','2015年9月','2015年10月','2015年11月','2015年12月','2016年1月','2016年2月','2016年3月'];
+
+                        var accumulatedBar = ec.init(window.document.getElementById("accumulatedChart"));
+                        accumulatedBar.setOption(GetBarChartOption(xAxisArr, accumulated));
+                        //--- 产品类型分布---
+                        var prodSeriesArr = [
+                            { name: "金享票号", value: 15.1, color: grop1Color },
+                            { name: "金享租赁", value: 24.9, color: grop2Color },
+                            { name: "金享保理", value: 56, color: grop3Color },
+                            { name: "金享银行", value: 6, color: grop4Color }
+                        ];
+                        var prodPie = ec.init(window.document.getElementById("productChart"));
+                        prodPie.setOption(GetPieChartOption("投资类型占比", prodSeriesArr));
+                        //---投资笔数占比---
+                        var investSeriesArr = [
+                           { name: "1笔", value: 32.39, color: grop1Color },
+                           { name: "2-5笔", value: 47.76, color: grop2Color },
+                           { name: "6-10笔", value: 10.78, color: grop3Color },
+                           { name: "10笔以上", value: 9.07, color: grop4Color }
+                        ];
+                        var investPie = ec.init(window.document.getElementById("investChart"));
+                        investPie.setOption(GetPieChartOption("投资笔数占比", investSeriesArr));
+                        //---投资年龄分布---
+                        var ageSeriesArr = [
+                           { name: "18-25岁", value: 5.09, color: grop1Color },
+                           { name: "25-35岁", value: 39.83, color: grop2Color },
+                           { name: "35-45岁", value: 27.58, color: grop3Color },
+                           { name: "45岁以上", value: 27.3, color: grop4Color }
+                        ];
+                        var agePie = ec.init(window.document.getElementById("ageChart"));
+                        agePie.setOption(GetDoughnutChartOption("投资年龄占比", ageSeriesArr));
+                        //---性别比例---
+                        var sexSeriesArr = [
+                           { name: "男", value: 68.97, color: grop1Color },
+                           { name: "女", value: 31.03, color: grop2Color },
+                        ];
+                        var sexPie = ec.init(window.document.getElementById("sexChart"));
+                        sexPie.setOption(GetDoughnutChartOption("性别占比", sexSeriesArr));
+                        //---从事的职业与投资关系---
+                        var jobSeriesArr = [
+                           { name: "政府/事业单位", value: 18.51, color: grop1Color },
+                           { name: "企业雇员", value: 52.72, color: grop2Color },
+                           { name: "私营业主", value: 11.82, color: grop3Color },
+                           { name: "自由职业", value: 16.95, color: grop4Color }
+                        ];
+                        var jobPie = ec.init(window.document.getElementById("jobChart"));
+                        jobPie.setOption(GetDoughnutChartOption("投资者职业占比", jobSeriesArr));
+                        //---地图---
+                        var dcMap = ec.init(window.document.getElementById("dcChart"));
+                        dcMap.setOption(GetMap([grop3Color, grop3Color, grop3Color, grop3Color, grop3Color, grop3Color, grop3Color]));
+                    }
+                );
+
+            </script>
+        </div>
+<!--统计数据 end-->
+
+<!--合作机构 begin-->
+<!--<div class="text_align_center  recommend_padding_50 margin_top_80 ">
+    <div style="     background-color: #e24a40;    border: 1px solid #cc6867;    color: #FFFFFF;    cursor: pointer;    display: block;    font-size: 24px;    height: 58px;    line-height: 58px;    margin: 20px auto 0;    text-align: center;    width: 318px;">
+        <a class="" target="_blank" href="/index.php?ctl=user&amp;act=login" style=" color: #FFFFFF;">立即注册</a>
+    </div>
+</div>-->
+<!--合作机构 end-->
+</div>
+{include file="inc/footer.html"}

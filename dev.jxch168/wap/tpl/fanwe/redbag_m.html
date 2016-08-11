@@ -1,0 +1,340 @@
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<title>充值</title>
+		<!--账户充值-->
+		<style type="text/css">
+			* {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			}
+
+			html,
+			body {
+				background-color: #f4f4f4;
+				color: #333;
+				font-size: 14px;
+				-webkit-text-size-adjust: none;
+			}
+
+			body {
+				color: #333;
+				background-color: #eee;
+				font-size: 16px;
+				width: 100%;
+			}
+
+			body,
+			html {
+				min-height: 100%;
+				width: 100%;
+			}
+
+			input {
+				outline: 0;
+			}
+
+			a,
+			body,
+			dd,
+			div,
+			dl,
+			dt,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			html,
+			input,
+			li,
+			ol,
+			p,
+			span,
+			ul {
+				-moz-appearance: none;
+				-moz-text-size-adjust: none;
+				-ms-appearance: none;
+				-ms-text-size-adjust: none;
+				-o-appearance: none;
+				-o-text-size-adjust: none;
+				-webkit-appearance: none;
+				-webkit-text-size-adjust: none;
+				appearance: none;
+				font-family: -apple-system-font, simhei, "Helvetica Neue", "Hiragino Sans GB", "冬青黑体", 'Microsoft Yahei', Helvetica, Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				text-size-adjust: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex,
+			meter,
+			progress {
+				-webkit-writing-mode: horizontal-tb;
+				font-size: 100%;
+			}
+
+			input,
+			select,
+			textarea {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				-webkit-appearance: none;
+				border: none;
+				border-radius: 0;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			li,
+			ol,
+			ul {
+				list-style: none;
+			}
+
+			.clearfix {
+				clear: both;
+			}
+
+			.redbaglist .button-content a {
+				background-color: #47A2E3;
+				border-radius: 6px;
+				width: 85px;
+				color: white;
+				padding: 6px;
+				vertical-align: middle;
+				text-align: center;
+			}
+
+			a {
+				color: #595e69;
+				text-decoration: none;
+			}
+
+			a {
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+			a:active,
+			a:hover,
+			a:link,
+			a:visited {
+				text-decoration: none;
+			}
+
+			a:active,
+			a:hover,
+			a:link,
+			a:visited {
+				text-decoration: none;
+			}
+
+			.redbagmain {
+				width: 100%;
+				height: 100%;
+				background: #f6f6f6;
+			}
+
+			.redbaglist {
+				width: 90%;
+				margin: 10px auto;
+				background: white;
+				padding: 10px;
+			}
+
+			.redbaglist:last-child {
+				margin-bottom: 0px;
+			}
+
+			.redbaglist .content {
+				width: 70%;
+				float: left;
+			}
+
+			.redbaglist .content .title {
+				font-size: 1.2rem;
+				margin-bottom: 10px;
+				font-weight: bold;
+			}
+
+			.redbaglist .content .redbagnum {
+				margin-bottom: 0.5em;
+				font-size: 1rem;
+			}
+
+			.redbaglist .content .redbagnum span {
+				color: red;
+				font-size: 1rem;
+				padding-left: 1rem;
+			}
+
+			.redbaglist .content .redbagdate {
+				font-size: 1rem;
+			}
+
+			.redbaglist .content .redbagcont {
+				font-size: 1rem;
+				margin-top: 8px;
+				line-height: 1.2rem;
+			}
+
+			.redbaglist .button-content {
+				width: 30%;
+				padding: 30px 0;
+				float: right;
+				/*background: red;*/
+			}
+
+			.redbaglist .button-content a {
+				background-color: #47A2E3;
+				border-radius: 6px;
+				width: 85px;
+				color: white;
+				padding: 6px;
+				vertical-align: middle;
+				text-align: center;
+			}
+
+			.fy {
+				margin-top: 0.7rem;
+				padding: 10px;
+				text-align: center;
+			}
+
+			.disabled {
+				background: #d0d0d0;
+			}
+
+			.fy a,
+			.fy span {
+				padding: 3px 5px;
+			}
+
+			.fy .current {
+				color: #e84f41;
+			}
+
+			.fy .btn2.disabled {
+				background: #e1e1e1;
+			}
+
+			.fy .btn2 {
+				padding-left: 8px;
+				padding-right: 8px;
+				border: 1px solid #d7d7d7;
+				border-radius: 5px;
+				line-height: 20px;
+				background: #fff;
+			}
+		</style>
+		<script type="text/javascript" src="/wap/tpl/fanwe/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+	<body>
+
+		{if $data.item}
+		<div class="redbagmain">
+			<div class="blank" style="height: 10px;"></div>
+			{foreach from=$data.item item="bag"}
+			<div class="redbaglist">
+				<div class="content">
+					<h1 class="title">{$bag.bonus_type}</h1>
+					<div>
+						<div class="redbagnum">
+							{$bag.status}<span>￥{$bag.money}</span>
+						</div>
+						<div class="redbagdate">{$bag.generation_time}</div>
+						<div style="clear: both"></div>
+					</div>
+					<p class="redbagcont">{$bag.remark}</p>
+				</div>
+				<div class="button-content">
+					{if $bag.m_status == 0}
+					<a href="javascript:void(0);" onclick="carry_now('{$bag.id}')">申请提现</a> {else} {$bag.status} {/if}
+				</div>
+				<div style="clear: both"></div>
+			</div>
+			{/foreach}
+		</div>
+		{else}
+		<div style="height: 100%; padding-top: 35%">
+			<img src="/wap/tpl/fanwe/images/redbagbg.png" style="display: block; width:50%; margin: 0 auto; ">
+		</div>
+		{/if}
+
+		<script type="text/javascript">
+			function carry_now(bonus_id) {
+				$.ajax({
+					url: '/mapi/index.php?act=uc_bonus_carry&r_type=1',
+					data: {
+						'email': '{$data.email}',
+						'pwd': '{$data.pwd}',
+						'bonus_id': bonus_id,
+						'post_type': "json"
+					},
+					type: "Post",
+					dataType: "json",
+					success: function(data) {
+						alert(data.show_err);
+						if (data.response_code == 1) {
+							location.reload();
+						}
+					}
+				});
+			}
+		</script>
+		<div class="clearfix"></div>
+		{if $pages}
+		<div class="fy">
+			{$pages}
+		</div>
+		{/if}
+	</body>
+
+</html>

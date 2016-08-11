@@ -1,0 +1,297 @@
+ <div class="accountbig">
+                <p class="title">
+                    <span>账户总览</span>
+                </p>
+                <div class="content">
+                    <div class="list">
+                        <p class="title">
+                            <span>账户可用余额</span>
+                            <i title="用户可自由支配的资金"></i>
+                        </p>
+                        <p class="cont"><span>{function name="number_format" v="$user_data.money" f=2}</span>元</p>
+                    </div>
+                    <div class="list">
+                        <p class="title">
+                            <span>账户总资产</span>
+                            <i title="可用余额+冻结资金+待收本息"></i>
+                        </p>
+                        <p class="cont"><span>{$user_data.total_money}</span>元</p>
+                    </div>
+                    <div class="list">
+                        <p class="title">
+                            <span>累计收益利息</span>
+                            <i title="累计已获得的利息总和（包含活动收益）"></i>
+                        </p>
+                        <p class="cont"><span>{$user_statics.load_earnings}</span>元</p>
+                    </div>
+                    <div class="list redbag" style="border: none;">
+                        <p class="title">
+                            <span>累计收益红包</span>
+                            <i title="累计活动已获得的现金红包总和"></i>
+                        </p>
+                        <p class="cont"><span>{$red_money}</span>元</p>
+                    </div>
+                    <div class="Clear"></div>
+                    <div class="btncont">
+                        {if $user_data["user_name"] neq "李明明" AND $user_data["is_auto"] neq 1}
+                        <a href="{url x="index" r="uc_money#carry"}" class="withdraw">提现</a>
+                        <a href="{url x="index" r="uc_money#incharge"}" class="recharge">充值</a>
+                        {/if}
+                        <div class="Clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="toubiao">
+                <p class="title">
+                    <span>投标概览</span>
+                    <!-- <a href="">明细></a> -->
+                </p>
+                <div class="content" id="zhexiantu" style="width: 100%; height:400px;">
+                </div>
+                <script type="text/javascript" src="/front/js/echarts/echarts.js"></script>
+                <script>
+                    //var huiKuan = <?php echo $huiKuan;?>;
+                    //var touBiao = {$touBiao};
+
+                    //alert(touBiao);
+                    //var yiHuan = <?php echo $yiHuan;?>;
+                    //自定义参数
+                    var grop1Color = 'tomato';
+                    var grop2Color = 'yellowgreen';
+                    var grop3Color = 'gold';
+                    var grop4Color = 'skyblue';
+                    var tooptipOption = { trigger: 'axis', backgroundColor: 'rgba(0,0,0,0.4)' };
+                    var xAxisname = ['一月', '二月', '三月', '四月', '五月', '六月', '七月','八月','九月','十月','十一月','十二月'];
+                    var numdata1 = {$huiKuan};
+                    var numdata2 = {$touBiao};
+                    var numdata3 = {$yiHuan};
+
+                    var zhexiantu = {
+                        tooltip: tooptipOption,
+                        legend: {
+                            data: ['回款中', '投标中','已回款']
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: xAxisname
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                axisLabel: {
+                                    formatter: '{value}'
+                                }
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '回款中',
+                                type: 'line',
+                                data: numdata1,
+                                markPoint: {
+                                    data: [
+                                        { type: 'max', name: '最大值' },
+                                        { type: 'min', name: '最小值' }
+                                    ]
+                                },
+                                markLine: {
+                                    data: [
+                                       // { type: 'average', name: '平均值' }
+                                    ]
+                                },
+                                itemStyle: {
+                                    // 系列级个性化
+                                    normal: {
+                                        color: grop1Color
+                                    }
+                                }
+                            },
+                            {
+                                name: '投标中',
+                                type: 'line',
+                                data: numdata2,
+                                markPoint: {
+                                    data: [
+                                        { type: 'max', name: '最大值' },
+                                        { type: 'min', name: '最小值' }
+                                    ]
+                                },
+                                markLine: {
+                                    data: [
+                                       // { type: 'average', name: '平均值' }
+                                    ]
+                                },
+                                itemStyle: {
+                                    // 系列级个性化
+                                    normal: {
+                                        color: grop2Color
+                                    }
+                                }
+                            },
+                            {
+                                name: '已回款',
+                                type: 'line',
+                                data: numdata3,
+                                markPoint: {
+                                    data: [
+                                        { type: 'max', name: '最大值' },
+                                        { type: 'min', name: '最小值' }
+                                    ]
+                                },
+                                markLine: {
+                                    data: [
+                                        //{ type: 'average', name: '平均值' }
+                                    ]
+                                },
+                                itemStyle: {
+                                    // 系列级个性化
+                                    normal: {
+                                        color: grop3Color
+                                    }
+                                }
+                            }
+                        ]
+                    };
+                </script>
+
+                <script type="text/javascript">
+                    // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
+                    require.config({
+                        paths: {
+                            echarts: '/front/js/echarts'
+                        }
+                    });
+                    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+                    require(
+                        [
+                            'echarts',
+                            'echarts/chart/bar',
+                            'echarts/chart/line',
+                            'echarts/chart/pie'
+                        ],
+                        function(ec) {
+                            //--- 折柱 ---
+                            var zhexian = ec.init(document.getElementById('zhexiantu'));
+                            zhexian.setOption(zhexiantu);
+                        }
+                    );
+                </script>
+            </div>
+
+            <div class="daihuikuan">
+                <p class="title">
+                    <span>待回款概览</span>
+                    <a href="/member.php?ctl=uc_invest">明细></a>
+                </p>
+
+                <dl class="content">
+                    <dt class="tabletitle">
+                        <span>标的名称</span>
+                        <span>类型</span>
+                        <span>投资金额</span>
+                        <span>待收本息</span>
+                        <span>预计回款时间</span>
+                        <span style="border: none;">标的状态</span>
+                    </dt>
+                {if $day_repay_list}
+                {foreach from="$day_repay_list" item="item" key=key}
+
+                    <dd class="tablecont">
+                        <span><a href="{url x="index" r="deal" p="id=$item.deal_id"}" class="f_blue" target="_blank">{$item.name}</a></span>
+                        <span>{$item.cate_id}</span>
+                        <span>{$item.self_money}元</span>
+                        <span>{$item.repay_money}元</span>
+                        <span>{$item.jiexi_time}</span>
+                        <!--<span>{function name="to_date" v=$item.repay_time f="Y-m-d"}</span>-->
+                        <span>{$item.status_format}</span>
+                    </dd>
+                {/foreach}
+                {else}
+                <div align="center" style="padding:20px 0">暂无记录</div>
+                {/if}
+                </dl>
+
+            </div>
+
+
+
+            <div class="lately">
+                <p class="title">
+                    <span>最近投资记录</span>
+                    <a href="/member.php?ctl=uc_invest">明细></a>
+                </p>
+                <dl class="content">
+                    <dt class="tabletitle">
+                        <span>标题</span>
+                        <span>投资金额</span>
+                        <span>期限</span>
+                        <span>年化利率</span>
+                        <span>投标时间</span>
+                        <span style="border: none;">进度</span>
+                    </dt>
+                {if $list}
+                {foreach from=$list item="item" key=key}
+                    <dd class="tablecont">
+                        <span style="position:relative;top:-30px;">
+                            <a href="{url x="index" r="deal" p="id=$item.id"}"><a href="{url x="index" r="deal" p="id=$item.id"}">{$item.name}</a></a>
+                        </span>
+                        <span style="position:relative;top:-30px;">
+                            {function name="format_price" v="$item.u_load_money"}元
+                        </span>
+
+                        <span style="position:relative;top:-30px;">
+                            {$item.repay_time}{if $item.repay_time_type eq 0}天{else}个月{/if}
+                        </span>
+
+                        <span style="position:relative;top:-30px;">
+                            {function name="number_format" v="$item.rate" f="2"}%
+                        </span>
+
+                        <span style="position:relative;top:-30px;">
+                            {function name="to_date" v="$item.dl_create_time"}
+                        </span>
+
+                        <span>
+                            <div class="progressvar" style="position:relative;left:35px;">
+					{if  $item.deal_status eq 5}
+						<div class="progress w100 mt13">
+							<span class="pr bdr3" style="width:100%;">
+								<img class="ps" title="100%" src="{$TMPL}/images/progressqiu.png" />
+							</span>
+						</div>
+						{else}
+						<div class="progress w100 mt13">
+							<span class="pr bdr3" title="{function name="round" v=$item.progress_point f=3}%" style="width:{function name="round" v=$item.progress_point f=2}%;">
+								<img class="ps" src="{$TMPL}/images/progressqiu.png" />
+							</span>
+						</div>
+					{/if}
+                            </div>
+                            <div class="blank"></div>
+                            <div class="f_dgray">
+                                    {if $item.has_transfer gt 0 && $item.t_user_id <> $user_id}
+                                     {if $item.deal_status eq 4 || $item.deal_status eq 5}
+                                     <p>还款： {function name="round" v="$item.progress_point"}%</p>
+                                     {/if}
+                                    已转让
+                                    {else}
+                                     {if $item.deal_status eq 4 || $item.deal_status eq 5}
+                                     <p>还款： {function name="round" v="$item.progress_point"}%</p>
+                                     <a href="{url x="index" r="uc_invest#refdetail" p="id=$item.id&load_id=$item.load_id"}" class="f_red">详情</a>
+                                     {else}
+                                     <p>投标：{function name="round" v="$item.progress_point"}%</p>
+                                     {/if}
+                                    {/if}
+                            </div>
+                        </span>
+                    </dd>
+                    {/foreach}
+
+                {else}
+                    <div align="center" style="padding:20px 0">暂无记录</div>
+                {/if}
+                </dl>
+            </div>
+

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>刮刮卡</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable= no,minimum-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black"> -->
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+
+    <body>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.eraser.js"></script>
+
+        <div class="container">
+            <div class="header">
+                <img src="images/header.png">
+            </div>
+            <div class="main">
+                <img src="images/redbagbg.png">
+                <div class="box">
+                    <!-- <img id="robot" src="images/bg.png" />
+                                    <img id="redux" src="images/overflow.png" /> -->
+                    <div id="textcover"></div>
+                    <div id="robot">50元现金红包</div>
+                    <img id="redux" src="images/overflow.png" />
+                    <div id="progress">0%</div>
+                </div>
+            </div>
+            <div class="roles">
+                1、本活动不与平台内投越多送越多的现金红包活动同时享受；<br/>
+                2、推荐好友注册，好友抽中红包并投资使用，即送推荐人等额的
+                红包（如：新人抽中10元投资使用，推荐人即得10元）<br/>
+                3、活动中所得的现金红包，一律于投资标的的反息日一同到账；<br/>
+                4、如果违反诚信规定(如作弊领取、恶意套现等)，金享财行有权
+                撤销违规交易并收回已发全部奖励及其收益；<br/>
+                5、如有疑问请拨打客服热线:400-091-2828
+
+            </div>
+        </div>
+        <div class="dianzhui">
+            <img src="images/dianzhui.png">
+        </div>
+        <div class="cover"></div>
+        <div class="phone tipbox">
+            <div class="main">
+                <!-- <div class="closebtn"></div> -->
+                <p class="title">请输入您的手机号码</p>
+                <input type="text" class="phonecont" placeholder="在此输入您的手机号" />
+                <p class="errortips">您输入的手机号码不合法</p>
+                <a href="javascript:void(0)" class="goblottery gobtn">继续抽奖</a>
+            </div>
+        </div>
+        <div class="repeat tipbox">
+            <div class="main">
+                <!-- <div class="closebtn"></div> -->
+                <p class="title">您已参与过抽奖</p>
+                <a href="http://www.jxch168.com/wap/index.php?ctl=register" class="golingqu gobtn">立即领取</a>
+            </div>
+        </div>
+        <div class="success tipbox">
+            <div class="main">
+                <!-- <div class="closebtn"></div> -->
+                <p class="title">恭喜您获得</p>
+                <p class="content">50元现金红包</p>
+                <a href="http://www.jxch168.com/wap/index.php?ctl=register" class="golingqu gobtn">立即领取</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                // 点击关闭按钮后刷新页面
+                $(".phone .main .closebtn").click(function () {
+                    location.reload();
+                })
+
+                // 点击弹出手机输入框
+                $("#textcover").on("swipe", function () {
+                    $(".cover").show(1);
+                    $(".phone").show(1);
+                });
+                $("#textcover").focus(function () {
+                    $(".cover").show(1);
+                    $(".phone").show(1);
+                })
+                $("#textcover").click(function () {
+                    $(".cover").show(1);
+                    $(".phone").show(1);
+                    $(".phone .phonecont").focus();
+
+                })
+                // 输入手机号码后，点击继续抽奖
+                $(".goblottery").click(function () {
+                    var phonenum = $(".phonecont").val();
+                    var reg = /^1[0-9]{10}$/;
+                    if (!phonenum) {//如果input为空
+                        $(".errortips").html("手机号码不能为空");
+                        $(".errortips").css({"opacity": "1"});
+                    } else if (phonenum) {
+                        var phonenum = $(".phonecont").val();
+                        var data2 = [1, 2, 3, 4]; //返回的数组
+                        var data2MsgA = ['50元现金红包', '100元现金红包', '200元现金红包', '500元现金红包']; //返回的数组
+
+
+                        data1 = data2[Math.floor(Math.random() * data2.length)];
+                        data1Msg = data2MsgA[data1 - 1];
+
+
+
+
+                        if (!reg.test(phonenum)) { //如果input不符合reg格式
+                            $(".errortips").html("您输入的手机号码格式不正确");
+                            $(".errortips").css({"opacity": "1"});
+                        } else {
+
+
+
+
+
+
+
+                            $.ajax({
+                                type: "GET",
+                                url: "/index.php?ctl=weixin&mobile=" + phonenum + "&jl=" + data1+ '&is_pc=1' ,
+                                data: "",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (res) {
+
+                                    if (res == -1)
+                                    {
+                                        $(".phone").hide();
+                                        $(".repeat").show();
+                                    } else {
+                                        $('#robot').html(data1Msg);
+                                        $(".cover").hide(1);//隐藏遮罩层
+                                        $(".tipbox").hide(1);//隐藏弹出框
+                                        $("#textcover").hide(1);//隐藏图层上面的遮罩层
+                                        $('#redux').eraser('reset');//重置刮刮卡信息
+                                        $('#progress').html('0%');//重置刮刮卡百分比数字
+                                    }
+                                }
+                            });
+
+
+
+
+
+                        }
+
+
+
+
+                    }
+                })
+                $('#yourImage').eraser({size: 5});
+
+                $('#redux').eraser({
+                    progressFunction: function (p) {
+                        $('#progress').html(Math.round(p * 100) + '%');
+                        var persent = $("#progress").html();
+                        persent = parseFloat(persent);
+
+                        if (persent > 40) {
+                            $(".cover").show(1);
+                            $(".success").show(1);
+                            var message = $("#robot").html();
+                            $(".success .main .content").html(message);
+                        }
+                    }
+                });
+                // 初始化
+                var winheight = $(window).height();
+                // alert(winheight);
+                $(".dianzhui").css({
+                    "height": winheight
+                });
+                // 设置刮刮乐区域居中
+                var mainwidth = $(".main").outerWidth(),
+                        boxwidth = $("#robot").outerWidth();
+                $(".box").css({
+                    "left": (mainwidth - boxwidth) / 2 + "px"
+                });
+
+            })
+        </script>
+    </body>
+
+</html>

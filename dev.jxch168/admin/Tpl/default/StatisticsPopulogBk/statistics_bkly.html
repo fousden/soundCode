@@ -1,0 +1,277 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<php>
+	function get_date_url($date){
+		return "<a href=\"m.php?m=StatisticsBorrow&a=tender_usernum_info&time=$date\">$date</a>";
+	}
+</php>
+<script type="text/javascript">
+	function export_csv_usernum_total()
+	{
+		var query = $("#search_form").serialize();
+		query = query.replace("&m=StatisticsPopulogBk","");
+		query = query.replace("&a=statistics_bkly","");
+		var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_bk_bkly"+"&"+query;
+		location.href = url;
+	}
+
+</script>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">绑卡来源统计</div>
+<div class="blank5"></div>
+
+	<form name="search" id = "search_form"  action="__APP__" method="get">
+		<input type="hidden" value='{$q_date_diff}' name="q_date_diff" id="q_date_diff"  />
+		<label id="start_time_item_title">开始日期:</label><input  value="{$start_time}" class = "require textbox" type="text" name="start_time" id="q_start_time" value="{$start_time}" style=""  onfocus="return showCalendar('q_start_time', '%Y-%m-%d', false, false, 'q_start_time');"/>
+		<label id="end_time_item_title">结束日期:</label><input value="{$end_time}" class = "require textbox" type="text" name="end_time" id="q_end_time" value="{$end_time}" style=""  onfocus="return showCalendar('q_end_time', '%Y-%m-%d', false, false, 'q_end_time');" />
+
+		<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+		<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		<input type="button" class="button" value="{%EXPORT}" onclick="export_csv_usernum_total();" />
+
+		<input type="button" id = "submit_date_0" class="button_none" value="今天" />
+		<input type="button" id = "submit_date_1" class="button_none" value="昨天" />
+		<input type="button" id = "submit_date_7" class="button_none" value="最近一周" />
+		<input type="button" id = "submit_date_30" class="button_none" value="最近一月" />
+	</form>
+
+<div class="blank5"></div>
+
+<div class="blank5"></div>
+	<div class="line">
+		<foreach name="chart_list[0]" item="chart_item">
+			<label><input type="radio" onclick="javascript:load0_line{$key}();"  name="info_0_line" id="info_0_line_{$key}" value="{$key}" <if condition="$key eq 0">checked="true"</if>>{$chart_item.title}</label>
+		</foreach>
+
+	</div>
+
+	<div class="bar" style="display:none;">
+		<foreach name="chart_list[0]" item="chart_item">
+			<label><input type="radio" onclick="javascript:load0_bar{$key}();"  name="info_0_bar" id="info_0_bar_{$key}" value="{$key}"  <if condition="$key eq 0">checked="true"</if>>{$chart_item.title}</label>
+		</foreach>
+
+	</div>
+
+	<div class="blank5"></div>
+	<div class="blank5"></div>
+<!--图表div-->
+        <if condition ="$type eq xiantu">
+            <div id="chart" style="min-width:700px;height:400px"></div>
+        <else/>
+            <div id="chart_bingtu" style="min-width:700px;height:400px"></div>
+        </if>
+<!--end 图表div-->
+	<div class="blank5"></div>
+<if condition = "$type eq bingtua">
+    <html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	datasource="client_list"
+	show="user_reg_date:时间
+		,top:线上绑卡
+		,dowm:线下绑卡
+		,all:合计
+		"/>
+</if>
+<if condition = "$type eq bingtub">
+    <html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	datasource="client_list"
+	show="user_reg_date:时间
+		,top:线上绑卡
+		,dowm:线下绑卡
+		,all:合计
+		"/>
+</if>
+<if condition = "$type eq xiantu">
+
+    <html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	datasource="client_list"
+	show="user_reg_date:时间
+		,6:线上绑卡
+		,5:线下绑卡
+		,0:合计
+		"/>
+
+</if>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+
+</div>
+
+<include file="Public:footer" />
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/front/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/exporting.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/chart.js"></script>
+
+<script type="text/javascript">
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+//图表参数初始化函数
+//xAxis_pot                         x轴数值名，必填，类型为字符串数组
+//yAxis_title                        y轴名，必填，类型为字符串
+//data_name                      传入的数据名数组，必填，数据名类型为字符串
+//data_array                       传入的数据数组，必填，类型为数组
+//unit                                  单位名，必填，鼠标划过线条显示数据的单位，类型为字符串
+//title_name                        标题名，可选，类型为string，默认为图表
+//subtitle_name                   副标题名，可选，类型为string，默认为空
+//使用时只需将相应的参数导入，然后执行如下jquery语句，其中#id为对应的div的id
+//    $(function(){
+//        var chart = $('#id').highcharts(brokenline_plot(xAxis_pot,yAxis_title,data_name,data_array,unit,array_name,title_name,subtitle_name));
+//        })
+
+//function brokenline_plot(xAxis_pot,yAxis_title,data_name,data_array,unit,title_name,subtitle_name){
+//
+//          var title_name = arguments[5] ? arguments[5] : '图表';                                                    //判断主标题是否为空，如为空，则标题名为图表
+//          var subtitle_name = arguments[6] ? arguments[6] : ' ';                                               //判断副标题是否为空，副标题默认为空
+//          var data_sequence = [];                                                                                                   //数据数组，根据传入的数据名数组和对应的数据数组合并
+//          for (i in data_name){                                                                                                       //数据数组合并循环
+//              temp = {};
+//              temp.name = data_name[i];
+//              temp.data = data_array[i];
+//              data_sequence.push(temp);
+//          }
+//
+////折线图所需的参数
+//        var options = {
+//
+//                title: {                                                                                                                        //标题设置
+//                    text: title_name,
+//                    x: -20 //center
+//                },
+//                subtitle: {                                                                                                                 //副标题设置
+//                    text: subtitle_name,
+//                    x: -20
+//                },
+//                xAxis: {                                                                                                                    //x轴设置
+//                    categories:xAxis_pot                                                                                              //x轴单位
+//                },
+//                yAxis: {                                                                                                                    //y轴设置
+//                    title: {                                                                                                                  //y轴标题
+//                        text: yAxis_title
+//                    },
+//                    plotLines: [{                                                                                                           //y轴线设置
+//                        value: 0,
+//                        width: 1,
+//                        color: '#808080'
+//                    }]
+//                },
+//                tooltip: {                                                                                                                  //鼠标滑过图表显示的设置
+//                    valueSuffix: unit                                                                                                   //设置单位
+//                },
+//                legend: {                                                                                                                   //图例设置
+//                    layout: 'vertical',
+//                    align: 'right',
+//                    verticalAlign: 'middle',
+//                    borderWidth: 0
+//                },
+//                series:data_sequence                                                                                                    //数据集
+//        };
+//               return (options);                                                                                                                //返回图表数据
+//}
+
+
+
+</script>
+<script>
+var xAxis_pot = <?php echo $xAxis_pot;
+
+?>;
+
+var yAxis_title = <?php echo $yAxis_title;
+
+?>;
+
+var data_name = <?php echo $data_name;
+
+?>;
+
+var data_array = <?php echo $data_array;
+
+?>;
+
+var unit = <?php echo $unit;
+
+?>;
+
+
+var series_name = <?php echo $series_name;
+
+?>;
+
+
+var pie_data_array = <?php echo $pie_data_array;
+
+?>;
+
+
+    $(function(){
+        var abc = $('#chart').highcharts(brokenline_plot(xAxis_pot,yAxis_title,data_name,data_array,unit,'线上线下统计'));
+    })
+
+//    $(function(){
+//    var abc = $('#chart').highcharts(column_plot(xAxis_pot,yAxis_title,data_name,data_array));
+//    })
+
+//    $(function(){
+//    var abc = $('#chart').highcharts(stackcolumn_plot(xAxis_pot,yAxis_title,data_name,data_array));
+//    })
+
+//    $(function(){
+//    var abc = $('#chart_bingtu').highcharts(pie_plot(series_name,data_name,pie_data_array));
+//    })
+</script>
+<script>
+
+
+
+var data_name = <?php echo $data_name;
+
+?>;
+
+
+var series_name = <?php echo $series_name;
+
+?>;
+
+
+var pie_data_array = <?php echo $pie_data_array;
+
+?>;
+
+    $(function(){
+        var abc = $('#chart_bingtu').highcharts(pie_plot(series_name,data_name,pie_data_array,'线上线下统计'));
+    })
+
+</script>
+
+
+
+

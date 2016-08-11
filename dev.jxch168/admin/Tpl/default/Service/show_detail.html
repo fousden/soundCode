@@ -1,0 +1,84 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<div class="main">
+<if condition="$bankResult">
+<div class="main_title">{$user_info.user_name}</div>
+<div class="blank5"></div>
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=3 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">返回码</td>
+		<td class="item_input">
+                    {$bankResult.resp_code}
+		</td>
+	</tr>
+        <tr>
+		<td class="item_title">返回码说明</td>
+		<td class="item_input">
+                    {$bankResult.desc_code}
+		</td>
+	</tr>
+         <tr>
+		<td class="item_title">请求流水号</td>
+		<td class="item_input">
+                    {$bankResult.mchnt_txn_ssn}
+		</td>
+	</tr>
+        <tr>
+		<td class="item_title">富友账号</td>
+		<td class="item_input">
+                    {$bankResult.login_id|hideMobile}
+		</td>
+	</tr>
+        <tr>
+		<td class="item_title">交易流水号</td>
+		<td class="item_input">
+                    {$bankResult.txn_ssn}
+		</td>
+	</tr>
+        <tr>
+		<td class="item_title">开户行支行名称</td>
+		<td class="item_input">
+                <if condition="is_array($bankResult['bank_nm'])">
+                    {$bankResult.bank_nm[0]}
+                    <else />
+                    {$bankResult.bank_nm}
+                </if>
+		</td>
+	</tr>
+        <tr>
+		<td class="item_title">银行卡号</td>
+		<td class="item_input">
+                    {$bankResult.card_no}
+		</td>
+	</tr>
+        <tr>
+		<td class="item_title">审核状态</td>
+		<td class="item_input">
+                <if condition="$bankResult['examine_st'] eq 1">
+                    审核通过
+                    <elseif condition="$bankResult['examine_st'] eq 2" />
+                    审核失败
+                    <else />
+                    待审核
+                </if>
+		</td>
+	</tr>
+        <tr>
+		<td class="item_title">备注</td>
+		<td class="item_input">
+                <if condition="is_array($bankResult['remark'])">
+                    {$bankResult.remark[0]}
+                    <else />
+                    {$bankResult.remark}
+                </if>                    
+		</td>
+	</tr>
+</table>
+</div>
+    <else/>
+    <div style="text-align:center;color:#C40000;padding-top:40px;">该记录为脏数据，暂无记录。</div>
+</if>
+

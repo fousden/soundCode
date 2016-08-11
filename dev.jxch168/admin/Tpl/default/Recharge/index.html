@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+ {// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+function address(user_id)
+{
+	location.href = ROOT + '?m=Recharge&a=index&id='+user_id;
+}
+</script>
+<script type="text/javascript">
+	function export_csv_total()
+	{
+		var query = $("#search_form").serialize();
+		query = query.replace("&m=Recharge","");
+		query = query.replace("&a=index","");
+		var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=index"+"&"+query+"&type=export_incharge";
+		location.href = url;
+	}
+
+</script>
+<php>
+
+
+	function user_company($id,$user){
+		if($user['user_type']==1){
+			return "<a href='javascript:user_company(".$id.");'>公司</a>&nbsp;";
+		}
+	}
+
+        function get_date($create_time){
+            return to_date($create_time,"Y-m-d H:i:s");
+        }
+
+</php>
+<div class="main">
+<div class="main_title">充值异常</div>
+<div class="blank5"></div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="Recharge" id="search_form" action="__APP__" method="get">
+                                   {%IS_PAID}：
+                                                      <select name="is_paid" id="is_paid">
+                                                                <option value="0">请选择</option>
+                                                                 <option value="1"<if condition="intval($_REQUEST['is_paid']) eq 1 ">selected</if>>充值成功</option>
+                                                                <option value="2"<if condition="intval($_REQUEST['is_paid']) eq 2 ">selected</if>>充值失败</option>
+                                                                <option value="3"<if condition="intval($_REQUEST['is_paid']) eq 3 ">selected</if>>未充值</option>
+                                                       </select>
+		{%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+		<div class="blank5"></div>
+                                   <?php
+                                            if (intval($_REQUEST['is_paid']) == 3){
+                                                $str = "注册时间：";
+                                             }else{
+                                                $str = "充值时间：";
+                                             }
+
+                                   ?>
+                                   <span id="timeType"><?php echo $str; ?></span>
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{$end_time}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+
+		<input type="hidden" value="Recharge" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+                                    <input type="button" class="button" value="{%EXPORT}" onclick="export_csv_total();" />
+	</form>
+</div>
+<script>
+    $("#is_paid").click(function(){
+        var is_paid = $(this).val();
+        if(is_paid==3){
+            $("#timeType").html("注册时间：");
+        }else{
+            $("#timeType").html("充值时间：")
+        }
+    })
+</script>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user"
+	checkbox="true"
+	datasource="list"
+                  show="uid:{%ID}|50px,uid|get_user_name_real:用户名,mobile:手机号,reg_time|get_date:注册时间,is_paid:充值状态"
+/>
+<div class="blank5"></div>
+<div class="page"><tr>
+        <td colspan="16">
+                当前 {$page}/{$page_all} 页 , {$rs_count} 条记录
+                <if condition="$page gt 1">
+                <a href="/m.php?m=Recharge&a=index&p=1{$url}" >第一页  </a>
+                </if>
+                <if condition="$page_prev gt 0"><a href="/m.php?m=Recharge&a=index&p={$page_prev}{$url}" >上一页 </a></if>
+                <if condition="$page_next elt $page_all"><a href="/m.php?m=Recharge&a=index&p={$page_next}{$url}" >下一页  </a></if>
+                <if condition="$page_next elt $page_all"><a href="/m.php?m=Recharge&a=index&p={$page_all}{$url}" >末一页  </a></if>
+        </td>
+    </tr></div>
+</div>
+<include file="Public:footer" />
+</html>
+

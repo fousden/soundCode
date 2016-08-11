@@ -1,0 +1,254 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/show_loads.js' />
+
+
+<style type="text/css">
+.hide {
+    display: none;
+}
+</style>
+
+<script type="text/javascript">
+
+        //批量操作
+        function batch_operate(release_date,type_name,info){
+                var oper_password = $.trim($("#oper_password").val());
+                if(!oper_password){
+                    alert("请输入红包"+info+"密码！");
+                    return false;
+                }
+
+                if(!confirm("确定要红包"+info+"吗？"))
+                {
+                    return false;
+                }
+
+                var operate_type = "{$_REQUEST['type']}";
+                if(operate_type == "identify"){
+                    batch_operate = "bonus_verify";
+                }else if(operate_type == "repay"){
+                    batch_operate = "bonus_repay";
+                }
+                 //置灰色
+                $("#J_repay_btn").css("background-color","#C9C9C9");
+                $("#J_repay_btn").val("红包"+info+"中...");
+                $("#J_repay_btn").attr("disabled","disabled");
+
+                do_ajax = true;
+                $.ajax({
+                        url: ROOT + "?" + VAR_MODULE + "=" + MODULE_NAME + "&" + VAR_ACTION + "="+batch_operate+"&release_date=" + release_date+"&type="+type_name+"&oper_password="+oper_password+"&info="+info,
+                        data: "ajax=1",
+                        dataType: "json",
+                        success: function(data){
+                                    if(data.status == 1){
+                                        alert(data.info);
+                                        window.location.reload();
+                                    }else{
+                                        alert(data.info);
+                                        window.location.reload();
+                                    }
+                        }
+                });
+        }
+
+        //按要求搜索红包记录
+        function export_bonus(release_date){
+                do_ajax = true;
+
+                var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_bonus";
+                var param = "&type="+"{$_REQUEST['type']}"+"&release_date="+release_date;
+                location.href = url+param;
+        }
+
+</script>
+<style type="text/css">
+    table {color:#2191C3;}
+    table th{color:black;}
+    table td{text-align:center;}
+    ul{margin:0px;padding:0px;}
+    ul li {margin:0px;padding:0px;float:left;list-style:none;line-height:40px;margin-left:20px;}
+    ul li a{font-size:16px;}
+</style>
+<div class="main">
+    <div class="main_title" style="height:30px;">
+        <div style="width:28%;float:left;">
+            <span style="font-size:16px;line-height:30px;font-weight:bold;">红包<if condition="$_REQUEST['type'] eq 'identify'">审核<else/>放款</if>　　<a href="javascript:history.go(-1);">返回上一页</a></span>
+        </div>
+        <div style="float:left;">
+            <a style="font-size:16px;text-decoration: none;line-height:30px;font-weight:bold;text-align:center;" href="/m.php?m=BonusManage&a=show_bonus&release_date={$yesterday_date}&type={$_REQUEST['type']}">前一天</a></span>
+        </div>
+        <div style="width:28%;float:left;text-align:center;">
+            <span style="font-size:16px;line-height:30px;font-weight:bold;text-align:center;">{$release_date}</span>
+        </div>
+        <div style="float:left;">
+            <a style="font-size:16px;text-decoration: none;line-height:30px;font-weight:bold;text-align:center;" href="/m.php?m=BonusManage&a=show_bonus&release_date={$tomorrow_date}&type={$_REQUEST['type']}">后一天</a></span>
+        </div>
+<!--        <div style="width:33%;float:right;">
+            <button style="float:right;position:relative;top:4px;" onclick='export_all_load("","{$qixi_time}");' class="button" >{:L(EXPORT_ALL)}</button>
+        </div>-->
+    </div>
+    <div style="width:auto;height:38px;background-color:#c9c9c9;margin-top:6px;padding-left:10px;padding-top:15px;font-size:16px;line:38px;">
+        <if condition="$account_name eq 'SHGH001b'">平台<else/>企业</if>账号：<span style="color:red;background-color:white;height:40px;">　{$account_name}　</span>　　
+        可用金额（元）<span style="color:red;background-color:white;height:40px;">　{$ca_balance|number_format=2}　</span>　
+        —　预计红包金额（元）<span style="color:red;background-color:white;height:40px;">　{$bonus_money_total|number_format=2}　</span>　
+        ＝　预计总额（元）<span style="color:red;background-color:white;height:40px;">　{$account_all_money|number_format=2}　</span>
+        <span style="float:right;margin-right:20px;">
+            <input type="button" class="button" value="导出全部" onclick="export_bonus('{$release_date}');" />
+            <if condition="$_REQUEST['type'] eq 'identify'">
+                <!--<input type="button" class="button" value="批量审核" onclick="verify_bonus('{$release_date}');" />-->
+                <input type="button" class="button" value="批量审核" onclick="inputOperPwd('{$release_date}','审核','{$_REQUEST["type"]}');" />
+                <else/>
+                <!--<input type="button" class="button" value="批量放款" onclick="batch_deal('{$release_date}','红包放款');" />-->
+                <input type="button" class="button" value="批量放款" onclick="inputOperPwd('{$release_date}','放款','{$_REQUEST["type"]}');" />
+            </if>
+
+        </span>
+    </div>
+<table class="form conf_tab dataTable" cellpadding=0 cellspacing=0>
+        <tr>
+        <td colspan="10">
+                <!--<input type="button" class="button" value="导出每期计划列表" onclick="do_allrepay_plan_export_load({$deal_id});"> -->
+        </td>
+        </tr>
+        <tr>
+            <th>编号</td>
+            <th>用户名</th>
+            <th>红包类型</th>
+            <th>红包金额</th>
+            <th>红包状态</th>
+            <th>红包生成时间</th>
+            <th>申请提现时间</th>
+            <th>预计发放日期</th>
+            <th>实际发放日期</th>
+            <th>审核状态</th>
+            <th>是否有效</th>
+            <th>备注</th>
+        </tr>
+        <foreach name="list" item="item" >
+        <tr>
+            <td>{$item.id}</td>
+            <td>{$item.user_name}（{$item.real_name}）</td>
+            <td>{$item.bonus_type|getBonusTypeName}</td>
+            <td style="text-align:right;">{$item.money|number_format=2}</td>
+            <td>{$item.status_desc}</td>
+            <td>{$item.generation_time|date="Y-m-d H:i:s",###}</td>
+            <td>{$item.apply_time|date="Y-m-d H:i:s",###}</td>
+            <td>{$item.release_date|date="Y-m-d",###}</td>
+            <td><if condition="$item.act_relase_time neq 0">{$item.act_relase_time|date="Y-m-d",###}<else/>暂无</if></td>
+            <td><if condition="$item.verify_status eq 0">待审核<else/><span style="color:gray;">已审核</span></if></td>
+            <td>{$item.is_effect_desc}</td>
+            <td>{$item.remark:备注}</td>
+        </tr>
+    </foreach>
+        <if condition="$_REQUEST['type'] neq 'identify'">
+        <tr>
+            <td colspan="2" style="color:#C40000;width:10%;">{$release_date}&nbsp;统计信息：</td>
+            <td style="color:#C40000;width:9%;">总计：</td>
+            <td style="color:#C40000;width:9%;">{$bonus_money_total|number_format=2}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </if>
+        <tr>
+            <td colspan="12">
+                    当前 {$page}/{$page_all} 页 , {$rs_count} 条记录
+                    <if condition="$page gt 1">
+                    <a href="/m.php?m=BonusManage&a=show_bonus&release_date={$release_date}&p=1&type={$_REQUEST['type']}" >第一页  </a>
+                    </if>
+                    <if condition="$page_prev gt 0"><a href="/m.php?m=BonusManage&a=show_bonus&release_date={$release_date}&p={$page_prev}&type={$_REQUEST['type']}" >上一页 </a></if>
+                    <if condition="$page_next elt $page_all"><a href="/m.php?m=BonusManage&a=show_bonus&release_date={$release_date}&p={$page_next}&type={$_REQUEST['type']}" >下一页  </a></if>
+                    <if condition="$page_next elt $page_all"><a href="/m.php?m=BonusManage&a=show_bonus&release_date={$release_date}&p={$page_all}&type={$_REQUEST['type']}" >末一页  </a></if>
+            </td>
+        </tr>
+</table>
+    <style type="text/css">
+        .sub_btn{cursor:pointer; margin:0; padding:0; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; overflow:visible; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+        .sub_btn:hover{background-color:#0087E5;}
+        .reset_btn{cursor:pointer; background:none; border:none; background-color:#ddd; color:#666; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+        .true_btn{cursor:pointer; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    </style>
+    <script type="text/javascript">
+        //操作密码
+        function inputOperPwd(release_date,info,type_name){
+            var oper_pwd ="{$type_pwd}";
+            if(oper_pwd){
+               var html = '<div class="tc p15">';
+                    html += '<div style="height:100px;margin-top:30px;font-size:22px;color:red;font-weight:bold;text-align:center">确认红包'+info+'</div>';
+                    html += '<div style="height:40px;font-size:22px;margin:-40px 0px 0px 50px;">密码：<input type="password" placeholder="请输入红包'+info+'密码" style="line-height:40px;font-size:16px;width:160px;height:40px;" class="f-input ui-textbox" value="" id="oper_password" /></div>';
+                    html += '<div class="blank5"></div>';
+                    html += '<input type="hidden" name="oper_type" id="oper_type" value="'+type_name+'" />';
+                    html += '<input style="position:relative;left:90px;top:40px;" type="button" class="sub_btn" id="J_repay_btn" onclick="batch_operate('+"'"+release_date+"','"+type_name+"','"+info+"'"+');" value="确定红包'+info+'">&nbsp;&nbsp;';
+                    html += '<input style="position:relative;left:110px;top:40px;" type="button" class="reset_btn" onclick="closeWindow();" id="J_cancel_rbtn" value="取消">';
+                    html += "</div>";
+                    $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"输入红包"+info+"密码", width:380, height:240, type:'wee'});
+                    init_ui_textbox();
+            }else{
+                var html = '<div class="tc p15">';
+                    html += '<div style="height:100px;margin-top:30px;font-size:22px;color:red;font-weight:bold;text-align:center">您未设置红包'+info+'密码</div>';
+                    html += '<div style="height:40px;font-size:22px;margin:-50px 0px 0px 50px;">　　密码：<input type="password" placeholder="请设置红包'+info+'密码" style="line-height:40px;font-size:16px;width:160px;height:40px;" class="f-input ui-textbox" value="" id="set_oper_password" /></div>';
+                    html += '<div class="blank5"></div>';
+                    html += '<div class="blank5"></div>';
+                    html += '<input type="hidden" name="oper_type" id="oper_type" value="'+type_name+'" />';
+                    html += '<div style="height:40px;font-size:22px;margin:10px 0px 0px 50px;">确认密码：<input type="password" placeholder="请确认红包'+info+'密码" style="line-height:40px;font-size:16px;width:160px;height:40px;" class="f-input ui-textbox" value="" id="confirm_set_oper_password" /></div>';
+                    html += '<div class="blank5"></div>';
+                    html += '<input style="position:relative;left:90px;top:35px;" type="button" class="sub_btn" id="J_oper_password_btn" onclick="set_oper_passwd('+"'"+info+"'"+');" value="确定设置">&nbsp;&nbsp;';
+                    html += '<input style="position:relative;left:110px;top:35px;" type="button" class="reset_btn" onclick="closeWindow();" id="J_cancel_rbtn" value="取消">';
+                    html += "</div>";
+                    $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"设置红包"+info+"密码", width:400, height:280, type:'wee'});
+                    init_ui_textbox();
+            }
+
+        }
+        //设置入金密码
+        function set_oper_passwd(info){
+            var oper_password = $.trim($("#set_oper_password").val());
+            var confirm_oper_password = $.trim($("#confirm_set_oper_password").val());
+            if(oper_password != confirm_oper_password){
+                alert("两次输入的红包"+info+"密码不一致，请重新输入！");
+                return false;
+            }
+            var query = new Object();
+            query.oper_password = oper_password;
+            query.confirm_oper_password = confirm_oper_password;
+            query.oper_type = $.trim($("#oper_type").val());
+            query.ajax = 1;
+            $.ajax({
+                     url:'/m.php?m=BonusManage&a=savePwd',
+                    data:query,
+                    type:"POST",
+                    dataType:"json",
+                    success:function(result){
+                        if (result.status == 1){
+                                alert(result.info);
+                                //$.showSuccess(result.info, function(){
+                                window.location.reload();
+                               // });
+                        }else{
+                            alert(result.info);
+                           //$.showErr(result.info);
+                           window.location.reload();
+                           return false;
+                        }
+                    }
+            });
+        }
+
+    </script>
+
+</div>
+<include file="Public:footer" />

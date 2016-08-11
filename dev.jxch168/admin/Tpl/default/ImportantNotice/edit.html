@@ -1,0 +1,128 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+    <div class="main_title">通告消息<a href="javascript:;" onclick="location.href='{:u("ImportantNotice/index")}';" >返回列表</a></div>
+    <div class="blank5"></div>
+    <style>
+        .hide{
+            display:none;
+        }
+    </style>
+    <form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td class="item_title">通告标题:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="title" value="{$list.title}" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">选择通告内容:</td>
+                <td class="item_input">
+                    <select name='notice_content' id="notice_content">
+                        <option value="">请选择...</option>
+                        <option value="1">图片</option>
+                        <option value="2">文字</option>
+                    </select>
+                </td>
+            <?php
+                    if($list['content_type']==1){
+                        $icon = $list['content'];
+                    }else{
+                        $content = $list['content'];
+                    }
+            ?>
+            <tr id="img" class="hide">
+                <td class="item_title">通告图片:</td>
+                <td class="item_input">
+                    <html:imgUpload name = 'icon' id='icon' value="$icon" />
+                </td>
+            </tr>
+
+            <tr id="content" class="hide">
+                <td class="item_title">通告内容:</td>
+                <td class="item_input">
+                    <html:editor id="editor" name="content" type="KINDEDITOR" content='{$content}'/>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">通告备注</td>
+                <td>
+                    <textarea name="remark" id="" cols="30" rows="10">{$list.remark}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">选择客户端:</td>
+                <td class="item_input">
+                    <select name='client_type' id="client_type">
+                        <option value="">请选择...</option>
+                        <option value="1">移动端</option>
+                        <option value="2">PC端</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">活动周期:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="begin_time" id="begin_time" value="{:trim($list['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+                    -
+                    <input type="text" class="textbox require" name="end_time" id="end_time" value="{:trim($list['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+                </td>
+            </tr>
+            <!--<tr>-->
+            <!--<td class="item_title">是否有效:</td>-->
+            <!--<td class="item_input">-->
+            <!--<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="1" checked="checked" /></lable>-->
+            <!--<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="0" /></lable>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <input type="hidden" name="notice_id" value="{$list['id']}" />
+                    <input type="hidden" name="{:conf("VAR_MODULE")}" value="ImportantNotice" />
+                    <input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+                    <!--隐藏元素-->
+                    <input type="submit" class="button" value="编辑" />
+                    <input type="reset" class="button" value="重置" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+    $(function(){
+        var content_type = "<?php echo $list['content_type']  ?>";
+        var content = "<?php echo $list['content'] ?>";
+        if(content_type==1){
+            $("#img").removeClass("hide");
+        }else{
+            $("#content").removeClass("hide");
+        }
+        $("select[name=notice_content]").change(function(){
+            var item = $(this).val();
+            if(item==1){
+                $("#content").addClass("hide");
+                $("#img").removeClass("hide");
+            }else{
+                $("#img").addClass("hide");
+                $("#content").removeClass("hide");
+            }
+        })
+
+        returnShow('notice_content',"<?php echo $list['content_type']?>",'select');
+        returnShow('client_type',"<?php echo $list['client_type']?>",'select');
+
+    });
+
+
+</script>
+<include file="Public:footer" />

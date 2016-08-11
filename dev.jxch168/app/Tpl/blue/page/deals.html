@@ -1,0 +1,189 @@
+{include file="inc/header.html"}
+<div class="wrap"><!--TODO 正式环境不要放此wrap begin-->
+<div id="investmentList">
+<!--当前页面导航 begin-->
+<div id="navBox">
+    <a href="{url x="index" r="index"}" target="_blank">首页</a>
+    <span class="FontIconLeftAndRight">></span>
+    <a href="{url x="index" r="deals"}" target="_blank" class="ColorLightBlue">投资列表</a>
+</div>
+<!--当前页面导航 end-->
+<!--过滤 begin-->
+<div id="FilterBox">
+    <dl class="item">
+        <dt>项目类型：</dt>
+        {foreach from =$cate_list_url item="cates" key=key}
+        {if $cates.id neq 5}
+        <dd>
+            <a href="{$cates.url}#deallist" target="_self" {if $cates.id eq $cate_id}class="current"{/if}>{$cates.name}</a>
+        </dd>
+        {/if}
+        {/foreach}
+    </dl>
+    <div class="Clear"></div>
+    <!--TODO 默认只将 《项目类型》一直显示 其他的条件放 canHideBox 中-->
+    <!--可以隐藏的项 begin-->
+    <div class="canHideBox" style="display: block;">
+        <dl class="item">
+            <dt>项目状态：</dt>
+            {foreach from =$deal_status_url item="status"}
+            <dd>
+                <a href="{$status.url}#deallist" target="_self" {if $status.key eq $deal_status}class="current"{/if}>{$status.name}</a>
+            </dd>
+            {/foreach}
+        </dl>
+        <dl class="item">
+            <dt>项目收益：</dt>
+           {foreach from =$interest_url item="iinterest" key=key}
+            <dd>
+                <a href="{$iinterest.url}#deallist" target="_self" {if $interest eq $iinterest.interest}class="current"{/if}>{$iinterest.name}</a>
+            </dd>
+            {/foreach}
+        </dl>
+        <dl class="item">
+            <dt>项目期限：</dt>
+            {foreach from="$months_type_url" item="months" key=key}
+            <dd>
+                <a href="{$months.url}#deallist" target="_self" {if $key eq $months_type}class="current"{/if}>{$months.name}</a>
+            </dd>
+           {/foreach}
+        </dl>
+        <div class="Clear"></div>
+    </div>
+    <!--可以隐藏的项 end-->
+<!--    <a href="javascript:void(0);" target="_self" class="ShowAndHide"><label class="txt">收起</label><i class="upArrow"></i></a>-->
+    <div class="Clear"></div>
+
+    <script type="text/javascript">
+
+
+        //展开收起筛选框
+//        $(".ShowAndHide").click(function() {
+//            if ($("#FilterBox>.canHideBox").css("display") === "none") {
+//                $("#FilterBox>.canHideBox").slideDown(parms.SlideTime);
+//                $(".txt", this).text("收起");
+//                $(".downArrow", this).addClass("upArrow");
+//                $(".upArrow", this).removeClass("downArrow");
+//            } else {
+//                $("#FilterBox>.canHideBox").slideUp(parms.SlideTime);
+//                $(".txt", this).text("更多筛选条件");
+//                $(".upArrow", this).addClass("downArrow");
+//                $(".downArrow", this).removeClass("upArrow");
+//            }
+//        });
+    </script>
+</div>
+<!--过滤 end-->
+<!--排序 begin-->
+<div id="orderBox">
+    <label class="name">排序：</label>
+    {foreach from=$sort_url item="sorts"}
+    <a href="{$sorts.url}&sort_type=<?php echo $_GET['sort_type']==0?1:0 ?>" class='sort_mine' target="_self">
+        {$sorts.name}
+        {if $sort eq $sorts.sort}
+        <i class="<?php echo $_GET['sort_type']==0?downArrow:upArrow ?>"></i>
+
+        {/if}
+    </a><span>|</span>
+    {/foreach}
+</div>
+<!--投资列表 begin-->
+<div id="investList">
+    <div class="wrap">
+        <!--注意 循环从 class="box" 开始 begin-->
+        {if $deal_list}
+        {foreach from=$deal_list item="deal" key=key name="deal"}
+        <div class="box {if $deal.deal_status eq 1 && $deal.remain_time gt 0}{else}complete{/if}">
+            <div class="p_info">
+                <div class="top">
+                    <label class="name"><a href="{$deal.url}" target="_blank">{$deal.color_name}</a></label>
+                    {if $deal.is_wait eq 1 || ($deal.deal_status eq 1 && $deal.remain_time gt 0)}
+                <div class="time f_r AdvLeftTime left_time" data="{$deal.remain_time}">
+                        剩余时间：
+                        <span class="s day">--</span>
+                        <span class="l">天</span>
+                        <span class="s hour">--</span>
+                        <span class="l">时</span>
+                        <span class="s min">--</span>
+                        <span class="l">分</span>
+                        <span class="s sec">--</span>
+                        <span class="l">秒</span>
+                    </div>
+                    {/if}
+                </div>
+                <div class="bottom">
+                    <dl class="rate layout">
+                        <dt class="title">年化利率</dt>
+                        <dd class="content">{$deal.rate}%</dd>
+                    </dl>
+                    <dl class="timeLimit layout">
+                        <dt class="title">投资期限</dt>
+                        <dd class="content">
+                            {$deal.repay_time}
+                            <span class="unit">天</span>
+                        </dd>
+                    </dl>
+                    <dl class="prodAmount layout">
+                        <dt class="title">标的金额</dt>
+                        <dd class="content">
+                            {$deal.borrow_amount_format}
+                            <span class="unit">元</span>
+                        </dd>
+                    </dl>
+                    <dl class="security layout">
+                        <dt class="title">保障机构</dt>
+                        <dd class="content">
+                            {if $deal.agency_info.is_db_img}
+                            <img src="{$deal.agency_info.is_db_img}" height="30" alt="{$deal.agency_info.user_name}" title="{$deal.agency_info.user_name}"/>
+                            {/if}
+                        </dd>
+                    </dl>
+                    <dl class="opt_right layout">
+                        <dd class="progressbarbox">
+                            <!--TODO 此处为进度条 百分比数字直接填在ptc="" 即可 js自动运算 此文字请不要复制到页面-->
+                            <div class="sample_goal" ptc="{if  $deal.deal_status eq 4}100{else}{function name="num_format" v=$deal.progress_point f=1}{/if}"></div>
+                            <div class="sample_text">{if  $deal.deal_status eq 4}100%{else}{function name="num_format" v=$deal.progress_point f=1}%{/if}</div>
+                        </dd>
+                        <dd>
+<!--                            <a href="#" target="_blank" class="btnInvest">立即投资</a>-->
+
+                            <a class="btnInvest" href="{$deal.url}">
+					{if $deal.is_delete eq 2}
+						<span class="">待发布</span>
+					{elseif $deal.is_wait eq 1}
+						<span class="">未开始</span>
+					{elseif $deal.deal_status eq 5}
+						<span class="">还款完毕</span>
+					{elseif $deal.deal_status eq 4}
+						<span class="">还款中</span>
+					{elseif $deal.deal_status eq 0}
+						<span class="">{if $deal.need_credit eq 0}等待审核{else}等待材料{/if}</span>
+					{elseif $deal.deal_status eq 1 && $deal.remain_time gt 0}
+						<span class="">马上投标</span>
+					{elseif $deal.deal_status eq 2}
+						<span class="">已满标</span>
+					{elseif $deal.deal_status eq 3}
+						<span class="">已流标</span>
+					{elseif $deal.deal_status eq 1 && $deal.remain_time lte 0}
+						<!-- <span class="btn_gray f_white">已过期</span> -->
+						<span class="">100%满标</span>
+					{/if}
+				</a>
+                        </dd>
+                    </dl>
+
+                </div>
+            </div>
+        </div>
+        {/foreach}
+        {/if}
+    <div class="blank20"></div>
+    <div class="pages">{$pages}</div>
+    <div class="blank20"></div>
+        <!--注意 循环从 class="box" 开始 end-->
+    </div>
+</div>
+<!--投资列表 end-->
+</div>
+</div><!--TODO 正式环境不要放此wrap begin-->
+    {include file="inc/footer.html"}

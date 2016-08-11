@@ -1,0 +1,76 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/user_edit.js' />
+<load href='__TMPL__Common/js/conf.js' />
+<load href='__ROOT__/system/region.js' />
+<div class="main">
+    <div class="main_title">{%EDIT} <a href="{:u("UserAddress/index")}" class="back_list">{%BACK_LIST}</a></div>
+    <div class="blank5"></div>
+    <form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+        <php>
+            function f_to_date($date){
+            return to_date($date,"Y-m-d H:i");
+            }
+        </php>
+        <div class="blank5"></div>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+            <tr>
+                <td class="item_title">会员名:</td>
+                <td class="item_input"><input type="text" value="{$list.user_name}" class="textbox" name="user_name" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">收件人姓名:</td>
+                <td class="item_input"><input type="text" value="{$list.real_name}" class="textbox" name="real_name" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">手机号:</td>
+                <td class="item_input">
+                    <input type="text" name="mobile" class="textbox" value="{$list.mobile}" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">具体地址:</td>
+                <td class="item_input">
+                    <input type="text" name="address" class="textbox" value="{$list.address}" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">邮政编码:</td>
+                <td class="item_input">
+                    <input value="{$list.code}" class="textbox" name="code" size="50">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="item_title" style="text-align:center;"></td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+
+        <div class="blank5"></div>
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <input type="hidden" name="id" value="{$list.id}" />
+                    <input type="hidden" value="{$list.user_id}" name="user_id" />
+                    <input type="hidden" name="{:conf("VAR_MODULE")}" value="UserAddress" />
+                    <input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+                    <!--隐藏元素-->
+                    <input type="submit" class="button" value="{%EDIT}" />
+                    <input type="reset" class="button" value="{%RESET}" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<include file="Public:footer" />

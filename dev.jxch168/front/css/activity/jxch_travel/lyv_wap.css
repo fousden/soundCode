@@ -1,0 +1,131 @@
+html{
+  font-size: 14px;
+  font-family:  "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+}
+html,body{
+  margin:0;
+  padding: 0 ;
+  width: 100%;
+  height: 100%;
+  windows:100%;
+}
+@media screen and (min-width:321px) and (max-width:375px){
+  html{
+    font-size:16px;
+  }
+}
+@media screen and (min-width:376px) and (max-width:414px){
+  html{
+    font-size:18px;
+  }
+}
+@media screen and (min-width:415px) and (max-width:639px){
+  html{
+    font-size:20px;
+  }
+}
+@media screen and (min-width:640px) and (max-width:719px){
+  html{
+    font-size:24px;
+  }
+}
+@media screen and (min-width:720px) and (max-width:749px){
+  html{
+    font-size:28px;
+  }
+}
+@media screen and (min-width:750px) and (max-width:799px){
+  html{
+    font-size:32px;
+  }
+}
+@media screen and (min-width:800px){
+  html{
+    font-size:36px;
+  }
+}
+.main {
+  position: relative;
+  background:url(../../../images/activity/jxch_travel/lybg_wap.jpg) no-repeat center center;
+  background-size:100% 100%;
+  width:100%;
+  height:70.875rem;
+}
+
+.main .login{
+  position: absolute;
+  top: 37%;
+  left:2rem;
+  font-size: .5rem;
+  color: red;
+  text-indent: 2em;
+  font-weight: bold;
+  line-height:.875rem;
+}
+.main .login h2{
+  font-size: .8125rem;
+  line-height: 0.9375rem;
+
+}
+.main .login p{
+  line-height: 0.75rem;
+
+}
+.main .login p:last-child{
+  text-indent: 0;
+}
+.main .login #login_a{
+  display: inline-block;
+  position: absolute;
+  top:37%;
+  left:2rem;
+  width:6rem;
+  line-height:1.77rem;
+  border:0.0625rem solid #ffffff;
+  border-radius:0.1875rem;
+  background:#ff001e;
+  text-align:center;
+  font-size:0.9375rem;
+  color:#ffffff;
+  text-indent: 0;
+  margin-top: 2rem;
+}
+#cover{
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: none;
+  opacity: 0.8;
+}
+#alertrecord{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  display: none;
+}
+#alertrecord .main{
+  display: block;
+  width: 100%;
+  height: 207px;
+  background: url(../../../images/activity/jxch_travel/alert_wap.png) no-repeat center center;
+  background-size: 100% 100%;
+  margin: 0 auto;
+  position: relative;
+}
+#alertrecord .main .closebtn{
+  display: inline-block;
+  position: relative;
+  top: 55%;
+  text-align: center;
+  background: red;
+  color: white;
+  left: 35%;
+  border: 0.15rem red solid;
+  border-radius:30px;
+  width: 30%;
+}

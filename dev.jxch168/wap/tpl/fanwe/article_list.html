@@ -1,0 +1,96 @@
+<style type="text/css">
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration:none;
+}
+
+body {
+    background-color: #f6f6f6;
+}
+
+.article_show {
+    background: transparent;
+    padding: 0;
+}
+
+.article_show>h2,
+.show_detail {
+    display: none;
+}
+
+#IntegrActPage>a>.box {
+    width: 100%;
+    margin: 3.7% auto;
+    margin-bottom: 0;
+    border: 1px solid #acaebd;
+    border-left: none;
+    border-right: none;
+    background-color: white;
+}
+
+#IntegrActPage>a>.box>.title,
+#IntegrActPage>a>.box>.creTime,
+#IntegrActPage>a>.box>.info,
+#IntegrActPage>a>.box>.banner,
+#IntegrActPage>a>.box>.checkLink {
+    width: 92%;
+    margin: 2% 4%;
+    margin-bottom: 0;
+}
+
+#IntegrActPage>a>.box>.title {
+    color: #333333;
+    font-size: 1em;
+    margin-top: 3%;
+}
+
+#IntegrActPage>a>.box>.creTime,
+#IntegrActPage>a>.box>.info {
+    color: #999999;
+    font-size: 0.8em;
+}
+
+#IntegrActPage>a>.box>.info {
+    line-height: 1rem;
+    margin-bottom: 3%;
+}
+
+#IntegrActPage>a>.box>.checkLink {
+    font-size: 0.8rem;
+    color: #666666;
+    display: block;
+    height: 1rem;
+    line-height: 1rem;
+    border: none;
+    border-top: 1px solid #e6e6e6;
+    background-image: url(../front/wap/images/back-gray.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    color: #666666;
+}
+</style>
+
+<div id="IntegrActPage">
+{foreach from=$data.list item="val"}
+
+    <a href="http://www.jxch168.com/wap/index.php?ctl=show_article&id={$val.id}&_m=android">
+        <div class="box">
+            <p class="title">
+                {$val.title}
+            </p>
+            <p class="creTime">
+                时间：{$val.create_date}        
+            </p>
+            <img class="banner" src="http://www.jxch168.com/{$val.icon}" />
+            <p class="info">
+            {$val.brief}
+            </p>
+        </div>
+    </a>
+    {/foreach}
+</div>

@@ -1,0 +1,413 @@
+{include file="inc/header.html"}
+<link rel="stylesheet" type="text/css" href="./front/css/activity/lottery.css">
+<div id="lottery">
+        <div class="headbanner">
+            <div class="main">
+                <div class="lottery f_l">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr class="lottery-group">
+                            <td class="lottery-unit" data-unit="1">
+                                <img src="./front/images/activity/lottery/1.png" />
+                            </td>
+                            <td class="lottery-unit" data-unit="2">
+                                <img src="./front/images/activity/lottery/2.png" />
+                            </td>
+                            <td class="lottery-unit" data-unit="3">
+                                <img src="./front/images/activity/lottery/3.png" />
+                            </td>
+                            <td class="lottery-unit" data-unit="4">
+                                <img src="./front/images/activity/lottery/4.png" />
+                            </td>
+                        </tr>
+                        <tr class="lottery-group">
+                            <td class="lottery-unit" data-unit="12">
+                                <img src="./front/images/activity/lottery/12.png" />
+                            </td>
+                            <td colspan="2" rowspan="2">
+                                <div class="getbtnbox">
+                                <!-- 这里需要注意抽奖机会次数的获取 -->
+                                    <p>您当前剩余<span class="lottery_number">{$lottery_number}</span>次抽奖机会</p>
+                                    <p>
+                                        <a href="javascript:;" class="getchance" {if $user_info}{else}onclick="ajax_login();"{/if}>获取通道>></a>
+                                        <a href="javascript:;" class="getrecord"  {if $user_info}onclick="viewLoanItem('.Text-1');"{else}onclick="ajax_login();"{/if}>获奖记录>></a>
+                                        <div class="Clear"></div>
+                                    </p>
+                                    <a href="javascript:;"  class="getbtn" {if $user_info}{else}onclick="ajax_login();"{/if}></a>
+                                </div>
+                            </td>
+                            <td class="lottery-unit" data-unit="5">
+                                <img src="./front/images/activity/lottery/5.png" />
+                            </td>
+                        </tr>
+                        <tr class="lottery-group">
+                            <td class="lottery-unit" data-unit="11">
+                                <img src="./front/images/activity/lottery/11.png" />
+                            </td>
+                            <td class="lottery-unit" data-unit="6">
+                                <img src="./front/images/activity/lottery/6.png" />
+                            </td>
+                        </tr>
+                        <tr class="lottery-group">
+                            <td class="lottery-unit" data-unit="10">
+                                <img src="./front/images/activity/lottery/10.png" />
+                            </td>
+                            <td class="lottery-unit" data-unit="9">
+                                <img src="./front/images/activity/lottery/9.png" />
+                            </td>
+                            <td class="lottery-unit" data-unit="8">
+                                <img src="./front/images/activity/lottery/8.png" />
+                            </td>
+                            <td class="lottery-unit" data-unit="7">
+                                <img src="./front/images/activity/lottery/7.png" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="f_r">
+                    <div class="winlist">
+                        <p class="title">获奖榜单</p>
+                        <div class="cont">
+                            <div class="pbox">
+                            <!-- 这里只需要循环一个P标签即可 -->
+			    {foreach from=$log_list item=v}
+                                <p>{$v.create_date}   恭喜{function name="get_mobile" v=$v.mobile} 抽中<span>{$v.prize_name}</span></p>
+			    {/foreach}
+                            </div>
+                        </div>
+                    </div>
+<script language="javascript" type="text/javascript">
+    alert("该活动已经结束");return false;
+	// 这里是滚动榜单的设置 begin
+	function scrollnews(){
+            var news = $(".winlist .cont .pbox");
+            var str='';
+            var query=new Object();
+            query.maxLogId="{$maxLogId}";
+            $.ajax({
+                    url:'{url x="index" r="activity#get_log_info2"}',
+                    data:query,
+                    type:"POST",
+                    dataType:"json",
+                    success:function(result){
+                        var news = $(".winlist .cont .pbox");
+                            var lineheight = news.find("p:first").height();
+                            news.animate({"margin-top":+lineheight+"px"},1050,function(){
+                            if(result.status==1){
+                                $.each(result.data,function(i,item){
+                                    str+= "<p>11"+item.cteate_date+"   恭喜"+item.mobile+" 抽中<span>"+item.prize_name+"</span></p>";
+                                })
+                                news.append(str);
+                              }
+                              });
+                    }
+                });
+            news.css({"margin-top":"0px"}).find("p:first").before($(news.find("p:last")));
+//		$.ajax({
+//			url:'{url x="index" r="activity#get_log_info"}',
+//			//data:query,
+//			type:"POST",
+//			dataType:"json",
+//			success:function(result){
+//			    var news = $(".winlist .cont .pbox");
+//				var lineheight = news.find("p:first").height();
+//				news.animate({"margin-top":+lineheight+"px"},1050,function(){
+//				if(result.status==1){
+//				 news.css({"margin-top":"0px"}).find("p:first").before(result.str);
+//				  }
+//				  else{
+//				      news.css({"margin-top":"0px"}).find("p:first").before($(news.find("p:last")));
+//				  }
+//				  });
+//			}
+//		    });
+	}
+	$(function(){
+	    var scrolltime;
+	    $(".winlist .cont .pbox").hover(function(){
+		// alert(1);
+		clearInterval(scrolltime)
+	    },function(){
+		scrolltime = setInterval("scrollnews()",2000);
+	    });
+	    $(".winlist .cont .pbox").triggerHandler("mouseout");
+	})
+                    // 这里是滚动榜单的设置 end
+
+</script>
+                    <div class="share">
+                        <div class="title">
+                            <span class="f_l">一键复制分享给好友</span>
+                            <a href="javascript:;" class="f_r copylink" id="share-copy-button-0">点我复制链接</a>
+                            <div class="Clear"></div>
+                        </div>
+                        <div class="cont">
+                            《金享财行》投资分享抽大奖，马尔代夫双人游，
+                            更多奖品  www.jxch168.com  推荐你也看看。
+                        </div>
+                    </div>
+                </div>
+                <div class="Clear"></div>
+            </div>
+        </div>
+        <div class="help">
+            <img src="./front/images/activity/lottery/lottery_headbanner_help.png" height="788" width="950">
+        </div>
+        <div class="cover"></div>
+        <div class="alertrecord">
+            <div class="blank"></div>
+            <div class="main">
+                <p class="title">奖品记录</p>
+                <dl class="cont">
+                <!-- 如果该客户暂时没有抽奖记录 直接显示“暂时没有抽到礼品” -->
+
+                    <dt>
+                        <span class="name">奖品名称</span>
+                        <span class="date">时间</span>
+                        <div class="Clear"></div>
+                    </dt>
+		    <div id="myText"  class="hide Text-1">
+
+		     </div>
+                </dl>
+                <a class="closebtn"></a>
+            </div>
+        </div>
+        <div class="alertresult">
+            <div class="blank"></div>
+            <div class="main">
+                <p class="title">恭喜您获得</p>
+                <div class="cont">
+                    <img src="">
+                </div>
+                <a href="javascript:;" class="successbtn">确定</a>
+            </div>
+        </div>
+        <div class="alertshare">
+            <div class="blank"></div>
+            <div class="main">
+                <p class="title">获取抽奖机会</p>
+                <div class="cont">
+                    <p>点击下方图标进行分享获取抽奖机会</p>
+                    <div class="bdsharebuttonbox" data-tag="share_1">
+			{$show_share_code}
+                    </div>
+		    <script type="text/javascript">
+                    var qr_url = "{$SITE_DOMAIN}/index.php?ctl=activity&act=lottery&is_pc=1";
+                    function shareTo(site){
+                        var e = encodeURIComponent, s = screen, d = document, wd = 640, hg = 480, u = d.location;
+                        d.title = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+                        var uuid = '';
+                        var img ="http://www.jxch168.com/public/images/logo.png";
+                        var ctxt = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+                        var url = "http://api.bshare.cn/share/"+site+"?url="+e(""+qr_url+"")+"&title="+e(d.title)+"&publisherUuid="+uuid+"&summary="+ctxt+"&pic="+img;
+                        window.open(url, 'bshare', ['toolbar=0,status=0,resizable=1,width='+ wd +',height='+ hg +',left='+ (s.width - wd) / 2+ ',top='+ (s.height - hg) / 2]);
+                    }
+                </script>
+                </div>
+                <a href="javascript:;" class="saomiao">扫描右侧二维码分享>></a>
+                <a href="index.php?ctl=deals" class="goinvite">现在去投资>></a>
+                <a class="closebtn"></a>
+                <img src="./front/images/activity/lottery/alert_getchance_erweima.png" height="180" width="180" class="erweima">
+            </div>
+        </div>
+        <script type="text/javascript" src="./front/js/lottery.js"></script>
+        <script type="text/javascript">
+	    $(".bdsharebuttonbox").click(function(){
+		var query=new Object();
+		query.mobile="{$user_info.mobile}";
+		$.ajax({
+			url:"/index.php?ctl=activity&act=insert_user_lottery_number",
+			data:query,
+			type:"post",
+			dataType:"json",
+			success:function(result){
+			    if(result.status==0){
+				alert("每日分享获得抽奖次数为5次");
+			    }
+			    $(".lottery_number").text(result.lottery_number);
+			},
+		});
+	    });
+        function closebtn(){
+            $(this).parent(".main").fadeOut(100);
+        }
+        $(function(){
+            // 获奖记录的点击事件
+            $(".getrecord").click(function(){
+                $(".cover").fadeIn(100);
+                $(".alertrecord").fadeIn(100);
+                var winH = $(window).height();
+                var thisH = $(".alertrecord .main").outerHeight();
+                $(".alertrecord .blank").animate({"height":(winH-thisH)/2+"px"},200)
+            })
+            // 获奖记录的关闭按钮
+            $(".alertrecord .closebtn").click(function(){
+                $(".alertrecord .blank").animate({"height":"0px"},100,function(){
+                $(".alertrecord").fadeOut(1);
+                });
+                if($(".alertresult").css("display") == "block"){
+                    return false;
+                }else{
+                    $(".cover").fadeOut(200);
+                }
+
+            })
+            // 获取机会的关闭按钮
+            $(".alertshare .closebtn").click(function(){
+                $(".alertshare .blank").animate({"height":"0px"},100,function(){
+                $(".alertshare").fadeOut(1);
+                });
+                if($(".alertresult").css("display") == "block"){
+                    return false;
+                }else{
+                    $(".cover").fadeOut(200);
+                }
+
+            })
+//            $(".copylink").click(function(){
+//
+//
+//
+//                // 此处要注意恩培各自的分享链接
+//            })
+            // 抽奖成功的确定按钮
+            $(".successbtn").click(function(){
+                $(".alertresult .blank").animate({"height":"0px"},100,function(){
+                $(".alertresult").fadeOut(1);
+                });
+                $(".cover").fadeOut(200);
+//		window.location.reload();
+            })
+            $(".getchance").click(function(){
+                $(".cover").fadeIn(100);
+                $(".alertshare").fadeIn(100);
+                var winH = $(window).height();
+                var thisH = $(".alertshare .main").outerHeight();
+                $(".alertshare .blank").animate({"height":(winH-thisH)/2+"px"},200)
+            })
+            $(".saomiao").hover(
+                function(){
+                    $(".alertshare .erweima").fadeIn(100);
+                },
+                function(){
+                    $(".alertshare .erweima").fadeOut(100);
+                }
+            )
+        })
+
+        // 转盘停止后的事件
+        function alertresult(){
+            var data_image = $(".lottery .active img").attr("src");
+            $(".alertresult .main .cont img").attr({"src":data_image});
+	    var id= $(".lottery .active").attr("data-unit");
+	    if(id==2 || id==5 || id==8 || id==11){
+
+	    }
+            $(".cover").fadeIn(100);
+            $(".alertresult").fadeIn(100);
+            var winH = $(window).height();
+            var thisH = $(".alertresult .main").outerHeight();
+            $(".alertresult .blank").animate({"height":(winH-thisH)/2+"px"},200)
+        }
+	function getid(){
+
+	}
+        window.onload = function() {
+            lottery.lottery({
+                selector: '#lottery',
+                width: 4,
+                height: 4,
+                index: 0, // 初始位置
+                initSpeed: 50, // 初始转动速度
+                upStep: 10, // 加速滚动步长
+                upMax: 100, // 速度上限
+                downStep: 50, // 减速滚动步长
+                downMax: 200, // 减速上限
+                waiting: 1000, // 匀速转动时长
+
+                beforeRoll: function() { // 重写滚动前事件：beforeRoll
+                    // console.log(this);
+                    // alert(1);
+                },
+                beforeDown: function() { // 重写减速前事件：beforeDown
+//                     console.log(this);
+                },
+                aim: function() { // 重写计算中奖号的方法：aim
+			var query = new Object();
+//			query.load_id = {$load_id};
+			query.mobile="{$user_info.mobile}";
+			var tmpObj = this;
+			$.ajax({
+				url:'{url x="index" r="activity#doprize"}',
+				data:query,
+				type:"POST",
+				dataType:"json",
+				success:function(result){
+				    var num=result.num-1;
+				    $(".lottery_number").text(result.lottery_number);
+				    tmpObj.options.target =num;
+				}
+			    });
+                    // 我这里写的是一个随机数，请根据要求写
+                }
+            });
+        }
+
+	function viewLoanItem(obj){
+		if($(obj).hasClass("hide")){
+			$(obj).removeClass("hide");
+		}
+		else{
+			$(obj).removeClass("hide");
+		}
+
+//		if($.trim($(obj).html()) == "" || $.trim($(obj).html()) == ""){
+			getLoanItem(obj,1);
+//		}
+
+	}
+
+
+ 	function getLoanItem(obj,p){
+		var query=new Object();
+		query.obj = obj;
+		query.p = p;
+		query.mobile="{$user_info.mobile}";
+		$.ajax({
+			url:"/index.php?ctl=activity&act=get_user_info",
+			data:query,
+			type:"post",
+			dataType:"json",
+			success:function(result){
+				if(result.status==1){
+					$("#myText").html(result.info);
+				}
+				else{
+					alert(result.info);
+				}
+			},
+			error:function(){
+				alert("请求数据失败");
+			}
+		});
+	}
+        </script>
+    </div>
+<script type="text/javascript" src="{$TMPL}/js/utils/ZeroClipboard.js"></script>
+<script type="text/javascript">
+	var client = new ZeroClipboard( $('#share-copy-button-0') );
+	  client.on( 'load', function(client) {
+	    client.on( 'datarequested', function(client) {
+	        client.setText("{$SITE_DOMAIN}/index.php?ctl=activity&act=lottery&is_pc=1");
+	    } );
+	    client.on( 'complete', function(client, args) {
+	      alert(LANG.JS_COPY_SUCCESS);
+	    } );
+	  });
+</script>
+<style>
+    .bdsharebuttonbox img{
+	margin-left: 5px;
+    }
+</style>
+{include file="inc/footer.html"}

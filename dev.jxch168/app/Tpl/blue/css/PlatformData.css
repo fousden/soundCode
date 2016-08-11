@@ -1,0 +1,64 @@
+﻿ .clearfix { clear: both; }
+
+ .font_size_24 {
+     font-size: 24px;
+     font-weight: normal;
+ }
+
+ .font_size_18 {
+     font-size: 18px;
+     font-weight: normal;
+ }
+
+ .font_size_14 {
+     font-size: 14px;
+     line-height: 30px;
+ }
+
+ .recommend_padding_50 { padding: 50px 0; }
+
+ .margin_top_20 { margin-top: 20px; }
+
+ .margin_top_30 { margin-top: 30px; }
+
+ .margin_top_80 { margin-top: 80px; }
+
+ .margin_bottom_20 { margin-bottom: 20px; }
+
+ .text_align_center { text-align: center; }
+
+ .float_right { float: right; }
+
+ .font_red { color: red; }
+
+ .gray_bg { background: #f6f6f6; }
+
+ /*数据*/
+
+ .icon_blue_bg {
+     background: url(/app/Tpl/blue/images/icon_blue1.png) no-repeat right center;
+     padding-right: 30px;
+ }
+
+ .icon_green_bg { background: url(/app/Tpl/blue/images/icon_green2.png) no-repeat right center; }
+
+ .icon_orange_bg { background: url(/app/Tpl/blue/images/icon_orange3.png) no-repeat right center; }
+
+ .icon_red_bg { background: url(/app/Tpl/blue/images/icon_red4.png) no-repeat right center; }
+
+ .icon_yellow_bg { background: url(/app/Tpl/blue/images/icon_yellow5.png) no-repeat right center; }
+
+ .icon_gray_bg { background: url(/app/Tpl/blue/images/icon_gray6.png) no-repeat right center; }
+
+ .data_table td {
+     border: 1px solid #d7d7d7;
+     height: 40px;
+     line-height: 40px;
+     text-align: center;
+ }
+
+ .jigou_img span img {
+     height: 75px;
+     margin: 15px;
+     width: 212px;
+ }

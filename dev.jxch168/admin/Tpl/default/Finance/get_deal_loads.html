@@ -1,0 +1,52 @@
+ <tagLib name="html" />
+ <table  class="form conf_tab" cellpadding=0 cellspacing=0 rel="3">
+ <tbody>
+
+  	 <tr>
+	   <th style="background:#6E7D87">编号</th>
+	   <th style="background:#6E7D87;width:17%;">会员</th>
+	   <th style="background:#6E7D87;width:11%;">投资本金（元）</th>
+           <th style="background:#6E7D87;width:6.4%">标的利率</th>
+           <th style="background:#6E7D87;width:6.6%">利息</th>
+	   <th style="background:#6E7D87;width:6.5%">抵现券金额</th>
+	   <th style="background:#6E7D87;width:7.6%">收益券收益</th>
+	   <th style="background:#6E7D87;width:7%">活动收益</th>
+	   <th style="background:#6E7D87;width:5.6%;">预计总收益</th>
+	   <th style="background:#6E7D87;width:9%;">还款金额（元）</th>
+	   <th style="background:#6E7D87;width:6.5%;">还款状态</th>
+	   <th style="background:#6E7D87;width:6.5%;">还款日期</th>
+	   <th style="background:#6E7D87;width:10%;">还款操作</th>
+
+     </tr>
+     <foreach name="load_user" item="item">
+     <tr>
+        <td>{$item.id}</td>
+        <td>{$item.user_info.user_name}[{$item.user_info.real_name}][{$item.user_info.mobile}]</td>
+	<td>{$item.act_invest_money|number_format=2}</td>
+        <td>{$item.deal_info.rate}</td>
+        <td>{$item.pure_interests|number_format=2}</td>
+	<td>{$item.coupon_cash|number_format=2}</td>
+        <td>{$item.coupon_interests|number_format=2}</td>
+        <td>{$item.act_interests|number_format=2}</td>
+        <td>{$item.all_interest|number_format=2}</td>
+	<td>{$item.all_repay_money|number_format=2}</td>
+        <td><if condition="$item['repay_info']['has_repay'] eq 1">已还款<else/>待还款</if></td>
+	<td>{$item.deal_info.jiexi_time}</td>
+	<td><if condition="$item['repay_info']['has_repay'] neq 1"><button class="button" onclick="inputReturnPwd({$item.id},'sigle');">确认还款</button><else/>暂无</if></td>
+  </tr>
+  </foreach>
+  <tr>
+		<td colspan="13">
+			当前 {$page}/{$page_all} 页 , {$rs_count} 条记录
+			<if condition="$page gt 1">
+			<a href="javascript:void(0);" onclick="getLoanItem('{$obj}','{$deal_id}','{$l_key}',1);">第一页  </a>
+			</if>
+			<if condition="$page_prev gt 0"><a href="javascript:void(0);" onclick="getLoanItem('{$obj}','{$deal_id}','{$l_key}','{$page_prev}');">上一页 </a></if>
+			<if condition="$page_next elt $page_all"><a href="javascript:void(0);" onclick="getLoanItem('{$obj}','{$deal_id}','{$l_key}','{$page_next}');">下一页  </a></if>
+			<if condition="$page_next elt $page_all"><a href="javascript:void(0);" onclick="getLoanItem('{$obj}','{$deal_id}','{$l_key}','{$page_all}');">末一页  </a></if>
+		</td>
+	</tr>
+
+
+ </tbody>
+</table>

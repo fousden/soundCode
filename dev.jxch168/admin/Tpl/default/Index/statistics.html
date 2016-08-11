@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{:conf("APP_NAME")}{:l("ADMIN_PLATFORM")}</title>
+        <script type="text/javascript" src="__ROOT__/public/runtime/admin/lang.js"></script>
+        <script type="text/javascript">
+            var version = '{:app_conf("DB_VERSION")}';
+        </script>
+        <load href='__TMPL__Common/style/style.css' />
+        <load href='__TMPL__Common/style/main.css' />
+        <load href='__TMPL__Common/js/jquery.js' />
+        <style type="text/css">
+            table td{text-align:right;}
+        </style>
+    </head>
+
+    <body>
+        <div class="main">
+            <div class="main_title">网站统计信息</div>
+            <div class="blank5"></div>
+            <table class="form" cellpadding=0 cellspacing=0>
+                <tr>
+                    <td class="item_title ">
+                        会员统计
+                    </td>
+                    <td class="item_input">
+                        <a href="{:u("User/index")}">会员总数：{$user_count}</a>，
+
+                        <a href="{:u("User/trash")}">回收站用户：{$trash_user_count}</a>
+                        <br>
+                        投资用户数：{$payUserCnt}<br>
+                            通过实名认证：{$user_card.user_passed}<br>
+                                绑定银行卡：{$user_card.user_bank_cnt}<br>
+                                <!--				未通过实名认证：{$user_card.user_no_passed}<br>-->
+                                身份证已存在，实名认证未成功：{$user_card.user_passed_error}<br>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan=2 class="topTd"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item_title ">
+                                            资金进出统计
+                                        </td>
+                                        <td class="item_input">
+                                            <div style='width:400px;float:left;'>
+                                                &nbsp;&nbsp;当前用户可用余额：{:number_format($all_user_infos['remain_money'],2)}&nbsp;元<br>
+                                                &nbsp;&nbsp;累计用户冻结金额：{:number_format($all_user_infos['all_lock_moneys'],2)}&nbsp;元<br>
+                                                &nbsp;&nbsp;累计投标总额：{:number_format($all_bid_money,2)}&nbsp;元<br>
+                                                &nbsp;&nbsp;线上充值：{:number_format($online_pay,2)}【<a href="{:u("PaymentNotice/index",array('no_payment_id'=>$below_pay_id,'is_paid'=>1))}">查看详情</a>】<br>
+                                                &nbsp;&nbsp;成功提现：{:number_format($carry_amount,2)}&nbsp;元<br>
+                                            </div>
+                                            <div style='float:left;position:relative;left:100px;'>
+                                                <table border=1 cellspacing=0 cellpadding=0>
+                                                    <tr><td colspan="4" style="text-align:center" >标的冻结资金统计数据</td></tr>
+                                                    <tr><th>标的ID</th><th>标的名称</th><th>标的状态</th><th>冻结总额</th></tr>
+                                                    <foreach name="deal_lock_data" item="lock_data">
+                                                        <tr><td>{$lock_data.deal_id}</td><td style="text-align:center">{$lock_data.name}</td><td style="text-align:center">{$lock_data.deal_status_desc}</td><td>{$lock_data.all_lock_money|number_format=2}</td></tr>
+                                                    </foreach>
+                                                    <tr><td colspan="3" style="text-align:center" >冻结金额总计：</td><td>{$lock_money_all|number_format=2}</td></tr>
+                                                </table>
+                                            </div>
+                                            <div style='float:left;position:relative;left:200px;'>
+                                                <table border=1 cellspacing=0 cellpadding=0>
+                                                    <tr><td colspan="3" style="text-align:center">标的类型数据</td></tr>
+                                                    <tr><th>标的类型</th><th>总额</th><th>人次</th></tr>
+                                                    <foreach name="deal_type_info" item="deal_type">
+                                                        <tr><td>{$deal_type.type_name}</td><td>{$deal_type.all_money|number_format=2}&nbsp;</td><td>{$deal_type.num}</td></tr>
+                                                    </foreach>
+                                                </table>
+                                            </div>
+                                                                    </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan=2 class="topTd"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="item_title ">
+                                                                            还款统计
+                                                                        </td>
+                                                                        <td class="item_input">
+                                                                            <div style='float:left;position:relative;left:10px;'>
+                                                                                <table id ="repay_tb" border=1 cellspacing=0 cellpadding=0>
+                                                                                    <tr><th colspan="8">还款统计数据</th></tr>
+                                                                                    <tr><th>项目名称</th><th>本金</th><th>抵现券</th><th>利息</th><th>收益券收益</th><th>活动收益</th><th>总利息</th><th>本息总额</th></tr>
+                                                                                    <tr>
+                                                                                        <th>已还统计信息</th>
+                                                                                        <td>{$has_repay_info.h_self_money|number_format=2}&nbsp;</td>
+                                                                                        <td>{$has_repay_info.h_coupon_cash|number_format=2}&nbsp;</td>
+                                                                                        <td>{$has_repay_info.h_pure_interests|number_format=2}&nbsp;</td>
+                                                                                        <td>{$has_repay_info.h_coupon_interests|number_format=2}&nbsp;</td>
+                                                                                        <td>{$has_repay_info.h_act_interests|number_format=2}&nbsp;</td>
+                                                                                        <td>{$has_repay_info.h_all_interests|number_format=2}&nbsp;</td>
+                                                                                        <td>{$has_repay_info.h_repay_money|number_format=2}&nbsp;</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th>待还统计信息</th>
+                                                                                        <td>{$need_repay_info.h_self_money|number_format=2}&nbsp;</td>
+                                                                                        <td>{$need_repay_info.h_coupon_cash|number_format=2}&nbsp;</td>
+                                                                                        <td>{$need_repay_info.h_pure_interests|number_format=2}&nbsp;</td>
+                                                                                        <td>{$need_repay_info.h_coupon_interests|number_format=2}&nbsp;</td>
+                                                                                        <td>{$need_repay_info.h_act_interests|number_format=2}&nbsp;</td>
+                                                                                        <td>{$need_repay_info.h_all_interests|number_format=2}&nbsp;</td>
+                                                                                        <td>{$need_repay_info.h_repay_money|number_format=2}&nbsp;</td>
+                                                                                    </tr>
+
+                                                                                </table>
+                                                                            </div>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="item_title" style="width:200px;">
+                                                                            红包
+                                                                        </td>
+                                                                        <td class="item_input">
+                                                                            <div style="float:left;position:relative;left:10px;">
+                                                                                概览：<Br>
+                                                                                    <table cellspacing="0" cellpadding="0" border="1">
+                                                                                        <foreach name="bonusList" item="row">
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    {$row.status|getBonusStatusName}
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    {$row.allmoney|number_format=2}
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </foreach>
+                                                                                    </table>
+                                                                                    分组查看：<Br>
+                                                                                        <table cellspacing="0" cellpadding="0" border="1">
+                                                                                            <foreach name="bonusTypeList" item="row1">
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        {$row1.bonus_type|getBonusTypeName}
+
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {$row1.status|getBonusStatusName}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {$row1.allmoney|number_format=2}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </foreach>
+
+                                                                                        </table>
+                                                                                        </div>
+                                                                                        </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td colspan=2 class="topTd"></td>
+                                                                                        </tr>
+
+                                                                                        <tr>
+                                                                                            <td class="item_title" style="width:200px;">
+                                                                                                预警信息
+                                                                                            </td>
+                                                                                            <td class="item_input">
+                                                                                                短信{$result.description}：<span style='color:#C40000'>泉龙达：{$result.number}条。一信通：{$yy_arr.number}条</span>。　过期标的：<span style='color:#C40000'>{$deals_abate_num}</span>&nbsp;。
+                                                                                            </td>
+                                                                                        </tr>
+
+                                                                                        </table>
+                                                                                        </div>
+                                                                                        </body>
+                                                                                        </html>

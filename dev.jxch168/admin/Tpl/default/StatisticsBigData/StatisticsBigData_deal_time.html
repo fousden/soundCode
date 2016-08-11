@@ -1,0 +1,113 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="/front/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/exporting.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/chart.js"></script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+
+<script>
+    var xAxis_pot = <?php echo $xAxis_pot;?>;
+    var yAxis_title = <?php echo $yAxis_title;?>;
+    var data_name_1 = <?php echo $data_name_1;?>;
+    var data_name_2 = <?php echo $data_name_2;?>;
+    var data_array_1 = <?php echo $data_array_1;?>;
+    var data_array_2 = <?php echo $data_array_2;?>;
+    var unit_1 = <?php echo $unit_1?>;
+    var unit_2 = <?php echo $unit_2?>;
+//    var series_name = <?php echo $series_name;?>;
+//    var pie_data_array = <?php echo $pie_data_array;?>;
+
+    $(function(){
+        var abc1 = $('#line_chart_1').highcharts(brokenline_plot(xAxis_pot,yAxis_title,data_name_1,data_array_1,unit_1,'资金统计'));
+    })
+    
+     $(function(){
+        var abc2 = $('#line_chart_2').highcharts(brokenline_plot(xAxis_pot,yAxis_title,data_name_2,data_array_2,unit_2,'人数统计'));
+    })
+
+//    $(function(){
+//    var abc = $('#chart').highcharts(column_plot(xAxis_pot,yAxis_title,data_name,data_array));
+//    })
+//
+//    $(function(){
+//    var abc = $('#chart').highcharts(stackcolumn_plot(xAxis_pot,yAxis_title,data_name,data_array));
+//    })
+//
+//    $(function(){
+//        var abc = $('#pie_chart').highcharts(pie_plot(series_name,data_name,pie_data_array,'客户端'));
+//    })
+</script>
+<php>
+        function n_format($value){
+            return number_format(num_format($value),2);
+        }
+        
+</php>
+<script type="text/javascript">	
+	function export_csv_recharge_total()
+	{
+		var query = $("#search_form").serialize();
+		query = query.replace("&m=WebsiteStatistics","");
+		query = query.replace("&a=website_recharge_total","");
+		var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_csv_recharge_total"+"&"+query;
+		location.href = url;
+	}
+	
+</script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">资金统计</div>
+<div class="blank5"></div>
+
+	<form name="search" id = "search_form"  action="__APP__" method="get">	
+		<input type="hidden" value='{$q_date_diff}' name="q_date_diff" id="q_date_diff"  />
+		<input type="hidden" value='{$start_time}' name="start_time" id="q_start_time_1"  />
+		<input type="hidden" value='{$end_time}' name="end_time" id="q_end_time_1"  />
+<!--                <label id="start_time_item_title">开始日期:</label><input class = "require textbox" type="text" name="start_time" id="q_start_time_1" value="{$start_time}" style=""  onfocus="return showCalendar('q_start_time', '%Y-%m-%d %H', false, false, 'q_start_time');" />
+		<label id="end_time_item_title">结束日期:</label><input class = "require textbox" type="text" name="end_time" id="q_end_time_1" value="{$end_time}" style=""  onfocus="return showCalendar('q_end_time', '%Y-%m-%d %H', false, false, 'q_end_time');" />
+		<label id="start_time_item_title">开始时间:</label> -->
+		<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+		<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />
+<!--		<input type="submit" class="button" value="{%SEARCH}" />-->
+<!--		<input type="button" class="button" value="{%EXPORT}" onclick="export_csv_recharge_total();" />-->
+		<input type="button" id = "submit_time_12" class="button_none" value="近12个小时" />
+		<input type="button" id = "submit_time_24" class="button_none" value="近24个小时" />
+		<input type="button" id = "submit_time_2" class="button_none" value="近2天" />
+		<input type="button" id = "submit_time_3" class="button_none" value="近3天" />		
+		<input type="button" id = "submit_time_4" class="button_none" value="近4天" />		
+		<input type="button" id = "submit_time_5" class="button_none" value="近5天" />		
+		<input type="button" id = "submit_time_6" class="button_none" value="近6天" />		
+		<input type="button" id = "submit_time_7" class="button_none" value="近7天" />		
+	</form>
+	
+<if condition="$type eq 'line'">
+<div id="line_chart_1" style="min-width:700px;height:400px"></div>
+</if>
+
+<!--<if condition="$type eq 'pie'">
+<div id="pie_chart" style="min-width:700px;height:400px"></div>	
+</if>-->
+<div style="clear:both"></div>
+<br>
+<br>
+<if condition="$type eq 'line'">
+<div id="line_chart_2" style="min-width:700px;height:400px"></div>
+</if>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	datasource="client_list" 
+	show="create_time:时间
+		,0|n_format:金额(元)
+		,1|number_format:人数
+		"/>
+<style>
+    td{
+        text-align:center;
+    }
+</style>
+<include file="Public:footer" />

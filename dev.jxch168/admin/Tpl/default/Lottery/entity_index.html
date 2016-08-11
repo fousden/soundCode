@@ -1,0 +1,67 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="/front/third_party/highcharts/chart.js"></script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title" >奖品列表</div><br>
+<form name="search" id = "search_form"  action="__APP__" method="get">
+手机号：<input type="text" name="mobile" value="{:trim($_REQUEST['mobile'])}">
+获得时间：<input type="text" class="textbox" name="start_time" id="start_time" value="{:trim($_REQUEST['start_time'])}" onfocus="return showCalendar('start_time', '%Y-%m-%d %H:%M:%S', false, false, 'start_time');" style="width:130px" />-
+<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" /><br />
+<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />
+<input type="submit" class="button" name="submit" value="{%SEARCH}" />
+</form>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+<html:list
+        id="dataTable"
+        style="dataTable"
+        name="deal"
+        datasource="list"
+        show="id:编号
+	,prize_name:奖品名称
+	,create_time|to_date:获得时间
+	,mobile|get_user_name_by_mobile:用户名
+	,mobile:手机号码
+	,prize_type|get_prize_type:奖品的类型
+	,obj_id|get_obj_name:是否发放
+                  ,prize_desc:备注
+	"
+	/>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+<php>
+    function get_user_name_by_mobile($mobile){
+	$user_id=$GLOBALS['db']->getOne("select id from ".DB_PREFIX."user where mobile=$mobile");
+	//return "select id from ".DB_PREFIX."user where mobile=$mobile";
+	return get_user_name_real($user_id);
+    }
+    function get_obj_name($obj_id){
+	if($obj_id==0){
+	    return '未发放';
+	}else{
+	    return '已发放';
+	}
+    }
+    function get_prize_type($prize_type){
+	if($prize_type==1){
+	    return '收益券';
+	}else if($prize_type==2){
+	    return '抵现券';
+	}else if($prize_type==3){
+	    return '红包类型';
+	}else if($prize_type==4){
+	    return '实物';
+	}
+    }
+</php>
+</div>
+<style>
+    td{
+	text-align:center;
+    }
+</style>

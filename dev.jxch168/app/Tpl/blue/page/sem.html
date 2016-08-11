@@ -1,0 +1,319 @@
+{include file="inc/header.html"}
+<div id="entry">
+<div class="banner">
+    <div class="container">
+        <img src="/front/images/entry_banner_left.png" class="f_l">
+        <div class="register f_r">
+            <p class="header">快速注册</p>
+            <form action="/index.php?ctl=user&act=doregister" method="post" autocomplete="off">
+                <ul>
+                    <li class="phone">
+                        <div class="title">手机号码</div>
+                        <div class="cont">
+                            <input type="text" placeholder="请输入您的手机号码" name="mobile">
+                            <span class="atips" data-error="手机号码格式错误" data-empty="手机号码不能为空" data-check="已经存在" data-success="可以使用">手机号码可用于提示重要信息</span>
+                        </div>
+                        <div class="Clear"></div>
+                    </li>
+                    <li class="code">
+                        <div class="title">手机验证码</div>
+                        <div class="cont">
+                            <input type="text" placeholder="请输入验证码" name="sms_code">
+                            <span class="atips" data-empty="验证码不能为空" data-success="格式正确">请输入收到的手机验证码</span>
+                            <a href="javascript:;" class="getcodebtn" func="codeclick()">获取验证码</a>
+                            <div style="z-index: 9999; height: 35px; width: 90px; background-color: transparent; position: absolute; top: 0; right: 0;" class="DisplayNone codebtnshadow"></div>
+                        </div>
+                        <div class="Clear"></div>
+                    </li>
+                    <li class="name">
+                        <div class="title">用户名</div>
+                        <div class="cont">
+                            <input type="text" class="username" placeholder="请输入您的用户名" name="user_name">
+                            <span class="atips" data-error="用户名格式错误" data-empty="用户名不能为空" data-check="已经存在" data-success="可以使用">3-15个字符，一个汉字为一个字符</span>
+                        </div>
+                        <div class="Clear"></div>
+                    </li>
+                    <li class="password">
+                        <div class="title">密码</div>
+                        <div class="cont">
+                            <input type="password" class="password" placeholder="请输入您的密码" autocomplete="off" name="user_pwd">
+                            <span class="atips" data-error="长度在6~16之间" data-check="安全等级低，请用数字+字母" data-empty="密码不能为空" data-success="格式正确">6-16位字符</span>
+                            <input type="hidden" class="passwordConfirm" name="user_pwd_confirm" class="DisplayNone password-confirm">
+                        </div>
+                        <div class="Clear"></div>
+                    </li>
+                    <li class="xieyi">
+                        <input type="checkbox" checked="checked">
+                        <span>同意<a href="http://www.jxch168.com/index.php?ctl=sys&id=132" target="_blank">注册协议</a></span>
+                        <input name="opt" type="hidden" value="jump"/>
+                    </li>
+                </ul>
+                <a href="javascript:;" class="regbtn">快速注册</a>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="product">
+    <div class="container">
+        <div class="header">四类产品任意投</div>
+        <div class="cont">
+            <a href="javascript:alertregister();">
+                <img src="/front/images/entry_pro01.jpg">
+            </a>
+            <a href="javascript:alertregister();">
+                <img src="/front/images/entry_pro02.jpg">
+            </a>
+            <a href="javascript:alertregister();">
+                <img src="/front/images/entry_pro03.jpg">
+            </a>
+            <a href="javascript:alertregister();">
+                <img src="/front/images/entry_pro04.jpg">
+            </a>
+            <div class="Clear"></div>
+        </div>
+    </div>
+</div>
+<div class="iswhat">
+    <div class="container">
+        <div class="header">金享财行的定义</div>
+        <div class="f_l">
+            <p class="cont">
+                金享财行是创新型互联网金融信息服务平台。秉承100%保本保息的 理念，金享财行平台只与银行、担保公司、大型央企国企进行合作， 严格控制风险，确保投资金享财行的用户都能100%拿回投资本金和 预期收益。
+            </p>
+        </div>
+        <div class="f_r">
+            <div class="f_l">
+                <div class="title">累计交易额</div>
+                <div class="cont">
+                    <span>{$all[0]}.{$all[1]}</span> 亿
+                </div>
+            </div>
+            <div class="f_r">
+                <div class="title">用户赚取收益</div>
+                <div class="cont">
+                    <span>{$all_interest[0]}.{$all_interest[1]}</span> 千万
+                </div>
+            </div>
+            <div class="Clear"></div>
+        </div>
+        <div class="Clear"></div>
+    </div>
+</div>
+<div class="reason">
+    <div class="container">
+        <div class="header">选择金享财行的理由</div>
+        <div class="cont">
+            <img src="/front/images/entry_reason_img.png">
+        </div>
+    </div>
+</div>
+<div class="example">
+    <div class="container">
+        <div class="header">投资示例</div>
+        <div class="cont">
+            <img src="/front/images/entry_example_img.png">
+        </div>
+        <a href="javascript:alertregister();" class="gotoinvestbtn">我也要赚钱</a>
+    </div>
+</div>
+<div class="active">
+    <div class="container">
+        <div class="header">精彩活动不停歇</div>
+        <div class="cont">
+            <img src="/front/images/entry_active_img.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="end">
+    <div class="container">
+        <div class="header">截至目前已为用户赚取收益(元)</div>
+        <div class="cont">
+            <div class="num num1" data-num="{$num_array[11]}">
+                <span>0</span>
+            </div>
+            <div class="num num2" data-num="{$num_array[10]}">
+                <span>0</span>
+            </div>
+            <div class="num num3" data-num="{$num_array[9]}">
+                <span>0</span>
+            </div>
+            <div class="num num4" data-num="{$num_array[8]}">
+                <span>0</span>
+            </div>
+            <div class="unit">亿</div>
+            <div class="num num5" data-num="{$num_array[7]}">
+                <span>0</span>
+            </div>
+            <div class="num num6" data-num="{$num_array[6]}">
+                <span>0</span>
+            </div>
+            <div class="num num7" data-num="{$num_array[5]}">
+                <span>0</span>
+            </div>
+            <div class="num num8" data-num="{$num_array[4]}">
+                <span>0</span>
+            </div>
+            <div class="unit">万</div>
+            <div class="num num9" data-num="{$num_array[3]}">
+                <span>0</span>
+            </div>
+            <div class="num num10" data-num="{$num_array[2]}">
+                <span>0</span>
+            </div>
+            <div class="num num11" data-num="{$num_array[1]}">
+                <span>0</span>
+            </div>
+            <div class="num num12" data-num="{$num_array[0]}">
+                <span>0</span>
+            </div>
+            <div class="Clear" style="clear: both;"></div>
+        </div>
+        <a href="javascript:alertregister();" class="gotoinvestbtn">立即赚钱</a>
+    </div>
+</div>
+<div id="cover"></div>
+<div id="alertregister">
+    <div class="blank" style="height: 0px;"></div>
+    <div class="container">
+        <div class="register f_r">
+            <p class="header">快速注册</p>
+            <form action="/index.php?ctl=user&act=doregister" method="post" autocomplete="off">
+	            <ul>
+	                <li class="phone">
+	                    <div class="title">手机号码</div>
+	                    <div class="cont">
+	                        <input type="text" placeholder="请输入您的手机号码" name="mobile">
+	                        <span class="atips" data-error="手机号码格式错误" data-empty="手机号码不能为空" data-check="已经存在" data-success="可以使用">手机号码可用于提示重要信息</span>
+	                    </div>
+	                    <div class="Clear"></div>
+	                </li>
+	                <li class="code">
+	                    <div class="title">手机验证码</div>
+	                    <div class="cont">
+	                        <input type="text" placeholder="请输入验证码" name="sms_code">
+	                        <span class="atips" data-empty="验证码不能为空" data-success="格式正确">请输入收到的手机验证码</span>
+	                        <a href="javascript:;" class="getcodebtn" func="code_click()">获取验证码</a>
+	                        <div style="z-index: 9999; height: 35px; width: 90px; background-color: transparent; position: absolute; top: 0; right: 0;" class="DisplayNone codebtnshadow"></div>
+	                    </div>
+	                    <div class="Clear"></div>
+	                </li>
+	                <li class="name">
+	                    <div class="title">用户名</div>
+	                    <div class="cont">
+	                        <input type="text" class="username" placeholder="请输入您的用户名" name="user_name">
+	                        <span class="atips" data-error="用户名格式错误" data-empty="用户名不能为空" data-check="已经存在" data-success="可以使用">3-15个字符，一个汉字为两个字符</span>
+	                    </div>
+	                    <div class="Clear"></div>
+	                </li>
+	                <li class="password">
+	                    <div class="title">密码</div>
+	                    <div class="cont">
+	                        <input type="password" class="password" placeholder="请输入您的密码" autocomplete="off" name="user_pwd">
+	                        <span class="atips" data-error="长度在6~16之间" data-check="安全等级低，请用数字+字母" data-empty="密码不能为空" data-success="格式正确">6-16位字符</span>
+	                        <input type="hidden" class="passwordConfirm" name="user_pwd_confirm" class="DisplayNone password-confirm">
+	                    </div>
+	                    <div class="Clear"></div>
+	                </li>
+	                <li class="xieyi">
+	                    <input type="checkbox" checked="checked">
+	                    <span>同意<a href="http://www.jxch168.com/index.php?ctl=sys&id=132" target="_blank">注册协议</a></span>
+	                    <input name="opt" type="hidden" value="jump"/>
+	                </li>
+	            </ul>
+	            <a href="javascript:;" class="regbtn">快速注册</a>
+            </form>
+        </div>
+        <a href="javascript:closealert();" class="closealert"></a>
+    </div>
+</div>
+<script type="text/javascript">
+    //注册事件
+    $(".regbtn").click(function() {
+        var phonetip = $(this).prev("ul").find(".phone .atips").html();
+        var codetip = $(this).prev("ul").find(".code .atips").html();
+        var nametip = $(this).prev("ul").find(".name .atips").html();
+        var passwordtip = $(this).prev("ul").find(".password .atips").html();
+        var xieyinum = $(this).prev("ul").find(".xieyi input");
+        if (phonetip.indexOf("可以") >= 0 && codetip.indexOf("正确") >= 0 && nametip.indexOf("可以") >= 0 && passwordtip.indexOf("正确") >= 0 && xieyinum.is(":checked")) {
+          $(this).parent().submit();
+        } else {
+            return false;
+        }
+    });
+
+// 弹出注册框事件
+    function alertregister() {
+//      $('body,html').animate({ scrollTop: 0 }, 500);
+          $("#cover").show(1).animate({
+              "opacity": "0.7"
+          }, 300);
+          $("#alertregister").show(1).animate({
+              "opacity": "1"
+          }, 200);
+          $("#alertregister .blank").animate({
+              "height": "180px"
+          }, 200);
+           $("#alertregister .phone input").focus();
+    }
+
+// 关闭遮罩层天注册框事件
+    function closealert() {
+        // alert();
+        $("#cover").animate({
+            "opacity": "0"
+        }, 300).hide(1);
+        $("#alertregister").animate({
+            "opacity": "0"
+        }, 300).hide(1);
+        $("#alertregister .blank").animate({
+            "height": "0px"
+        }, 100);
+        $("#alertregister .phone input").focus();
+    }
+
+// 遍历数字方法
+    function setnum() {
+        $(".num").each(function() {
+            var g = parseInt($(this).attr("data-num"));
+            var t = parseInt($(this).find("span").html());
+            if (t < g) {
+                i = t + 1;
+                $(this).find("span").html(i);
+                // alert(i);
+            }
+        });
+        setTimeout(setnum, 200);
+    }
+
+    $(function() {
+        // 用户在收益的地方刷新页面 begin
+        var winh = $(window).height();
+        var endh = $(".end").outerHeight();
+        var scrollh = $(document).scrollTop();
+        var endoffset = $(".end").offset().top;
+        // document.title = winh+","+endh+","+scrollh+","+endoffset;
+        if (scrollh > endoffset + (endh / 3 * 2) - winh) {
+            // alert(1);
+            setnum();
+            // setInterval(setnum, 100);
+        }
+        // 用户在收益的地方刷新页面 end
+        // 滚动条拖动到指定位置的时候进行动画 begin
+        $(window).scroll(function() {
+            var winh = $(window).height();
+            var endh = $(".end").outerHeight();
+            var scrollh = $(document).scrollTop();
+            var endoffset = $(".end").offset().top;
+            // document.title = winh+","+endh+","+scrollh+","+endoffset;
+
+            if (scrollh > endoffset + (endh / 3 * 2) - winh) {
+                // alert(1);
+                // setInterval(setnum, 100);
+                setnum();
+            }
+        });
+        // 滚动条拖动到指定位置的时候进行动画 end
+    });
+</script>
+</div>
+{include file="inc/footer.html"}

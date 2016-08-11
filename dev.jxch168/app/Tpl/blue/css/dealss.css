@@ -1,0 +1,277 @@
+#HotInvest .more {
+            background-color: #f8f8f8;
+            display: block;
+            font-size: 14px;
+            font-weight: normal;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+        }
+
+        .bigest {
+            background-color: white;
+            width: 890px;
+            height: 152px;
+            position: relative;
+            margin-top: 35px;
+            border: 1px solid #e3e3e3;
+            border-left: none;
+            clear: both;
+        }
+
+        .leftest {
+            height: 152px;
+            width: 132px;
+            background: #E25353;
+            position: relative;
+            float: left;
+        }
+
+        .leftest2 {
+            background-color: #DBDBDB;
+            width: 3px;
+            height: 100%;
+            float: left;
+        }
+
+        .leftest .topsest {
+            width: 100%;
+            position: absolute;
+            top: -8px;
+            left: 0;
+            height: 8px;
+            background-color: #E25353;
+        }
+
+        .leftest .topsest .sanjiao {
+            width: 0;
+            height: 8px;
+            border-bottom: 8px solid #AC3333;
+            border-right: 8px solid transparent;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+        }
+
+        .blueest .leftest, .blueest .topsest {
+            background: #417CA9;
+        }
+
+        .blueest .topsest .sanjiao {
+            border-bottom: 8px solid #2A597D;
+        }
+
+        .yelloest .leftest, .yelloest .topsest {
+            background: #AA95D5;
+        }
+
+        .yelloest .topsest .sanjiao {
+            border-bottom: 8px solid #8567C5;
+        }
+
+        .redest .leftest, .redest .topsest {
+            background: #2E58AE;
+        }
+
+        .redest .topsest .sanjiao {
+            border-bottom: 8px solid #1C3995;
+        }
+
+        .orange .leftest, .orange .topsest {
+            background: #FCA352;
+        }
+
+        .orange .topsest .sanjiao {
+            border-bottom: 8px solid #D29864;
+        }
+
+        .clearest {
+            clear: both;
+        }
+
+        .rightest {
+            width: 755px;
+            float: left;
+        }
+
+        .aest {
+            text-decoration: none;
+        }
+
+        .jixiang {
+            float: left;
+        }
+
+        .jxdaest {
+            font-size: 20px;
+            color: #55555A;
+            margin-left: 30px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .jxbxest {
+            color: gray;
+        }
+
+        .shenyu {
+            float: right;
+            margin-top: -20px;
+            font-size: 16px;
+            color: gray;
+            margin-right: 10px;
+        }
+
+        .biaodi {
+            float: left;
+        }
+
+        .bdfont {
+            font-size: 16px;
+            color: gray;
+            margin-left: 30px;
+        }
+
+        .bdnh {
+            font-size: 24px;
+            color: #E25353;
+        }
+
+        .bdtz {
+            font-size: 20px;
+            color: #55555A;
+        }
+
+        .bdgr {
+            color: #55555A;
+        }
+
+        .headest {
+            height: 10px;
+        }
+
+        .jdtest {
+            float: right;
+        }
+
+        .jdtm {
+            background-color: rgb(228, 228, 228);
+            height: 6px;
+            position: relative;
+            float: left;
+            margin-right: 30px;
+            width: 130px;
+            margin-top: 9px;
+        }
+
+        .prest {
+            position: relative !important;
+            display: inline-block;
+            height: 6px;
+            float: left;
+            background: #55a2da;
+            border-radius: 3px;
+        }
+
+        .blueses {
+            color: #39A1EA;
+            position: absolute;
+            margin-left: 50px;
+            margin-top: 20px;
+        }
+
+        .btnblue {
+            padding-left: 28px;
+            padding-top: 3px;
+            width: 110px;
+            height: 25px;
+            cursor: pointer;
+            background-color: #39A1EA;
+            color: #fff !important;
+            position: absolute;
+            margin-top: 50px;
+            margin-left: -4px;
+        }
+        .btnblue2 {
+            padding-left: 28px;
+            padding-top: 3px;
+            width: 110px;
+            height: 25px;
+            cursor: pointer;
+            background-color: #39A1EA;
+            color: #fff !important;
+            position: absolute;
+            margin-top: 10px;
+            margin-left: -160px;
+
+        }
+        .btnblue > span{
+            position:relative;
+            left:20px;
+            top:-2px;
+        }
+
+        .btgreen{
+            background-color: #4cc2a5;
+        }
+
+        .jxphs {
+            color: white;
+            font-size: 20px;
+            margin-left: 30px;
+            margin-top: 20px;
+        }
+
+        ul.jxphdb {
+            color: white;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        ul.jxphdb > li {
+            list-style: disc inside !important;
+            padding-left: 23%;
+        }
+
+        .morest {
+            color: white;
+            margin-left: 45px;
+        }
+
+        .knowyou {
+            padding-left: 28px;
+            padding-top: 3px;
+            width: 110px;
+            height: 25px;
+            cursor: pointer;
+            color: #BEB2AD;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            position: absolute;
+            margin-top: 10px;
+            margin-left: 18px;
+            border: 1px solid #BEB2AD;
+            letter-spacing: 4px;
+        }
+
+        .tznum {
+            margin-top: 60px;
+            font-size: 14px;
+            color: gray;
+            margin-right: 10px;
+        }
+
+        .jdtstrong {
+            color: red;
+        }
+
+        .iconest {
+            background: url('touman_merge.png') no-repeat;
+            display: block;
+            position: absolute;
+            right: 15px;
+            top: 20px;
+            width: 77px;
+            height: 77px;
+        }

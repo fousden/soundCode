@@ -1,0 +1,162 @@
+
+<div style="width:530px; overflow:hidden;" >
+    <div class="user-lr-box">
+        <!--登录表单-->
+        <div method="post" style="width:400
+px;height:240px;" action="{url x="index" r="user#dologin"}" name="ajax_login_form" id="ajax_login_form">
+             <div style="width: 287px; margin: 5px auto;" class="field username">
+                <!--<label for="login-email-address">Email/昵称/手机</label>-->
+                <div class="f_l pr">
+                    <div class="u_icon"><i class="iconfont"></i></div>
+                    <input type="text" value="" class="f-input ui-textbox" id="login-email-address" name="email" placeholder="请输入邮箱/昵称/手机" size="30" tabindex="1" init="init">
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            <div style="width: 287px; margin: 5px auto;" class="field password">
+                <!--<label for="login-password">密码</label>-->
+                <div class="f_l pr">
+                    <div class="u_icon"><i class="iconfont"></i></div>
+                    <input type="password" value="" autocomplete="off" placeholder="请输入密码" class="f-input ui-textbox" id="login-password" name="user_pwd" size="30" tabindex="2" init="init">
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            {if app_conf("VERIFY_IMAGE") eq 1}
+            <div class="field verify">
+                <label>&nbsp;</label>
+                <div class="verify_row">
+                    <input type="text" value="" class="f-input ui-textbox f_l" name="verify" id="Jverify"  />
+                    <img class="ml10 f_l" maxlength="4" style="margin-top:0" src="{$APP_ROOT}/verify.php?w=89&h=44&rand={function name="rand"}" onclick="this.src='{$APP_ROOT}/verify.php?w=89&h=44&rand='+ Math.random();" id="Jverify_img" title="看不清楚？换一张" />
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            {/if}
+            <div style="width: 287px; margin: 0px auto;" class="field autologin clearfix">
+                <div class="f_l">
+                    <input type="checkbox" id="autologin" name="auto_login" value="1" tabindex="3"> <span>记住用户名</span>
+                </div>
+                <div class="lostpassword f_r">
+                    <a href="{url x="index" r="user#getpassword"}" class="f14 lh26 f_blue">{$LANG.FORGET_PASSWORD}</a>
+                </div>
+                <div class="blank"></div>
+            </div>
+            <div class="clear"></div>
+            <div style="width: 287px; margin: 0px auto;" class="act">
+                <input type="hidden" name="ajax" value="1">
+                <button type="submit" style="width:280px;height:35px;line-height:35px;" class="btn_orange w160 f_white f18 b p10 bdr3 login-submit-btn" id="ajax-login-submit" name="commit" value=""><span style="position:relative;left:-3px;top:-10px;">立即登录</span></button>
+                <br><span style="position:relative;left:80px;top:12px;" class="to_regsiter">没有账号？<a href="{url x="index" r="user#register"}"><span style="color:#009AFF">免费注册</span></span></a>
+            </div>
+            <div class="act" style="padding-left:150px">
+                <div class="blank"></div>
+            </div>
+        </div>
+        <!--登录表单-->
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#ajax-login-submit").click(function(){
+    ajaxCheckLogin()
+    });
+            $("#ajax_login_form input,#ajax_login_form select").keydown(function(e){
+    var curKey = e.which;
+            if (curKey == 13){
+    ajaxCheckLogin();
+    }
+    });
+    });
+            function ajaxCheckLogin(){
+
+            if ($.trim($("#login-email-address").val()).length == 0)
+            {
+            $.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_EMAIL}{$LANG.OR}{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_NAME}");
+                    $("#login-email-address").focus();
+                    return false;
+            }
+
+            if (!$.minLength($("#login-password").val(), 4, false))
+            {
+            $.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_PWD}");
+                    $("#login-password").focus();
+                    return false;
+            }
+
+            var ajaxurl = $("div[name='ajax_login_form']").attr("action");
+                    var query = new Object();
+                    query.email = $("div[name='ajax_login_form'] #login-email-address").val();
+                    query.user_pwd = FW_Password($("div[name='ajax_login_form'] #login-password").val());
+                    if ($("#Jverify").length > 0)
+                    query.verify = $("#Jverify").val();
+                    query.auto_login = $("div[name='ajax_login_form'] #autologin").val();
+                    query.ajax = 1;
+                    $.ajax({
+                    url: ajaxurl,
+                            dataType: "json",
+                            data:query,
+                            type: "POST",
+                            success: function(ajaxobj){
+                            if (ajaxobj.status == 0)
+                            {
+                            if ($("#Jverify_img").length > 0)
+                                    $("#Jverify_img").attr("src", '{$APP_ROOT}/verify.php?w=89&h=44&rand=' + Math.random());
+                                    $.showErr(ajaxobj.info);
+                            }
+                            else
+                            {
+                            var integrate = $("<span id='integrate'>" + ajaxobj.data + "</span>");
+                                    $("body").append(integrate);
+                                    close_pop();
+                                    update_user_tip();
+                                    $("#integrate").remove();
+                                    if (ajaxobj.status == 1){
+                            $.showSuccess(ajaxobj.info, function(){
+                            //window.location.reload();
+                                window.location.href = getHttpsUrl (window.location.href);
+                            });
+                            }
+                            else{
+                                $.showCfm(ajaxobj.info, 
+                                    function(){
+                                        location.href = ajaxobj.jump1;
+                                    }, 
+                                    function(){
+                                        //window.location.reload();
+                                        window.location.href = getHttpsUrl (window.location.href);
+                                        });
+                                    }
+                                }
+                            },
+                            error:function(ajaxobj)
+                            {
+//						if(ajaxobj.responseText!='')
+//						alert(ajaxobj.responseText);
+                            }
+                    });
+                    return false;
+            }
+
+    function update_user_tip()
+    {
+    var ajaxurl = APP_ROOT + "/index.php?ctl=ajax&act=update_user_tip";
+            $.ajax({
+            url: ajaxurl,
+                    type: "POST",
+                    success: function(ajaxobj){
+                    $("#user_head_tip").html(ajaxobj);
+                    },
+                    error:function(ajaxobj)
+                    {
+//				if(ajaxobj.responseText!='')
+//				alert(ajaxobj.responseText);
+                    }
+            });
+    }
+
+    function getHttpsUrl (url)
+    {
+    newstr = url.replace("http://", "https://");
+            return newstr;
+    }
+</script>

@@ -1,0 +1,74 @@
+{include file="inc/header.html"}
+<div class="wrap">
+<div class="blank"></div>
+<div class="tree-box clearfix f_l">
+    {foreach from=$deal_help key=key item=cate}
+    {if $cate.id eq 2}
+    {if $cate.help_list}
+    <div class="tree">
+        {foreach from=$cate.help_list item=item}
+        {if $item.title neq "联系我们"}
+        <div class="hd {if $item.id eq $article.id}act{/if}"><a href="{$item.url}" {if $item.new eq 1}target="_blank"{/if}>{$item.title}</a></div>
+        {/if}
+        {/foreach}
+        <div class="hd lasthd">最新资讯</div>
+        <div class="aboutnews">
+            {foreach from=$acate_tree item="cate_item" key=key}
+            {if $cate_item.type_id eq 0 || $cate_item.type_id eq 2}
+            <div class="item {if $article.id eq $cate_item.id}act{/if}"><a href="{$cate_item.url}&type=1">{$cate_item.title}</a></div>
+            {/if}
+            {/foreach}
+        </div>
+        {foreach from=$cate.help_list item=item}
+        {if $item.title eq "联系我们"}
+        <div class="hd {if $item.id eq $article.id}act{/if}"><a href="{$item.url}" {if $item.new eq 1}target="_blank"{/if}>{$item.title}</a></div>
+        {/if}
+        {/foreach}
+    </div>
+    {/if}
+    {/if}
+    {/foreach}
+</div>
+
+<div class="long f_r">
+    <div class="bdd bddf article_box clearfix" >
+        <div class="article_info">
+
+
+                <div style="font-size:20px;padding:10px 0px;border-bottom:1px solid #999999;">
+                    {$cate.title}
+                </div>
+                {if $list}
+                {foreach from=$list item=item}
+                <div style="padding:20px 0;border-bottom:1px dashed #999999;">
+                    <a href="{$item.url}"><img src="{$item.icon}" style="width:200px;height:120px;float:left;" /></a>
+                    <div style="width:680px;float:right;">
+                        <div style="font-size:18px;weight:bold;color:#333333;padding:10px 0;">
+                            <span style="float:left;"><a href="{$item.url}">{$item.title}</span><span style="font-size:14px;font-weight:normal;color:#999999;float:right;">发布时间：{function name="to_date" v=$item.create_time f="Y-m-d"}</span>
+                            <div style="clear:both;">
+                            </div>
+                        </div>
+                        <div style="color:#666666;">
+                            {$item.brief}
+                        </div>
+                    </div>
+                    <div style="clear:both;">
+                    </div>
+                </div>
+                {/foreach}
+                {else}
+                <div class="p20 tc">
+                    {$page_title}{$LANG.NO_ARTICLE}
+
+                </div>
+                {/if}
+                <div class="blank"></div>
+                <div class="pages">{$pages}</div>
+                <div class="blank"></div>
+
+        </div>
+    </div>
+</div>
+<div class="blank"></div>
+</div>
+{include file="inc/footer.html"}

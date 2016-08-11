@@ -1,0 +1,84 @@
+{include file="inc/header.html"}
+<style>
+    .console {
+        font-size: 1.2em;
+        color: #fff;
+    }
+
+    .console table {
+        float: left;
+        text-align: left;
+        width: 300px;
+    }
+
+    .console th {
+        color: red;
+        font-size: 2em;
+        text-align: center;
+        padding:10px;
+    }
+    .console td {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class='console'>
+        <table>
+            <tr>
+                <th>跳转链接</th>
+            </tr>
+            {foreach from =$menu_list.0 item="item" key='key'}
+            <tr>
+                <td>
+                    <a href='{$item.1}{$item.2}' target="_blank" class="btn_blue w300 f_white f18 b p15 bdr3">{$item.0}</a>
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+        <table>
+            <tr>
+                <th>常用的操作</th>
+            </tr>
+            {foreach from =$menu_list.1 item="item" key='key'}
+            <tr>
+                <td>
+                    <input  type="button" class="btn_blue w300 f_white f18 b p15 bdr3" value="{$item.0}" data="{$item.1}{$item.2}">
+                </td>
+            </tr>
+            {/foreach}
+        </table>111
+        <table>
+            <tr>
+                <th>测试人员专用</th>
+            </tr>
+            {foreach from =$menu_list.2 item="item" key='key'}
+            <tr>
+                <td>
+                    <input  type="button" class="btn_blue w300 f_white f18 b p15 bdr3" value="{$item.0}" data="{$item.1}{$item.2}">
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+    </div>
+</body>
+<script type="text/javascript">
+    $(".console input").click(function () {
+        var act = $(this).attr("data");
+        var name = $(this).val();
+        $.ajax({
+            url: '/index.php?ctl=aa_console&act=' + act,
+            // data: query,
+            type: "POST",
+            dataType: "json",
+            success: function (res) {
+                if (res.response_code == 0) {
+                    alert(res.show_err);
+                } else {
+                    alert(name + "成功！");
+                }
+
+            }
+        });
+    });
+</script>

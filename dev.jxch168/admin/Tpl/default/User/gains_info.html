@@ -1,0 +1,30 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<div class="main">
+    <div class="blank5"></div>
+    <table class="form" cellpadding=0 cellspacing=0>
+        <tr><th colspan="8">还款统计数据</th></tr>
+        <tr><th>项目名称</th><th>本金</th><th>抵现券</th><th>利息</th><th>收益券收益</th><th>活动收益</th><th>总利息</th><th>本息总额</th></tr>
+        <tr>
+            <th>已还统计信息</th>
+            <td>{$has_repay_info.h_self_money|number_format=2}&nbsp;</td>
+            <td>{$has_repay_info.h_coupon_cash|number_format=2}&nbsp;</td>
+            <td>{$has_repay_info.h_pure_interests|number_format=2}&nbsp;</td>
+            <td>{$has_repay_info.h_coupon_interests|number_format=2}&nbsp;</td>
+            <td>{$has_repay_info.h_act_interests|number_format=2}&nbsp;</td>
+            <td>{$has_repay_info.h_all_interests|number_format=2}&nbsp;</td>
+            <td>{$has_repay_info.h_repay_money|number_format=2}&nbsp;</td>
+        </tr>
+        <tr>
+            <th>待还统计信息</th>
+            <td>{$need_repay_info.h_self_money|number_format=2}&nbsp;</td>
+            <td>{$need_repay_info.h_coupon_cash|number_format=2}&nbsp;</td>
+            <td>{$need_repay_info.h_pure_interests|number_format=2}&nbsp;</td>
+            <td>{$need_repay_info.h_coupon_interests|number_format=2}&nbsp;</td>
+            <td>{$need_repay_info.h_act_interests|number_format=2}&nbsp;</td>
+            <td>{$need_repay_info.h_all_interests|number_format=2}&nbsp;</td>
+            <td>{$need_repay_info.h_repay_money|number_format=2}&nbsp;</td>
+        </tr>
+
+    </table>
+</div>

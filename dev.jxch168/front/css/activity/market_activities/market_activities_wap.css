@@ -1,0 +1,417 @@
+html , body {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height:100%;
+  windows:100%;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+i {
+  font-style: normal;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+.Clear {
+  clear: both;
+}
+.CursorPointer {
+  cursor: pointer;
+}
+/*元素样式*/
+.DisplayNone {
+  display: none !important;
+}
+.DisplayBlock {
+  display: block;
+}
+.DisplayInline {
+  display: inline;
+}
+.DisplayInlineBlock,
+.show {
+  display: inline-block;
+}
+.VisibilityHidden {
+  visibility: hidden;
+}
+.VisibilityVisible {
+  visibility: visible;
+}
+.BoxRadius {
+  -moz--border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+}
+.BoxShadow {
+  -webkit-box-shadow: 1px 1px 3px #333;
+  -moz-box-shadow: 1px 1px 3px #333;
+  -ms-box-shadow: 1px 1px 3px #333;
+  box-shadow: 1px 1px 3px #333;
+}
+.MarginLeft20 {
+  margin-left: 20px;
+}
+.MarginRight130 {
+  margin-right: 130px;
+}
+.wrap {
+  height: auto;
+  width: 1200px;
+  position: relative;
+  overflow: visible;
+}
+/*自动高对齐*/
+.clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+#lottery{
+  position: relative;
+}
+
+#lottery .mainbg img ,
+#lottery .showgift img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+#lottery >.main{
+  position: absolute;
+  width: 100%;
+  background: url(/front/images/activity/market_activities_wap/tu3.png);
+}
+#lottery > .main .blank {
+  width: 100%;
+}
+#lottery > .main .lottery {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  background-size: 100% auto;
+  position: relative;
+}
+#lottery > .main .lottery table{
+  border: 0.32rem solid #0162b8;
+  border-radius: 0.32rem;
+  width:100%;
+
+}
+
+#lottery > .main .lottery table td {
+  width: 33%;
+  float:left;
+  text-align: center;
+  vertical-align: middle;
+
+}
+#lottery > .main .lottery table td img {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+#lottery > .main .lottery table td .getbtn {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  font:22px bold yellow;
+}
+
+#lottery > .main .lottery table .active {
+  background-color: #ffd045;
+}
+#lottery >.main .huojiangjilu{
+  text-align: center;
+}
+#lottery >.main .huojiangjilu p{
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 15px;
+  text-align: center;
+  border: 0.2rem solid white;
+   border-radius: 20px;
+  -moz-border-radius: 20px;
+  color: white;
+}
+#lottery >.main .huojiangjilu p span{
+    color: red;
+    font-weight: bold;
+}
+#lottery >.main .huojiangjilu p a{
+    color: yellow;
+}
+#logincover {
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: none;
+  opacity: 0.8;
+}
+#lottery .alertresult {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 80%;
+  display: none;
+}
+#lottery .alertresult .main {
+  width: 280px;
+  height: 250px;
+  background: url(/front/images/activity/lottery/alert_result_bg.png) no-repeat;
+  margin: 0 auto;
+  padding-top: 2px;
+
+}
+#lottery .alertresult .main .title {
+  color: white;
+  text-align: center;
+}
+#lottery .alertresult .main .cont {
+  width: 80%;
+  height: 124px;
+  margin: 0 auto;
+  background: white;
+}
+#lottery .alertresult .main .cont img {
+  display: block;
+  margin: 0 auto;
+}
+#lottery .alertresult .main .successbtn {
+  width: 80%;
+  margin: 0 auto;
+  background: #447ee7;
+  display: block;
+  height: 30px;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  font-size: 16px;
+}
+#lottery .alertresult .main .goonbtn {
+  width: 80%;
+  margin: 0 auto;
+  background: #d01504;
+  display: block;
+  height: 30px;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  font-size: 16px;
+}
+#lottery .alertshare {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#lottery .alertshare .main {
+  width: 320px;
+  height: 240px;
+  position: relative;
+  background: url(/front/images/activity/lottery/alert_getchance_bg.png);
+}
+#lottery .alertshare .main .title {
+  font-size: 24px;
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  padding: 6px;
+}
+#lottery .alertshare .main .cont {
+  width: 290px;
+  height: 90px;
+  margin: 0 auto;
+  background: white;
+  margin-bottom: 10px;
+}
+#lottery .alertshare .main .cont p {
+  text-align: center;
+  width: 300px;
+  font-size: 16px;
+  padding: 8px 0;
+}
+#lottery .alertshare .main .cont .bdsharebuttonbox {
+  margin: 0 auto;
+  width: 230px;
+}
+#lottery .alertshare .main .saomiao,
+#lottery .alertshare .main .goinvite {
+  width: 29px;
+  margin: 0 auto;
+  background: #447ee7;
+  display: block;
+  height: 40px;
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+#lottery .alertshare .main .saomiao:hover,
+#lottery .alertshare .main .goinvite:hover {
+  background: #719ded;
+}
+#lottery .alertshare .main .goinvite {
+  background: #d01504;
+}
+#lottery .alertshare .main .goinvite:hover {
+  background: #fa200d;
+}
+#lottery .alertshare .main .closebtn {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: -46px;
+  width: 38px;
+  height: 38px;
+  padding-bottom: 10px;
+  background: url(/front/images/activity/lottery/alerty_close_btn.png) no-repeat center center;
+  border: 2px solid transparent;
+}
+#lottery .alertshare .main .closebtn:hover {
+  border-bottom: 2px solid #f1f2ff;
+}
+#lottery .alertshare .main .erweima {
+  position: absolute;
+  top: 60px;
+  right: -180px;
+  display: none;
+  z-index: 5;
+}
+#lottery .alertregister {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#lottery .alertregister .main {
+  width: 80%;
+  margin: 0 auto;
+  background: #2f3676;
+  padding: 5% 5%;
+  -moz--border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+}
+#lottery .alertregister .main .title {
+  color: white;
+  line-height: 2rem;
+  text-align: center;
+  font-size: 2rem;
+}
+#lottery .alertregister .main .phonecont {
+  width: 90%;
+  display: block;
+  padding: 5% 0;
+  margin: 8% auto 2% auto;
+  text-align: center;
+}
+#lottery .alertregister .main .errortips {
+  width: 90%;
+  text-align: center;
+  padding: 2% 0;
+  color: white;
+  margin: 0 auto;
+  opacity: 0;
+}
+#lottery .alertregister .main .show {
+  opacity: 1;
+}
+#lottery .alertregister .main .gobtn {
+  width: 60%;
+  padding: 5% 0;
+  display: block;
+  color: white;
+  margin: 0 auto;
+  text-align: center;
+  background: red;
+}
+ #loginbox {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 80%;
+        background: #094e8e;
+        border: 5px solid yellow;
+        border-radius: 4px;
+        z-index: 101;
+        display: none;
+    }
+#loginbox .header {
+        font-size: 1.2rem;
+        /*font-weight: bold;*/
+        border-bottom: 1px solid yellow;
+        text-align: center;
+        color: white;
+        padding: 10px 0;
+        margin-bottom: 5%;
+    }
+#loginbox .inputlist span {
+        vertical-align: middle;
+        color: white;
+        padding-left: 1em;
+        width: 25%;
+        font-size: .9rem;
+        display: inline-block;
+    }
+#loginbox .inputlist input {
+        border: none;
+        border: 1px solid yellow;
+        display: inline-block;
+        width: 60%;
+        margin: 2% auto;
+        padding: 2% 0;
+        vertical-align: middle;
+    }
+.btnbox{
+        width: 80%;
+        margin: 0 auto;
+    }
+#loginbtn,#regbtn {
+        float: left;
+        width: 45%;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        background: #094e8e;
+        border: 1px solid yellow;
+        border-radius: 4px;
+        margin: 3% auto;
+        padding: 3% 0;
+    }
+#regbtn{
+        float: right;
+    }
+#closebtn{
+        position: absolute;
+        top: 0rem;
+        right: 0rem;
+        color: white;
+        padding: 4%;
+    }

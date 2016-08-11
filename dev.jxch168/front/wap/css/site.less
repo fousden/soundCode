@@ -1,0 +1,239 @@
+﻿@Color333:#333;
+@Color666:#666;
+@Color999:#999;
+@ColorRed:rgb(213,55,54);
+@ColorLightBorder:rgb(204, 204, 204);
+//全局样式
+ol, ul, li, p, a, span, div, body, html, h1, h2, h3, h4, h5, h6, dl, dt, dd, input {
+    -moz-appearance: none;
+    -moz-text-size-adjust: none;
+    -ms-appearance: none;
+    -ms-text-size-adjust: none;
+    -o-appearance: none;
+    -o-text-size-adjust: none;
+    -webkit-appearance: none;
+    -webkit-text-size-adjust: none;
+    appearance: none;
+    font-family: -apple-system-font, simhei, "Helvetica Neue", "Hiragino Sans GB", "冬青黑体", 'Microsoft Yahei', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-size-adjust: none;
+}
+
+html, body {
+    min-height: 100%;
+    width: 100%;
+}
+
+body { 
+    background-color: RGB(238, 238, 238) ;
+    font-size:16px;
+}
+
+ol, ul, li { list-style: none }
+
+i { font-style: normal }
+
+input { outline: 0 }
+
+input::-webkit-inner-spin-button { -webkit-appearance: none }
+
+iframe { border: 0 }
+
+footer a, footer a:link, footer a:visited, footer a:hover, footer a:active { color: #007aff }
+
+a:link, a:visited, a:hover, a:active { text-decoration: none }
+
+//自定方法
+//浮动
+.FloatLeft
+{
+    float: left;
+}
+
+.FloatRight
+{
+    float: right;
+}
+
+.Clear
+{
+    clear: both;
+}
+
+.CursorPointer{
+    cursor:pointer;
+}
+/*元素样式*/
+.DisplayNone
+{
+    display: none !important;
+}
+
+.DisplayBlock
+{
+    display: block;
+}
+
+.DisplayInline
+{
+    display: inline;
+}
+
+.DisplayInlineBlock
+{
+    display: inline-block;
+}
+
+.VisibilityHidden{
+    visibility:hidden;
+}
+
+.VisibilityVisible{
+    visibility:visible;
+}
+
+.BoxRadius
+{
+    -moz--border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.BoxRadius(@px: 5px)
+{
+    -moz--border-radius: @px;
+    -webkit-border-radius: @px;
+    -ms-border-radius: @px;
+    border-radius: @px;
+}
+
+.BoxShadow
+{
+    -webkit-box-shadow:1px 1px 3px #333;
+    -moz-box-shadow: 1px 1px 3px #333;
+    -ms-box-shadow: 1px 1px 3px #333;
+    box-shadow: 1px 1px 3px #333;
+}
+
+.BoxShadow(@c: #333,@px: 3px)
+{
+    -webkit-box-shadow: 1px 1px @px @c;
+    -moz-box-shadow: 1px 1px @px @c;
+    -ms-box-shadow: 1px 1px @px @c;
+    box-shadow: 1px 1px @px @c;
+}
+
+.Opacity(@opacity)
+{
+    Filter:Alpha(opacity=@opacity);
+    -moz-opacity:@opacity/100;
+    opacity:@opacity/100;
+}
+
+.pro_info {
+  height: 100px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -o-box;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  box-sizing: border-box;
+  padding-left: 35px;
+  padding-right: 36px;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -o-box-orient: horizontal;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+}
+ .pro_info {
+    -moz-box-align: center;
+    -moz-box-orient: horizontal;
+    -moz-box-pack: justify;
+    -o-box-align: center;
+    -o-box-orient: horizontal;
+    -o-box-pack: justify;
+    -webkit-box-align: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: justify;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -o-box;
+    height: 100px;
+    padding-left: 35px;
+    padding-right: 36px;
+}
+.pro_info .apr {
+    -moz-box-align: center;
+    -moz-box-pack: center;
+    -o-box-align: center;
+    -o-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -o-box;
+}
+.pro_info .apr p {
+    color: #EF5A50;
+    font-size: 12px;
+}
+.pro_info .apr p .nh { font-size: 14px }
+.f_s60 { font-size: 60px }
+.pro_info .time_length, .pro_info .project_amount {
+    -moz-box-align: center;
+    -moz-box-orient: vertical;
+    -moz-box-pack: center;
+    -o-box-align: center;
+    -o-box-orient: vertical;
+    -o-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -o-box;
+}
+.pro_info .time_length p, .pro_info .project_amount p { position: relative }
+.t_f4 { top: -4px }
+.t_z4 { top: 4px }
+.f_s20 { font-size: 20px }
+.f_s18 { font-size: 18px }
+.c_EF5A50 { color: #EF5A50 }
+.c_858585 { color: #858585 }
+.f_s15 { font-size: 15px }
+    .progress {
+        background-color: #CCC;
+        border-radius: 15px;
+        height: 10px;
+        margin: 2px auto 28px;
+        position: relative;
+        width: 90%;
+    }
+    .progress .red {
+        background-color: #EF5A50;
+        border-radius: 15px;
+        height: 10px;
+        left: 0;
+        position: absolute;
+        top: 0;
+    }
+    .progress .red div {
+        background-color: #fff;
+        border: 1px solid #CCC;
+        border-radius: 15px;
+        color: #D53736;
+        font-size: 12px;
+        height: 28px;
+        line-height: 28px;
+        position: absolute;
+        right: -14px;
+        text-align: center;
+        top: -10px;
+        width: 28px;
+    }

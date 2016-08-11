@@ -1,0 +1,115 @@
+{// 引入标签库 }
+
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+function address(user_id)
+{
+	location.href = ROOT + '?m=User&a=address&id='+user_id;
+}
+</script>
+<div class="main">
+<div class="main_title">富友交易记录</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<if condition="ACTION_NAME eq 'index' || ACTION_NAME eq 'company_index'"><input type="button" class="button" value="{%ADD}" onclick="add();" /></if>
+<!--	<input type="button" class="button" value="{%DEL}" onclick="del();" />-->
+</div>
+
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		<input type="hidden" value="User" name="m" />
+		<input type="hidden" value="{$user_id}" name="user_id" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+                <span style="font-size:14px;">请选择交易类型:</span><select name="trade_type">
+                    <option value="PWPC" <if condition="$trade_type eq 'PWPC'">selected</if>>转账</option>
+                    <option value="PW13" <if condition="$trade_type eq 'PW13'">selected</if>>预授权</option>
+                    <option value="PWCF" <if condition="$trade_type eq 'PWCF'">selected</if>>预授权撤销</option>
+                    <option value="PW03" <if condition="$trade_type eq 'PW03'">selected</if>>划拨</option>
+                    <option value="PW14" <if condition="$trade_type eq 'PW14'">selected</if>>转账冻结</option>
+                    <option value="PW15" <if condition="$trade_type eq 'PW15'">selected</if>>划拨冻结</option>
+                    <option value="PWDJ" <if condition="$trade_type eq 'PWDJ'">selected</if>>冻结</option>
+                    <option value="PWJD" <if condition="$trade_type eq 'PWJD'">selected</if>>解冻</option>
+                    <option value="PW19" <if condition="$trade_type eq 'PW19'">selected</if>>冻结付款到冻结</option>
+                </select>
+                <span style="font-size:14px;">起始时间：</span>
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{$begin_time}" onfocus="return showCalendar('begin_time', '%Y%m%d', false, false, 'begin_time');" style="width:130px" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{$end_time}" onfocus="return showCalendar('end_time', '%Y%m%d', false, false, 'end_time');" style="width:130px" />
+
+		<input type="submit" class="button" value="{%SEARCH}" />（温馨提示：富友交易查询使用的起始时间不能跨月，只能为当前月！）
+	</form>
+</div>
+<div class="blank5"></div>
+<script type="text/javascript">
+    $(function(){
+        $(".op_action").remove();
+    });
+</script>
+<php>
+    function get_ext_tp($ext_tp){
+        if($ext_tp){
+            $ext_tp = $ext_tp;
+        }else{
+            $ext_tp = $ext_tp[0];
+        }
+        return $ext_tp;
+    }
+    function get_remark($remark){
+        if($remark){
+            $remark = $remark;
+        }else{
+            $remark = $remark[0];
+        }
+        return $remark;
+    }
+
+    function get_contract_no($contract_no){
+        if($contract_no){
+            $contract_no = $contract_no;
+        }else{
+            $contract_no = $contract_no[0];
+        }
+        return $contract_no;
+    }
+</php>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user"
+	checkbox="true"
+	action="true"
+	datasource="list"
+        show="id:{%ID}|50px
+        ,ext_tp|get_ext_tp:扩展类型
+        ,txn_date:交易日期
+        ,txn_time:交易时分
+        ,src_tp:交易请求方式
+        ,mchnt_ssn:交易流水
+        ,txn_amt:交易金额
+        ,txn_amt_suc:成功交易金额
+        ,contract_no|get_contract_no:合同号
+        ,out_fuiou_acct_no:出账用户虚拟账户
+        ,out_cust_no:出账用户名
+        ,out_artif_nm:出账用户名称
+        ,in_fuiou_acct_no:入账用户虚拟账户
+        ,in_cust_no:入账用户名
+        ,in_artif_nm:入账用户名称
+        ,remark|get_remark:交易备注
+        ,txn_rsp_cd:交易返回码
+        ,rsp_cd_desc:交易返回码描述
+        "
+	actionlist="" actionwidth="150px" actionidx="3" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

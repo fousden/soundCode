@@ -1,0 +1,47 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">用户按日期还款统计</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		开始日期 ：
+		<input type="text" class="textbox" name="start_time" id="start_time" value="{:trim($_REQUEST['start_time'])}" onfocus="return showCalendar('start_time', '%Y-%m-%d', false, false, 'start_time');" />
+		-结束日期：
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" />
+                <div></div>
+                会&nbsp;&nbsp;员&nbsp;&nbsp;名：&nbsp;<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" />
+		真实姓名：&nbsp;&nbsp;<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" />
+		手机号：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" />
+		<input type="hidden" value="Finance" name="m" />
+		<input type="hidden" value="repay_static" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />(投资人数：{$users})
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user_carry"
+	checkbox="true"
+	datasource="list"
+	show="id:{%ID}|50px,jiexi_time:结息日期,user_id|get_user_name_real:{%USER_NAME},total_pricipal|number_format=2:投资本金|class=right,total_coupon_cash|number_format=2:抵现券|class=right,total_pure_interests|number_format=2:纯利息|class=right,total_coupon_interests|number_format=2:收益券收益|class=right,total_act_interests|number_format=2:活动收益|class=right,total_interest_money|number_format=2:总利息|class=right,total_repay_money|number_format=2:本息总额|class=right"
+	 />
+
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<input type="hidden" id='action' name='action' value='{$now_action}'/>
+<style type="text/css">
+    .sub_btn{cursor:pointer; margin:0; padding:0; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; overflow:visible; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .sub_btn:hover{background-color:#0087E5;}
+    .reset_btn{cursor:pointer; background:none; border:none; background-color:#ddd; color:#666; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .true_btn{cursor:pointer; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+</style>
+<include file="Public:footer" />

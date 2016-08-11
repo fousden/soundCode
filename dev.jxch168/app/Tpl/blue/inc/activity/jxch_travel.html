@@ -1,0 +1,63 @@
+{include file="inc/header.html"}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+  <title>投资理财注册平台、投资理财登录、30秒注册坐等收益、金享财行</title>
+  <link rel="stylesheet" type="text/css" href="./front/css/activity/jxch_travel/lyv.css">
+  <div class="main" style="margin-bottom: -40px;">
+    <div class="bg">
+    <div class="login">
+       {if $user_id}
+      <h3>截至目前</h3>
+      <p>你已经累计推荐&nbsp<span>{$invite_user}</span>&nbsp人</p>
+      <p>你已经累计入金&nbsp<span class="money1">{$invest_money}</span>&nbsp元</p>
+      <p>你已经累计推荐入金&nbsp<span class="money2">{$invite_money}</span>&nbsp元</p>
+      {else}
+      <a href="javascript:;" onclick="ajax_login();"><img src="./front/images/activity/jxch_travel/login.png" height="53" width="172"></a>
+      {/if}
+    </div>
+    </div>
+   </div>
+   
+  <div id="cover"></div>
+  <div id="alertrecord">
+    <div class="blank"></div>
+    <div class="main">
+      <a class="closebtn"></a>
+    </div>
+  </div>
+ 
+<script>
+    $(function(){
+        {if $result}
+            $("#cover").fadeIn(100);
+            $("#alertrecord").fadeIn(100);
+            var winH = $(window).height();
+            var thisH = $("#alertrecord .main").outerHeight();
+            $("#alertrecord .blank").animate({"height":(winH-thisH)/2+"px"},200)
+        {/if}
+        // 获奖记录的关闭按钮
+        $("#alertrecord .closebtn").click(function(){
+            $("#alertrecord .blank").animate({"height":"0px"},100,function(){
+            $("#alertrecord").fadeOut(1);
+            });
+            // if($("#alertresult").css("display") == "block"){
+            //     return false;
+            // }else{
+                $("#cover").fadeOut(200);
+            // }
+
+        })
+        // 抽奖成功的确定按钮
+        $(".successbtn").click(function(){
+            $("#alertresult .blank").animate({"height":"0px"},100,function(){
+            $("#alertresult").fadeOut(1);
+            });
+            $("#cover").fadeOut(200);
+        })
+    })
+</script>
+
+ {include file="inc/footer.html"}
+
+</html>

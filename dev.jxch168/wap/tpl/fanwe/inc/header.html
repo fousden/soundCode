@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        {if $data.act == 'init'}
+        <title>金享财行官网_金融理财,保本理财,商业保理,融资租赁,银行理财产品</title>
+        <meta name="keywords" content="金享财行,金融理财,保本理财,商业保理,融资租赁,银行理财产品,理财平台,保本型理财,无风险理财,稳健型理财产品,高收益理财,低风险理财,合理理财,专户理财" />
+        <meta name="description" content="金享财行是一家创新型互联网金融信息服务平台，在细分金融领域，票据理财、融资租赁、商业保理范畴，真正能做到用户体验的极致。健全的风控体系，6大安全保障,助您的理财资产最大化！" />
+        {else}
+        <title>{$data.program_title}</title>
+        {/if}
+        <link rel="stylesheet" type="text/css" href="./css/font-awesome-4.2.0/css/font-awesome.min.css"><!--特殊字体处理包-->
+        <script type="text/javascript" src="./js/jquery-1.8.2.min.js"></script><!--jquery文档-->
+        <script type="text/javascript" src="./js/public.js"></script><!--共有jquery文档-->
+        <script type="text/javascript" src="./js/md5.js"></script><!--共有md5插件-->
+        <script type="text/javascript" src="./js/touchScroll.js"></script><!--滑屏轮播插件包-->
+        <script type="text/javascript" src="./js/touchslider.dev.js"></script><!--滑屏轮播插件包-->
+        <?php
+        $this->_var['parent_pagecss'][] = $this->_var['TMPL_REAL']."/css/public.css";
+        ?>
+        <link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$parent_pagecss"}" />
+              <link href="../../front/wap/css/style.min.css" rel="stylesheet" />
+        <script type="text/javascript">
+                    var APP_ROOT = '{$APP_ROOT}';
+                    var WAP_PATH = '{$WAP_ROOT}';
+                    var __LOGIN_KEY = "{insert name="get_login_key"}";
+                    var __HASH_KEY__ = "{insert name="get_hash_key"}";
+                    $.ajaxSetup({
+                    beforeSend:function(xhr, self){
+                    if (self.url.indexOf("?") == - 1){
+                    self.url += "?fhash=" + __HASH_KEY__;
+                    } else{
+                    self.url += "&fhash=" + __HASH_KEY__;
+                    }
+                    }
+                    });</script>
+
+        <!--	<?php require_once APP_ROOT_PATH.'/wap/cs.php';echo '<img src="'._cnzzTrackPageView(1255781229).'" width="0" height="0"/>';?>-->
+    </head>
+    <body id="top">
+    {if $_m}
+    {else}
+    <header id="title" class="header">
+        {if $data.act eq 'home'}
+        <a class="logo" href="javascript:void(0);" target="_self" style="background-image: url(../../front/wap/images/logo_250x50.png)"></a>
+        {else}
+        <a  href="javascript:history.go(-1);" class="back">
+            <i class="fa fa-chevron-left"></i>返回
+        </a>
+        {/if}
+        <span></span>
+        <p>
+            {if $data.act neq 'init' and $data.act neq 'deal' and $data.act neq 'deal_wap'}
+            {if $is_login eq 0}
+            <a href="{wap_url a="index" r="login"}"  class="loadinglink">登录</a>/
+            <a href="{wap_url a="index" r="register"}" class="loadinglink" >注册</a>
+            {else}
+            <a href="{wap_url a="index" r="uc_center"}" >我的帐户</a>/
+            <a href="{wap_url a="index" r="login_out" }" >退出</a>
+            {/if}
+            {/if}
+            </span><!--此处用于输出页面的位置信息，如注册，登录等-->
+           
+            {if $data.act eq 'deal'}<!--关注功能-->
+            {if $is_login eq 1}
+            <a href="javascript:" class="collect-but" {if $data.is_faved}id="J-del-deal-collect-but" {else}id="J-deal-collect-but"{/if}  dataid="{$data.deal.id}">{if $data.is_faved}已{/if}关注</a>
+            {else}
+            <a href="javascript:" class="collect-but" {if $data.is_faved}id="J-del-deal-collect-but" {else}id="J-deal-collect-but"{/if}  dataid="{$data.deal.id}">{if $data.is_faved}已{/if}关注</a>
+            {/if}
+            {/if}
+
+            <!--        <a class="loadinglink" href="#">登录</a>/<a class="loadinglink" href="#">注册</a>-->
+        </p>
+    </header>
+    {/if}
+
+
+    <script>
+                $(document).ready(function(){
+        $("#J-deal-collect-but").click(function(){
+            {if $is_login eq 0}
+            alert("请先登录");
+            window.location.href="index.php?ctl=login";
+            {else}
+        var ajaxurl = '{wap_url a="index" r="uc_do_collect"}';
+                var query = new Object();
+                query.id = $.trim($(this).attr("dataid"));
+                var obj = $(this);
+                $.ajax({
+                url: ajaxurl,
+                        data:query,
+                        type: "POST",
+                        dataType: "json",
+                        success: function(result){
+                            location.reload();
+                        }
+                });
+                {/if}
+        });
+                $("#J-del-deal-collect-but").click(function(){
+        var ajaxurl = '{wap_url a="index" r="uc_del_collect"}';
+                var query = new Object();
+                query.id = $.trim($(this).attr("dataid"));
+                var obj = $(this);
+                $.ajax({
+                url: ajaxurl,
+                        data:query,
+                        type: "POST",
+                        dataType: "json",
+                        success: function(result){
+                            location.reload();
+                        }
+                });
+        });
+        });
+    </script>
+    {if $data.act eq 'register' || $data.act eq 'register_idno'}
+    <div class="register_top clearfix">
+        <ul class="info">
+            <li class="{if $data.act eq 'register'}current{/if}">
+                <span>1&nbsp;输入信息&nbsp;</span>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="{if $data.act eq 'register_idno'}current{/if}">
+                <span>2&nbsp;身份验证&nbsp;</span>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <span>3&nbsp;注册成功&nbsp;</span>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+    </div>
+    {/if}
+    <div class="page_total">{$data.page.page_total}</div>
+    <!--分页总数-->

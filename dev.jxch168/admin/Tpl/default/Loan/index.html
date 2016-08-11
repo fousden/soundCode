@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+    function address(user_id)
+    {
+        location.href = ROOT + '?m=Loan&a=index&id='+user_id;
+    }
+</script>
+<php>
+
+
+    function user_company($id,$user){
+    if($user['user_type']==1){
+    return "<a href='javascript:user_company(".$id.");'>公司</a>&nbsp;";
+    }
+    }
+
+    function get_date($create_time){
+    return to_date($create_time,"Y-m-d H:i:s");
+    }
+
+    function get_sex($sex){
+        if($sex==0){
+            return "女";
+        }else{
+            return "男";
+        }
+    }
+
+    function get_pay_way($pay_way){
+        if($pay_way==0){
+            return "银行转账";
+        }else{
+            return "现金发放";
+        }
+    }
+    function get_house_loan($house_loan){
+        if($house_loan==0){
+            return "无";
+        }else{
+            return "有";
+        }
+    }
+
+    function get_car_loan($car_loan){
+        if($car_loan==0){
+            return "无";
+        }else{
+            return "有";
+        }
+    }
+
+    function get_auto_insurance_policy($auto_insurance_policy){
+        if(auto_insurance_policy==0){
+            return "无";
+        }else{
+            return "有";
+        }
+    }
+
+    function get_life_insurance_policy($life_insurance_policy){
+        if(life_insurance_policy==0){
+            return "无";
+        }else{
+            return "有";
+        }
+    }
+
+    function get_credit($credit){
+        if($credit==0){
+            return "无";
+        }else{
+            return "有";
+        }
+    }
+    function get_house_loan_pay_time($get_house_loan_pay_time){
+        if($get_house_loan_pay_time==-1){
+            return "房贷已还清";
+        }
+    }
+
+    function get_car_loan_status($car_loan_status){
+        if($car_loan_status==0){
+            return "车贷已还清";
+        }else{
+            return "正在还车贷";
+        }
+    }
+    function get_car_loan_pay_time($get_car_loan_pay_time){
+        if($get_car_loan_pay_time==-1){
+            return "车贷已还清";
+        }
+    }
+
+    //            ,mobile:手机号
+    //,sex|get_sex:性别
+    //,age:年龄
+    //将名字手机号性别年龄合并成一行
+    function get_loan_name($loan,$loan_list){
+        if($loan_list['sex']==0){
+            $loan_list['sex']="女";
+        }else{
+            $loan_list['sex']="男";
+        }
+        return $loan."(".$loan_list['mobile'].")<br>".$loan_list['sex'].' '.$loan_list['age']."周岁";
+    }
+</php>
+<div class="main">
+    <div class="main_title">我要贷款</div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="loan" action="__APP__" method="get">
+            贷款人姓名：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+            {%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+            <!--{%STATUS}：<select name="status">-->
+            <!--<option value="0">请选择...</option>-->
+            <!--<option value="1"<if condition="intval($_REQUEST['status']) eq 1 ">selected</if>>投保成功</option>-->
+            <!--<option value="2"<if condition="intval($_REQUEST['status']) eq 2 ">selected</if>>投保失败</option>-->
+            <!--<option value="3"<if condition="intval($_REQUEST['status']) eq 3 ">selected</if>>未投保</option>-->
+        <!--</select>-->
+            <div class="blank5"></div>
+            注册时间：
+            <input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+            -
+            <input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+
+            <input type="hidden" value="Loan" name="m" />
+            <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+    <div class="blank5"></div>
+
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="loan"
+            checkbox="true"
+            datasource="data"
+            show="id:{%ID}|50px
+            ,user_id|get_user_name_real:用户名
+            ,loan_name|get_loan_name=$loan:贷款人信息
+            ,apply_time|get_date:申请时间
+            ,live_city:居住城市
+            ,live_time:居住时间
+            ,net_pay:税后月薪
+            ,pay_way|get_pay_way:发薪方式
+            ,house_loan|get_house_loan:房贷
+            ,car_loan|get_car_loan:车贷
+            ,auto_insurance_policy|get_auto_insurance_policy:车险
+            ,life_insurance_policy|get_life_insurance_policy:寿险
+            ,credit_card|get_credit:信用卡
+            ,house_loan_status:房贷情况
+            ,house_loan_pay_time:房贷已还期数
+            ,house_loan_days:房贷还清距今天数
+            ,car_loan_status:车贷情况
+            ,car_loan_pay_time:车贷已还期数
+            ,car_loan_days:车贷还清距今天数"
+    />
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />
+</html>

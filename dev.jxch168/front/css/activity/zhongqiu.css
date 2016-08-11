@@ -1,0 +1,287 @@
+@charset "utf-8";
+* {
+  font-family: Microsoft YaHei, 'Microsoft YaHei', '微软雅黑', SimHei, 'SimHei', '黑体';
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+}
+body {
+  zoom: 1;
+  width: 100%;
+  background-color: #f9f9f9 !important;
+}
+a {
+  text-decoration: none;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+dl,
+dt,
+dd {
+  margin: 0;
+}
+.btn_orange {
+  background-color: #e95d01;
+}
+.btn_orange:hover {
+  background-color: #f2650c;
+}
+.FloatLeft,
+.f_l {
+  float: left;
+}
+.FloatRight,
+.f_r {
+  float: right;
+}
+.Clear {
+  clear: both;
+}
+.CursorPointer {
+  cursor: pointer;
+}
+/*元素样式*/
+.DisplayNone,
+.hide {
+  display: none !important;
+}
+.DisplayBlock {
+  display: block;
+}
+.DisplayInline {
+  display: inline;
+}
+.DisplayInlineBlock,
+.show {
+  display: inline-block;
+}
+.VisibilityHidden {
+  visibility: hidden;
+}
+.VisibilityVisible {
+  visibility: visible;
+}
+.BoxRadius {
+  -moz--border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+}
+.BoxShadow {
+  -webkit-box-shadow: 1px 1px 3px #333;
+  -moz-box-shadow: 1px 1px 3px #333;
+  -ms-box-shadow: 1px 1px 3px #333;
+  box-shadow: 1px 1px 3px #333;
+}
+.Margin0 {
+  margin: 0;
+}
+.MarginLeft20 {
+  margin-left: 20px;
+}
+.MarginRight130 {
+  margin-right: 130px;
+}
+.wrap {
+  height: auto;
+  width: 1200px;
+  position: relative;
+  overflow: visible;
+}
+.blank0 {
+  clear: both;
+  height: 0px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank {
+  clear: both;
+  height: 10px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank1 {
+  clear: both;
+  height: 1px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank5 {
+  clear: both;
+  height: 5px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank10 {
+  clear: both;
+  height: 10px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank15 {
+  clear: both;
+  height: 15px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank20 {
+  clear: both;
+  height: 20px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank40 {
+  clear: both;
+  height: 40px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank100 {
+  height: 102px;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+/*自动高对齐*/
+.clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+.ColorLightRed {
+  color: #ef5146 !important;
+}
+.ColorDarkRed {
+  color: #e24a40 !important;
+}
+.ColorLightYellow {
+  color: #ecaf09 !important;
+}
+.ColorDarkOrange {
+  color: #e95d01 !important;
+}
+.ColorLightBlue {
+  color: #47a2e3 !important;
+}
+.ColorDarkBlue {
+  color: #439ad8 !important;
+}
+.FontIconLeftAndRight {
+  font-family: Arial, 'Arial';
+}
+.sample_goal .goalProgress {
+  background-color: #cccccc ;
+  height: 8px;
+  width: 100%;
+  -moz--border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  position: relative;
+}
+.sample_goal .goalProgress div.progressBar {
+  position: absolute;
+  left: 0;
+  background-color: #47a2e3;
+  color: #fff;
+  font-weight: 700;
+  display: block;
+  overflow: hidden;
+  width: 20px;
+  height: 100%;
+  -moz--border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+}
+.sample_goal .goalProgress .ptc {
+  text-align: center;
+  color: #666666;
+  font-size: 14px;
+  padding-top: 10px;
+}
+i.upArrow,
+i.downArrow,
+i.leftArrow,
+i.rightArrow {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  position: relative;
+  top: -4px;
+  margin: 0 5px;
+}
+i.upArrow {
+  border-bottom: 5px solid #666666;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+i.downArrow {
+  border-top: 5px solid #666666;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+i.leftArrow {
+  border-right: 5px solid #666666;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+i.rightArrow {
+  border-right: 5px solid #666666;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+#zqbody {
+  width: 100%;
+  margin-bottom: -135px;
+} 
+#zqbody > .banner {
+  width: 100%;
+  height: 956px;
+  background: url(../../images/activity/zhongqiu/headerbg.png) top center;
+}
+#zqbody > .main {
+  width: 100%;
+  padding-bottom: 40px;
+  background: url(../../images/activity/zhongqiu/mainbg.png) top center;
+}
+#zqbody > .main img {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+#zqbody > .main .joinbtn {
+  display: block;
+  margin: 0 auto;
+  width: 584px;
+  height: 96px;
+  background: #f39800;
+  -moz--border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: 0px 1px 2px #b72e57;
+  -webkit-box-shadow: 0px 1px 2px #b72e57;
+  box-shadow: 0px 1px 2px #b72e57;
+  font-size: 50px;
+  line-height: 96px;
+  color: white;
+  text-align: center;
+}
+#zqbody > .main .joinbtn:hover {
+  background: #ffae27;
+}
+#zqbody > .main .rolesbody {
+  width: 1140px;
+  margin: 0 auto;
+  background: white;
+  font-size: 30px;
+  line-height: 1.75em;
+  padding: 40px 30px;
+}

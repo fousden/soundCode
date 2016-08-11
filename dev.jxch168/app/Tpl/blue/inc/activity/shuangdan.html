@@ -1,0 +1,131 @@
+{include file="inc/header.html"}
+<body>
+	<link rel="stylesheet" type="text/css" href="./front/css/activity/shuangdan/slotMachineReset.css">
+	<link rel="stylesheet" type="text/css" href="./front/css/activity/shuangdan/slotMachine.css">
+	<link rel="stylesheet" type="text/css" href="./front/css/activity/shuangdan/style.css?51465">
+	<script type="text/javascript" src="./front/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="./front/js/activity/jquery.marquee.min.js"></script>
+	<script type="text/javascript" src="./front/js/activity/jquery.slotmachine.js"></script>
+	<style>
+		#header{
+			padding: 0;
+		}
+		.wrap{
+			margin:0 auto;
+		}
+		.blank100{
+			height:0;
+		}
+		#footer{
+			margin-top: 0;
+			margin-bottom: 0;
+			border: none;
+			height:240px;
+			padding: 40px 0;
+		}
+	</style>
+	<div id="shuangdan">
+		<div class="banner"></div>
+		<div class="lotterybox">
+			<div id="slotMain">
+				<div id="machine1" class="slotMachine">
+					<div class="slot slot1"></div>
+					<div class="slot slot2"></div>
+					<div class="slot slot3"></div>
+					<div class="slot slot4"></div>
+					<div class="slot slot5"></div>
+				</div>
+				<div id="machine2" class="slotMachine">
+					<!-- <div class="slot slot1"></div> -->
+					<div class="slot slot2"></div>
+					<div class="slot slot3"></div>
+					<div class="slot slot4"></div>
+					<div class="slot slot5"></div>
+				</div>
+			</div>
+			<div class="btnbox">
+				<div id="beginBtn" >
+					<img src="./front/images/activity/shaungdan/beginbtn.png" height="81" width="224">
+				</div>
+				<div id="shareBtn" >
+					<img src="./front/images/activity/shaungdan/fenxiangbtn.png" height="81" width="224">
+				</div>
+				<div class="clear"></div>
+				<div class="btncover"></div>
+			</div>
+		</div>
+		<div class="msgbox" >
+		</div>
+		<div class="giftbox"></div>
+		<div class="rulsbox"></div>
+		<div class="alertcover"></div>
+		<div class="alertsuccess">
+			<div class="main">
+				<img class="closebtn" src="./front/images/activity/shaungdan/closebtn.png"></img>
+				<div class="blank"></div>
+				<p class="gongxi">恭 喜 获 得</p>
+				<p class="succ_text">一等奖</p>
+				<a class="getgift" href="javascript:;">
+					<img src="./front/images/activity/shaungdan/getgift.png" >
+				</a>
+			</div>
+		</div>
+		<div class="alertmobile">
+			<div class="main">
+				<img class="closebtn" src="./front/images/activity/shaungdan/closebtn.png"></img>
+				<div class="blank"></div>
+				<input type="text" placeholder="请输入手机号码" id="mobile" name="mobile" class="mobile" maxlength="11">
+				<p class="error">手机号码格式不对</p>
+				<a href="javascript:;" class="gobegin">
+					<img src="./front/images/activity/shaungdan/alertmobile_btn.png" >
+				</a>
+			</div>
+		</div>
+	</div>
+	<div id="alertshare">
+    	<div class="blank"></div>
+	    <div class="main">
+			<img class="closebtn" src="./front/images/activity/shaungdan/closebtn.png"></img>
+	        <p class="title">分享活动</p>
+	        <div class="cont">
+	            <p>点击下方图标进行分享</p>
+	            <div class="bdsharebuttonbox" data-tag="share_1">
+	                <style type="text/css">
+	                #share a img {
+	                    width: 24px;
+	                    height: 24px;
+	                    margin-right: 3px;
+	                }
+	                </style>
+	                <a title="分享到新浪微博" onclick="shareTo('sinaminiblog')" href="javascript:void(0);"><img src="/front/images/share/sinaminiblog.png " /></a>
+	                <a title="分享到腾讯微博" onclick="shareTo('qqmb')" href="javascript:void(0);"><img src="/front/images/share/qqmb.png " /></a>
+	                <a title="分享到微信" onclick="shareTo('weixin')" href="javascript:void(0);"><img src="/front/images/share/weixin.png " /></a>
+	                <a title="分享到QQ空间" onclick="shareTo('qzone')" href="javascript:void(0);"><img src="/front/images/share/qzone.png " /></a>
+	                <a title="分享到人人网" onclick="shareTo('renren')" href="javascript:void(0);"><img src="/front/images/share/renren.png " /></a>
+	                <a title="分享到开心网" onclick="shareTo('kaixin001')" href="javascript:void(0);"><img src="/front/images/share/kaixin001.png " /></a>
+	            </div>
+	            <script type="text/javascript">
+		            var qr_url = "http://www.jxch168.com/index.php?ctl=activity&act=shuangdan&is_pc=1";
+
+		            function shareTo(site) {
+		                var e = encodeURIComponent,
+		                    s = screen,
+		                    d = document,
+		                    wd = 640,
+		                    hg = 480,
+		                    u = d.location;
+		                d.title = '金享财行双旦活动来临！即时登录官网或者APP参与活动，抽取红包好过年，新用户实名投资还有100元现金红包哟，快来参与吧……';
+		                var uuid = '';
+		                var img = "http://www.jxch168.com/public/images/logo.png";
+		                var ctxt = '金享财行双旦活动来临！即时登录官网或者APP参与活动，抽取红包好过年，新用户实名投资还有100元现金红包哟，快来参与吧……';
+		                var url = "http://api.bshare.cn/share/" + site + "?url=" + e("" + qr_url + "") + "&title=" + e(d.title) + "&publisherUuid=" + uuid + "&summary=" + ctxt + "&pic=" + img;
+		                window.open(url, 'bshare', ['toolbar=0,status=0,resizable=1,width=' + wd + ',height=' + hg + ',left=' + (s.width - wd) / 2 + ',top=' + (s.height - hg) / 2]);
+		            }
+	            </script>
+	        </div>
+	    </div>
+    </div>
+
+	<script type="text/javascript" src="./front/js/activity/shuangdan.js?4554416"></script>
+</body>
+{include file="inc/footer.html"}

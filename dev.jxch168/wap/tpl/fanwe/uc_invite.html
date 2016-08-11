@@ -1,0 +1,76 @@
+{include file="./inc/header.html"}
+<div class="content">
+	<!-- 软件分享 -->
+	<div class="uc_invite"><!--线上支付-->
+		<div class="figure">
+			<div class="item">
+				<span>手机推荐</span>
+				<textarea placeholder="输入金额,最低5元" readonly style="width: 95%;">>{$data.share_url_mobile}</textarea>
+			</div>
+		</div>
+		<div class="figure">
+			<div class="item">
+				<span>用户推荐</span>
+				<textarea placeholder="输入金额,最低5元" readonly style="width: 95%;">{$data.share_url_username}</textarea>
+			</div>
+		</div>
+
+		<div class="figure" style="height:auto;" >
+			<div class="item">
+				尊敬的用户复制以上任意链接复制给您的好友，一起来理财吧！
+			</diva>
+	</div>
+</div>
+
+<style type="text/css">
+	.content{
+		margin: 15px;
+	}
+	.jiathis_style{
+		height: 25px;
+	}
+	.uc_invite .figure{
+		border-radius: 5px;
+	    background: #fff;
+	    border: 1px solid #d7d7d7;
+	    position: relative;
+	    margin: 10px;
+	    height: 100px;
+	    padding: 10px;
+	}
+
+	.uc_invite .figure .item{
+		padding-left: 80px;
+	}
+
+	.item span{
+		position: absolute;
+	    line-height: 40px;
+	    font-size: 15px;
+	    color: #333;
+	    padding: 0 10px;
+	    left: 0px;
+	}
+
+	.item textarea{
+		height: 80px;
+		width: 98%;
+		padding: 5px;
+		margin: 5px;
+	}
+</style>
+<script type="text/javascript" >
+	$('textarea').click(function(){
+		if (this.createTextRange) {
+	        var range = this.createTextRange();  
+	        range.collapse(true);  
+	        range.moveStart('character', 0);  
+	        range.moveEnd('character', $(this).val().length);  
+	        range.select();
+	    } else if (this.setSelectionRange) {
+	    	this.selectionStart = 0;
+	    	this.selectionEnd = $(this).val().length;
+	    }
+	});
+</script>
+{include file="./inc/footer.html"}

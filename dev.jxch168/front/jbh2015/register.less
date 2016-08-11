@@ -1,0 +1,157 @@
+*{
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	font-family:"ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3",Microsoft YaHei,'Microsoft YaHei','微软雅黑',SimHei,'SimHei','黑体';
+}
+body{
+	width: 100%;
+	// height: 100%;
+	background: url(reg_body_bg.png) no-repeat;
+	background-size: 100% auto;
+	background-color: #ce3a37;
+	padding-bottom: 10%; 
+}
+.hide{
+	display: none!important;
+}
+.show{
+	display: block!important;
+}
+#regPage{
+	width: 100%;
+	height: 100%;
+	.top_title{
+		display: block;
+		width: 80%;
+		margin: 0 auto;
+		padding: 8% 0;
+	}
+	.main{
+		width: 100%;
+		height: 300px;
+		margin: 0 auto;
+		background: url(reg_main_bg.png) no-repeat top center;
+		background-size: 100% 100%;
+		padding-bottom: 14%;
+		// background-color: #ce3a37;
+		.main_top{
+			width: 24%;
+			display: block;
+			margin: 0 auto;
+			padding: 5% 0 0 0;
+		}
+		.regform{
+			width: 80%;
+			margin: 8% auto;
+			// display: none;
+			input,button{
+				display: block;
+				font-size: 1rem;
+				padding: 3% 0;
+				border-radius: 4px;
+				background: white;
+				color: #999;
+				border: none;
+				box-shadow: 0 2px 2px  #bc302e;
+			}
+			.codebox,#moble,#pass{
+				width: 80%;
+				margin:0 auto;
+				margin-bottom: 5%;
+				text-indent: 1em;
+			}
+			.codebox{
+				position: relative;
+				#code{
+					width: 45%;
+					float: left;
+					text-indent: 1em;
+				}
+				#getcode{
+					width: 45%;
+					float: right;
+					background: #e24c49;
+					color: white;
+					text-align: center;
+				}
+				.disabled{
+					background-color: gray!important;
+				}
+				.codeCover{
+					position: absolute;
+					top: 0;
+					right: 0;
+					background: transparent;
+					border-radius: 4px;
+					width: 45%;
+					height: 100%;
+					// padding: 2% 0;
+					display: none;
+				}
+			}
+			
+		}
+		.reg_success{
+			text-align: center;
+			display: none;
+			color: white;
+			font-size: 1rem;
+			line-height: 1.6rem;
+			margin-top: 4%;
+			p:first-child{
+				margin-bottom: 4%;
+			}
+		}
+	}
+	#regbtn{
+		display: block;
+		width: 90%;
+		padding: 3% 0;
+		background: #fee25e;
+		color: #ff0737;
+		text-align: center;
+		font-size: 1.4rem;
+		margin: 4% auto;
+		border-radius: 4px;
+	}
+	#successbtn{
+		width: 80%;
+		margin: 4% auto;
+		display: none;
+		#downbtn,#ltybtn{
+			background-color: #fee25e;
+			width: 45%;
+			text-align: center;
+			padding: 3% 0;
+			color: #ff0737;
+			font-size: 1.4rem;
+			border-radius: 4px;
+			box-shadow: 0 2px 2px  #bc302e;
+		}
+		#downbtn{
+			float: right;
+			span{
+				// display: block;
+				margin: 0 auto;
+				background: url(reg_down_icon.png) no-repeat right center;
+				padding-right: 30px;
+			}
+		}
+		#ltybtn{
+			float: left;
+		}
+	}
+
+	.rules{
+		width: 90%;
+		margin: 0 auto;
+		color: white;
+		font-size: 1rem;
+		line-height: 1.8rem;
+		padding-top: 10%;
+		background: url(reg_rule_titile.png) no-repeat top center;
+		background-size: 100% auto;
+		text-align: justify;
+	}
+}

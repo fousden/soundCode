@@ -1,0 +1,81 @@
+.slide {
+  position: relative;
+  padding-bottom: 20px;
+}
+.slide > ul.slidebox > li {
+  display: none;
+}
+.slide > ul.slidebox > .active {
+  display: block;
+}
+.slide > ul.relative {
+  position: relative;
+}
+.slide > ul.relative > li.absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.slide > ul.clear {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.slide > ul.clear > li {
+  float: left;
+  display: block;
+}
+.slide > ul.clear:before {
+  content: '';
+  display: block;
+  clear: both;
+}
+.slide > ul.clear:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.slide > ul.sm_nav {
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+}
+.slide > ul.sm_nav:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+.slide > ul.sm_nav > li {
+  width: 10px;
+  height: 10px;
+  float: left;
+  background-color: #dddddd;
+  border-radius: 100%;
+  border: 1px solid #aaa;
+  margin: 0 4px;
+  cursor: pointer;
+}
+.slide > ul.sm_nav > li:hover {
+  background-color: orange;
+}
+.slide > ul.sm_nav > .active {
+  background-color: orange;
+}
+.slide > ul.bg_nav > li.item {
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+.slide > ul.bg_nav > .last {
+  left: 1%;
+  background: url(images/left_icon.png) no-repeat;
+  background-size: 100% 100%;
+}
+.slide > ul.bg_nav > .next {
+  right: 1%;
+  background: url(images/right_icon.png) no-repeat;
+  background-size: 100% 100%;
+}

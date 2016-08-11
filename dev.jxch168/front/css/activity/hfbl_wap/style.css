@@ -1,0 +1,137 @@
+html,body {
+  height: 100%;
+  font-family:'Microsoft YaHei','Hiragino Sans GB',Helvetica,Arial,'Lucida Grande',sans-serif;
+  font-size: 62.5%;
+}
+#thanksgiving_m img.bg {
+  display: block;
+}
+#thanksgiving_m .header_m img,
+#thanksgiving_m .content_m img.bg {
+  width: 100%;
+  height: auto;
+}
+#thanksgiving_m .header_m,
+#thanksgiving_m .content_m,
+#thanksgiving_m .slotMain_m,
+#thanksgiving_m .rule_m,
+#thanksgiving_m .prodShow_m {
+  position: relative;
+  width: 100%;
+}
+#thanksgiving_m .slotMain_m {
+  overflow: hidden;
+}
+#thanksgiving_m .slotMain_m .cnt {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer,
+#thanksgiving_m .slotMain_m .cnt .info,
+#thanksgiving_m .slotMain_m .cnt .btnPull {
+  position: absolute;
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer {
+  width: 100%;
+  top: 30%;
+  left: 19%;
+}
+@media (max-width: 370px) {
+  #thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer {
+    top: 28.5%;
+    left: 19%;
+  }
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer.machineContainer {
+  overflow: hidden;
+  height: 50%;
+  width: 100%;
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .machineResult {
+  display: none;
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slotMachine {
+  position: relative;
+  width: 13.5%;
+  height: 5rem;
+  margin-right: 7.2%;
+  padding: 0px;
+  overflow: hidden;
+  display: inline-block;
+  text-align: center;
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slotMachine .slot {
+  height: 5rem;
+  background-position-x: 55%;
+  background-repeat: no-repeat;
+  background-size: 80% 100% ;
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot1 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/dxq.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot2 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/handmi.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot3 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/bontmi.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot4 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/ysh.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot5 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/zhazj.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot6 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/dfb.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot7 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/philips.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot8 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/watch.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot9 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/mini.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot10 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/air.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot11 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/iphone.png);
+}
+#thanksgiving_m .content_m .slotMain_m .cnt #slotMain .slotMachine .slotMachineContainer .slot12 {
+  background-image: url(/front/images/activity/hfbl_wap/prod/mac.png);
+}
+#thanksgiving_m .slotMain_m .cnt .info {
+  top: 67%;
+  left: 34.5%;
+  text-align: center;
+}
+#thanksgiving_m .slotMain_m .cnt .info a {
+  text-decoration: none;
+  color: #CA3A23;
+}
+#thanksgiving_m .slotMain_m .cnt .btnPull {
+  top: 100%;
+  left: 39%;
+  width: 21%;
+  cursor: pointer;
+}
+#thanksgiving_m .slotMain_m .cnt .btnPull.hide {
+  visibility: hidden;
+}
+@media (min-width: 375px) {
+  #thanksgiving_m .slotMain_m .cnt .info a {
+  text-decoration: none;
+  color: #CA3A23;
+  font-size: 1.5rem;
+  }
+}
+@media (min-width: 767px) {
+  #thanksgiving_m .slotMain_m .cnt .info a {
+  text-decoration: none;
+  color: #CA3A23;
+  font-size: 3rem;
+  }
+}

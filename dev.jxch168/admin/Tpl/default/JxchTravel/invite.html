@@ -1,0 +1,43 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title" >金享旅游-推荐列表</div><br>
+<div class="search_row">
+    <form name="search" id="search_form" action="__APP__" method="post">	
+        筛选：
+        <select name="prize_type">
+                <option value="" <if condition="intval($_REQUEST['prize_type']) eq null">selected="selected"</if>>获奖用户</option>
+                <option value="1" <if condition="intval($_REQUEST['prize_type']) eq 1">selected="selected"</if>>全部用户</option>
+        </select>	
+        <input type="hidden" value="JxchTravel" name="m" />
+        <input type="hidden" value="invite" name="a" />&nbsp;&nbsp;&nbsp;
+        <input type="submit" class="button" value="{%SEARCH}" />
+        <input type="button" class="button" value="{%EXPORT}" onclick="export_csv_total();" />
+    </form>
+</div>
+<script type="text/javascript">	
+    function export_csv_total(){
+        var query = $("#search_form").serialize();
+        query = query.replace("&m=JxchTravel","");
+        query = query.replace("&a=invite","");
+        var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_csv_invite"+"&"+query;
+        location.href = url;
+    }	
+</script>
+<div class="blank5"></div>
+<html:list
+        id="dataTable"
+        style="dataTable"
+        name="deal"
+        datasource="list"
+        show="id:{%ID}|50px
+        ,user_id|get_user_name_real:用户id
+	,money:推荐入金
+	,num:推荐人数
+        ,status:备注"
+	/>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+
+</div>

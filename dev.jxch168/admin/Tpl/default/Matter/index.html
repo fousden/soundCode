@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    {// 引入标签库 }
+    <tagLib name="html" />
+    <include file="Public:header" />
+    <load href='__TMPL__Common/js/jquery.bgiframe.js' />
+    <load href='__TMPL__Common/js/jquery.weebox.js' />
+    <load href='__TMPL__Common/js/user.js' />
+    <load href='__TMPL__Common/style/weebox.css' />
+    <script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+    <load href='__TMPL__Common/js/calendar/calendar.css' />
+    <load href='__TMPL__Common/js/calendar/calendar.js' />
+    <script type="text/javascript">
+        function address(user_id)
+        {
+            location.href = ROOT + '?m=Pingan&a=index&id=' + user_id;
+        }
+        function set_present(id){
+                if(!id)
+                {
+                        idBox = $(".key:checked");
+                        if(idBox.length == 0)
+                        {
+                                alert(LANG['DELETE_EMPTY_WARNING']);
+                                return;
+                        }
+                        idArray = new Array();
+                        $.each( idBox, function(i, n){
+                                idArray.push($(n).val());
+                        });
+                        id = idArray.join(",");
+                }
+                if(confirm('确定发放?'))
+                $.ajax({
+                    url: ROOT + "?" + VAR_MODULE + "=" + MODULE_NAME + "&" + VAR_ACTION + "=set_present&id=" + id,
+                    data: "ajax=1",
+                    dataType: "json",
+                    success: function (obj) {
+                        if (obj == 1) {
+                            window.location.reload();
+                        }
+                }
+                });
+        }
+    </script>
+    <php>
+
+
+        function user_company($id,$user){
+        if($user['user_type']==1){
+        return "<a href='javascript:user_company(".$id.");'>公司</a>&nbsp;";
+        }
+        }
+
+        function get_date($create_time){
+        return to_date($create_time,"Y-m-d H:i:s");
+        }
+        function get_present($status,$id){
+        if($status==0){
+        return "<span class='is_advance' onclick='set_present(".$id.", this);'>点击发放</span>";
+        }else{
+        return "<span class='present'>已经发放</span>";
+        }
+        }
+
+    </php>
+    <div class="main">
+        <div class="main_title">抽奖日志</div>
+        <div class="blank5"></div>
+        <div class="blank5"></div>
+
+        <div class="search_row">
+            <form name="matter" id="from1" action="__APP__" method="get">
+                活动类型：<select name="prize_desc" id="lotter_id" >
+                        <option value="0">全部</option>
+                        <foreach name="conf_list" item="item">
+                        <option value="{$item.prize_desc}" <?php if($_REQUEST['prize_desc']==$item['prize_desc']){echo 'selected';}?>>{$item.prize_desc}</option>
+                        </foreach>
+                    </select>
+                奖品类型：<select name="prize_type" id="prize_type" >
+                     <option value="-1"<if condition="intval($_REQUEST['prize_type']) eq -1 ">selected</if>>全部</option>
+                    <option value="1"<if condition="intval($_REQUEST['prize_type']) eq 1 ">selected</if>>收益券</option>
+                    <option value="2"<if condition="intval($_REQUEST['prize_type']) eq 2 ">selected</if>>抵现券</option>
+                    <option value="3"<if condition="intval($_REQUEST['prize_type']) eq 3 ">selected</if>>红包类型</option>
+                    <option value="4"<if condition="intval($_REQUEST['prize_type']) eq 4 ">selected</if>>实物</option>
+                    <option value="0"<if condition="intval($_REQUEST['prize_type']) eq 0 ">selected</if>>车券</option>
+                </select>
+                状态：<select name="status" id="status" >
+                     <option value="-1"<if condition="intval($_REQUEST['status']) eq -1 ">selected</if>>全部</option>
+                    <option value="0"<if condition="intval($_REQUEST['status']) eq 0 ">selected</if>>未发放</option>
+                    <option value="1"<if condition="intval($_REQUEST['status']) eq 1 ">selected</if>>已发放</option>
+                </select>
+                获得时间：
+                <input type="text" class="textbox" name="start_time" id="start_time" value="{:trim($_REQUEST['start_time'])}" onfocus="return showCalendar('start_time', '%Y-%m-%d %H:%M:%S', false, false, 'start_time');" style="width:130px" /> -
+                <input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+                <div class="blank5"></div>
+                账号名:<input type="text" name="user_name" value="{:trim($_REQUEST['user_name'])}">
+                手机号:<input type="text" name="mobile" value="{:trim($_REQUEST['mobile'])}">
+                礼品名称:<input type="text" name="prize_name" value="{:trim($_REQUEST['prize_name'])}">
+                <!--礼品描述:<input type="text" name="prize_desc" value="{:trim($_REQUEST['prize_desc'])}">-->
+                模糊查询:<input type="checkbox" name="is_mohu" value="1" <if condition="intval($_REQUEST['is_mohu']) eq 1">checked="checked"</if> />
+                <br />
+
+                <input type="hidden" value="Matter" name="m" />
+                <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+                <div class="blank5"></div>
+                <p>
+                <input type="submit" class="button" value="{%SEARCH}" />
+                <input class="button" type="button" onclick='export_all_matter();' value="导出" />
+                <input type="button" class="button" value="礼品发放" onclick="set_present();" />
+            </form>
+        </div>
+        <script type="text/javascript">
+            //对于采购的处理
+            function purchase(id, is_purchase, ele)
+            {
+                if (!id) {
+                    idBox = $(".key:checked");
+                    if (idBox.length == 0)
+                    {
+                        alert("请选择要操作的选项");
+                        return;
+                    }
+                    idArray = new Array();
+                    $.each(idBox, function (i, n) {
+                        idArray.push($(n).val());
+                    });
+                    id = idArray.join(",");
+                }
+                if (is_purchase == 2) {
+                    if ($(ele).html() == '是') {
+                        is_purchase = 0;
+                    } else {
+                        is_purchase = 1;
+                    }
+                }
+                if (!ele) {
+                    if (!confirm("确定要操作吗")) {
+                        return false;
+                    }
+                }
+                $.ajax({
+                    url: ROOT + "?" + VAR_MODULE + "=" + MODULE_NAME + "&" + VAR_ACTION + "=purchase&id=" + id + '&is_purchase=' + is_purchase,
+                    data: "ajax=1",
+                    dataType: "json",
+                    success: function (obj) {
+                        if (ele) {
+                            $(ele).html(obj.info);
+                        } else {
+                            location.href = location.href;
+                        }
+
+                    }
+                });
+            }
+            //export_all_load 导出投资记录
+            function export_all_matter() {
+                var lotter_id = $("#lotter_id").val();
+                var prize_type = $("#prize_type").val();
+                window.location.href = ROOT + "?" + VAR_MODULE + "=" + MODULE_NAME + "&" + VAR_ACTION + "=index&lotter_id=" + lotter_id + "&prize_type=" + prize_type + "&oper_type=export"
+                        + '&start_time='+$('#start_time').val()  + '&end_time='+$('#end_time').val()  + '&status='+$('#status').val() ;
+            }
+        </script>
+        <php>
+
+            function get_mobile_name($mobile){
+                    $user_info =  M("User")->where("mobile=".$mobile." and is_delete = 0")->Field("user_name,real_name,user_type,mobile")->find();
+                    if(!$user_info){
+                            return l("NO_USER");
+                    }else{
+                            return "<a href=".u("User/".($user_info['user_type']==0? "index" : "company_index"),array("user_name"=>$user_info['user_name']))." target='_blank'>".$user_info['user_name'].($user_info['real_name']!="" ? "[".$user_info['real_name']."]"."[".$user_info['mobile']."]":"")."</a>";
+                    }
+            }
+            function get_invest_money($mobile){
+                $user_id = M("user")->where(array("mobile"=>$mobile))->getField("id");
+                $invest_money = M("deal_load")->where(array("user_id"=>$user_id,"is_auto"=>0,"contract_no"=>array("neq","")))->getField("sum(money)");
+                return number_format($invest_money,2);
+            }
+            function get_is_purchase($tag,$id){
+                if($tag)
+                {
+                return "<span class='is_black' data='".$tag."' onclick='purchase(".$id.", 2, this);'>是</span>";
+                }
+                else
+                {
+                return "<span class='is_black' data='".$tag."' onclick='purchase(".$id.", 2, this);'>否</span>";
+                }
+            }
+        </php>
+        <div class="blank5"></div>
+        <if condition="($_REQUEST['prize_type']) eq 4">
+            <html:list
+                id="dataTable"
+                style="dataTable"
+                name="lotter"
+                checkbox="true"
+                datasource="list"
+                show="id:{%ID}|50px
+                ,create_time|get_date:创建时间
+                ,mobile|get_mobile_name:账户名
+                ,mobile:手机号
+                ,mobile|get_invest_money:投资总额
+                ,use_money|number_format:抽奖消耗金额
+                ,prize_name:礼品名称
+                ,prize_desc:礼品描述
+                ,status|get_present=$lotter['id']:礼品发放"
+                />
+<!--            ,is_purchase|get_is_purchase=$lotter['id']:是否采购-->
+            <else />
+            <html:list
+                id="dataTable"
+                style="dataTable"
+                name="lotter"
+                checkbox="true"
+                datasource="list"
+                show="id:{%ID}|50px
+                ,create_time|get_date:创建时间
+                ,mobile|get_mobile_name:账户名
+                ,mobile:手机号
+                ,mobile|get_invest_money:投资总额
+                ,use_money|number_format:抽奖消耗金额
+                ,prize_name:礼品名称
+                ,prize_desc:礼品描述"
+                />
+        </if>
+
+        <div class="blank5"></div>
+        <div class="page">{$page}</div>
+    </div>
+    <include file="Public:footer" />
+</html>
+

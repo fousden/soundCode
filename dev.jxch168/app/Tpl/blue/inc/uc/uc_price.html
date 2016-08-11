@@ -1,0 +1,446 @@
+<div class="tabbox clearfix">
+    <div class="tab {if $ACTION_NAME eq 'index'}cur{/if}"><a href="{url x="index" r="uc_price"}">{if $change_info }修改地址{else}我的奖品{/if}</a></div>
+</div>
+<style>
+    #redbagcontainer #redbagcont .cont .tablecont .real_name {
+        width: 18%;
+    }
+    #redbagcontainer #redbagcont .cont .tabletitle .province,
+    #redbagcontainer #redbagcont .cont .tablecont .province {
+        width: 12%;
+    }
+    #redbagcontainer #redbagcont .cont .tabletitle .city,
+    #redbagcontainer #redbagcont .cont .tablecont .city {
+        width: 12%;
+    }
+    #redbagcontainer #redbagcont .cont .tabletitle .address,
+    #redbagcontainer #redbagcont .cont .tablecont .address {
+        width: 19%;
+    }
+    #redbagcontainer #redbagcont .cont .tabletitle .mobile,
+    #redbagcontainer #redbagcont .cont .tablecont .mobile {
+        width: 16%;
+    }
+    #redbagcontainer #redbagcont .cont .tablecont .action {
+        width: 20%;
+    }
+    .field .f-input{
+        padding:10px;
+    }
+    .field .f-input-tip{
+        font-size:15px;
+    }
+
+</style>
+<div class="uc_box bdd bt0 clearfix">
+    <div id="redbagcontainer">
+        {if $address_info && $change_info.tip != "change"}
+        <div id="redbagcont">
+            <div class="title">收货人信息</div>
+            <dl class="cont">
+                <dt class="tabletitle">
+                <p class="bag_type real_name" style="width:18%;">收件人</p>
+                <p class="bag_duration province" style="width:12%;">省份</p>
+                <p class="bag_rules city" style="width:12%;">城市</p>
+                <p class="bag_from address" style="width:19%;">详细地址</p>
+                <p class="bag_status mobile" style="width:16%;">手机号码</p>
+                <p class="bag_status action" style="width:20%;">操作</p>
+                <div class="Clear"></div>
+                </dt>
+                <dt class="tablecont">
+                <p class="bag_type real_name" style="width:18%;">{$address_info.real_name}</p>
+                <p class="bag_duration province" style="width:12%;">{$address_info.province}</p>
+                <p class="bag_rules city" style="width:12%;">{$address_info.city}</p>
+                <p class="bag_from address" style="width:19%;">{$address_info.address}</p>
+                <p class="bag_status mobile" style="width:16%;">{$address_info.mobile}</p>
+                <p class="bag_status action" style="width:20%;"><a href="member.php?ctl=uc_price&tip=change&address_id={$address_info.id}" >修改</a>&nbsp<a href="javascript:;" onclick="del_address({$address_info.id})">删除</a></p>
+                </dt>
+            </dl>
+        </div>
+        {else}
+        <div id="redbagmain">
+            <!--收件人-->
+            <div class="field username ">
+                <label for="real_name"><span class="f_red">*</span>收件人:</label>
+                <div class="f_l frbox pr">
+                    <input type="text" class="f-input  ui-textbox" holder="请输入真实姓名" value="{if $change_info}{$change_info.real_name}{/if}" id="real_name" name="real_name" size="30" datavalue="1">
+                    <span class="f-input-tip"></span>
+                    <span class="hint"></span>
+                </div>
+                <div class="blank10"></div>
+            </div>
+            <!--收件人-->
+
+            <!--地区-->
+            <div class="field area">
+                <label for="bank"><span class="f_red">*</span>所在地区:</label>
+                <div class="f_l frbox pr">
+                    <!--                        <div class="u_icon">
+                                                <i class="iconfont">&#xe60a;</i>
+                                            </div>-->
+                    <div>
+                    <select style="padding:5px;" name='region_lv1' id="province" datavalue="1">
+                        {if $region_lv1}
+                        <option value="-1">请选择省</option>
+                        {foreach from=$region_lv1 item="item" key=key}
+                        <option value='{$item.DistrictCode}' {if $change_info.province==$item.DistrictName }selected='selected'{/if} >{$item.DistrictName}</option>
+                        {/foreach}
+                        {else}
+                        <option selected='selected' value="-1">请选择省</option>
+                        {/if}
+                    </select>
+
+                    <select name='region_lv2' style="padding:5px;width:93px;" id="city" datavalue="1" height="300">
+                        {if $change_info}
+                        <option  value="-1">请选择市</option>
+                        <option selected="selected"  value="{$change_info.city_code}">{$change_info.city}</option>
+                        {else}
+                        <option selected='selected' value="-1">请选择市</option>
+                        {/if}
+                    </select>
+
+                    <script type="text/javascript">
+                        var code="{$change_info.city_code}";
+
+                        $(function () {
+                            $("select[name=region_lv2] option:first").nextAll().remove();
+                            $.get('?ctl=uc_price&act=get_city',
+                                    {id: $("select[name=region_lv1] option:selected").val()},
+                                    function (data) {
+                                        $.each(data, function (index, item) {
+                                            var str='';
+                                            if(code==item.DistrictCode){
+                                                str="selected";
+                                            }
+                                            $("select[name=region_lv2]")
+                                                    .append(
+                                                            $("<option "+str+"/>")
+                                                                    .attr("value",item.DistrictCode)
+                                                                    .text(item.DistrictName));
+                                        })
+                                    },
+                                    'json'
+                            );
+                            $("select[name=region_lv1]").change(function () {
+                                $("select[name=region_lv2] option:first").nextAll().remove();
+                                $.get('?ctl=uc_price&act=get_city',
+                                        {id: $(this).val()},
+                                        function (data) {
+                                            $.each(data, function (index, item) {
+                                                $("select[name=region_lv2]")
+                                                        .append(
+                                                                $("<option/>")
+                                                                        .attr("value", item.DistrictCode)
+                                                                        .text(item.DistrictName));
+                                            })
+                                        },
+                                        'json'
+                                );
+                            });
+                        });
+                    </script>
+                    </div>
+                    <!--<option value='other'>其他</option>-->
+                    <span class="f-input-tip"></span>
+                    <span class="hint"></span>
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            <!--地区-->
+
+            <!--详细地址-->
+            <div class="field address ">
+                <label for="address"><span class="f_red">*</span>详细地址:</label>
+                <div class="f_l frbox pr">
+                    <input type="text" class="f-input ui-textbox" holder="请输入详细的地址" value="{if $change_info}{$change_info.address}{/if}" id="address" name="address" size="30" datavalue="1">
+                    <span class="f-input-tip"></span>
+                    <span class="hint"></span>
+                </div>
+                <div class="blank10"></div>
+            </div>
+            <!--详细地址-->
+
+            <!--手机号码-->
+            <div class="field mobile ">
+                <label for="mobile"><span class="f_red">*</span>手机号码:</label>
+                <div class="f_l frbox pr">
+                    <input type="text" class="f-input ui-textbox" holder="请输入手机号码" value="{if $change_info}{$change_info.mobile}{/if}" id="mobile" name="mobile" size="30" datavalue="1">
+                    <span class="f-input-tip"></span>
+                    <span class="hint"></span>
+                </div>
+                <div class="blank10"></div>
+            </div>
+            <!--手机号码-->
+
+            <!--邮政编码-->
+            <div class="field code ">
+                <label for="code"><span class="f_red"></span>邮政编码:</label>
+                <div class="f_l frbox pr">
+                    <input type="text" class="f-input ui-textbox" holder="请输入邮政编码" value="{if $change_info}{$change_info.code}{/if}" id="code" name="code" size="30" datavalue="1">
+                    <span class="f-input-tip"></span>
+                    <span class="hint"></span>
+                </div>
+                <div class="blank10"></div>
+            </div>
+            <!--邮政编码-->
+            <div class="act">
+                <div style="margin-left: 20%">
+                    <input  type="submit" class="btn_blue w120 f_white f14 b p10 bdr3 reg-submit-btn" address_id="{$change_info.id}" id="commit" name="commit" value="保存">
+                    <div class="blank20"></div>
+                    <div class="f_red">
+                        *注：1、默认用户地址为用户所填信息，若对之后发放奖品地址修改确认有疑义，请及时联系客服调解。
+                    </div>
+                    <div class="f_red" style="margin-left:35px">
+                        2、每次新奖品发放，客服会主动联系您确认地址！
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/if}
+        <div id="redbagcont">
+            <div class="title">获奖信息</div>
+            <div class="filtrate">
+                <div>
+                    <span class="title">状态:</span>
+                    <a href="/member.php?ctl=uc_price&amp;act=index&amp;status=0 " {if $status eq 0}class="select"{/if} id="noget">待发放</a>
+                    <a href="/member.php?ctl=uc_price&amp;act=index&amp;status=1 " {if $status eq 1}class="select"{/if} id="get">已发放</a>
+                    <div class="Clear"></div>
+                </div>
+                <div>
+                    <span class="title">按时间排序:</span>
+                    <a href="/member.php?ctl=uc_price&act=index&type=0" id="order_time"class="select" style="width:80px;">最新时间↑↓</a>
+                    <div class="Clear"></div>
+                </div>
+            </div>
+            <dl class="cont">
+                <dt class="tabletitle">
+                <p class="bag_type activity_name" style="width:25%">活动名称</p>
+                <p class="bag_duration activity_time" style="width:25%">获奖时间</p>
+                <p class="bag_from prize" style="width:25%;">活动奖励</p>
+                <p class="bag_status prize_status" style="width:22%">奖品状态</p>
+                <div class="Clear"></div>
+                </dt>
+                {if $lottery_info}
+                {foreach from=$lottery_info item="item" key=key}
+                <dt class="tablecont">
+                <p class="bag_type activity_name" style="width:25%">{$item.prize_desc}</p>
+                <p class="bag_duration activity_time" style="width:25%">{$item.create_time}</p>
+                <p class="bag_rules prize" style="width:25%;">{$item.prize_name}</p>
+                <p class="bag_from prize_status" style="width:22%">{if $item.status eq 0}待发放{else}已发放{/if}</p>
+                </dt>
+                {/foreach}
+                {else}
+                <dt class="tablecont">
+                    <span style="text-align:center; width:100%;display:block;">暂无记录</span>
+                </dt>
+                {/if}
+            </dl>
+        </div>
+        <div class="pages">{$pages}</div>
+    </div>
+</div>
+<script type="text/javascript">
+    //做一些js验证
+    // 验证收件人的名字
+    $("#real_name").on("blur",function(){
+        var obj = $(this);
+        var real_name = obj.val();
+        if(real_name.length==0){
+            obj.next().html("<span class='f_red'>*请输入收件人姓名</span>")
+            obj.attr("datavalue", 0);
+            return false;
+        }else{
+            obj.attr("datavalue", 1);
+            obj.next().html(" ");
+        }
+    })
+
+//    $("#province").on("change",function(){
+//        var obj = $(this);
+//        var province = obj.val();
+//        if(province==-1){
+//            obj.next().next().html("<span class='f_red'>*请选择省</span>")
+//            obj.attr("datavalue", 0);
+//            return false;
+//        }else{
+//            obj.attr("datavalue",1);
+//        }
+//    })
+//
+//    $("#city").on("change",function(){
+//        var obj = $(this);
+//        var city = obj.val();
+//        if(city==-1){
+//            obj.next().next().html("<span class='f_red'>*请选择市</span>")
+//            obj.attr("datavalue", 0);
+//            return false;
+//        }else{
+//            obj.attr("datavalue",1);
+//        }
+//    })
+
+
+    $("#address").on("blur",function(){
+        var obj = $(this);
+        var address = obj.val();
+        if(address.length==0){
+            obj.next().html("<span class='f_red'>*请输入收货人地址</span>");
+            obj.attr("datavalue", 0);
+            return false;
+        }else{
+            obj.attr("datavalue", 1);
+            obj.next().html(" ");
+        }
+    })
+
+    $("#mobile").blur("blur",function(){
+        var obj = $(this);
+        var mobile = obj.val();
+        if(!$.checkMobilePhone(mobile) || mobile.length==0){
+            obj.next().html("<span class='f_red'>*请输入正确的手机号</span>");
+            obj.attr("datavalue", 0);
+            return false;
+        }else{
+            obj.attr("datavalue", 1);
+            obj.next().html(" ");
+        }
+    })
+
+//    $("#code").on("blur",function(){
+//        var obj = $(this);
+//        var code = obj.val();
+//        if(code.length==0){
+//            obj.next().html("<span class='f_red'>*请输入邮政编码</span>");
+//            obj.attr("datavalue", 0);
+//            return false;
+//        }else if(code.length != 6){
+//            obj.next().html("<span class='f_red'>*请输入6位邮政编码</span>");
+//            obj.attr("datavalue", 0);
+//            return false;
+//        }else{
+//            obj.attr("datavalue", 1);
+//            obj.next().html(" ");
+//        }
+//    })
+
+    $("#commit").one("click",function(){
+        var name_datavalue = $("#real_name").attr("datavalue");
+        var real_name = $("#real_name").val();
+        var address_datavalue = $("#address").attr("datavalue");
+        var address = $("#address").val();
+        var mobile_datavalue = $("#mobile").attr("datavalue");
+        var mobile = $("#mobile").val();
+//        var code_datavalue = $("#code").attr("datavalue");
+        var code = $("#code").val();
+        var province_datavalue = $("#province").attr("datavalue");
+        var province = $("#province").val();
+        var city_datavalue = $("#city").attr("datavalue");
+        var city = $("#city").val();
+        var address_id = $(this).attr("address_id");
+        if(name_datavalue==0 || real_name.length==0){
+            $.showErr("请输入收件人姓名");
+            return false;
+        }
+
+
+        if(province_datavalue==0 || province==-1){
+            $.showErr("请选择省");
+            return false;
+        }
+
+        if(city_datavalue==0 || city==-1){
+            $.showErr("请选择市");
+            return false;
+        }
+
+        if(address_datavalue==0 || address.length==0){
+            $.showErr("请输入详细地址");
+            return false;
+        }
+
+        if(mobile_datavalue==0 || mobile.length==0){
+            $.showErr("请输入正确的手机号");
+            return false;
+        }
+
+        var query = new Object();
+        query.real_name = real_name;
+        query.province = province;
+        query.city = city;
+        query.address = address;
+        query.mobile = mobile;
+        query.code = code;
+        query.ajax = 1;
+        var ajaxurl = "/member.php?ctl=uc_price&act=save_user_info";
+        if(address_id.length>0){
+            query.address_id = address_id;
+            var ajaxurl = "/member.php?ctl=uc_price&act=update_user_info";
+        }
+        $.ajax({
+            url:ajaxurl,
+            data:query,
+            type:"POST",
+            dataType:"json",
+            success:function(result){
+                if (result.status <= 0){
+                    $.showErr(result.info);
+                }else{
+                    $.showSuccess(result.info,function(){location.href="/member.php?ctl=uc_price"});
+                }
+            }
+        });
+
+    })
+
+    function del_address(address_id){
+        if(!confirm("点击确定删除")){
+            return false;
+        };
+        $.ajax({
+            url:"/member.php?ctl=uc_price&act=del_address",
+            data:{address_id:address_id},
+            type:"POST",
+            dataType:"JSON",
+            success:function(result){
+                if (result.status <= 0){
+                    $.showErr(result.info);
+                }else{
+                    $.showSuccess(result.info,function(){location.reload()});
+                }
+            }
+        })
+    }
+
+    $("#noget").on("click",function(){
+        $('#get').removeClass("select");
+    })
+
+    $("#get").on("click",function(){
+        $('#noget').removeClass("select");
+    })
+
+    function GetQueryString(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r!=null) return unescape(r[2]); return null;
+    }
+
+    $("#order_time").on("click",function(){
+        var type = GetQueryString('type');
+        var status = GetQueryString('status');
+        if(type==0){
+            var type=1;
+        }else{
+            var type=0
+        }
+
+        if(status==null){
+            $(this).attr("href","/member.php?ctl=uc_price&act=index&type="+type);
+        }else{
+            $(this).attr("href","/member.php?ctl=uc_price&act=index&type="+type+"&status="+status);
+        }
+
+    })
+
+</script>

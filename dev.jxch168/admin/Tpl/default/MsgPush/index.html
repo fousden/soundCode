@@ -1,0 +1,86 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+	function inquire(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"=MsgPush&"+VAR_ACTION+"=inquiry&id="+id;
+	}
+</script>
+<?php
+    function get_msg_type($type){
+        switch($type){
+            case 1;
+                return "全部用户";
+                break;
+            case 2;
+                return "苹果用户";
+                break;
+            case 3;
+                return "安卓用户";
+                break;
+            case 4;
+                return "指定用户";
+                break;
+            default;
+                return "无";
+                break;
+        }
+    }
+    function get_type($type){
+        switch($type){
+            case 1;
+                return "普通网址";
+                break;
+            case 2;
+                return "banner页";
+                break;
+            case 3;
+                return "标的ID";
+                break;
+            case 4;
+                return "项目列表";
+                break;
+            default;
+                return "打开应用";
+                break;
+        }
+    }
+    /**
+    function get_ret($status){
+        if($status=="1"){
+            return "推送成功";
+        }else{
+            return "推送失败";
+        }
+    }
+    **/
+?>
+<div class="main">
+<div class="main_title">消息推送列表</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="location.href='{:u("MsgPush/add")}';" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="device_msg" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+        ,msg_type|get_msg_type:发送对象
+        ,title:标题
+        ,content:内容
+	,type|get_type:类型
+	,data:值
+	,update_time|to_date:发送时间" 
+	actionlist="inquire:查询" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

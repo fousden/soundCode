@@ -1,0 +1,999 @@
+{include file="inc/header.html"}
+<div id="indexBanner">
+			<!--注册框 begin-->
+			<div class="wrap">
+				{if !$user_info}
+				<div id="registerBox">
+					<p class="title">金享财行最高年化利率：</p>
+					<p class="percentage">15%</p>
+					<p class="adv">成立至今<span class="count">{$user_count_all}</span>人已加入！</p>
+					<a href="/index.php?ctl=user&act=register" target="_blank" class="registerbtn">注册有惊喜</a>
+					<p class="bottomLinks">
+						<span>已有账号？</span>
+						<a href="<?php echo getHttpUrl();?>/index.php?ctl=user&act=login" target="_blank">立即登录</a>
+					</p>
+				</div>
+				{else}
+				<div id="loginBox">
+					<!--            <h5>当前登录账户：<span>{$user_info.user_name}</span></h5>
+            <div>
+                <img src="{function name="get_user_avatar" uid="$user_info.id" type="big"}" alt="" class="memberimg">
+                <ul>
+                    <li><a href="{url x="index" r="uc_center"}">账户中心</a></li>
+                    <li><a href="{url x="index" r="uc_account"}">个人资料</a></li>
+                    <li><a href="{url x="index" r="uc_money"}">资金记录</a></li>
+                </ul>
+            </div>
+            <div style="border-top: 1px solid white; padding-top: 20px;">
+                <a href="{url x="index" r="uc_money#incharge"}" class="recharge">充值</a>
+                <a href="{url x="index" r="user#loginout"}" class="logout">退出</a>
+            </div>-->
+					<p class="title">欢迎进入金享财行</p>
+					<p class="info">当前登录账户：<span class="name">{$user_info.user_name}</span></p>
+					<a href="{url x="index" r="uc_center"}" target="_blank" class="registerbtn">进入我的账户</a>
+					<p class="bottomLinks">
+						<a href="{url x="index" r="user#loginout"}" target="_self">安全登出</a>
+					</p>
+				</div>
+				{/if}
+
+			</div>
+			<!--注册框 end-->
+
+			<!--banner begin-->
+			<div id="main_adv_box" class="main_adv_box">
+				<div id="main_adv_img" class="main_adv_img">
+					{foreach from=$adv_info item="adv" key=key}
+					<span rel="{$key}"><a href="{$adv.href}" target="_blank"><img src="{$adv.img_url}"></a></span> {/foreach}
+				</div>
+				<div id="main_adv_ctl" class="main_adv_ctl">
+					<ul>
+						{foreach from=$adv_info item="adv" key=key}
+						<li rel="{$key}">{$key}</li>
+						{/foreach}
+
+					</ul>
+				</div>
+				<div class="Clear"></div>
+
+			</div>
+			<!--banner end-->
+			<!--介绍 begin-->
+			<script type="text/javascript">
+				window.odometerOptions = {
+					format: '(,ddd)',
+					// auto: false,
+					// duration: 10000,
+				};
+			</script>
+			<!-- <div id="showcase">
+				<div class="wrap">
+					<a href="/index.php?ctl=novice&act=guidelines" target="_blank" class="left">
+						<img src="/front/images/daf_03.png" width="80" height="80" class="img" alt="" />
+						<p class="info">
+							<span class="title">新手指引：</span>
+							<br/> &nbsp;欢迎入驻金享财行世界，轻松掌握享受互联网理财
+						</p>
+					</a>
+					<a href="/index.php?ctl=platformdata" target="_blank" class="right">
+						<img src="/front/images/daf_05.png" width="80" height="80" class="img" alt="" />
+						<p class="info">
+							<span class="title">平台数据：</span>
+							<br/>累积交易额：<span class="amount odometer odometer1"></span>万元&nbsp;&nbsp;&nbsp;为客户赚取收益：<span class="amount odometer odometer2"></span>万元
+						</p>
+					</a>
+					<div class="Clear"></div>
+				</div>
+			</div> -->
+
+			<!--介绍 end-->
+</div>
+<div id="notice">
+	<div class="wrap">
+		<p class="name">最新公告</p>
+		<p class="cont" data-direction='left' data-gap='800' data-duration='10000' data-pauseOnHover="true" data-duplicated="true">
+			{if $notice_act_list}
+			{foreach from=$notice_act_list item="vo"}
+			<a href="{$vo.rel_url}" target="_blank">{$vo.brief}</a>
+			{/foreach}
+			{/if}
+		</p>
+		<div class="Clear"></div>
+	</div>
+</div>
+<script src="./front/js/jquery.marquee.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$("#notice .cont").marquee();
+</script>
+<div id="showcase">
+	<div class="wrap">
+		<div class="morenum">
+			<img src="./front/images/index_morenum.png" alt="">
+			<a href="/index.php?ctl=platformdata" target="_blank">查看更多统计数据</a>
+		</div>
+
+		<!-- <p class="tit">平台累计交易额</p>
+		<span class="amount odometer odometer1 odometer-theme-default"></span><span class="unit">亿</span>
+		<span class="amount odometer odometer2 odometer-theme-default"></span><span class="unit">万</span>
+		<span class="amount odometer odometer3 odometer-theme-default"></span> -->
+		<div class="item">
+			<p class="num"><span class="amount odometer odometer3"></span></p>
+			<p class="title">投资人数(人)</p>
+		</div>
+		<div class="item"></div>
+		<div class="item">
+			<p class="num"><span class="amount odometer odometer4"></span></p>
+			<p class="title">标的期数(期)</p>
+		</div>
+		<div class="item"></div>
+		<div class="item">
+			<p class="num"><span class="amount odometer odometer1"></span></p>
+			<p class="title">平台累计交易额(万元)</p>
+		</div>
+		<div class="item"></div>
+		<div class="item">
+			<p class="num"><span class="amount odometer odometer2"></span></p>
+			<p class="title">为客户赚取收益(万元)</p>
+		</div>
+
+	</div>
+	<script type="text/javascript" src="{$JS}odometer.js"></script>
+	<script type="text/javascript">
+		setTimeout(function() {
+			$('.odometer1').html({$sum_money_all});
+		}, 500);
+		setTimeout(function() {
+			$('.odometer2').html({$sum_interest_all});
+		}, 500);
+		setTimeout(function() {
+			$('.odometer3').html({$user_count_all})
+		}, 500);
+		setTimeout(function() {
+			$('.odometer4').html({$deal_count_all});
+		}, 500);
+	</script>
+</div>
+<div class="wrap">
+{if $view eq true}
+<!-- 首页引导层 begin -->
+<script type="text/javascript" src="/front/js/jquery.flexslider-min.js"></script>
+<link rel="stylesheet" type="text/css" href="/front/css/flexslider.css">
+<div id="indexguide">
+    <div id="indexguidecover"></div>
+    <div class="indexguidenone" style="height: 100px;"></div>
+    <div id="indexguidebox">
+        <div class="flexslider">
+            <ul class="slides">
+                <li><img src="/front/images/g5.png" /></li>
+                <li><img src="/front/images/g6.png" /></li>
+                <li><img src="/front/images/g4.png" /></li>
+            </ul>
+        </div>
+        <div class="indexguideclose"></div>
+    </div>
+</div>
+<!-- 首页引导层 end -->
+{/if}
+
+
+<!--<script type="text/javascript">
+      $(function () {
+          var $sidebar = $(".index_right"),
+                  $window = $(window),
+                  leftset = $(".index_left").innerHeight(),
+                  offset = $sidebar.offset(),
+                  topPadding = 15;
+          $window.scroll(function () {
+              var top = $window.scrollTop() - offset.top + topPadding;
+              if ($window.scrollTop() > offset.top && leftset > $window.scrollTop()) {
+                  $sidebar.stop().css("marginTop", top);
+              } else if (top < 61) {
+                  $sidebar.stop().css("marginTop", 0);
+              }var isIpad = function()
+          });
+      });
+</script>-->
+
+<!--index beigin-->
+<div id="index">
+	<div id="floatlink">
+	    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAyNDMwNF8zMDIzMDRfNDAwMDkxMjgyOF8yXw" target="_blank" class="esq">
+
+	    </a>
+
+	    <a href="index.php?ctl=help&act=earnings_calculator" class="counter" target="_blank"></a>
+	    <a href="index.php?ctl=acate&id=22&type=1" class="active" target="_blank"></a>
+	    <a href="index.php?ctl=download" class="app" target="_blank"></a>
+	    <!--<a class="app" target="_blank"></a>-->
+	    <a href="javascript:;" class="wechat"></a>
+	    <img src="./front/images/WechatQRCode.jpg" class="dingyue">
+	    <div class="esqcont">
+	    	<div class="hotline">
+	    		<p>全国服务热线：</p>
+	    		<p class="line">400-091-2828</p>
+	    		<p>工作日 09:00 - 18:00</p>
+	    	</div>
+	    	<!--<div class="qun">
+	    		<p> 官方QQ交流群： </p>
+	    		<p> 242675907 </p>
+	    	</div>
+	    	<div class="kefuwechat">
+	    		<p> 官方微信交流群： </p>
+	    		<p> <img src="./front/images/floatlink_wechat.png" /></p>
+	    	</div>-->
+	    </div>
+	    <script type="text/javascript">
+	    $(function(){
+	    	var isIpad = function(){
+	    		return navigator.userAgent.indexOf("iPad") > -1;
+	    	}
+	        if(!isIpad()){
+	        	setFloatLink();
+	        }
+
+
+	        $("#floatlink").on("mouseover mouseout",".wechat",function(){
+	            $("#floatlink .dingyue").fadeToggle(100);
+	            // alert();
+	        })
+	        $("#floatlink").on("mouseover mouseout",".esq",function(){
+	            $("#floatlink .esqcont").fadeToggle(100);
+	            // alert();
+	        })
+	        function setFloatLink(){
+	            var e = $("#floatlink"),
+	                winH = $(window).height(),
+	                f = $("#footer"),
+	                h = $("#index");
+                    var newT = (winH-e.outerHeight())/2;
+                    e.show(1)
+                    $("#floatlink").animate({"top":newT},1000);
+	                // alert(e.position().top + e.outerHeight())
+	                // alert(f.offset().top);
+	                // alert(h.offset().top);
+	                // if(e.position().top + e.outerHeight() > f.offset().top){
+	                //     e.animate({top:"30%"},100);
+	                // };
+	                // if(e.position().top < h.offset().top){
+	                //     e.animate({top:"50px"},100);
+	                // }
+
+	        }
+	        $(document).scroll(function(){
+                if(!isIpad()){
+                	setFloatLink();
+                }
+	        })
+	    })
+	    </script>
+	</div>
+    <!--三大优势 begin-->
+    <div id="figure">
+		<div class="FloatLeft left">
+			<div class="container">
+				<span class="tit">金享财行的定义</span><a href="/index.php?ctl=novice&act=guidelines" target="_blank" class=" more FloatRight">查看详情<span class="FontIconLeftAndRight">&gt;&gt;</span></a>
+				<p class="info">
+					金享财行是创新型互联网金融信息服务平台，秉承保障投资人利益的理念，金享财行只与银行、担保公司、大型央企国企进行合作，严格控制风险，确保投资金享财行的用户能安全拿回投资本金和预期收益是我们的一贯追求。
+				</p>
+			</div>
+
+		</div>
+		<div class="FloatRight right">
+			<img class="animate" src="./front/images/index_animatebg.png">
+			<a href="/index.php?ctl=safety&act=safe" target="_blank" class="f_box">
+				<img src="./front/images/daf_18.png" alt="" />
+				<div class="text">
+					<p class="name">严格风控</p>
+					<p class="info">6大保障，第三方资金平台全程保证用户资金安全</p>
+				</div>
+			</a>
+			<a href="/index.php?ctl=safety&act=safe" target="_blank" class="f_box">
+				<img src="./front/images/daf_21.png" alt="" />
+				<div class="text">
+					<p class="name">安全保障</p>
+					<p class="info">银行、担保公司、大型央企、国企合作，还款来源安全</p>
+				</div>
+
+			</a>
+			<a href="/index.php?ctl=safety&act=safe" target="_blank" class="f_box">
+				<img src="./front/images/daf_24.png" alt="" />
+				<div class="text">
+					<p class="name">高收益</p>
+					<p class="info">银行，担保公司，中央企业联合保障您的本息安全</p>
+				</div>
+			</a>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				setInterval(function(){
+					$('#figure .animate').css({
+						'left': '-80px'
+					}).animate({
+						'left': '100%'
+					},3000)
+				},4000)
+			})
+		</script>
+	</div>
+    <!--三大优势 end-->
+    <!-- 新标预告
+	{if $advance_deal_list}
+	<div class="bdd"  style="margin-top:20px;">
+	    <div class="newnotice slideTxtBox"  >
+		<div class="noticetit hd">
+		    <div class="f_l">
+			<a href="{url x="index" r="deals#index" p="deal_status=19"}" class="f_red"><span>新标预告</span></a>
+		    </div>
+		    {if count($advance_deal_list) gt 1}
+		    <span class="f_r arrow">
+			<a class="prev noticentn">&lt;</a>
+			<a class="next noticentn">&gt;</a>
+		    </span>
+		    {/if}
+		</div>
+		<div class="blank0"></div>
+		<div class="noticecon">
+		    <div class="bestart"></div>
+		    <div class="infoList bd  pr">
+			<ul class="ovhide cf">
+			    {foreach from=$advance_deal_list item="deal" key=key name="deal"}
+			    <li>
+				<div class="noticecona">
+				    <div class="listtit">
+													    <img class="grade f_l mr5" src="{$TMPL}/images/{$deal.user.point_level}.png" align="absmiddle" title="{$deal.user.point_level}" alt="{$deal.user.point_level}" height="30" />
+					<h3 class="f_l f_red"><a href="{$deal.url}">{$deal.color_name}</a></h3>
+				    </div>
+
+				    <div class="notmoney f_l">
+					{$deal.borrow_amount_format}
+				    </div>
+				    <div class="notlist_r f_r">
+					<div>开放时间</div>
+					<div class="opentime"><em>{function name="to_date" v=$deal.start_time f="m"}</em> 月<em>{function name="to_date" v=$deal.start_time f="d"}</em> 日<em> {function name="to_date" v=$deal.start_time f="H:i"}</em> </div>
+				    </div>
+				</div>
+				<div class="notlist f_r w120 tr b">{$deal.repay_time}<em>{if $deal.repay_time_type eq 0}天{else}个月{/if}</em></div>
+				<div class="notlist f_r f_red b">{$deal.rate}% <span>年化利率</span></div>
+			    </li>
+			    {/foreach}
+			</ul>
+		    </div>
+		</div>
+
+	    </div>
+	</div>
+    新标预告 end-->
+    <!--  三大保障与标的margin10px  <div class="blank15"></div>-->
+    {if count($advance_deal_list) gt 1}
+    <script type="text/javascript">
+	$(document).ready(function () {
+	    jQuery(".slideTxtBox").slide({mainCell:".bd ul", autoPage: true, effect:"leftLoop", autoPlay: true});
+	});
+    </script>
+    {/if}
+    {/if}
+    <!--投资列表 begin-->
+    <div id="investList">
+	<!--线上环境 请将HTML注释删除-->
+	<script type="text/javascript">
+	    // 进度条动画
+	    function progressbar() {
+		$(".progressbarbox").each(function () {
+		    var datawidth = $(this).find(".cont").attr("data-width");
+		    $(this).find(".cont").animate({"width": datawidth}, 500);
+		})
+	    }
+	    $(function () {
+		progressbar();//进度条动画
+
+		// 这里是投资包列表前面的拉伸动画 begin
+		$(".box .tips").hover(function () {
+		    var dataclass = ($(this).attr("data-class"));
+		    var ele = $(this).find(".more_" + dataclass);
+		    ele.stop(true, true).slideDown(200);
+		}, function () {
+		    var dataclass = ($(this).attr("data-class"));
+		    var ele = $(this).find(".more_" + dataclass);
+		    ele.slideUp(200);
+		})
+		// 这里是投资包列表前面的拉伸动画 end
+
+		// 计算预计收益 begin
+                    $(".investnum input").keyup(function() {
+                            var num1 = $(this).val();
+                            var getnum = $(this).parent(".investnum").parent(".f_r").prev(".f_l")
+                            var rate = getnum.find(".rate .sum");
+                            rate = parseFloat(rate.text()) / 100;
+                            var duration = getnum.find(".duration .cont").html();
+                            duration = parseInt(duration);
+                            var resultnum = (num1 * rate / 360 * duration).toFixed(2);
+                            if (isNaN(num1) || num1.substr(0,1)==0) {
+                                $(this).val("");
+                                $(this).parent(".investnum").next(".investresult").find("input").val("0.00");
+                                return false;
+                            } else {
+				$(this).parent(".investnum").next(".investresult").find("input").val(resultnum);
+
+                            }
+
+                        })
+                        // 计算预计收益 end
+
+
+	    })
+	</script>
+	{if $deal_piaohao}
+	<div class="box">
+	    <div class="tips piaohao" data-class="piaohao">
+		<!-- TODO 这里的header是根据后台发布的标的类型改变的,改变的同时给header添加对应的class -->
+		<div class="header">金享票号</div>
+		<div class="more more_piaohao">
+		    <P>银行票据</P>
+		    <P>保本保息</P>
+		    <P>银行承兑</P>
+		    <P>本息保障</P>
+		</div>
+	    </div>
+
+	    <div class="f_l">
+		<div class="header"><a href="index.php?ctl=deal&id={$deal_piaohao.id}" target="_blank">{$deal_piaohao.name}</a>
+		</div>
+		<div class="infotop">
+		    <div class="rate f_l">
+			<p class="title">年化利率</p>
+			<p class="cont"><span class="sum">{$deal_piaohao.rate}</span>%</p>
+		    </div>
+		    <div class="duration f_l">
+			<p class="title">投资期限</p>
+			<p class="cont">
+			    {$deal_piaohao.repay_time}天
+			</p>
+		    </div>
+		    <div class="safeperson f_l">
+			<p class="title">保障机构</p>
+			<!-- 这里img的src的地址 请根据融资包自行设置 -->
+			{if $ph_db.is_db_img}
+                            <img class="cont" src="{$ph_db.is_db_img}" height="30" alt="{$ph_db.user_name}" title="{$ph_db.user_name}"/>
+                        {/if}
+		    </div>
+		    <div class="other f_l">
+			<div class="progressbarbox">
+			    <!-- 这里获取到的百分比值请写在下面的data-width里面  -->
+			    <span class="cont" data-width="{function name="num_format" v=$deal_piaohao.precent f=1}%"></span>
+			</div>
+			<p class="surplus">
+			    可投：<span class="need_money">{function name="number_format_myriad" v="$deal_piaohao.need_money"}</span>元&nbsp;/&nbsp;总额：{function name="number_format_myriad" v="$deal_piaohao.borrow_amount"}元
+			</p>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+
+		<div class="infobottom">
+		    <p class="f_l">
+			起投金额
+			<span class="min_loan_money">{function name="number_format_myriad" v="$deal_piaohao.min_loan_money"}</span>元/还款方式：
+			<span>{if $deal_piaohao.loantype}{function name="loantypename" v="$deal_piaohao.loantype" type=0}{/if}</span>
+		    </p>
+		    <div class="time f_r AdvLeftTime left_time f_r" data="{$deal_piaohao.remain_time}">
+			剩余时间：
+			<span class="s day">--</span>
+			<span class="l">天</span>
+			<span class="s hour">--</span>
+			<span class="l">时</span>
+			<span class="s min">--</span>
+			<span class="l">分</span>
+			<span class="s sec">--</span>
+			<span class="l">秒</span>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+	    </div>
+	    <div class="f_r">
+		<div class="investnum">
+		    <span class="title">投资金额：</span>
+		    <input type="text">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<div class="investresult">
+		    <span class="title">预计收益：</span>
+		    <input type="text" readonly="readonly">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<a href="index.php?ctl=deal&id={$deal_piaohao.id}" class="investbtn" target="_blank">立即投资</a>
+	    </div>
+	    <div class="Clear"></div>
+	</div>
+	{/if}
+	{if $deal_baoli}
+	<div class="box">
+	    <div class="tips baoli" data-class="baoli">
+		<!-- TODO 这里的header是根据后台发布的标的类型改变的,改变的同时给header添加对应的class -->
+		<div class="header">金享保理</div>
+		<div class="more more_baoli">
+		    <P>应收账款</P>
+		    <P>投资期短</P>
+		    <P>信誉度高</P>
+		    <P>本息保障</P>
+		</div>
+	    </div>
+
+	    <div class="f_l">
+		<div class="header"><a href="index.php?ctl=deal&id={$deal_baoli.id}" target="_blank">{$deal_baoli.name}</a>
+		</div>
+		<div class="infotop">
+		    <div class="rate f_l">
+			<p class="title">年化利率</p>
+			<p class="cont"><span class="sum">{$deal_baoli.rate}%</sapn></p>
+		    </div>
+		    <div class="duration f_l">
+			<p class="title">投资期限</p>
+			<p class="cont">
+			    {$deal_baoli.repay_time}天
+			</p>
+		    </div>
+		    <div class="safeperson f_l">
+			<p class="title">保障机构</p>
+			<!-- 这里img的src的地址 请根据融资包自行设置 -->
+			{if $bl_db.is_db_img}
+                            <img class="cont" src="{$bl_db.is_db_img}" height="30" alt="{$bl_db.user_name}" title="{$bl_db.user_name}"/>
+                        {/if}
+		    </div>
+		    <div class="other f_l">
+			<div class="progressbarbox">
+			    <!-- 这里获取到的百分比值请写在下面的data-width里面  -->
+			    <span class="cont" data-width="{function name="num_format" v=$deal_baoli.precent f=1}%"></span>
+			</div>
+			<p class="surplus">
+			    可投：<span class="need_money">{function name="number_format_myriad" v="$deal_baoli.need_money"}</span>元&nbsp;/&nbsp;总额：{function name="number_format_myriad" v="$deal_baoli.borrow_amount"}元
+			</p>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+
+		<div class="infobottom">
+		    <p class="f_l">
+			起投金额
+			<span class="min_loan_money">{function name="number_format_myriad" v="$deal_baoli.min_loan_money"}</span>元/还款方式：
+			<span>{if $deal_baoli.loantype}{function name="loantypename" v="$deal_baoli.loantype" type=0}{/if}</span>
+		    </p>
+		    <div class="time f_r AdvLeftTime left_time f_r" data="{$deal_baoli.remain_time}">
+			剩余时间：
+			<span class="s day">--</span>
+			<span class="l">天</span>
+			<span class="s hour">--</span>
+			<span class="l">时</span>
+			<span class="s min">--</span>
+			<span class="l">分</span>
+			<span class="s sec">--</span>
+			<span class="l">秒</span>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+	    </div>
+	    <div class="f_r">
+		<div class="investnum">
+		    <span class="title">投资金额：</span>
+		    <input type="text">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<div class="investresult">
+		    <span class="title">预计收益：</span>
+		    <input type="text" readonly="readonly">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<a href="index.php?ctl=deal&id={$deal_baoli.id}" class="investbtn" target="_blank">立即投资</a>
+	    </div>
+	    <div class="Clear"></div>
+	</div>
+	{/if}
+	{if $deal_zulin}
+	<div class="box">
+	    <div class="tips zulin" data-class="zulin">
+		<!-- TODO 这里的header是根据后台发布的标的类型改变的,改变的同时给header添加对应的class -->
+		<div class="header">金享租赁</div>
+		<div class="more more_zulin">
+		    <P>设备租赁</P>
+		    <P>安享租金</P>
+		    <P>快速回本</P>
+		    <P>本息保障</P>
+		</div>
+	    </div>
+
+	    <div class="f_l">
+		<div class="header"><a href="index.php?ctl=deal&id={$deal_zulin.id}" target="_blank">{$deal_zulin.name}</a>
+		</div>
+		<div class="infotop">
+		    <div class="rate f_l">
+			<p class="title">年化利率</p>
+			<p class="cont"><span class="sum">{$deal_zulin.rate}</span>%</p>
+		    </div>
+		    <div class="duration f_l">
+			<p class="title">投资期限</p>
+			<p class="cont">
+			    {$deal_zulin.repay_time}天
+			</p>
+		    </div>
+		    <div class="safeperson f_l">
+			<p class="title">保障机构</p>
+			<!-- 这里img的src的地址 请根据融资包自行设置 -->
+			{if $zl_db.is_db_img}
+                            <img class="cont" src="{$zl_db.is_db_img}" height="30" alt="{$zl_db.user_name}" title="{$zl_db.user_name}"/>
+                        {/if}
+		    </div>
+		    <div class="other f_l">
+			<div class="progressbarbox">
+			    <!-- 这里获取到的百分比值请写在下面的data-width里面  -->
+			    <span class="cont" data-width="{function name="num_format" v=$deal_zulin.precent f=1}%"></span>
+			</div>
+			<p class="surplus">
+			    可投：<span class="need_money">{function name="number_format_myriad" v="$deal_zulin.need_money"}</span>元&nbsp;/&nbsp;总额：{function name="number_format_myriad" v="$deal_zulin.borrow_amount"}元
+			</p>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+
+		<div class="infobottom">
+		    <p class="f_l">
+			起投金额
+			<span class="min_loan_money">{function name="number_format_myriad" v="$deal_zulin.min_loan_money"}</span>元/还款方式：
+			<span>{if $deal_zulin.loantype}{function name="loantypename" v="$deal_zulin.loantype" type=0}{/if}</span>
+		    </p>
+		    <div class="time f_r AdvLeftTime left_time f_r" data="{$deal_zulin.remain_time}">
+			剩余时间：
+			<span class="s day">--</span>
+			<span class="l">天</span>
+			<span class="s hour">--</span>
+			<span class="l">时</span>
+			<span class="s min">--</span>
+			<span class="l">分</span>
+			<span class="s sec">--</span>
+			<span class="l">秒</span>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+	    </div>
+	    <div class="f_r">
+		<div class="investnum">
+		    <span class="title">投资金额：</span>
+		    <input type="text">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<div class="investresult">
+		    <span class="title">预计收益：</span>
+		    <input type="text" readonly="readonly">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<a href="index.php?ctl=deal&id={$deal_zulin.id}" class="investbtn">立即投资</a>
+	    </div>
+	    <div class="Clear"></div>
+	</div>
+	{/if}
+	{if $deal_yinhang}
+	<div class="box">
+	    <div class="tips yinhang" data-class="yinhang">
+		<!-- TODO 这里的header是根据后台发布的标的类型改变的,改变的同时给header添加对应的class -->
+		<div class="header">金享银行</div>
+		<div class="more more_yinhang">
+		    <P>银行理财</P>
+		    <P>专业保管</P>
+		    <P>捡漏机会</P>
+		    <P>本息保障</P>
+		</div>
+	    </div>
+
+	    <div class="f_l">
+		<div class="header"><a href="index.php?ctl=deal&id={$deal_yinhang.id}" target="_blank">{$deal_yinhang.name}</a>
+		</div>
+		<div class="infotop">
+		    <div class="rate f_l">
+			<p class="title">年化利率</p>
+			<p class="cont"><span class="sum">{$deal_yinhang.rate}</span>%</p>
+		    </div>
+		    <div class="duration f_l">
+			<p class="title">投资期限</p>
+			<p class="cont">
+			    {$deal_yinhang.repay_time}天
+			</p>
+		    </div>
+		    <div class="safeperson f_l">
+			<p class="title">保障机构</p>
+			<!-- 这里img的src的地址 请根据融资包自行设置 -->
+			{if $yh_db.is_db_img}
+                            <img class="cont" src="{$yh_db.is_db_img}" height="30" alt="{$yh_db.user_name}" title="{$yh_db.user_name}"/>
+                        {/if}
+		    </div>
+		    <div class="other f_l">
+			<div class="progressbarbox">
+			    <!-- 这里获取到的百分比值请写在下面的data-width里面  -->
+			    <span class="cont" data-width="{function name="num_format" v=$deal_yinhang.precent f=1}%"></span>
+			</div>
+			<p class="surplus">
+			    可投：<span class="need_money">{function name="number_format_myriad" v="$deal_yinhang.need_money"}</span>元&nbsp;/&nbsp;总额：{function name="number_format_myriad" v="$deal_yinhang.borrow_amount"}元
+			</p>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+
+		<div class="infobottom">
+		    <p class="f_l">
+			起投金额
+			<span class="min_loan_money">{function name="number_format_myriad" v="$deal_yinhang.min_loan_money"}</span>元/还款方式：
+			<span>{if $deal_yinhang.loantype}{function name="loantypename" v="$deal_yinhang.loantype" type=0}{/if}</span>
+		    </p>
+		    <div class="time f_r AdvLeftTime left_time f_r" data="{$deal_yinhang.remain_time}">
+			剩余时间：
+			<span class="s day">--</span>
+			<span class="l">天</span>
+			<span class="s hour">--</span>
+			<span class="l">时</span>
+			<span class="s min">--</span>
+			<span class="l">分</span>
+			<span class="s sec">--</span>
+			<span class="l">秒</span>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+	    </div>
+	    <div class="f_r">
+		<div class="investnum">
+		    <span class="title">投资金额：</span>
+		    <input type="text">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<div class="investresult">
+		    <span class="title">预计收益：</span>
+		    <input type="text" readonly="readonly">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<a href="index.php?ctl=deal&id={$deal_yinhang.id}" class="investbtn" target="_blank">立即投资</a>
+	    </div>
+	    <div class="Clear"></div>
+	</div>
+	{/if}
+					<!--注意 循环从 class="box" 开始 end-->
+    </div>
+    <!--投资列表 end
+    <!--新闻、活动、公告 begin-->
+    <div id="news">
+		<!-- <div class="wrap">
+		    <div class="layout">
+			<label class="title">
+			    <img src="/front/images/2.0index-2_13.png" alt="" width="20" height="20" class="icon"/>{$sql_21}
+			    <a href ="/index.php?ctl=acate&id=21" class=" more FloatRight">更多<span class="FontIconLeftAndRight">>></span></a>
+			    <span class="Clear"></span>
+			</label>
+			{if $notice_list}
+			{foreach from=$notice_list item="vo"}
+			<dl class="content">
+			    <dd class="img">
+				<img src="{$vo.icon}" width="90" height="60" alt=""/>
+			    </dd>
+			    <dd class="introduce">
+				<a href="/index.php?ctl=notice&id={$vo1.id}" >{$vo1.title}</a>
+				<a href="{$vo.url}" title="{$vo.title}">{$vo.title}</a> </br>
+							<a href="{$vo.url}" title="{$vo.content|strip_tags}">{$vo.content|strip_tags}</a>
+				<a href="{$vo.url}" target="_blank"  title="{$vo.title|strip_tags}">
+				    <p class="tit"><b>{$vo.title}</b></p>
+				    <p class="cnt">{$vo.content|strip_tags}</p>
+				</a>
+			    </dd>
+			    <dd class="Clear"></dd>
+			</dl>
+			{/foreach}
+			{/if}
+
+		    </div>
+		    <div class="layout">
+			<label class="title">
+			    <img src="/front/images/2.0index-2_18.png" alt="" width="20" height="20" class="icon"/>{$sql_22}
+			    <a href ="/index.php?ctl=acate&id=22" class=" more FloatRight">更多<span class="FontIconLeftAndRight">>></span></a>
+			    <span class="Clear"></span>
+			</label>
+			{if $notice_list_a}
+			{foreach from=$notice_list_a item="vo"}
+			<dl class="content">
+			    <dd class="img">
+				<img src="{$vo.icon}" width="90" height="60" alt=""/>
+			    </dd>
+			    <dd class="introduce">
+				<a href="{$vo.url}" target="_blank"  title="{$vo.title|strip_tags}">
+				    <p class="tit"><b>{$vo.title}</b></p>
+				    <p class="cnt">{$vo.content|strip_tags}</p>
+				</a>
+			    </dd>
+			    <dd class="Clear"></dd>
+			</dl>
+			{/foreach}
+			{/if}
+
+		    </div>
+		    <div class="layout">
+			<label class="title">
+			    <img src="/front/images/2.0index-2_15.png" alt="" width="20" height="20" class="icon"/>{$sql_23}
+			    <a href ="/index.php?ctl=acate&id=23" class=" more FloatRight">更多<span class="FontIconLeftAndRight">>></span></a>
+			    <span class="Clear"></span>
+			</label>
+			{if $notice_list_b}
+			{foreach from=$notice_list_b item="vo"}
+			<dl class="content">
+			    <dd class="img">
+				<img src="{$vo.icon}" width="90" height="60" alt=""/>
+			    </dd>
+			    <dd class="introduce">
+				<a href="{$vo.url}" target="_blank"  title="{$vo.title|strip_tags}">
+				    <p class="tit"><b>{$vo.title}</b></p>
+				    <p class="cnt">{$vo.content|strip_tags}</p>
+				</a>
+			    </dd>
+			    <dd class="Clear"></dd>
+			</dl>
+			{/foreach}
+			{/if}
+		    </div>
+		</div> -->
+		<!-- <div class="Clear"></div> -->
+		<div class="container">
+			<ul class="sub_nav">
+				<li class="active" data-for="zixun"><a href="/index.php?ctl=acate&id=21&type=1" articleUrl="{$zixun_url}" data-imgUrl="{$zixun_icon}">{$sql_21}</a></li>
+				<li data-for="huodong"><a href="/index.php?ctl=acate&id=22&type=1" articleUrl="{$huodong_url}" data-imgUrl="{$huodong_icon}">{$sql_22}</a></li>
+				<li data-for="gonggao"><a href="/index.php?ctl=acate&id=23&type=1" articleUrl='{$gonggao_url}' data-imgUrl="{$gonggao_icon}">{$sql_23}</a></li>
+				<li><a href="/index.php?ctl=help&id=1" target="_blank" class="morenews"><span>更多</span></a></li>
+				<script>
+					$(function(){
+						$('#news .sub_nav li a').mouseenter(function(){
+							var targetUrl = $(this).attr('data-imgUrl');
+							var url = $(this).attr('articleUrl');
+							$('#news .subimg a img').attr({
+								'src': targetUrl
+							})
+							$('#news .subimg a').attr({
+								'href':url
+							});
+						})
+					})
+				</script>
+			</ul>
+			<div class="newscont">
+				<div class="zixun newslist active">
+					{if $notice_list}
+					{foreach from=$notice_list item="vo"}
+					<div class="item">
+						<div class="top">
+							<a href="{$vo.url}" target="_blank" class="title">{$vo.title}</a>
+							<p class="date">{function name="to_date" v="$vo.update_time" type="Y-m-d"}</p>
+						</div>
+						<p class="cont">{$vo.content}</p>
+					</div>
+					{/foreach}
+					{/if}
+				</div>
+				<!--活动-->
+				<div class="huodong newslist">
+					{if $notice_list_a}
+					{foreach from=$notice_list_a item="vo"}
+					<div class="item">
+						<div class="top">
+							<a href="{$vo.url}" target="_blank" class="title">{$vo.title}</a>
+							<p class="date">{function name="to_date" v="$vo.update_time" type="Y-m-d"}</p>
+						</div>
+						<p class="cont">{$vo.content}</p>
+					</div>
+					{/foreach}
+					{/if}
+				</div>
+				<!--公告-->
+				<div class="gonggao newslist">
+					{if $notice_list_b}
+					{foreach from=$notice_list_b item="vo"}
+					<div class="item">
+						<div class="top">
+							<a href="{$vo.url}" target="_blank" class="title">{$vo.title}</a>
+							<p class="date">{function name="to_date" v="$vo.update_time" type="Y-m-d"}</p>
+						</div>
+						<p class="cont">{$vo.content}</p>
+					</div>
+					{/foreach}
+					{/if}
+				</div>
+			</div>
+
+			<div class="subimg">
+				<a href="javascript:;" target="_blank"><img src="{$zixun_icon}"  alt=""></a>
+			</div>
+			<script type="text/javascript">
+			$(function(){
+				$('#news').find('.sub_nav li[data-for]').mouseenter(function(){
+					var flag = '.'+$(this).attr('data-for');
+					// console.log(flag);
+					$('#news').find('.sub_nav li').removeClass('active');
+					$(this).addClass('active');
+					$('.newscont').find('.newslist').stop(true,true).removeClass('active');
+					$(flag).stop(true,true).addClass('active');
+					// alert();
+				})
+			})
+			</script>
+		</div>
+    </div>
+    <!--新闻、活动、公告 end-->
+    <!--合作媒体 begin-->
+    <div id="co-media">
+		<p class="name">合作机构</p>
+		<div id="co-media-container" class="container slide">
+			<ul class="slidebox">
+				<li>
+					<ul>
+						<li class="item"><a href="/index.php?ctl=help&id=80"><img src="./front/images/link01.jpg"></a></li>
+						<li class="item"><a href="/index.php?ctl=help&id=80"><img src="./front/images/link02.jpg"></a></li>
+						<li class="item"><a href="/index.php?ctl=help&id=80"><img src="./front/images/link03.jpg"></a></li>
+						<li class="item"><a href="/index.php?ctl=help&id=80"><img src="./front/images/link04.jpg"></a></li>
+						<li class="item"><a href="/index.php?ctl=help&id=80"><img src="./front/images/link05.jpg"></a></li>
+						<li class="item"><a href="/index.php?ctl=help&id=80"><img src="./front/images/link06.jpg"></a></li>
+						<li class="item"><a href="/index.php?ctl=help&id=80"><img src="./front/images/link07.jpg"></a></li>
+						<li class="item"><a href="/index.php?ctl=help&id=80"><img src="./front/images/link08.jpg"></a></li>
+						<li class="item"><a href="/index.php?ctl=help&id=80"><img src="./front/images/link10.jpg"></a></li>
+					</ul>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="./front/js/jquery-flexslider/jquery-flexslider.js"></script>
+	<script type="text/javascript">
+	$(function(){
+	$('#co-media-container').slide({
+				switchType: 'fade'
+				,smNav: true
+				,bgNav: true
+				// ,slideAuto: 3000
+			});
+	})
+	</script>
+    <!--合作媒体 end-->
+    <!-- 友情链接 begin -->
+    <!-- {if $friend_link_count gt 0}
+    <div id="friendlink">
+    	<div class="box">
+    	    <label class="name">
+    		<img src="./front/images/friendlinkicon.png" width="29" height="20" class="icon" alt="" />
+    		友情链接
+    		{if $friend_link_count gt 14}
+    		<a href="javascript:void()" class="more FloatRight morelink">
+    		    更多<span class="FontIconLeftAndRight">&gt;&gt;</span></a>
+    		{/if}
+    	    </label>
+            <script type="text/javascript">
+    		$(function () {
+    		    $("#friendlink .box .name .more").click(function () {
+    			$("#friendlink .box .morecont").toggle(100);
+    			// alert();
+    		    })
+    		})
+            </script>
+    	    <div class="content">
+    		{foreach from=$friend_link_content item=friend_link_content_item}
+    		<a href="{$friend_link_content_item.url}" target="_blank">{$friend_link_content_item.name}</a>
+    		{/foreach}
+    		<div class="Clear"></div>
+    	    </div>
+    	    <div class="morecont">
+    		{foreach from=$friend_link_more item=friend_link_more_item}
+    		<a href="{$friend_link_more_item.url}" target="_blank">{$friend_link_more_item.name}</a>
+    		{/foreach}
+    	    </div>
+    	</div>
+    </div>
+    {/if} -->
+    <!-- 友情链接 end -->
+</div>
+<!--index end-->
+</div>
+{include file="inc/footer.html"}

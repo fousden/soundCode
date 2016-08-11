@@ -1,0 +1,76 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">查看投标记录</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" id = "search_form"  action="__APP__" method="get">
+		标的名称：<input type="text" size="5" class="textbox" name="deal_name" value="{:trim($_REQUEST['deal_name'])}" />
+		投标时间：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" style="width:120px" />
+		<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" style="width:120px" />
+		<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" />
+                <select name="has_repay">
+                    <option value="" <if condition="intval($_REQUEST['has_repay']) eq '' ">selected="selected"</if>>全部</option>
+                    <option value="2" <if condition="intval($_REQUEST['has_repay']) eq 2">selected="selected"</if>>未放款</option>
+                    <option value="1" <if condition="intval($_REQUEST['has_repay']) eq 1">selected="selected"</if>>已放款</option>
+                </select>
+<!--		{%CATE_TREE}：
+		<select name="cate_id">
+			<option value="0" <if condition="intval($_REQUEST['cate_id']) eq 0">selected="selected"</if>>{%NO_SELECT_CATE}</option>
+			<foreach name="cate_tree" item="cate_item">
+				<option value="{$cate_item.id}" <if condition="intval($_REQUEST['cate_id']) eq $cate_item['id']">selected="selected"</if>>{$cate_item.title_show}</option>
+			</foreach>
+		</select>-->
+		<input type="hidden" value="Finance" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+                                <input type="button" class="button" value="{%EXPORT}" onclick="export_csv_usernum_total();" />
+	</form>
+</div>
+<script type="text/javascript">
+    function export_csv_usernum_total()
+    {
+        var query = $("#search_form").serialize();
+
+        var url = ROOT + "?"  + "&" + query + '&xls=true';
+        location.href = url;
+    }
+
+</script>
+<php>
+	function get_deal_url($name,$id){
+		return '<a href="'.__ROOT__.'/index.php?ctl=deal&id='.$id.'" target="_blank">'.$name.'</a>';
+	}
+
+        function get_is_repay($has_repay){
+            if($has_repay == 0){
+                return "未还款";
+            }else if($has_repay == 1){
+                return "已还款";
+            }else{
+                return "";
+            }
+        }
+        function n_format($value){
+            return number_format(num_format($value),2);
+        }
+</php>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="item"
+	datasource="list"
+	show="id:{%ID}|50px,user_id|get_user_name_real:会员,user_id|getUserRealName:姓名,name|get_deal_url=$item['deal_id']:标的名,cate_id|get_deal_cate_name:{%DEAL_CATE},rate:利率(%),real_self_money|n_format:投资本金,coupon_cash|n_format:抵现券,interest_moneys|n_format:利息,coupon_interests|n_format:收益券收益,active_interest_money|n_format:活动收益,total_interest_money|n_format:应还总收益,repay_moneys|n_format:还款金额,create_time|to_date:投标时间,qixi_time:起息时间,jiexi_time:结息日,has_repay|get_is_repay:状态"  />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

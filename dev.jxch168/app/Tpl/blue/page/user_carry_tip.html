@@ -1,0 +1,20 @@
+
+			<div style="width:400px; padding:10px;">
+				
+				<p style="font-size:14px; font-weight:bold;">
+					{$LANG.CARRY_INFO_TIP},如未跳转，请注意浏览器拦截情况!				
+				</p>
+				<div class="blank"></div>
+				<p class="notice">
+					{$LANG.CARRY_NOTICE_TIP_1}
+					<br />							
+					{$LANG.CARRY_NOTICE_TIP_2}
+				</p>
+				<div class="blank"></div>
+				<p >
+					<input type="button" value="{$LANG.CARRY_HAS_DONE}" class="formbutton" onclick="location.href='{url x="shop" r="uc_money#carry" p="id=$user_carry.id&check=1"}';" >
+					<input type="button" value="{$LANG.CARRY_ERROR}" class="formbutton" onclick="location.href='{url x="shop" r="uc_money#carry_log" p="id=$user_carry.id"}';">
+				</p>
+				
+			</div>		
+

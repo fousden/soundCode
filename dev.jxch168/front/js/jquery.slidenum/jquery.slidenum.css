@@ -1,0 +1,23 @@
+.slidenum > i {
+  display: inline-block;
+  width: 16px;
+  height: 24px;
+  overflow: hidden;
+  text-align: center;
+  font-family: 'Microsoft YaHei', "Hiragino Sans GB", "Airl";
+}
+.slidenum > i .numbox {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.slidenum > i .numbox > span {
+  display: block;
+  width: 100%;
+  height: 24px;
+}
+.slidenum .split {
+  display: inline-block;
+  width: 16px;
+  height: 24px;
+}

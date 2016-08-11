@@ -1,0 +1,202 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">消息查询</div>
+<div class="blank5"></div>
+<div class="button_row">
+    <input type="button" class="button" value="返回" onclick="location.href='{:u("MsgPush/index")}';" />
+    <input type="button" class="button" value="刷新" onclick="location.href=location.href" />
+</div>
+<div class="blank5"></div>
+<?php
+    function get_msg_type($type){
+        switch($type){
+                case 1:
+                    return '全部用户';
+                    break;
+                case 2:
+                    return '苹果用户';
+                    break;
+                case 3:
+                    return '安卓用户';
+                    break;
+                case 4:
+                    return '指定用户';
+                    break;
+        }
+    }
+?>
+<table class="form" cellpadding=0 cellspacing=0>
+    	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+        <tr>
+            <if condition="$vo.title neq null">
+		<td class="item_title">消息标题：</td>
+		<td class="item_input">{$vo.title}</td>
+            </if>
+	</tr>
+	<tr>
+		<td class="item_title">消息内容：</td>
+		<td class="item_input">{$vo.content}</td>
+	</tr>
+        <tr>
+            <if condition="$vo.type neq null">
+		<td class="item_title">类型：</td>
+		<td class="item_input">{$vo.type}</td>
+            </if>
+	</tr>
+	<tr>
+            <if condition="$vo.data neq null">
+		<td class="item_title">值：</td>
+		<td class="item_input">{$vo.data}</td>
+            </if>
+	</tr>
+        <tr>
+		<td class="item_title">发送时间：</td>
+		<td class="item_input">{$vo.update_time}</td>
+	</tr>
+	<tr>
+		<td class="item_title">发送对象：</td>
+		<td class="item_input">{$vo.msg_type|get_msg_type}</td>
+	</tr>
+        <tr>
+                <if condition="$vo['msg_type'] neq 4">
+		<td class="item_title">结果：</td>
+                <td class="item_input">
+                    <if condition="$vo['msg_type'] neq 3">
+                        <div class="tab">
+                            <table>
+                                <tr>
+                                    <th class="jz" colspan="2">苹果</th>
+                                </tr>
+                                <tr>
+                                    <td id="ios_result">
+                                        <button type="button" class="button" id="check_ios">查询</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        </if>
+                        <if condition="$vo['msg_type'] neq 2">
+                        <div class="tab">
+                            <table>
+                                <tr>
+                                    <th class="jz" colspan="2">安卓</th>
+                                </tr>
+                                <tr>
+                                    <td id="android_result">
+                                        <button type="button" class="button" id="check_android">查询</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        </if>
+                </td>
+                <else />
+                    <td class="item_title">用户：</td>
+                    <td class="item_input">
+                        <if condition="$vo['user'][2] neq null">
+                        <div class="tab">
+                            <table>
+                                <tr>
+                                    <th class="jz" colspan="2">苹果</th>
+                                </tr>
+                                <tr>
+                                    <td>{$vo['user'][2]}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        </if>
+                        <if condition="$vo['user'][1] neq null">
+                        <div class="tab">
+                            <table>
+                                <tr>
+                                    <th class="jz" colspan="2">安卓</th>
+                                </tr>
+                                <tr>
+                                    <td>{$vo['user'][1]}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        </if>
+                    </td>
+
+                </if>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</div>
+<style>
+    .tab{
+        float:left;
+        margin-right: 150px;
+    }
+    .tab table{
+        border-top: #ddd solid 1px;
+        border-left: #ddd solid 1px;
+    }
+    .jz{
+        text-align: center;
+    }
+</style>
+<script>
+     
+    $(function(){
+        $('#check_ios').click(function(){
+            var query = new Object();
+            query.id = {$vo.id};
+            query.device_type = 2;
+            $.ajax({
+                url: APP_ROOT+"/m.php?m=MsgPush&a=check",
+                data:query,
+                type: "POST",
+                dataType: "json",
+                success: function(result){
+                    if(result.status ==1){
+                        var content = "消息状态:&nbsp;&nbsp;"+result.info.check_status+"<br/>"+
+                                    "消息总数:&nbsp;&nbsp;"+result.info.total_count+"<br/>"+
+                                    "受理数:&nbsp;&nbsp;&nbsp;"+result.info.accept_count+"<br/>"+
+                                    "发送数:&nbsp;&nbsp;&nbsp;"+result.info.sent_count+"<br/>"+
+                                    "打开数:&nbsp;&nbsp;&nbsp;"+result.info.open_count+"<br/>"+
+                                    "忽略数:&nbsp;&nbsp;&nbsp;"+result.info.dismiss_count;
+                        $("#ios_result").html(content);
+                    }else{
+                        $("#ios_result").html("未查询到相关信息");
+                    }
+                }
+            })
+        })
+ 
+        $('#check_android').click(function(){
+            var query = new Object();
+            query.id = {$vo.id};
+            query.device_type = 1;
+            $.ajax({
+                url: APP_ROOT+"/m.php?m=MsgPush&a=check",
+                data:query,
+                type: "POST",
+                dataType: "json",
+                success: function(result){
+                    if(result.status ==1){
+                        var content = "消息状态:&nbsp;&nbsp;"+result.info.check_status+"<br/>"+
+                                    "消息总数:&nbsp;&nbsp;"+result.info.total_count+"<br/>"+
+                                    "受理数:&nbsp;&nbsp;&nbsp;"+result.info.accept_count+"<br/>"+
+                                    "发送数:&nbsp;&nbsp;&nbsp;"+result.info.sent_count+"<br/>"+
+                                    "打开数:&nbsp;&nbsp;&nbsp;"+result.info.open_count+"<br/>"+
+                                    "忽略数:&nbsp;&nbsp;&nbsp;"+result.info.dismiss_count;
+                        $("#android_result").html(content);
+                    }else{
+                        $("#android_result").html("未查询到相关信息");
+                    }
+                }
+            })
+        })
+        
+        
+    });
+</script>
+<include file="Public:footer" />

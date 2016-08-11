@@ -1,0 +1,84 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+function address(user_id)
+{
+	location.href = ROOT + '?m=User&a=address&id='+user_id;
+}
+</script>
+<div class="main">
+    <div class="main_title" style="height:30px;"><span style="font-size:16px;line-height:30px;font-weight:bold;">还款审核<span>
+<!--    <button style="float:right;position:relative;top:4px;" class="button" >{:L(EXPORT_ALL)}</button>-->
+</div>
+    <div class="blank5"></div>
+<style type="text/css">
+table.gridtable {
+	 border: 1px solid blue;
+}
+table.gridtable th {
+
+}
+table.gridtable td {
+
+}
+</style>
+<div style="height:50px;background-color:#C9C9C9;">
+    <span style="margin-left:10px;position:relative;top:7px;height:50px;line-height:50px;"><a href="/m.php?m=Finance&a=verify&dmonth={$onMonth}"> <img title="上一月" src="__TMPL__Common/images/right.png"></a></span>
+    <span style="margin-left:40%;position:relative;top:0px;align:center;height:50px;line-height:50px;font-size:22px;">{$Month}</span>
+    <span style="margin-right:10px;position:relative;top:6px;height:50px;float:right;line-height:50px;font-size:22px;"><a href="/m.php?m=Finance&a=verify&dmonth={$lastMonth}"><img title="下一月" src="__TMPL__Common/images/left.png"></a></span>
+</div>
+<style type="text/css">
+    table {width:1400px;align:center;text-align:center;margin-top:10px;}
+    table tr{width:1400px;align:center;text-align:center}
+    table td{width:300px;height:100px;}
+    table td a {text-decoration:none;color:black;}
+    table td a ul {padding:0px;margin:0px;}
+    table td a ul li{list-style:none;padding:0px;margin:0px;text-align:left;margin-left:4px;height:25px;font-size:14px;}
+</style>
+<p></p>
+<span style='color:red;font-size:20px;'><b>由于平台有一些低于30天的标的，所以月初看月未的待付款的金额会有变动。</b></span>
+<table style="gridtable" border=1 cellpadding=0 cellspacing=0>
+    <tr>
+    <foreach name="week_info" item="week">
+        <td> {$week} </td>
+    </foreach>
+     </tr>
+    <foreach name="new_calendar" item="calendar">
+        <tr>
+            <foreach name="calendar" item="vo">
+                <td <?php if ($vo['week_day'] == $today) echo 'style="background: #00ff00"';?>>
+                    <a href="/m.php?m=Finance&a=show_verify_loads&jiexi_time={$vo.week_day}">
+                        <ul>
+                            <li>{$vo.week_day}</li>
+                            <if condition="$vo.deal_load_count neq 0">
+                                <li style='color:red;'>标的总数：{$vo.deal_load_count}个</li>
+                            </if>
+                            <if condition="$vo.date_all_repay_money neq 0">
+                                <li style='color:red;'>还款总额：{$vo.date_all_repay_money|number_format=2}元</li>
+                            </if>
+                        </ul>
+                    </a>
+                </td>
+            </foreach>
+        </tr>
+    </foreach>
+</table>
+<div class="blank5"></div>
+<div style="border:1px solid red;line-height:40px;height:120px;width:1400px;float:left;font-size:14px;font-weight:bold;70px;background-color:#C40000;color:white;">
+    {$Month}未审核还款情况：<div style="position:relative;top:-7px;">应还本金：&nbsp;{$envir.date_all_capital|number_format=2} 元，&nbsp;应还抵现券总额：&nbsp;{$envir.date_all_coupon_cash|number_format=2} 元，&nbsp;应还纯利息：&nbsp;{$envir.date_all_pure_interest|number_format=2} 元，&nbsp;应还收益券收益：&nbsp;{$envir.date_all_coupon_interest|number_format=2} 元，&nbsp;应还活动收益：&nbsp;{$envir.date_all_active_interest|number_format=2} 元，&nbsp;应还总利息：&nbsp;{$envir.date_all_interest|number_format=2} 元，&nbsp;应还本息总额：&nbsp;{$envir.date_all_repay_money|number_format=2} 元。</div>
+</div>
+<div class="blank5"></div>
+<tr>
+	<td colspan=12 class="hide Text-{$item.l_key}">
+	</td>
+</tr>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,57 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+
+<div class="main">
+    <div class="main_title">活动管理</div>
+    <div class="blank5"></div>
+    <div class="button_row">
+        <if condition="ACTION_NAME eq 'index' || ACTION_NAME eq 'ing'"><input type="button" class="button" value="{%ADD}" onclick="add();" /></if>
+    </div>
+    <div class="blank5"></div>
+    <div class="search_row">
+
+    <div class="blank5"></div>
+    <html:list
+        id="dataTable"
+        style="dataTable"
+        name="deal"
+        action ="true"
+        datasource="list"
+        show="id:{%ID}|50px
+        ,name:活动名称:edit
+        ,start_time|to_date:开始时间
+        ,end_time|to_date:结束时间
+        ,start_time|isOverByTime=$deal['end_time']:是否在周期内
+        ,parameter:参数
+        ,type_zh:活动类型
+        ,key:查询标识key
+        ,description:活动详情
+        ,status|get_status_name:状态
+        "
+        actionlist="edit:{%EDIT}"
+        actionwidth="150px" actionidx="3"
+        />
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<?php
+    function get_status_name($status){
+	if($status==0){
+	    return '关闭';
+	}else if($status==1){
+	    return '开启';
+	}
+    }
+    
+    
+?>
+<include file="Public:footer" />

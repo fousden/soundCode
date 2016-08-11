@@ -1,0 +1,337 @@
+<div class="tabbox clearfix">
+	<div class="tab cur">
+	<!-- 这里请注意修改a标签的href值 -->
+	    <a href="./我的账户-红包/member.php.html">站内通知</a>
+	</div>
+</div>
+<div class="uc_box bdd bt0">
+	<div id="sitemsg">
+	    <div class="header">
+	        <div class="filtrate">
+	            <span class="title">状态:</span>
+	            <a href="javascript:;" class="select" id='all'>全部</a>
+	            <a href="javascript:;"  id="nread">未读</a>
+	            <a href="javascript:;" id='read'>已读</a>
+	            <div class="Clear"></div>
+	        </div>
+	        <div class="clearall" id='clearall'>清空所有消息</div>
+	        <div class="Clear"></div>
+	    </div>
+	    <ul class="container">
+	    <!-- 注意：正式环境中只循环一个msglist -->
+                            {foreach from=$arr_all item=li}
+                                {$li}
+                            {/foreach}
+	    </ul>
+
+            <div id="pagecount">共<span>&nbsp;{$count}&nbsp;</span>条&nbsp;&nbsp;1/<span>{$num}</span><a href='javascript:void(0)' >首页</a><a href='javascript:void(0)'>上一页</a>
+                    <a href='javascript:void(0)' rel='{$num_next}' type="{$type}">下一页</a><a href='javascript:void(0)' rel='{$num}' type="{$type}">尾页</a></div>
+
+            	</div>
+</div>
+
+	    <script type="text/javascript">
+	    // 这里开始先获取每一个msg的已读、未读状态,在去修改标题文字的粗细，和前面icon的位置
+	    $(".msglist .container .header .title").live('click',function(){
+	        var cont = $(this).parent(".header").next(".cont");
+	        var showbtn = $(this).next(".showbtn");
+	        if(cont.hasClass("hidemsg")){
+	            cont.slideDown(100);
+	            cont.removeClass("hidemsg");
+	            $(this).removeClass("jiacu")
+	            showbtn.html("收起");
+	        }else{
+	            cont.slideUp(100);
+	            cont.addClass("hidemsg");
+	            showbtn.html("展开");
+	        }
+	    })
+	    $(".showbtn").live('click',function(){
+	        var cont = $(this).parent(".header").next(".cont");
+	        var title = $(this).prev(".title");
+	        if(cont.hasClass("hidemsg")){
+	            cont.slideDown(100);
+	            cont.removeClass("hidemsg");
+	            title.removeClass("jiacu");
+	            $(this).html("收起");
+	        }else{
+	            cont.slideUp(100);
+	            cont.addClass("hidemsg");
+	            $(this).html("展开");
+	        }
+	    })
+//----------------------------------------------分割线-----------------------------------------------
+    var total,pageSize,totalPage; //总记录数，每页显示数，总页数
+    $('#all').click(function(){
+
+        var curPage = 1;     //当前页码
+        var total,pageSize,totalPage; //总记录数，每页显示数，总页数
+        var readtype = 1;
+        $.ajax({
+                    type: "POST",
+                    url: "/index.php?ctl=uc_msg&act=index",
+                    data: {readtype:1,page:1},//1为总记录，2为未读，3为已读
+                    dataType:'json',
+                    success: function(data){
+                        $('#read').removeClass("select");
+                        $('#nread').removeClass("select");
+                        $('#all').addClass("select");
+                        $(".container").empty();//清空数据区
+                        total = data.total; //总记录数
+                        pageSize = data.pageSize; //每页显示条数
+                        totalPage = data.totalPage; //总页数
+
+                        var list = data.list;
+                        if(list){
+                            $.each(list,function(i,c){ //遍历json数据列
+                                var box = $('ul.container');
+                                box.append(c);
+                            })
+
+                            $('#pagecount').empty();
+                            getPageBar(curPage,totalPage,total,"",readtype);
+                        }
+                        else{
+
+                            $('#pagecount').empty();
+                            getPageBar(1,1,0,"",readtype);
+                        }
+
+                    },
+
+                    error:function(){
+                        alert("数据加载失败");
+                    }
+        });
+    })
+
+
+//--------------------------------------------------已读事件--------------------------------------------
+
+    $('#read').click(function(){
+
+
+        var curPage = 1;     //当前页码
+        var total,pageSize,totalPage; //总记录数，每页显示数，总页数
+        var readtype = 3;
+
+        $.ajax({
+                    type: "POST",
+                    url: "/index.php?ctl=uc_msg&act=index",
+                    data: {readtype:readtype,page:1},
+                    dataType:'json',
+                    success: function(data){
+                        $('#all').removeClass("select");
+                        $('#nread').removeClass("select");
+                        $('#read').addClass("select");
+                        $(".container").empty();//清空数据区
+                        total = data.total; //总记录数
+                        pageSize = data.pageSize; //每页显示条数
+                        totalPage = data.totalPage; //总页数
+                        var list = data.list;
+
+                        if(list){
+                            $.each(list,function(i,c){ //遍历json数据列
+                                var box = $('ul.container');
+                                box.append(c);
+                            })
+                            $('#pagecount').empty();
+                            getPageBar(curPage,totalPage,total,"",readtype);
+                        }
+                        else{
+
+                            $('#pagecount').empty();
+                            getPageBar(1,1,0,"",readtype);
+                        }
+                    },
+
+
+                    error:function(){
+                        alert("数据加载失败");
+                    },
+        });
+    })
+
+
+//-------------------------------------------------------未读事件-------------------------------------------
+
+    $('#nread').click(function(){
+
+        var curPage = 1;     //当前页码
+        var total,pageSize,totalPage; //总记录数，每页显示数，总页数
+        var readtype = 2;
+        $.ajax({
+                    type: "POST",
+                    url: "/index.php?ctl=uc_msg&act=index",
+                    data: {readtype:readtype,page:1},
+                    dataType:'json',
+                    success: function(data){
+
+                        $('#all').removeClass("select");
+                        $('#read').removeClass("select");
+                        $('#nread').addClass("select");
+                        $(".container").empty();//清空数据区
+                        total = data.total; //总记录数
+                        pageSize = data.pageSize; //每页显示条数
+                        totalPage = data.totalPage; //总页数
+                        var list = data.list;
+                        if(list){
+                            $.each(list,function(i,c){ //遍历json数据列
+                                var box = $('ul.container');
+                                box.append(c);
+                            })
+                            $('#pagecount').empty();
+
+                            getPageBar(curPage,totalPage,total,"",readtype);
+                        }
+                        else{
+
+                            $('#pagecount').empty();
+                            getPageBar(1,1,0,"",readtype);
+                        }
+
+                    },
+
+                    error:function(){
+                        alert("数据加载失败");
+                    }
+        });
+    })
+
+
+//分页栏
+function getPageBar(curPage,totalPage,total,pageStr,readtype){
+
+    var type = readtype;
+    var pageStr="";
+//页码大于最大页数
+    if(curPage > totalPage){
+        curPage = totalPage;
+    }
+    if(curPage < 1){
+        curPage = 1;
+    }
+    pageStr = "共<span>&nbsp;&nbsp;&nbsp;"+total+"&nbsp;&nbsp;&nbsp;</span>条"+curPage+"/"+totalPage+"";
+
+    //如果是第一页
+    if(curPage==1){
+        pageStr += "<a href='javascript:void(0)' >首页</a><a href='javascript:void(0)'>上一页</a>";
+    }else{
+        pageStr += "<a href='javascript:void(0)' rel='1' type='"+type+"'>首页</a><a href='javascript:void(0)' rel='"+(curPage-1)+"' type='"+type+"'>上一页</a>";
+    }
+
+    //如果是最后页
+    if(curPage>=totalPage){
+        pageStr += "<a href='javascript:void(0)'>下一页</a><a href='javascript:void(0)'>尾页</a>";
+    }else{
+        pageStr += "<a href='javascript:void(0)' rel='"+(curPage+1)+"' type='"+type+"'>下一页</a><a href='javascript:void(0)' rel='"+totalPage+"' type='"+type+"'>尾页</a>";
+    }
+    $("#pagecount").empty();
+    $("#pagecount").html(pageStr);
+}
+
+
+//分页栏点击事件
+$("#pagecount a").live('click',function(){
+    var readtype = parseInt($(this).attr("type"));
+    var curPage = parseInt($(this).attr("rel"));
+    var total,pageSize,totalPage; //总记录数，每页显示数，总页数
+    if(curPage){
+        $.ajax({
+            type:'POST',
+            url:"/index.php?ctl=uc_msg&act=index",
+            data:{readtype:readtype,p:curPage},
+            dataType:'json',
+            success:function(data){
+                            $("ul.container").empty();//清空数据区
+                            total = data.total; //总记录数
+                            pageSize = data.pageSize; //每页显示条数
+                            totalPage = data.totalPage; //总页数
+                            readtype = data.readtype;
+                            var list = data.list;
+                            $.each(list,function(i,c){ //遍历json数据列
+
+                                var box = $('ul.container');
+                                box.append(c);
+                            });
+                            $('#pagecount').empty();
+                            getPageBar(curPage,totalPage,total,pageStr="",readtype);
+            },
+
+            error:function(){
+                alert("数据加载失败");
+            }
+        })
+    }
+});
+
+//点击未读信息，通过ajax操作为已读
+$("ul div.title,ul a.showbtn").live('click',function(){
+    var id = parseInt($(this).attr('rel'));
+    $(this).parent().parent().parent().find('div.f_l.typebox').removeClass().addClass('f_l').addClass('typebox')
+    if(id){
+        $.ajax({
+            type:'POST',
+            url:"/index.php?ctl=uc_msg&act=changeread",
+            data:{nread:1,readid:id},
+            dataType:'json',
+            success:function(data){
+
+
+            },
+        })
+    }
+
+})
+
+//点击删除，通过ajax从数据库设置is_delete=1
+$('ul a.deletebtn').live('click',function(){
+    var id = parseInt($(this).attr('rel'));
+    if(window.confirm("是否确认删除？")){
+        $(this).parent().parent().parent().css({'display':'none'});
+        if(id){
+            $.ajax({
+                type:'POST',
+                url:"/index.php?ctl=uc_msg&act=delete",
+                data:{deleteid:id},
+                dataType:'json',
+                success:function(data){
+
+                },
+                complete:function(){
+                    var temp = parseInt($('div#pagecount span').text());
+                    temp = temp - 1;
+                    $('div#pagecount span').text(temp);
+                },
+            })
+        }
+    }
+
+
+})
+
+//删除所有消息
+$('#clearall').live('click',function(){
+         if (window.confirm("是否确认删除？")) {
+                $('ul.container').css({'display':'none'});
+                $.ajax({
+                    type:'POST',
+                    url:"/index.php?ctl=uc_msg&act=deleteAll",
+                    data:{deleteall:1},
+                    dataType:'json',
+                    success:function(data){
+
+                    },
+                    complete:function(){
+
+                        $('div#pagecount span:eq(0)').text(0);
+                        $('div#pagecount span:eq(1)').text(1);
+                    },
+                })
+        }
+
+
+})
+</script>
+
+

@@ -1,0 +1,71 @@
+{// 引入标签库 }
+
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+    function address(user_id)
+    {
+
+        location.href = ROOT + '?m=Service&a=index&id='+user_id;
+    }
+
+</script>
+
+<php>
+
+
+    function user_company($id,$user){
+    if($user['user_type']==1){
+    return "<a href='javascript:user_company(".$id.");'>公司</a>&nbsp;";
+    }
+    }
+
+    function get_date($create_time){
+    return to_date($create_time,"Y-m-d");
+    }
+
+</php>
+<div class="main">
+    <div class="main_title">充值反馈</div>
+    <div class="blank5"></div>
+
+
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            {%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+            收件人手机号：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+            用户手机号：<input type="text" class="textbox" name="user_mobile" value="{:trim($_REQUEST['user_mobile'])}" style="width:100px;" />
+            收件人姓名：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+            <input type="hidden" name="user_type" value="<if condition="ACTION_NAME eq 'index' or ACTION_NAME eq 'register'">0<else/>1</if>" />
+            <input type="hidden" value="UserAddress" name="m" />
+            <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+
+
+        </form>
+    </div>
+    <div class="blank5"></div>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="user"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID},user_id|get_user_name_real:会员|:edit,real_name:收件人,mobile:收件人手机号,province:省份,city:市,address:具体地址,code:邮政编码"
+            actionlist="edit:{%EDIT},del:删除"
+            actionwidth="220px"
+    />
+
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

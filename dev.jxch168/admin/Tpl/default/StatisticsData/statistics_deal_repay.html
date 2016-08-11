@@ -1,0 +1,81 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="/front/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/exporting.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/chart.js"></script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn"></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+    <div class="main_title">用户信息统计</div>
+    <div class="blank5"></div>
+    <form name="search" id="search_form" action="__APP__" method="get">
+        <select name='deal_status' id="deal_status">
+            <option value='-1'>全部</option>
+            <option value='4' selected>待还</option>
+            <option value='5'>已还</option>
+        </select>
+        <input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+        <input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />
+        <input type="submit" class="button" name="submit" value="{%SEARCH}" />
+        <input type="button" class="button" value="Excel导出" onclick="export_csv_invest_total();" />
+        <br/>
+    </form>
+    <style type="text/css">
+    .total_list td,
+    .total_list th {
+        padding: 15px;
+        font-size: 14px;
+    }
+    
+    .total_list td {
+        text-align: right;
+        padding-right: 0px;
+    }
+    </style>
+    <table border="1" cellpadding="0" cellspacing="0" class='total_list'>
+        <tr>
+            <th colspan="4">还款统计数据</th>
+        </tr>
+        <tr>
+            <th>项目名称</th>
+            <th>本金</th>
+            <th>利息</th>
+            <th>本息总额</th>
+        </tr>
+        <tr>
+            <td>已还统计信息</td>
+            <td>{:number_format($total_list[5]['self_money'],2)}</td>
+            <td>{:number_format(num_format($total_list[5]['interest_money']),2)}</td>
+            <td>{:number_format($total_list[5]['self_money']+$total_list[5]['interest_money'],2)}</td>
+        </tr>
+         <tr>
+            <td>待还统计信息</td>
+            <td>{:number_format($total_list[4]['self_money'],2)}</td>
+            <td>{:number_format(num_format($total_list[4]['interest_money']),2)}</td>
+            <td>{:number_format($total_list[4]['self_money']+$total_list[4]['interest_money'],2)}</td>
+        </tr>
+    </table>
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+    <html:list id="dataTable" style="dataTable" name="deal" datasource="list" show="id:编号
+        ,name:贷款名称
+        ,borrow_amount|number_format:贷款金额|class=right
+        ,rate:年化利率(%)
+        ,start_time|to_date:标的开始时间   
+        ,start_time|get_deal_end_time=$deal['endate']:标的结束时间
+        ,borrow_amount|get_deal_interest_money=$deal:利息|class=right
+        ,borrow_amount|get_deal_total_repay_money=$deal:还款总额|class=right
+        " />
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+    <script type="text/javascript">
+    function export_csv_invest_total() {
+        var query = $("#search_form").serialize();
+        var url = ROOT + "?" + VAR_MODULE + "=" + MODULE_NAME + "&" + VAR_ACTION + "=statistics_terrace" + "&" + query + "&xls=true";
+        location.href = url;
+    }
+    returnShow('deal_status', "{$_GET['deal_status']}", 'select');
+    </script>

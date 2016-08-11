@@ -1,0 +1,116 @@
+<div class="tabbox clearfix">
+    <div class="tab cur"><a href="{url x=" index " r="uc_invite "}">我要推荐</a></div>
+    <!--<div class="tab" ><a href="{url x="index" r="uc_invite#invite"}">已投资用户</a></div>-->
+    <div class="tab"><a href="{url x=" index " r="uc_invite#invite " p="type=1 "}">未投资用户</a></div>
+    <div class="tab"><a href="{url x=" index " r="uc_invite#reward "}">推荐返利</a></div>
+</div>
+<div class="uc_box bdd bt0">
+    <div class="referer_box" style="position:relative;top: 200px;width:883px;padding: 20px;border: 1px solid #999;">
+        <ul class="referer_box1">
+            <li class="item" style="background: white;padding: 0;width:220px;text-align: center;color: #333;border-right: 1px dashed">推荐好友总数
+                <br/><span style="color: red">{$data.referral_user}人</span></li>
+            <li class="item" style="background: white;padding: 0;width:220px;text-align: center;color: #333;border-right: 1px dashed">返利总金额
+                <br/><span style="color: red">{$data.total_rebate_money}元</span></li>
+            <li class="item" style="background: white;padding: 0;width:220px;text-align: center;color: #333;border-right: 1px dashed">到账总金额
+                <br/><span style="color: red">{function name="format_price" v=$data.total_referral_money}元</span></li>
+            <li class="item" style="background: white;padding: 0;width:220px;text-align: center;color: #333;">昨日收到返利
+                <br/><span style="color: red">{$data.total_yesterday_money}元</span></li>
+        </ul>
+        <div class="pic" style="position:relative;top: 100px;">
+            <img src="/front/images/wdyaoqing.jpg">
+        </div>
+        <div class="yaoqingxize" style="position: relative;top: 110px;padding: 5px;">
+            <h3>金享好友邀请投资奖励细则：</h3>
+            <p>1、邀请人通过分享链接或者邀请人注册时填您的手机号来确定邀请关系；
+                <br/> 2、邀请好友加入，注册会员，实名认证；邀请的会员，每投资一次获得该用户投资年化收益的1%奖励；
+                <br/> 3、被邀请人若有继续邀请朋友加入，作为他们的引荐人，当第二级被邀请人投资时，你还可获得该用户投资年化收益的0.5%的奖励。
+                <br/> 注意事项：
+                <br/> 1、邀请奖励无上限，邀请越多，奖励越多；
+                <br/> 2、请不要随意邀请您不熟悉的人，避免给别人带来不必要的困扰。
+                <br/> 3、邀请奖励返现金，只有被邀请人注册实名并投资后，返现金在邀请人投资到期后一并返还；
+            </p>
+        </div>
+    </div>
+    <div class="blank"></div>
+    <div class="uc-table" style="height:1000px;">
+        <div id="referrals" class="pl30">
+            <div class="im refers">
+                {if $user_info.mobile}
+                <h4><span style='position:relative;top:3px;'>推荐邀请：</span></h4>
+                <!-- 分享插件 -->
+                <div style="position:relative;left:80px;top:-20px;" id='share'>
+                    {$show_share_code}
+                </div>
+                <script type="text/javascript">
+                var qr_url = "{$qr_code_url}";
+
+                function shareTo(site) {
+                    var e = encodeURIComponent,
+                        s = screen,
+                        d = document,
+                        wd = 640,
+                        hg = 480,
+                        u = d.location;
+                    d.title = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+                    var uuid = '';
+                    var img = "http://www.jxch168.com/public/images/logo.png";
+                    var ctxt = '投越多返利越多，快来加入金享财行吧！';
+                    var url = "http://api.bshare.cn/share/" + site + "?url=" + e("" + qr_url + "") + "&title=" + e(d.title) + "&publisherUuid=" + uuid + "&summary=" + ctxt + "&pic=" + img;
+                    window.open(url, 'bshare', ['toolbar=0,status=0,resizable=1,width=' + wd + ',height=' + hg + ',left=' + (s.width - wd) / 2 + ',top=' + (s.height - hg) / 2]);
+                }
+                </script>
+                <div style='position: relative;top: -150px;'>
+                    <p style="font-size: 16px;">我在金享财行理财平台投资理财，既安全，收益又高，还有现金红包拿。邀请你也一起赚钱！</p>
+                    <textarea type="text" onclick="this.select()" class="f-text f_l ui-textarea mr5" id="share-copy-text-0" style="width:550px; height:60px">{$share_url_mobile}</textarea>
+                    <input type="button" class="formbutton f_l" id="share-copy-button-0" value="{$LANG.COPY}内容">
+                    <!--<a href="javascript:;" class="formbutton2" onclick="copyText(share-copy-text-0)" style="display:none">点击复制</a>-->
+                </div>
+                <div class="blank"></div>
+                <p style='position:relative;left:698px;top:-260px;font-size: 16px;'>用手机扫描二维码分享给好友:</p>
+                <img src='{$my_grcode}' style='position:relative;left:730px;top:-260px;' title='金享财行' /> {/if}
+            </div>
+        </div>
+        <div class="blank"></div>
+        <div class="blank"></div>
+    </div>
+    <!--end uc-table-->
+</div>
+<script type="text/javascript" src="{$TMPL}/js/utils/ZeroClipboard.js"></script>
+<script type="text/javascript">
+var client = new ZeroClipboard($('#share-copy-button-0'));
+
+client.on('load', function(client) {
+
+    client.on('datarequested', function(client) {
+        client.setText($('#share-copy-text-0').val());
+    });
+
+    client.on('complete', function(client, args) {
+        alert(LANG.JS_COPY_SUCCESS);
+    });
+});
+
+client.on('wrongflash noflash', function() {
+    ZeroClipboard.destroy();
+});
+
+
+
+
+var client1 = new ZeroClipboard($('#share-copy-button-1'));
+
+client1.on('load', function(client1) {
+
+    client1.on('datarequested', function(client1) {
+        client.setText($('#share-copy-text-1').val());
+    });
+
+    client1.on('complete', function(client1, args) {
+        alert(LANG.JS_COPY_SUCCESS);
+    });
+});
+
+client1.on('wrongflash noflash', function() {
+    ZeroClipboard.destroy();
+});
+</script>

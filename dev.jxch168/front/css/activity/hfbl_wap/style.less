@@ -1,0 +1,129 @@
+@colorYellow:#ffff00;
+html,body{
+    height: 100%;
+    widows: 100%;
+}
+#thanksgiving_m {
+    img.bg {
+        margin-bottom: -1%;
+    }
+    .header_m img,
+    .content_m img.bg {
+        width: 100%;
+        height: auto;
+    }
+    .header_m,
+    .content_m,
+    .slotMain_m,
+    .rule_m,
+    .prodShow_m {
+        position: relative;
+        width: 100%;
+    }
+
+    .slotMain_m{
+         overflow: hidden;
+        .cnt{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            #slotMachine,.info,.btnPull{
+                position: absolute;
+            }
+
+            #slotMachine{
+                width: 100%;
+                top:30%;
+                left: 19%;
+                @media (max-width: 370px) {
+                    top:28.5%;
+                    left: 19.1%;
+                }
+                @media (max-width: 350px) {
+                    top:26.5%;
+                    left: 18.5%;
+                }
+                &.machineContainer{
+                    overflow: hidden;
+                    height: 50%;
+                    width: 100%;
+                }
+                .machineResult{
+                    display: none;
+                }
+                .slotMachine{
+                    position: relative;
+                    width: 13.5%;
+                    height: 5rem;
+                    margin-right:7.2%;
+                    padding: 0px;
+                    overflow: hidden;
+                    display: inline-block;
+                    text-align: center;
+                    .slot{
+                        height:5rem;
+                        background-position-x: 55%;
+                        background-repeat: no-repeat;
+                        background-size:80% 100% ;
+                    }
+                }
+                .slot1{
+                    background-image:url(prod/dxq.png);
+                }
+                .slot2{
+                    background-image: url(prod/handmi.png);
+                }
+                .slot3{
+                    background-image: url(prod/bontmi.png);
+                }
+                .slot4{
+                    background-image: url(prod/ysh.png);
+                }
+                .slot5{
+                    background-image: url(prod/zhazj.png);
+                }
+                .slot6{
+                    background-image: url(prod/dfb.png);
+                }
+                .slot7{
+                    background-image: url(prod/philips.png);
+                }
+                .slot8{
+                    background-image: url(prod/watch.png);
+                }
+                .slot9{
+                    background-image: url(prod/mini.png);
+                }
+                .slot10{
+                    background-image: url(prod/air.png);
+                }
+                .slot11{
+                    background-image: url(prod/iphone.png);
+                }
+                .slot12{
+                    background-image: url(prod/mac.png);
+                }
+            }
+
+            .info{
+                top:67%;
+                left:34%;
+                a{
+                    text-decoration: none;
+                    color: @colorYellow;
+                }
+            }
+            .btnPull{
+
+                top: 78%;
+                left:37%;
+                width: 20%;
+                cursor: pointer;
+                &.hide{
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+
+}

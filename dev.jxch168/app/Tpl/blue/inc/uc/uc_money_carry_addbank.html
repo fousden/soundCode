@@ -1,0 +1,104 @@
+<style type='text/css'>
+    #Jbank_From .field {line-height: 30px;font-size: 12px;margin: 5px auto 5px;}
+    #Jbank_From .field label{ width:130px}
+    #Jbank_From .field input.f-input ui-textbox{ height:20px; line-height:20px; padding:5px}
+    #Jbank_From .field select{ height:30px; line-height:30px; }
+</style>
+<form name='Jbank_From' id='Jbank_From' action='{url x="index" r="uc_money#savebank"}' method='post'>
+    <div class='field'>
+        <label>开户名：</label>
+        <span><input type='text' readonly='readonly' name='real_name' id='Jbank_real_name' class='f-input ui-textbox readonly' style='width:100px;' value='{$user_info.real_name}'></span>
+    </div>
+    <div class='blank1'></div>
+    <div class='field'>
+        <label> 帐户类型：</label>
+        <span>借记卡&nbsp;&nbsp;<span class='f_red'>(不支持信用卡)</span></span>
+    </div>
+    <div class='blank1'></div>
+    <div class='field'>
+        <label><span class='f_red b'>*</span> 选择银行：</label>
+        <span>
+            <select name="bank_id"  height="300">
+                <option value=''>请选择</option>
+                {foreach from='$bank_list' item='item'}
+                    <option value='{$item.fuyou_bankid}' day='{$item.day}'>{$item.name}</option>
+                {/foreach}
+            <!--<option value='other'>其他</option>-->
+            </select>
+            <!--<select name="otherbank" class="hide ui-select w140 select-w140">
+                <option value=''>请选择</option>
+                {foreach from='$bank_list' item='item'}
+                {if $item.is_rec eq 0}
+                <option value='{$item.id}' day='{$item.day}'>{$item.name}</option>
+                {/if}
+                {/foreach}
+            </select>-->
+        </span>
+    </div>
+    <div class='blank1'></div>
+    <div class='field' >
+        <label for='settings-region'><span class='f_red b'>*</span> 开户行所在地：</label>
+        <select name='region_lv1'>
+            <option selected='selected'>请选择省</option>
+            {foreach from=$region_lv1 item=lv1}
+            <option value='{$lv1.DistrictCode}'>{$lv1.DistrictName}</option>
+            {/foreach}
+        </select>
+
+        <select name='region_lv2' height="300">
+            <option selected='selected'>请选择市</option>
+        </select>
+
+        <script type="text/javascript">
+            $(function(){
+                $("select[name=region_lv1]").change(function(){
+                    $("select[name=region_lv2] option:first").nextAll().remove();
+                    $.get('member.php?ctl=uc_money&act=getCityList',
+                            {id:$(this).val()},
+                            function(data){
+                                $.each(data,function(index,item){
+                                    $("select[name=region_lv2]")
+                                            .append(
+                                                $("<option/>")
+                                                        .attr("value",item.DistrictCode)
+                                                        .text(item.DistrictName));
+                                })
+                            },
+                            'json'
+                    );
+                });
+            });
+        </script>
+    </div>
+    <div class='blank1'></div>
+<!--    <div class='field'>
+        <label for='settings-bankzone'><span class='f_red b'>*</span> 开户行网点：</label>
+        <span><input type='text' name='bankzone' id='Jbank_bankzone' class='f-input ui-textbox' style='width:270px;' value=''></span>
+        &nbsp;&nbsp;<a href='http://www.cardbaobao.com/bank/index.asp' target='_blank'>网点查询</a>
+    </div>-->
+    <div class='blank1'></div>
+    <div class='field'>
+        <label><span class='f_red b'>*</span> 银行卡号：</label>
+        <span><input type='text' name='bankcard' class='f-input ui-textbox' id='Jbank_bankcard' style='width:270px;font-weight:bolder;' value=''></span>
+    </div>
+    <div class='blank1'></div>
+    <div class='field'>
+        <label><span class='f_red b'>*</span> 确认卡号：</label>
+        <span><input type='text' name='reBankcard' class='f-input ui-textbox' id='Jbank_rebankcard' style='width:270px;font-weight:bolder;' value=''></span>
+    </div>
+    <div class='blank1'></div>
+    <div class='field'>
+        <label><span class='f_red b'></span></label>
+        <span style="font-size:14px;"><input type="checkbox" name="agreement" id="J_agreement" value="1" checked="checked" style="position:relative;top:1.5px;" />&nbsp;同意<a href="{url x="index" r="sys" p="id=$PROFESSION"}" class="f_blue">《专业账户协议》</a></span>
+    </div>
+    <div class='blank20'></div>
+    <div class='tc'>
+        <input type='button' value='确认添加' class='sub_btn'>
+        <input type='button' value='取消' class='reset_btn'>
+    </div>
+    <div class='blank20'></div>
+
+</form>
+<script type="text/javascript" defer="defer">
+    $('#Jbank_bankcard,#Jbank_rebankcard').bankInput();
+</script>

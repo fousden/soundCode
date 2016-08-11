@@ -1,0 +1,188 @@
+<div class="tabbox clearfix">
+    <div class="tab {if $ACTION_NAME eq 'index'}cur{/if}"><a href="{url x="index" r="uc_bonus"}">我的红包</a></div><!-- {$page_title} -->
+    <!-- <div class="tab {if $ACTION_NAME eq 'invite'}cur{/if}"><a href="{url x="index" r="uc_invest#invite"}">招标中借款</a></div>
+    <div class="tab {if $ACTION_NAME eq 'flow'}cur{/if}"><a href="{url x="index" r="uc_invest#flow"}">流标的借款</a></div>
+    <div class="tab {if $ACTION_NAME eq 'ing'}cur{/if}"><a href="{url x="index" r="uc_invest#ing"}">回收中借款</a></div>
+    <div class="tab {if $ACTION_NAME eq 'over'}cur"{/if}"><a href="{url x="index" r="uc_invest#over"}">已回收借款</a></div>
+    <div class="tab {if $ACTION_NAME eq 'bad'}cur{/if}"><a href="{url x="index" r="uc_invest#bad"}">我的坏账</a></div> -->
+</div>
+<div class="uc_box bdd bt0 clearfix">
+    <div id="redbagcontainer">
+    <div id="redbagmain">
+	<!--<div class="title">我的红包</div>-->
+	<div class="cont">
+	    <p class="text">累计获得现金红包</p>
+	    <p class="redbagnum">{if $money_count}{$money_count}{else}0.00{/if}<span>元</span></p>
+	</div>
+    </div>
+    <div id="redbagcont">
+	<div class="title">红包列表</div>
+	<div class="filtrate">
+                <div>
+                    <span class="title">使用状态:</span>
+                    <a href="/member.php?ctl=uc_bonus&amp;act=index&amp;type=1 " {if $type eq 1}class="select"{/if} id="notuse">未使用</a>
+                    <a href="/member.php?ctl=uc_bonus&amp;act=index&amp;type=2 " {if $type eq 2}class="select"{/if} id="used">已使用</a>
+                    <a href="/member.php?ctl=uc_bonus&amp;act=index&amp;type=3 " {if $type eq 3}class="select"{/if} id="end">已过期</a>
+                    <div class="Clear"></div>
+                </div>
+            </div>
+	<dl class="cont">
+	    <dt class="tabletitle">
+                <p class="bag_type">红包类型</p>
+                <p class="bag_duration">有效时间</p>
+                <p class="bag_rules">使用规则</p>
+                <p class="bag_from">红包来源</p>
+                <p class="bag_status">使用状态</p>
+                <div class="Clear"></div>
+	    </dt>
+            {if $list}
+            {foreach from=$list item="item" key=key}
+            <dt class="tablecont">
+                <p class="bag_type">{$item.money}元现金红包</p>
+                <p class="bag_duration">开始：{$item.start_time}<br/>结束：{$item.end_time}</p>
+                {if $item.bonus_type_desc eq 8}
+                <p class="bag_rules">在活动期间内，任意投资一笔，可以领取红包</p>
+                {else}
+                <p class="bag_rules">累计投资大于等于<br/>{$item.min_limit}元可使用1张</p>
+                {/if}
+                <p class="bag_from">{$item.bonus_type}</p>
+                <p class="bag_status">
+                {if $type eq 1}
+                    <a style="cursor:pointer" onclick="return carry_now({$item.id});">申请提现</a>
+                {elseif $type eq 2}
+                    {if $item.m_status eq 1}
+                    <span>在{$item.apply_time}已申请提现</span>
+                    {elseif $item.m_status eq 2}
+                    <span>在{$item.release_time}已发放</span>
+                    {/if}
+                {elseif $type eq 3}
+                     <span>已过期</span>
+                {/if}
+                </p>
+            </dt>
+        <?php
+        //旧版本
+	    /* <dt class="tablecont">
+                        <span>{$item.bonus_type}</span>
+                        <span>{$item.money}</span>
+                        <span>{$item.status}</span>
+                        <span>{$item.generation_time}</span>
+                        {if $item.m_status eq 0}
+                        <span><button style='cursor:pointer;background-color:#47A2E3;border-radius:6px;width:80px;height:30px;color:white' onclick="carry_now({$item.id});">申请提现</button></span>
+                        {elseif $item.m_status eq 1}
+                        <span>提现放款中</span>
+                        {elseif $item.m_status eq 2}
+                        <span>提现已完成</span>
+                        {/if}
+      </dt> */
+        ?>
+            {/foreach}
+            <div class="pages">{$pages}</div>
+            {else}
+            <dt class="tablecont">
+                <span style="text-align:center; width:100%;display:block;">暂无记录</span>
+            </dt>
+            {/if}
+        </dl>
+    </div>
+
+    <div id="redbagway">
+                        <div class="title">如何获取红包？</div>
+                        <div class="rebaglist">
+                            <ul class="list">
+                                <li class="header">一、完成实名认证，送100元现金红包！<br/></li>
+                                <li>
+                                    <p class="title">&nbsp;</p>
+                                    <p class="cont">为答谢新老用户的支持，金享财行特奉上100元现金红包，请各位新老用户笑纳~</p>
+                                </li>
+                                <li><p class="title">获得红包方式：</p></li>
+                                <li>
+                                    <p class="title">新用户：</p>
+                                    <p class="cont">
+                                    	1、注册金享财行会员
+                                    </p>
+                                </li>
+                                <li>
+                                	<p class="title">&nbsp;</p>
+                                	<p class="cont">
+									    2、填写姓名、身份证号完成实名认证
+                                    </p>
+                                </li>
+                                <li>
+                                	<p class="title">&nbsp;</p>
+                                	<p class="cont">
+									    3、登录个人中心查收100元现金红包
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="title">老用户：</p>
+                                    <p class="cont">可直接在个人中心查收100元现金红包。</p>
+                                </li>
+                                <li>
+                                    <p class="title">红包领取方式：</p>
+                                    <p class="cont">我的主页中-我的红包 点击申请提现</p>
+                                </li>
+                                <li>
+                                    <p class="title">活动时间：</p>
+                                    <p class="cont">长期</p>
+                                </li>
+                                <li>
+                                    <p class="title">友情提示：</p>
+                                    <p class="cont">红包有效期只有3个月喔，请在失效前使用！~</p>
+                                </li>
+                            </ul>
+
+                            <ul class="list">
+                                <li class="header">二、大转盘活动抽奖</li>
+                                <li>
+                                    <p class="title">领奖规则：</p>
+                                    <p class="cont">1.凡在金享财行投资任意金额的用户即可获得一次抽奖机会<br>
+2.将此活动分享至朋友圈还可获得更多抽奖机会。</p>
+                                </li>
+                                <li>
+                                    <p class="title">领奖方式：</p>
+                                    <p class="cont">1.注册成为金享财行会员并投资成功，进行抽奖，相应奖励将直接放入理财账户<br>
+2.微信端用户转发并输入手机号抽奖即可将奖励放入理财账户 </p>
+                                </li>
+				<li>
+                                    <p class="title">活动时间：</p>
+                                    <p class="cont"><a href="<?php echo SITE_DOMAIN ?>/index.php?ctl=activity&act=lottery&is_pc=1" target="_black">详见活动详情页</a></p>
+                                </li>
+                                <li>
+                                    <p class="title">温馨提示：</p>
+                                    <p class="cont">1、若在领取过程中遇到问题，请联系客服电话：<b>400-091-2828</b></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+        </div>
+</div>
+<script type="text/javascript">
+	//红包提现申请
+        function carry_now(bonus_id){
+//                do_ajax = true;
+                if(!confirm("确定要红包提现吗？")){
+                    return false;
+                }
+                $.ajax({
+                        type:'POST',
+                        url: "/member.php?ctl=uc_bonus&act=carry_now",
+                        data: {bonus_id:bonus_id},
+                        dataType: "json",
+                        success: function(data){
+
+                                    if(data.status == 1){
+
+                                         $.showErr(data.info);
+                                        //location.href = '/member.php?ctl=uc_bonus';
+                                        setTimeout(function() {
+                                            window.location.reload()
+                                         }, 1000);
+                                    }else{
+                                        $.showErr(data.info);
+                                    }
+                        }
+
+                });
+        }
+</script>

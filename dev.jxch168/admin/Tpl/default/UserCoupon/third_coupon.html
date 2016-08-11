@@ -1,0 +1,90 @@
+{// 引入标签库 }
+
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<php>
+
+        function get_date($create_time){
+            return to_date($create_time,"Y-m-d H:i:s");
+        }
+</php>
+<div class="main">
+<div class="main_title">优惠券使用统计</div>
+<!--<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+            <if condition="$code">
+            <volist name='code' id='vo'>
+		<tr>
+			<td class="item_title" style="width:200px;text-align: left;">
+				{$vo.prize_name}
+			</td>
+			<td class="item_input">				
+				共有{$vo.total}张。已使用{$vo.use}张，未使用{$vo.new}张。
+			</td>
+                </tr>
+            </volist>
+            </if>
+        </table>-->
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user"
+	datasource="code"
+        show="prize_name:优惠券
+        ,total:总数
+        ,use:已使用
+        ,new:未使用"
+/>
+<br><br>
+<div class="main_title">优惠券领取列表</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+                {%REAL_NAME}：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+		{%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+		{%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+		{%PRIZE_NAME}：<input type="text" class="textbox" name="prize_name" value="{:trim($_REQUEST['prize_name'])}" style="width:100px;" />
+		{%CODE}：<input type="text" class="textbox" name="code" value="{:trim($_REQUEST['code'])}" style="width:100px;" />
+		<input type="hidden" value="UserCoupon" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+    	<!--<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />-->
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user"
+	checkbox="true"
+	datasource="lists"
+        show="id:{%ID}|50px
+        ,user_id|get_user_name_real:用户名
+        ,prize_desc:活动名称
+        ,prize_name:优惠券名称
+        ,prize_code:兑换码
+        ,get_time|get_date:领取时间"
+	
+/>
+
+
+<div class="blank5"></div>
+<div class="page">       当前 {$page}/{$page_all} 页 , {$rs_count} 条记录
+                    <if condition="$page gt 1">
+                    <a href="/m.php?m=UserCoupon&a=third_coupon&p=1" >第一页  </a>
+                    </if>
+                    <if condition="$page_prev gt 0"><a href="/m.php?m=UserCoupon&a=third_coupon&p={$page_prev}" >上一页 </a></if>
+                    <if condition="$page_next elt $page_all"><a href="/m.php?m=UserCoupon&a=third_coupon&p={$page_next}" >下一页  </a></if>
+                    <if condition="$page_next elt $page_all"><a href="/m.php?m=UserCoupon&a=third_coupon&p={$page_all}" >末一页  </a></if>
+           </div>
+</div>
+
+<include file="Public:footer" />

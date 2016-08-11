@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+{include file="inc/header.html"}
+<body>
+	<div id="dkinfo">
+		<div class="main">
+		<div class="formbox">
+			<ul class="form">
+				<li class="dataitem age">
+					<div class="dataname">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄</div>
+					<div class="data">
+						<input type="text" id="age" name="age" maxlength="2">
+						<label>周岁</label>
+					</div>
+					<label class="datatip">请输入年龄</label>
+				</li>
+				<li class="dataitem city">
+					<div class="dataname">居住城市</div>
+					<div class="data">
+						<input type="text" id="city" name="city" placeholder="请填写" >
+					</div>
+					<label class="datatip">请输入居住城市</label>
+				</li>
+				<li class="dataitem live_time dropdown">
+					<div class="dataname">居住时间</div>
+					<div class="data">
+						<input type="text" id="live_time" name="live_time" placeholder="--请选择--" readonly="" >
+						<label><i></i></label>
+						<div class="value">
+							<p class="valueitem">1~5个月</p>
+							<p class="valueitem">6~12个月</p>
+							<p class="valueitem">1年以上</p>
+						</div>
+					</div>
+					<label class="datatip">请选择居住时间</label>
+				</li>
+				<li class="dataitem salary dropdown">
+					<div class="dataname">税后月薪</div>
+					<div class="data">
+						<input type="text" id="salary" name="salary" placeholder="--请选择--"  readonly="" >
+						<label><i></i></label>
+						<div class="value">
+							<p class="valueitem">3000元以下</p>
+							<p class="valueitem">3000~10000元</p>
+							<p class="valueitem">10000~20000元</p>
+							<p class="valueitem">20000元以上</p>
+						</div>
+					</div>
+					<label class="datatip">请选择税后月薪</label>
+				</li>
+				<li class="dataitem salary_way">
+					<div class="dataname">发薪方式</div>
+					<div class="data">
+						<input type="radio" id="salary_way1" name="salary_way" checked="" value="0" >
+						<label for="salary_way1">银行转账</label>
+						<input type="radio" id="salary_way2" name="salary_way" value="1" >
+						<label for="salary_way2">现金发放</label>
+					</div>
+					<label class="datatip">请选择发薪方式</label>
+				</li>
+			</ul>
+			<ul>
+				<li class="dataitem fangdai">
+					<div class="dataname">有无房贷</div>
+					<div class="data">
+						<input type="radio" id="fangdai1" name="fangdai" value="1" >
+						<label for="fangdai1">有</label>
+						<input type="radio" id="fangdai2" name="fangdai" value="0" checked>
+						<label for="fangdai2">无</label>
+					</div>
+					<label class="datatip">请选择有无房贷</label>
+				</li>
+				<li class="dataitem status dropdown fangdai_status">
+					<div class="dataname">房贷情况</div>
+					<div class="data">
+						<input type="text" id="fangdai_status" name="fangdai_status" placeholder="--请选择--"  readonly="">
+						<label><i></i></label>
+						<div class="value">
+							<p class="valueitem">正在还房贷</p>
+							<p class="valueitem">房贷已还清</p>
+						</div>
+					</div>
+					<label class="datatip">请选择房贷情况</label>
+				</li>
+				<li class="dataitem status_time dropdown fangdai_status_time">
+					<div class="dataname">还清距今</div>
+					<div class="data">
+						<input type="text" id="fangdai_status_time" name="status_time" placeholder="--请选择--"  readonly="">
+						<label><i></i></label>
+						<div class="value">
+							<p class="valueitem">1~6个月</p>
+							<p class="valueitem">7~12个月</p>
+							<p class="valueitem">12个月以上</p>
+						</div>
+					</div>
+					<label class="datatip">请选择还清时间</label>
+				</li>
+				<li class="dataitem status_num dropdown fangdai_status_num">
+					<div class="dataname">已还款期数</div>
+					<div class="data">
+						<input type="text" id="fangdai_status_num" name="status_num" placeholder="--请选择--"  readonly="">
+						<label><i></i></label>
+						<div class="value">
+							<p class="valueitem">1~6个月</p>
+							<p class="valueitem">7~12个月</p>
+							<p class="valueitem">12个月以上</p>
+						</div>
+					</div>
+					<label class="datatip">请选择还款期数</label>
+				</li>
+			</ul>
+			<ul>
+				<li class="dataitem chedai">
+					<div class="dataname">有无车贷</div>
+					<div class="data">
+						<input type="radio" id="chedai1" name="chedai" value="1" >
+						<label for="chedai1">有</label>
+						<input type="radio" id="chedai2" name="chedai" value="0" checked>
+						<label for="chedai2">无</label>
+					</div>
+					<label class="datatip">请选择有无车贷</label>
+				</li>
+				<li class="dataitem status dropdown chedai_status">
+					<div class="dataname">车贷情况</div>
+					<div class="data">
+						<input type="text" id="chedai_status" name="chedai_status" placeholder="--请选择--"  readonly="">
+						<label><i></i></label>
+						<div class="value">
+							<p class="valueitem">正在还车贷</p>
+							<p class="valueitem">车贷已还清</p>
+						</div>
+					</div>
+					<label class="datatip">请选择车贷情况</label>
+				</li>
+				<li class="dataitem status_time dropdown chedai_status_time">
+					<div class="dataname">还清距今</div>
+					<div class="data">
+						<input type="text" id="chedai_status_time" name="status_time" placeholder="--请选择--"  readonly="">
+						<label><i></i></label>
+						<div class="value">
+							<p class="valueitem">1~6个月</p>
+							<p class="valueitem">7~12个月</p>
+							<p class="valueitem">12个月以上</p>
+						</div>
+					</div>
+					<label class="datatip">请选择距今时间</label>
+				</li>
+				<li class="dataitem status_num dropdown chedai_status_num">
+					<div class="dataname">已还款期数</div>
+					<div class="data">
+						<input type="text" id="chedai_status_num" name="status_num" placeholder="--请选择--"  readonly="">
+						<label><i></i></label>
+						<div class="value">
+							<p class="valueitem">1~6个月</p>
+							<p class="valueitem">7~12个月</p>
+							<p class="valueitem">12个月以上</p>
+						</div>
+					</div>
+					<label class="datatip">请选择还款期数</label>
+				</li>
+			</ul>
+			<ul>
+				<li class="dataitem chexian">
+					<div class="dataname">有无车险保单</div>
+					<div class="data">
+						<input type="radio" id="chexian1" name="chexian" value="1">
+						<label for="chexian1">有</label>
+						<input type="radio" id="chexian2" name="chexian" value="0" checked>
+						<label for="chexian2">无</label>
+					</div>
+					<label class="datatip">请选择车险保单</label>
+				</li>
+				<li class="dataitem shouxian">
+					<div class="dataname">有无寿险保单</div>
+					<div class="data">
+						<input type="radio" id="shouxian1" name="shouxian" value="1">
+						<label for="shouxian1">有</label>
+						<input type="radio" id="shouxian2" name="shouxian" value="0" checked>
+						<label for="shouxian2">无</label>
+					</div>
+					<label class="datatip">请选择寿险保单</label>
+				</li>
+				<li class="dataitem xinyongka">
+					<div class="dataname">有无信用卡</div>
+					<div class="data">
+						<input type="radio" id="xinyongka1" name="xinyongka" value="1">
+						<label for="xinyongka1">有</label>
+						<input type="radio" id="xinyongka2" name="xinyongka" value="0" checked>
+						<label for="xinyongka2">无</label>
+					</div>
+					<label class="datatip">请选择信用卡</label>
+				</li>
+				<li class="dataitem money dropdown">
+					<div class="dataname">申请金额</div>
+					<div class="data">
+						<input type="text" id="money" name="money" placeholder="--请选择--"  readonly="">
+						<label><i></i></label>
+						<div class="value">
+							<p class="valueitem">1万以下</p>
+							<p class="valueitem">1~15万</p>
+							<p class="valueitem">15~30万</p>
+						</div>
+					</div>
+					<label class="datatip">请选择申请金额</label>
+				</li>
+			</ul>
+			<a class="submit" href="javascript:;">下一步</a>
+		</div>
+		<img class="right" src="./front/images/dk_info_mainbg.jpg" height="350" width="366" >
+		</div>
+	</div>
+	<script type="text/javascript" src="./front/js/dk_main.js"></script>
+</body>
+{include file="inc/footer.html"}

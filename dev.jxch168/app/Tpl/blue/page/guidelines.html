@@ -1,0 +1,236 @@
+{include file="inc/header.html"}
+<!--guid begin-->
+    <div id="guid">
+        <script type="text/javascript">
+            var environment = {
+                userVo: '',
+                role: '',
+                userId: '',
+                basePath: '',
+                userCash: '',
+                globalPath: 'http://www.yooli.com:80/',
+                userActiveTime: '',
+                yoolibaoWhiteListStatus: '',
+                yoolibaoOpenStatus: '',
+                cerrencyOpenTime: "2014/11/30" //new Date()
+            };
+        </script>
+        <script src="front/newcomer-guide_source/js/global-1.1.0.min.js" type="text/javascript"></script>
+        <link href="front/newcomer-guide_source/css/static.css" type="text/css" rel="stylesheet">
+        <div class="guide-banner"></div>
+        <div id="wrap" class="guid_cont">
+            <!--<div class="line">
+                <i class="icons-tit col_1"></i>
+            </div>-->
+            <h2>金享财行的定义</h2>
+            <hr class="hrline" />
+            <div class="desc">
+            金享财行是创新型互联网金融信息服务平台，秉承保障投资人利益的理念，金享财行只与银行、担保公司、大型央企国企进行合作，严格控制风险，确保投资金享财行的用户能安全拿回投资本金和预期收益是我们的一贯追求。
+                <!-- <p>金享财行是创新型互联网金融信息服务平台。秉承100%保本保息的理念，金享财行平台只与银行、</p>
+                <p>担保公司、大型央企国企进行合作，严格控制风险，以便投资金享财行的用户都能拿回投资本金和预期收益。</p> -->
+                <img src="front/newcomer-guide_source/images/pic_1.png" width="800" height="400" style="padding-top: 50px">
+            </div>
+            <div class="guide-sum">
+                <dl>
+                    <dt>{$user_count_all}</dt>
+                    <dd>累计投资者(人)</dd>
+                </dl>
+                <dl>
+                    <dt><em>￥</em>{$sum_money_all}</dt>
+                    <dd>累计交易额(元)</dd>
+                </dl>
+                <dl class="last">
+                    <dt><em>￥</em>{$sum_interest_all}</dt>
+                    <dd>累计预期收益(元)</dd>
+                </dl>
+            </div>
+            <!--<div class="line">
+                <i class="icons-tit col_2"></i>
+            </div>-->
+            <h2>金享财行的优势</h2>
+            <hr class="hrline" />
+            <div id="figure">
+                <a href="javascript:void(0)" target="_blank" class="f_box">
+                    <img src="front/images/daf_18.png" alt="" width="80" height="80" class="img" />
+                    <p class="info">
+                        <span class="title">严格风控</span><br />
+                        6大保障，第三方资金平台<br />
+                        全程保证用户资金安全
+                    </p>
+                </a>
+                <a href="javascript:void(0)" target="_blank" class="f_box">
+                    <img src="front/images/daf_21.png" alt="" width="80" height="80" class="img" />
+                    <p class="info">
+                        <span class="title">安全保障</span><br />
+                        银行、担保公司、大型央企、<br />
+                        国企合作，还款来源安全
+                    </p>
+                </a>
+                <a href="javascript:void(0)" target="_blank" class="f_box">
+                    <img src="front/images/daf_24.png" alt="" width="80" height="80" class="img" />
+                    <p class="info">
+                        <span class="title">高收益</span><br />
+                        银行，担保公司，中央企业<br />
+                        联合保障您的本息安全
+                    </p>
+                </a>
+                <div class="Clear"></div>
+            </div>
+            <!--<div class="line">
+                <i class="icons-tit col_3"></i>
+            </div>-->
+            <h2>理财产品大比拼</h2>
+            <hr class="hrline" />
+            <p style="text-align: center">
+                <img src="front/newcomer-guide_source/images/pic_5.png" width="800" height="400" class="pd">
+            </p>
+            <!--<div class="line">
+                <i class="icons-tit col_4"></i>
+            </div>-->
+            <h2>如何投资?</h2>
+            <hr class="hrline"/>
+            <div class="investMain">
+        <a href="javascript:;" class="prev" id="idPrev"></a> <a href="javascript:;" class="next" id="idNext"></a>
+        <ul class="howInvest r3 how-step-0" id="idNum">
+            <li class="step-1">Step1：注册</li>
+            <li class="step-2">Step2：实名认证</li>
+            <li class="step-3">Step3：充值</li>
+            <li class="step-4">Step4：投资</li>
+        </ul>
+        <div class="investbox" id="idFormView" style="overflow: hidden; position: relative;">
+            <ul class="invesSlider" id="idSlider" style="width: 2772px; position: absolute; left: 0px; top: 0px;">
+                <li>
+                    <img src="/front/newcomer-guide_source/images/guide_1.jpg" width="693" height="447">
+                    <p>一分钟成为金享会员，坐享其成的理财</p>
+                </li>
+                <li>
+                    <img src="/front/newcomer-guide_source/images/guide_2.jpg" width="693" height="447">
+                    <p>验证身份信息，享受更多实名活动</p>
+                </li>
+                <li>
+                    <img src="/front/newcomer-guide_source/images/guide_3.jpg" width="693" height="447">
+                    <p>进入我的账户 &gt; 充值，充足您想要的投资金额</p>
+                </li>
+                <li>
+                    <img src="/front/newcomer-guide_source/images/guide_4.jpg" width="693" height="447">
+                    <p>选择适合自己的理财产品，每月坐享收益</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+            <p style="text-align: center">
+                {if $user_info}
+                    <a href="/index.php?ctl=deals" target="_blank" class="btn">立即投资</a>
+                {else}
+                    <a href="/index.php?ctl=user&act=register" target="_blank" class="btn">立即注册</a>
+                {/if}
+            </p>
+        </div>
+        <script type="text/javascript">
+            (function () {
+                var a = {
+                    Step: 15,
+                    Time: 10,
+                    Auto: false,
+                    Pause: 4000,
+                    Index: 0,
+                    timer: null,
+                    target: 0,
+                    direc: 'left',
+                    init: function () {
+                        a.slide();
+                    },
+                    slide: function () {
+                        var oContainer = Util.getID('idFormView');
+                        var onPrev = Util.getID('idPrev');
+                        var onNext = Util.getID('idNext');
+                        var oSlider = Util.getID('idSlider');
+                        var oNumber = Util.getID('idNum');
+                        var onIndex = oNumber.getElementsByTagName('li');
+                        var osCount = 4;
+                        var osWidth = 693;
+                        oContainer.style.overflow = 'hidden';
+                        oContainer.style.position = 'relative';
+                        oSlider.style.width = osCount * osWidth + 'px';
+                        oSlider.style.position = 'absolute';
+                        oSlider.style.top = oSlider.style.left = 0;
+                        var Move = function () {
+                            clearTimeout(a.timer);
+                            var iNow = parseInt(oSlider.style[a.direc]);
+                            var iStep = GetStep(a.target, iNow);
+                            if (iStep != 0) {
+                                oSlider.style[a.direc] = (iNow + iStep) + 'px';
+                                a.timer = setTimeout(function () {
+                                    Move();
+                                },
+                                    a.Time);
+                            } else {
+                                oSlider.style[a.direc] = a.target + 'px';
+                                if (a.Auto) {
+                                    a.timer = setTimeout(function () {
+                                        a.Index++;
+                                        Start();
+                                    },
+                                        a.Pause);
+                                }
+                            }
+                        };
+                        var GetStep = function (iTarget, iNow) {
+                            var iStep = (iTarget - iNow) / a.Step;
+                            if (iStep == 0) {
+                                return 0;
+                            };
+                            if (Math.abs(iStep) < 1) {
+                                return (iStep > 0 ? 1 : -1);
+                            };
+                            return iStep;
+                        };
+                        var Stop = function (iTarget, iNow) {
+                            clearTimeout(a.timer);
+                            oSlider.style[a.direc] = a.target + 'px';
+                        };
+                        var Each = function (list, fun) {
+                            for (var i = 0,
+                                len = list.length; i < len; i++) {
+                                fun(list[i], i);
+                            }
+                        };
+                        onPrev.onclick = function () {
+                            clearTimeout(a.timer);
+                            a.Index--;
+                            Start();
+                        };
+                        onNext.onclick = function () {
+                            clearTimeout(a.timer);
+                            a.Index++;
+                            Start();
+                        };
+                        var Start = function () {
+                            if (a.Index < 0) {
+                                a.Index = osCount - 1;
+                            } else if (a.Index >= osCount) {
+                                a.Index = 0;
+                            };
+                            a.target = -1 * osWidth * a.Index;
+                            oNumber.className = 'howInvest r3 how-step-' + a.Index;
+                            Each(onIndex, function (o, i) {
+                                o.onclick = function () {
+                                    oNumber.className = 'howInvest r3 how-step-' + i;
+                                    a.Auto = false;
+                                    a.Index = i;
+                                    Start();
+                                };
+                            });
+                            Move();
+                        };
+                        Start();
+                    }
+                };
+                a.init();
+            })();
+        </script>
+
+    </div>
+    <!--guid end-->
+{include file="inc/footer.html"}

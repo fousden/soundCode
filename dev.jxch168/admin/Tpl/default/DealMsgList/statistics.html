@@ -1,0 +1,56 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+    <div class="main_title">{$main_title}</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            是否发送:
+            <select name="is_success" id="is_success">
+                <option value="1">已发送</option>
+                <option value="0">未发送</option>
+            </select>
+            类型:
+            <select name="send_type" id="send_type">
+                <option value="0">短信</option>
+                <option value="1">邮箱</option>
+            </select>
+            创建时间：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'begin_time');" size="10"/>
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');"  size="10" />
+            <input type="hidden" value="DealMsgList" name="m" />
+            <input type="hidden" value="statistics" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+    <html:list 
+        id="dataTable" 
+        style="dataTable" 
+        name="msg" 
+        datasource="list" 
+        show="create_date:创建时间|300px
+        ,c:发送条数"
+        /> 
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<script type="text/javascript">
+returnShow('is_success',GetQueryString('is_success'),'select');
+returnShow('send_type',GetQueryString('send_type'),'select');
+if(!GetQueryString('begin_time')){
+    $('#begin_time').val("{:date('Y-m-d',strtotime('-30day'))}");
+}
+if(!GetQueryString('end_time')){
+    $('#end_time').val("{:date('Y-m-d')}");
+}
+</script>
+<include file="Public:footer" />

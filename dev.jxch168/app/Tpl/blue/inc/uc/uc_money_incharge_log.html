@@ -1,0 +1,371 @@
+<div class="tabbox clearfix">
+	<div class="tab ">
+		<a href="{url x="index" r="uc_money#incharge"}">{$LANG.UC_MONEY_INCHARGE}</a>
+	</div>
+	<div class="tab cur">
+		<a href="{url x="index" r="uc_money#incharge_log"}">{$LANG.UC_MONEY_INCHARGE_LOG}</a>
+	</div>
+</div>
+<div class="uc_box ">
+<!--	<div class="sub_nav">
+			<span {if $is_paid eq '0'}class="act"{/if}><a href="{url x="index" r="uc_money#incharge_log" p="is_paid=0"}">未支付</a></span>
+			<span {if $is_paid eq '1'}class="act"{/if}><a href="{url x="index" r="uc_money#incharge_log" p="is_paid=1"}">已支付</a></span>
+	</div>-->
+
+ {if $resp_code }
+	<div id="coverrechargeerror"></div>
+
+	<div id="alertrechargeerror">
+	    <div class="container">
+	        <a href="javascript:;" class="closebtn">关闭</a>
+	        <p class="header">充值失败反馈</p>
+	        <div class="main">
+	            <div class="nav">
+	                <a href="javascript:;" class="navitem jieji current" data_value="jieji">借记卡支付</a>
+	                <a href="javascript:;" class="navitem qiye" data_value="qiye">企业网银支付</a>
+	            </div>
+	            <script type="text/javascript">
+	            $("#alertrechargeerror .closebtn").click(function(){
+	                $("#alertrechargeerror").fadeOut();
+	                $("#coverrechargeerror").fadeOut();
+	            })
+	            var nav = $("#alertrechargeerror").find(".navitem");
+	            var banklist = $("#alertrechargeerror").find(".banklist");
+//                            if("{$resp_code}"){
+//                                 nav.removeClass("current");
+//	                $(this).addClass("current");
+//	                var data = $(this).attr("data_value");
+//	                $(".banklist").hide();
+//	                var mubiao = ".banklist_"+data;
+//	                // alert(mubiao);
+//	                $(mubiao).show();
+//                            }
+	            $('div.nav a.jieji').click(function(){
+	                $('div.nav a.qiye').removeClass("current");
+	                $(this).addClass("current");
+	                var data = $(this).attr("data_value");
+	                $(".banklist").hide();
+	                var mubiao = ".banklist_"+data;
+	                // alert(mubiao);
+	                $(mubiao).show();
+	            })
+	            $('div.nav a.qiye').click(function(){
+	                $('div.nav a.jieji').removeClass("current");
+	                $(this).addClass("current");
+	                var data = $(this).attr("data_value");
+	                $(".banklist").hide();
+	                var mubiao = ".banklist_"+data;
+	                // alert(mubiao);
+	                $(mubiao).show();
+	            })
+	            </script>
+
+	            <ul class="banklist banklist_jieji" id="1">
+	                <li><span class="select_tips">请选择支付银行</span></li>
+	                <li>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="工商银行" id="0102"/>
+	                        <img src="./front/images/bank/zggs.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="农业银行" id="0103"/>
+	                        <img src="./front/images/bank/zgny.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国银行" id="0104"/>
+	                        <img src="./front/images/bank/zg.gif">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国建设银行" id="0105"/>
+	                        <img src="./front/images/bank/zgjs.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="招商银行" id="0308"/>
+	                        <img src="./front/images/bank/zs.gif" height="30" width="120">
+	                    </div>
+	                </li>
+	                <li>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="交通银行" id="0301"/>
+	                        <img src="./front/images/bank/jt.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中信银行" id="0514"/>
+	                        <img src="./front/images/bank/zx.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国光大银行" id="0303"/>
+	                        <img src="./front/images/bank/zggd.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="华夏银行" id="0304"/>
+	                        <img src="./front/images/bank/hx.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国邮政储蓄银行" id="0002"/>
+	                        <img src="./front/images/bank/zgyz.gif" height="30" width="120">
+	                    </div>
+	                </li>
+	                <li>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国民生银行" id="0305"/>
+	                        <img src="./front/images/bank/zgms.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="广发银行" id="0306"/>
+	                        <img src="./front/images/bank/gf.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="兴业银行" id="0309"/>
+	                        <img src="./front/images/bank/xy.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="浦发银行" id="0310"/>
+	                        <img src="./front/images/bank/pf.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="北京银行" id="0313"/>
+	                        <img src="./front/images/bank/bj.gif" height="30" width="120">
+	                    </div>
+	                </li>
+	                <li>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="平安银行" id="0783"/>
+	                        <img src="./front/images/bank/pa.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="上海农商银行" id="0322"/>
+	                        <img src="./front/images/bank/shns.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="洛阳银行" id="0313"/>
+	                        <img src="./front/images/bank/ly.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="其他银行" id="0313"/>
+	                        <img src="./front/images/bank/qt.gif" height="30" width="120">
+	                    </div>
+	                </li>
+	            </ul>
+	            <ul class="banklist banklist_qiye" id="2">
+	                <li><span class="select_tips">请选择支付银行</span></li>
+	                <li>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="招商银行" id="0308"/>
+	                        <img src="./front/images/bank/zs.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国银行" id="0104"/>
+	                        <img src="./front/images/bank/zg.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国工商银行" id="0102"/>
+	                        <img src="./front/images/bank/zggs.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="浦发银行" id="0310"/>
+	                        <img src="./front/images/bank/pf.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国农业银行" id="0103"/>
+	                        <img src="./front/images/bank/zgny.gif" height="30" width="120">
+	                    </div>
+	                </li>
+	                <li>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国民生银行" id="0305"/>
+	                        <img src="./front/images/bank/zgms.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="交通银行" id="0301"/>
+	                        <img src="./front/images/bank/jt.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国建设银行" id="0105"/>
+	                        <img src="./front/images/bank/zgjs.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="华夏银行" id="0304"/>
+	                        <img src="./front/images/bank/hx.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="徽商银行" id="0319"/>
+	                        <img src="./front/images/bank/ws.gif">
+	                    </div>
+	                </li>
+	                <li>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="平安银行" id="0783"/>
+	                        <img src="./front/images/bank/pa.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="兴业银行" id="0309"/>
+	                        <img src="./front/images/bank/xy.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="广发银行" id="0306"/>
+	                        <img src="./front/images/bank/gf.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中国光大银行" id="0303"/>
+	                        <img src="./front/images/bank/zggd.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="中信银行" id="0514"/>
+	                        <img src="./front/images/bank/zx.gif" height="30" width="120">
+	                    </div>
+	                </li>
+	                <li>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="宁波银行" id="0313"/>
+	                        <img src="./front/images/bank/nb.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="天津银行" id="0313"/>
+	                        <img src="./front/images/bank/tj.gif" height="30" width="120">
+	                    </div>
+	                    <div class="item">
+	                        <input type="radio" name="blank" value="北京银行" id="0313"/>
+	                        <img src="./front/images/bank/bj.gif" height="30" width="120">
+	                    </div>
+	                </li>
+	            </ul>
+	            <div class="reason">
+	                <p class="reason_tips">请选择失败原因</p>
+	                <div class="reasonlist">
+	                    <input type="radio" name="reason" value="超出充值限额" id="1"/><span>超出充值限额</span>
+	                    <input type="radio" name="reason" value="账户信息不符" id="2"/><span>账户信息不符</span>
+	                    <input type="radio" name="reason" value="终止操作" id="3"/><span>终止操作</span>
+	                    <input type="radio" name="reason" value="网路异常" id="4"/><span>网路异常</span>
+	                    <input type="radio" name="reason" value="其他" id="5"/><span>其他</span>
+	                </div>
+	            </div>
+	            <div class="advice">
+	                <p class="advice_tips">意见反馈</p>
+	                <div class="advicecont">
+	                    <textarea placeholder="请写下您的宝贵意见或建议（建议留下您的银行账号和联系方式，便于客服联系沟通"></textarea>
+	                </div>
+	            </div>
+	            <div class="submit">
+	                <a class="submiterror">确认提交</a>
+	            </div>
+
+	        </div>
+	    </div>
+	</div>
+{/if}
+	<div class=" clearfix ">
+		<table width="100%;" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+			<tr>
+				<th class="tl pl15 w140">支付单号</th>
+				<th style="width:15%">应付金额</th>
+				<th style="width:15%">下单时间</th>
+				<th style="width:15%">付款时间</th>
+				<th style="width:13%">付款方式</th>
+				<th >付款单备注</th>
+				<th style="width:8%">是否已支付</th>
+			</tr>
+			<!-- {$LANG.INCHARGE_SN} /{$LANG.INCHARGE_MONEY}/{$LANG.PAYMENT_FEE}/{$LANG.PAYMENT_INFO}/{$LANG.PAYMENT_STATUS}/{$LANG.PAYMENT_GEN_TIME}/{$LANG.PAYMENT_PAID_TIME}/{$LANG.OPERATION}/-->
+			{foreach from=$list item=item key=key}
+			<tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+				<td class="tl pl15">
+					{$item.notice_sn}
+				</td>
+
+				<td >
+					{$item.money_format}
+				</td>
+				<td >
+					{$item.create_time_format}
+				</td>
+				<td >
+					{$item.pay_time_format}
+				</td>
+
+				<td >
+					{$item.name}&nbsp;
+				</td>
+				<td class="lh28">
+					{$item.memo}&nbsp;
+				</td>
+
+				<td >
+					{$item.is_paid_format}
+				</td>
+			</tr>
+			{/foreach}
+		</table>
+		<div class="pages">{$pages}</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+    var resp_desc = "{$resp_describle}";
+    if(resp_desc){
+        $.showErr(resp_desc);
+//        var timeOutBar = setTimeout(function(){window.location.reload();}, 3000);
+//        clearTimeout(timeOutBar);
+    }
+</script>
+
+<script>
+    $("div.submit a.submiterror").bind('click',function(){
+
+
+        var bank_id = 0;
+        var payment_type = 0;
+        var fail_reason = 0;
+        var feedback = "";
+        var order_id = "{$notice_sn}";
+        var user_name = "{$user_name}";
+        var login_ip = "{$login_ip}";
+
+        if($("ul.banklist_jieji div.item input:checked").val()){
+
+            var bank_id = $("ul.banklist_jieji div.item input:checked").attr("id");
+            var payment_type = $("ul.banklist_jieji div.item input:checked").parent().parent().parent().attr("id");
+            $("ul.banklist_jieji span").removeClass('select_tips_error').addClass('select_tips');
+
+
+        }else{
+            $("ul.banklist_jieji span").addClass('select_tips_error');
+        }
+        if($("ul.banklist_qiye div.item input:checked").val()){
+
+            var bank_id = $("ul.banklist_qiye div.item input:checked").attr("id");
+            var payment_type = $("ul.banklist_qiye div.item input:checked").parent().parent().parent().attr("id");
+            $("ul.banklist_qiye span").removeClass('select_tips_error').addClass('select_tips');
+        }else{
+            $("ul.banklist_qiye span").addClass('select_tips_error');
+        }
+        if($("div.reasonlist input:checked").val()){
+
+            var fail_reason = $("div.reason input:checked").attr("id");
+            $("div.reason p").removeClass('reason_tips_error').addClass('reason_tips');
+
+        }else{
+            $("div.reason p").addClass('reason_tips_error');
+        }
+        if($("div.advicecont textarea").val()!=""){
+
+            var feedback = $("div.advicecont textarea").val();
+
+        }
+        $.ajax({
+            type:'POST',
+            url:'/index.php?ctl=uc_money&act=incharge_feedback',
+            data:{bank_id:bank_id,payment_type:payment_type,fail_reason:fail_reason,feedback:feedback,order_id:order_id,user_name:user_name,login_ip:login_ip},
+            dataType:'json',
+            success:function(data){
+                alert("反馈提交成功");
+
+                $("#alertrechargeerror").fadeOut();
+                $("#coverrechargeerror").fadeOut();
+
+
+
+            },
+
+        })
+    })
+</script>

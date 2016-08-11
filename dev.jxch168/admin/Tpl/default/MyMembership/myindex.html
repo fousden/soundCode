@@ -1,0 +1,33 @@
+<if condition = "$is_department eq 0">
+    <div  style="float:left;width:400px;margin-top:30px;font-size:20px;color:#006699" id="invite_url"><h3>我的推广链接：</h3>
+
+        {$sale_url}&nbsp;</div>
+    <div  style="float:left;margin-top:30px;font-size:20px;color:#006699" id="invite_url"><img src='{$my_grcode}' title='金享财行' /></div>
+
+    <div style = "color:#006699;clear:both;">
+        <h4>我的客户总数：{$myinvitet_count}</h4>
+        <h4>我的客户投资总额：{$all_sum_money}</h4>
+    </div>
+    <!-- 分享插件 -->
+    <div style="position:relative;top:-2px;" id='share'>
+        <span style='line-height:30px;position:relative;top:-7px;font-weight:bold;color:#007ABB'>分享到 ：</span>{$show_share_code}
+    </div>
+    <script type="text/javascript">
+        var qr_url = "{$qr_code_url}";
+        function shareTo(site){
+            var e = encodeURIComponent, s = screen, d = document, wd = 640, hg = 480, u = d.location;
+            d.title = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+            var uuid = '';
+            var img ="http://www.jxch168.com/public/images/logo.png";
+            var ctxt = '投越多返利越多，快来加入金享财行吧！';
+            var url = "http://api.bshare.cn/share/"+site+"?url="+e(""+qr_url+"")+"&title="+e(d.title)+"&publisherUuid="+uuid+"&summary="+ctxt+"&pic="+img;
+            window.open(url, 'bshare', ['toolbar=0,status=0,resizable=1,width='+ wd +',height='+ hg +',left='+ (s.width - wd) / 2+ ',top='+ (s.height - hg) / 2]);
+        }
+    </script>
+<else/>
+
+    <div style = "color:#006699">
+        <h4>我的成员总数：{$department_count}</h4>
+        <h4>我的成员发展客户总数：{$user_count_all}</h4>
+    </div>
+</if>

@@ -1,0 +1,472 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.visible {
+  visibility: visible!important;
+}
+#shuangdan {
+  width: 100%;
+}
+#shuangdan .banner {
+  height: 525px;
+  background: url(../../../images/activity/shaungdan/banner.jpg) no-repeat top center;
+}
+#shuangdan .lotterybox {
+  height: 660px;
+  background: url(../../../images/activity/shaungdan/lottery_bg.jpg) no-repeat top center;
+}
+#shuangdan .lotterybox .btnbox {
+  width: 500px;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 20px;
+  position: relative;
+}
+#shuangdan .lotterybox .btnbox img {
+  display: block;
+  border: none;
+}
+#shuangdan .lotterybox .btnbox #beginBtn {
+  float: left;
+  margin: 0 auto;
+  cursor: pointer;
+}
+#shuangdan .lotterybox .btnbox #shareBtn {
+  float: right;
+  cursor: pointer;
+}
+#shuangdan .lotterybox .btnbox .btncover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  display: none;
+  background: transparent;
+}
+#shuangdan .msgbox {
+  height: 265px;
+  background: url(../../../images/activity/shaungdan/msg_bg.jpg) no-repeat top center;
+}
+#shuangdan .giftbox {
+  height: 602px;
+  background: url(../../../images/activity/shaungdan/gift_bg.jpg) no-repeat top center;
+}
+#shuangdan .rulsbox {
+  height: 463px;
+  background: url(../../../images/activity/shaungdan/rules_bg.jpg) no-repeat top center;
+}
+#shuangdan #slotMain {
+  width: 792px;
+  height: 555px;
+  margin: 0 auto;
+  background: orange;
+  background: url(../../../images/activity/shaungdan/slot_bg.png) no-repeat center center;
+  position: relative;
+}
+#shuangdan #slotMain .slotMachine {
+  height: 94px;
+  position: absolute;
+  left: 200px;
+  width: 366px;
+}
+#shuangdan #slotMain .slotMachine .slotMachineContainer {
+  height: 94px;
+  width: 100%;
+}
+#shuangdan #slotMain .slotMachine .slotMachineContainer .slot {
+  height: 94px;
+}
+#shuangdan #slotMain #machine1 {
+  top: 100px;
+}
+#shuangdan #slotMain #machine2 {
+  top: 200px;
+}
+#shuangdan .alertcover {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: 100%;
+  height: 100%;
+  background: black;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+}
+#shuangdan .alertsuccess,
+#shuangdan .alertmobile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 51;
+  width: 100%;
+  height: 100%;
+}
+#shuangdan .alertsuccess .main,
+#shuangdan .alertmobile .main {
+  width: 340px;
+  height: 481px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(../../../images/activity/shaungdan/alert_bg.png);
+  background-size: 100% 100%;
+}
+#shuangdan .alertsuccess .main .closebtn,
+#shuangdan .alertmobile .main .closebtn {
+  float: right;
+  margin-right: -40px;
+  cursor: pointer;
+}
+#shuangdan .alertsuccess .main .getgift,
+#shuangdan .alertmobile .main .getgift {
+  display: block;
+  margin: 20px auto;
+  width: 50%;
+}
+#shuangdan .alertsuccess .main .getgift img,
+#shuangdan .alertmobile .main .getgift img {
+  display: block;
+  width: 100%;
+}
+#shuangdan .alertsuccess .main input[type=text],
+#shuangdan .alertmobile .main input[type=text] {
+  display: block;
+  width: 170px;
+  margin: 0px auto;
+  margin-top: 22%;
+  padding: 20px 10px;
+  text-align: center;
+  border: none;
+  background: url(../../../images/activity/shaungdan/alertmobile_mobile.png) no-repeat;
+  background-size: 100% 100%;
+}
+#shuangdan .alertsuccess .main .blank,
+#shuangdan .alertmobile .main .blank {
+  height: 140px;
+}
+#shuangdan .alertsuccess .main .gobegin,
+#shuangdan .alertmobile .main .gobegin {
+  display: block;
+  width: 184px;
+  margin: 0px auto;
+}
+#shuangdan .alertsuccess .main .gobegin img,
+#shuangdan .alertmobile .main .gobegin img {
+  display: block;
+  width: 100%;
+}
+#shuangdan .alertsuccess .main .error,
+#shuangdan .alertmobile .main .error {
+  font-size: 14px;
+  padding-top: 0px;
+  margin-bottom: 0;
+  visibility: hidden;
+}
+#shuangdan .alertsuccess .main .gongxi,
+#shuangdan .alertmobile .main .gongxi,
+#shuangdan .alertsuccess .main .succ_text,
+#shuangdan .alertmobile .main .succ_text {
+  padding-top: 0;
+  text-align: center;
+  font-size: 30px;
+  color: yellow;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+#shuangdan .alertmobile .main {
+  background-image: url(../../../images/activity/shaungdan/alertmobile_bg.png);
+}
+#shuangdan .alertsuccess p:first-child {
+  text-align: center;
+}
+#shuangdan_wap {
+  width: 100%;
+}
+#shuangdan_wap .banner,
+#shuangdan_wap .msgbox,
+#shuangdan_wap .giftbox,
+#shuangdan_wap .rulsbox {
+  display: block;
+  width: 100%;
+}
+#shuangdan_wap .lotterybox {
+  width: 100%;
+  background: url(../../../images/activity/shaungdan/lottery_wap.jpg) no-repeat top center;
+  background-size: 100% 100%;
+}
+#shuangdan_wap .lotterybox #slotMain {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+#shuangdan_wap .lotterybox #slotMain .slotbg {
+  width: 100%;
+}
+#shuangdan_wap .lotterybox #slotMain .slotMachine {
+  width: 40%;
+  height: 14%;
+  overflow: hidden;
+  display: inline-block;
+  text-align: center;
+  margin-left: 20px;
+  background-size: 100% 100%;
+  position: absolute;
+  left: 10%;
+  z-index: 30;
+}
+#shuangdan_wap .lotterybox #slotMain .slotMachine .slot {
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  background-position: center center;
+}
+#shuangdan_wap .lotterybox #slotMain #machine1 {
+  top: 20%;
+  left: 23%;
+}
+#shuangdan_wap .lotterybox #slotMain #machine2 {
+  top: 40%;
+  left: 23%;
+}
+#shuangdan_wap .lotterybox #slotMain .slotMachineContainer {
+  height: 100%;
+  /*overflow: hidden;*/
+}
+#shuangdan_wap .lotterybox #slotMain .noBorder {
+  border: none !important;
+  background: transparent !important;
+}
+#shuangdan_wap .lotterybox .btnbox {
+  width: 30%;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 2%;
+  position: relative;
+}
+#shuangdan_wap .lotterybox .btnbox img {
+  display: block;
+  border: none;
+  width: 100%;
+}
+#shuangdan_wap .lotterybox .btnbox #beginBtn {
+  width: 100%;
+  margin: 0 auto;
+  cursor: pointer;
+}
+#shuangdan_wap .alertcover {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: 100%;
+  height: 100%;
+  background: black;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+}
+#shuangdan_wap .alertsuccess,
+#shuangdan_wap .alertmobile {
+  display: none;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 51;
+  width: 100%;
+  height: 100%;
+}
+#shuangdan_wap .alertsuccess .blank,
+#shuangdan_wap .alertmobile .blank {
+  width: 100%;
+  height: 20%;
+}
+#shuangdan_wap .alertsuccess .main,
+#shuangdan_wap .alertmobile .main {
+  width: 60%;
+  margin: 0 auto;
+  position: relative;
+  background-size: 100% 100%;
+}
+#shuangdan_wap .alertsuccess .main .container,
+#shuangdan_wap .alertmobile .main .container {
+  position: absolute;
+  top: 53%;
+  left: 0;
+}
+#shuangdan_wap .alertsuccess .main .closebtn,
+#shuangdan_wap .alertmobile .main .closebtn {
+  position: absolute;
+  top: 0;
+  right: -15%;
+}
+#shuangdan_wap .alertsuccess .main .mobile_bg,
+#shuangdan_wap .alertmobile .main .mobile_bg,
+#shuangdan_wap .alertsuccess .main .succ_bg,
+#shuangdan_wap .alertmobile .main .succ_bg {
+  display: block;
+  width: 100%;
+}
+#shuangdan_wap .alertsuccess .main .error,
+#shuangdan_wap .alertmobile .main .error {
+  text-align: center;
+  color: yellow;
+}
+#shuangdan_wap .alertsuccess .main .getgift,
+#shuangdan_wap .alertmobile .main .getgift {
+  display: block;
+  margin: 5% auto;
+  width: 50%;
+}
+#shuangdan_wap .alertsuccess .main .getgift img,
+#shuangdan_wap .alertmobile .main .getgift img {
+  display: block;
+  width: 100%;
+}
+#shuangdan_wap .alertsuccess .main input[type=text],
+#shuangdan_wap .alertmobile .main input[type=text] {
+  display: block;
+  width: 60%;
+  margin: 0px auto;
+  padding: 3% 5%;
+  text-align: center;
+  border: none;
+  background: url(../../../images/activity/shaungdan/alertmobile_mobile.png) no-repeat;
+  background-size: 100% 100%;
+}
+#shuangdan_wap .alertsuccess .main .succ_text,
+#shuangdan_wap .alertmobile .main .succ_text {
+  text-align: center;
+  color: yellow;
+  font-size: 2rem;
+  font-weight: bold;
+}
+#shuangdan_wap .alertsuccess .main .gobegin,
+#shuangdan_wap .alertmobile .main .gobegin {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+}
+#shuangdan_wap .alertsuccess .main .gobegin img,
+#shuangdan_wap .alertmobile .main .gobegin img {
+  display: block;
+  width: 100%;
+}
+#shuangdan_wap .alertsuccess .main .error,
+#shuangdan_wap .alertmobile .main .error {
+  font-size: 0.6rem;
+  padding-top: 0px;
+  margin-bottom: 0;
+  visibility: hidden;
+}
+#shuangdan_wap .alertsuccess .container {
+  top: 44%!important;
+}
+#alertshare {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 56;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#alertshare .blank {
+  height: 30%;
+}
+#alertshare .main {
+  width: 420px;
+  height: 200px;
+  position: relative;
+  margin: 0 auto;
+  background-size: 100% 100%;
+  border: 10px solid yellow;
+  background-color: red;
+  border-radius: 6px;
+  /* .goinvite{
+			// background: #d01504;
+			&:hover{
+				background: lighten(#d01504,10%);
+			}
+		} */
+  /* .closebtn{
+			display: block;
+			position: absolute;
+			top: 5px;
+			right: -66px;
+			width: 38px;
+			height: 38px;
+			padding-bottom: 10px;
+			background: url(../../images/activity/lottery/alerty_close_btn.png) no-repeat center center;
+			border: 2px solid transparent;
+			&:hover{
+				border-bottom: 2px solid #f1f2ff;
+			}
+		} */
+}
+#alertshare .main .closebtn {
+  float: right;
+  margin-right: -40px;
+  cursor: pointer;
+}
+#alertshare .main .title {
+  font-size: 24px;
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  padding: 16px 0;
+  float: none;
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+}
+#alertshare .main .cont {
+  width: 360px;
+  height: 90px;
+  margin: 0 auto;
+  background: white;
+  margin-bottom: 20px;
+}
+#alertshare .main .cont p {
+  text-align: center;
+  width: 300px;
+  font-size: 16px;
+  padding: 8px 0;
+  margin: 0 auto;
+}
+#alertshare .main .cont .bdsharebuttonbox {
+  margin: 0 auto;
+  width: 340px;
+  margin-left: 20px;
+  text-align: center;
+}
+#alertshare .main .saomiao,
+#alertshare .main .goinvite {
+  width: 360px;
+  margin: 0 auto;
+  background: #447ee7;
+  display: block;
+  height: 40px;
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+#alertshare .main .saomiao:hover,
+#alertshare .main .goinvite:hover {
+  background: #719ded;
+}
+#alertshare .main .erweima {
+  position: absolute;
+  top: 60px;
+  right: -180px;
+  display: none;
+  z-index: 5;
+}

@@ -1,0 +1,317 @@
+﻿@charset "utf-8";
+//颜色定义
+@ColorLightBorder:#dfe0e5;
+@ColorDarkBorder:#d3d4df;
+@ColorBody:#F9F9F9;
+@ColorHover:#e7e9f4;
+@ColorTopFontColor:#E0E2EF;
+@ColorFont333:#333333;
+@ColorFont666:#666666;
+@ColorFont999:#999999;
+@ColorLightRed:#ef5146;
+@ColorDarkRed:#E24A40;
+@ColorLightBlue:#47a2e3;
+@ColorDarkBlue:#439AD8;
+@ColorLightYellow:rgb(236,175,9);
+@ColorLightOrange:#f2650c;
+@ColorDarkOrange:#e95d01;
+@ColorGray:#999999;
+@ColorDark1Orange:#ed6262;
+@ColorDark2Orange:#fbe0e0;
+
+*{
+    font-family:"ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3",Microsoft YaHei,'Microsoft YaHei','微软雅黑',SimHei,'SimHei','黑体';
+}
+body{
+    zoom:1;
+    width:100%;
+    background-color:@ColorBody !important;
+    //background-color:gray;
+}
+.btn_orange{
+    background-color: @ColorDarkOrange;
+    &:hover{
+        background-color: @ColorLightOrange;
+    }
+}
+// a{
+//     &:hover{
+//         color:@ColorLightBlue !important;
+//     }
+// }
+
+//浮动
+.FloatLeft,.f_l
+{
+    float: left;
+}
+
+.FloatRight,.f_r
+{
+    float: right;
+}
+
+.Clear
+{
+    clear: both;
+}
+
+.CursorPointer{
+    cursor:pointer;
+}
+/*元素样式*/
+.DisplayNone,.hide
+{
+    display: none !important;
+}
+
+.DisplayBlock
+{
+    display: block;
+}
+
+.DisplayInline
+{
+    display: inline;
+}
+
+.DisplayInlineBlock,.show
+{
+    display: inline-block;
+}
+
+.VisibilityHidden{
+    visibility:hidden;
+}
+
+.VisibilityVisible{
+    visibility:visible;
+}
+
+.BoxRadius
+{
+    -moz--border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.BoxRadius(@px: 5px)
+{
+    -moz--border-radius: @px;
+    -webkit-border-radius: @px;
+    -ms-border-radius: @px;
+    border-radius: @px;
+}
+
+.BoxShadow
+{
+    -webkit-box-shadow:1px 1px 3px #333;
+    -moz-box-shadow: 1px 1px 3px #333;
+    -ms-box-shadow: 1px 1px 3px #333;
+    box-shadow: 1px 1px 3px #333;
+}
+
+.BoxShadow(@c: #333,@px: 3px)
+{
+    -webkit-box-shadow: 1px 1px @px @c;
+    -moz-box-shadow: 1px 1px @px @c;
+    -ms-box-shadow: 1px 1px @px @c;
+    box-shadow: 1px 1px @px @c;
+}
+ .boxShadow2(@x:0,@y:0,@blur:1px,@color:#000)
+ { 
+ -moz-box-shadow: @arguments; 
+ -webkit-box-shadow: @arguments; 
+ box-shadow: @arguments; 
+ }
+
+.Opacity(@opacity)
+{
+    Filter:Alpha(opacity=@opacity);
+    -moz-opacity:@opacity/100;
+    opacity:@opacity/100;
+}
+
+.Margin0{
+    margin:0;
+}
+
+.MarginLeft20{
+    margin-left:20px;
+}
+
+.MarginRight130{
+    margin-right:130px;
+}
+
+.wrap {
+  height: auto;
+  width: 1200px;
+  position:relative;
+  overflow: visible;
+}
+
+
+.blank0 {
+    clear: both;
+    height: 0px;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.blank {
+    clear: both;
+    height: 10px;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.blank1 {
+    clear: both;
+    height: 1px;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.blank5 {
+    clear: both;
+    height: 5px;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.blank10 {
+    clear: both;
+    height: 10px;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.blank15 {
+    clear: both;
+    height: 15px;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.blank20 {
+    clear: both;
+    height: 20px;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.blank40 {
+    clear: both;
+    height: 40px;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.blank100{
+    height:102px;
+    clear:both;
+    overflow:hidden;
+    visibility:visible;
+}
+
+/*自动高对齐*/
+
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+
+
+//颜色
+.ColorLightRed{
+    color:@ColorLightRed !important;
+}
+
+.ColorDarkRed{
+    color:@ColorDarkRed !important;
+}
+
+.ColorLightYellow{
+    color:@ColorLightYellow !important;
+}
+
+.ColorDarkOrange{
+    color:@ColorDarkOrange !important;
+}
+
+
+.ColorLightBlue{
+    color:@ColorLightBlue !important;
+}
+
+.ColorDarkBlue{
+    color:@ColorDarkBlue !important;
+}
+
+.FontIconLeftAndRight{
+    font-family:Arial,'Arial';
+}
+//进度条控件
+.sample_goal{
+    .goalProgress {
+	    background-color:#cccccc ;
+        height: 8px;
+        width: 100%;
+        .BoxRadius;
+        position:relative;
+        div.progressBar {
+            position:absolute;
+            left:0;
+	        background-color: @ColorLightBlue;
+	        color: #fff;
+	        font-weight: 700;
+	        display: block;
+	        overflow: hidden;
+	        width: 20px;
+            height: 100%;
+            .BoxRadius;
+        }
+        .ptc{
+            text-align:center;
+            color:@ColorFont666;
+            font-size:14px;
+            padding-top:10px;
+        }
+
+    }
+}
+//箭头
+i.upArrow,i.downArrow,i.leftArrow,i.rightArrow{
+    width:0;
+    height:0;
+    display:inline-block;
+    position:relative;
+    top:-4px;
+    margin:0 5px;
+}
+i.upArrow{
+    border-bottom:5px solid @ColorFont666;
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+}
+i.downArrow{
+    border-top:5px solid @ColorFont666;
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+}
+i.leftArrow{
+    border-right:5px solid @ColorFont666;
+    border-top:5px solid transparent;
+    border-bottom:5px solid transparent;
+}
+i.rightArrow{
+    border-left:5px solid @ColorFont666;
+    border-top:5px solid transparent;
+    border-bottom:5px solid transparent;
+}

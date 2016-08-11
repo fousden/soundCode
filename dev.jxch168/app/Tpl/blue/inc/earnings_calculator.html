@@ -1,0 +1,256 @@
+{include file="inc/header.html"}
+<div class="wrap">
+<div id="counter">
+    <div class="blank"></div>
+    <div class="main">
+        <div class="top">
+            <div class="header">
+                <span>收益计算器</span>
+            </div>
+            <div class="cont">
+                <ul class="left">
+                    <li>
+                        <span class="title">投资金额：</span>
+                        <input type="text" class="tznum" value="" placeholder="请输入投资金额">
+                        <span class="tips">输入的信息有误</span>
+                        <span class="unit">元</span>
+                    </li>
+                    <li>
+                        <span class="title">年化利率：</span>
+                        <input type="text" class="rate" value="" placeholder="请输入年化利率">
+                        <span class="tips">输入的信息有误</span>
+                        <span class="unit">%</span>
+                    </li>
+                </ul>
+                <ul class="middle">
+                    <li>
+                        <span class="title">还款方式：</span>
+                        <input type="text" class="hkway" placeholder="到期还本付息" value="到期还本付息" readonly="readonly" disabled="">
+                    </li>
+                    <li>
+                        <span class="title">计算方式：</span>
+                        <input type="text"class="jsway" placeholder="结标次日起息" value="结标次日起息" readonly="readonly" disabled="">
+                    </li>
+                </ul>
+                <ul class="right">
+                    <li><a href="javascript:;" class="countbtn">开始计算</a></li>
+                    <li><a href="javascript:;" class="resetbtn">重&nbsp;&nbsp;置</a></li>
+                </ul>
+                <div class="Clear"></div>
+
+                <div class="dateselect">
+                    <span class="title">投资期限：</span>
+                    <input type="text" class="mh_date mh_date_start" readonly="true"  placeholder="请选择开始日期"/>&nbsp;至&nbsp;
+                    <span class="tips" style="left: 90px;top: 33px;">请选择开始日期</span>
+                    <input type="text" class="mh_date mh_date_end" readonly="true"  placeholder="请选择结束日期"/>
+                    <span class="tips" style="left: 333px;top: 33px;">请选择结束日期</span>
+                </div>
+
+                <script type="text/javascript" src="./front/js/manhuaDate.1.0.js" charset="utf-8"></script>
+                <link rel="stylesheet" type="text/css" href="./front/css/manhuaDate.1.0.css">
+                <script type="text/javascript">;
+                $(function (){
+                    $("input[type=text].mh_date").manhuaDate({                        
+                        Event : "click",//可选                       
+                        Left : 0,//弹出时间停靠的左边位置
+                        Top : -16,//弹出时间停靠的顶部边位置
+                        fuhao : "-",//日期连接符默认为-
+                        isTime : false,//是否开启时间值默认为false
+                        beginY : 2015,//年份的开始默认为1949
+                        endY :2020//年份的结束默认为2049
+                    });
+                    // $(".calender").mouseleave(function(event){
+                    //     event.stopPropagation();
+                    //     $(this).slideUp(100);
+                    // })
+                    $(".countbtn").click(function(e){
+                        jisuan();
+                    })
+                    $(".resetbtn").click(function(){
+                        $(".top input:text[readonly!=readonly]").val("");
+                        $(".top .mh_date_start,.mh_date_end").val("");
+                        $("#counter .bottom").removeClass("bottom_show");
+                    })
+                    $("input").click(function(){
+                        if($(this).val().indexOf("请") >= 0){
+                            $(this).val("");
+                        }
+                    })
+                    
+                    function checknum(e){
+                        var val = e.val();
+                        var reg = /^\d+([.]\d{1,2})?$/;
+                        if(reg.test(val)){
+                            e.next().removeClass("tips_show");
+                            return true;
+                        }else{
+                            // alert("error")
+                            e.next().addClass("tips_show");
+                            return false;
+                        }
+                    }
+                    function checkdate(e){
+                        var reg = /^\d{4}[-]\d+[-]\d+$/;
+                        var val = e.val();
+                        if(reg.test(val)){
+                            e.next().removeClass("tips_show");
+                            return true;
+                        }else{
+                            e.next().addClass("tips_show");
+                            // alert("error")
+                            return false;
+                        }
+                    }
+                    function checkdatatime(e1,e2){
+                        var data_ds,data_de,datatime;
+                        data_ds = e1.val().replace(/-/g,"/");
+                        data_ds = new Date(data_ds);
+
+                        data_de = e2.val().replace(/-/g,"/");
+                        data_de = new Date(data_de);
+
+                        datatime = data_de - data_ds;
+                        datatime = datatime/86400000+1;
+                        if(datatime > 0){
+                            e2.next().removeClass("tips_show");
+                            // alert("success"+datatime);
+                            return datatime;
+                        }else{
+                            // alert("error"+datatime);
+                            e2.next().addClass("tips_show");
+                            return false;
+                        }
+                    }
+                    function jisuan(){
+                        var tz = $(".top .tznum");
+                        var rate = $(".top .rate");
+                        var ds = $(".top .mh_date_start");
+                        var de = $(".top .mh_date_end");
+                        var tips = $(".top .tips");
+
+                        var result = $(".bottom");
+                        // checkdate(ds,de);
+                        checknum(tz);
+                        checknum(rate);
+                        checkdate(ds);
+                        checkdate(de);
+                        checkdate(ds);
+                        
+                        if(checknum(tz) && checknum(rate) && checkdate(ds) && checkdate(de) && checkdatatime(ds,de)){
+                            var datatime = checkdatatime(ds,de);
+                            // if(datatime){
+                                // 如果验证正确
+                                result.addClass("bottom_show");//显示计算结果
+                                tz = parseFloat(tz.val());
+                                rate = parseFloat(rate.val())/100;
+
+                                result.find(".tznum").text(tz);
+                                result.find(".qxtime").text(ds.val());
+                                result.find(".hktime").text(de.val());
+                                result.find(".jsdate").text(datatime);
+                                result.find(".jsbenxi").text((tz*rate/360*datatime+tz).toFixed(2));
+                            // }else{
+                                // result.removeClass("bottom_show");
+                                // alert(de.next(".tips").text());
+                            // }
+                            
+                        }else{
+                            result.removeClass("bottom_show");
+                            // alert();
+                        }
+                    }
+                    // function jisuan(){
+                    //     var tz = $(".top .tznum");
+                    //     var rate = $(".top .rate");
+                    //     var ds = $(".top .mh_date_start");
+                    //     var de = $(".top .mh_date_end");
+
+                    //     var result = $(".bottom");
+                    //     result.find(".tznum").text(tz.val());
+                    //     result.find(".qxtime").text(ds.val());
+                    //     result.find(".hktime").text(de.val());
+                        
+
+
+                    //     if(!tz.val()){
+                    //         tz.val("");
+                    //     }else if(isNaN(tz.val())){
+                    //         tz.val("请输入正确格式").select();
+                    //     }else{
+                    //         tz = parseFloat(tz.val());
+                    //         // alert(tz);
+                    //     }
+                    //     if(!rate.val()){
+                    //         rate.val("")
+                    //     }else{
+                    //         if(isNaN(rate.val())){
+                    //             rate.val("请输入正确格式").select();
+                    //         }else{
+                    //             rate = parseFloat(rate.val())/100;
+                    //         }
+                    //     }
+                    //     var data_ds,data_de;
+                    //     if(!ds.val()){
+                    //         ds.val("请选择开始日期");
+                    //     }else{
+                    //         data_ds = ds.val().replace(/-/g,"/");
+                    //         data_ds = new Date(data_ds);
+                    //         // alert(ds);
+                    //         // alert( typeof ds);
+                    //     }
+                    //     if(!de.val()){
+                    //         de.val("请选择结束日期");
+                    //     }else{
+                    //         data_de = de.val().replace(/-/g,"/");
+                    //         data_de = new Date(data_de);
+                    //         // alert(de);
+                    //         // alert(typeof de);
+                    //     }
+
+                    //     // 计算天数
+                    //     var datatime = data_de - data_ds;
+                    //     if(isNaN(datatime)){
+                    //         result.find(".jsdate").text("nan");
+                    //         result.find(".jsbenxi").text("");
+                    //     }else if(datatime < 0){
+                    //         ds.val("请选择开始日期");
+                    //         de.val("请选择结束日期");
+                    //         result.find(".text span").text("");
+                    //     }else{
+                    //         datatime = datatime/86400000;
+                    //         result.find(".jsdate").text(datatime);
+                    //         result.find(".jsbenxi").text((tz*rate/360*datatime+tz).toFixed(2));
+                    //     }
+                        
+                    // }
+                });
+                </script>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="header">
+                <span>计算结果</span>
+            </div>
+            <div class="cont">
+                <div class="title">
+                    <span>投资金额</span>
+                    <span>起息时间</span>
+                    <span>还款日期</span>
+                    <span>计算天数</span>
+                    <span>应收本息</span>
+                    <div class="Clear"></div>
+                </div>
+                <div class="text">
+                    <span class="tznum"></span>
+                    <span class="qxtime"></span>
+                    <span class="hktime"></span>
+                    <span class="jsdate"></span>
+                    <span class="jsbenxi" style="border: none"></span>
+                    <div class="Clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{include file="inc/footer.html"}

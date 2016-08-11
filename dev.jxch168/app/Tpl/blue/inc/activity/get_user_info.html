@@ -1,0 +1,16 @@
+{foreach from=$load_user item=v}
+<dd>
+	<span class="name">{$v.prize_name}</span>
+	<span class="date">{function name="to_date" v=$v.create_time f=Y-m-d}</span>
+	<div class="Clear"></div>
+</dd>
+{/foreach}
+<div class="page" style="color: yellow;">
+        当前 {$page}/{$page_all} 页 , {$rs_count} 条记录
+        <if condition="$page gt 1">
+        <a href="javascript:void(0);" onclick="getLoanItem('{$obj}','{$deal_id}','{$l_key}',1);" style="color: yellow;">第一页  </a>
+        </if>
+        <if condition="$page_prev gt 0"><a href="javascript:void(0);" style="color: yellow;" onclick="getLoanItem('{$obj}','{$page_prev}');">上一页 </a></if>
+        <if condition="$page_next elt $page_all"><a href="javascript:void(0);" style="color: yellow;" onclick="getLoanItem('{$obj}','{$page_next}');">下一页  </a></if>
+        <if condition="$page_next elt $page_all"><a href="javascript:void(0);" style="color: yellow;" onclick="getLoanItem('{$obj}','{$page_all}');">末一页  </a></if>		</td>
+</div>

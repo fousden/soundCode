@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="jquery.popup.css">
+	<script type="text/javascript" src="jquery.popup.js"></script>
+	<style type="text/css">
+		*{
+			font-family: '微软雅黑';
+		}
+	</style>
+</head>
+<body>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#reg").popup({
+				// matte: false,
+				// titleHide: true,
+				height: 300,
+				title: '初始化标题',
+				// autoOpen: false,
+				// content: 'new content',
+				buttons: {
+					'修改标题': function(){
+						$('#reg').popup('options','title','修改后的标题')
+					},
+					'修改内容': function(){
+						$('#reg').popup('options','content','修改后的内容')
+					},
+					'隐藏头部': function(){
+						$('#reg').popup('options','titleHide',true)
+					},
+					'显示头部': function(){
+						$('#reg').popup('options','titleHide',false)
+					},
+					// '修改宽度': function(){
+					// 	$('#reg').popup('options','width','600')
+					// },
+					// '修改高度': function(){
+					// 	$('#reg').popup('options','height','600')
+					// },
+					"关闭": function(){
+						$("#reg").popup('close');
+					},
+					'销毁(最后点击)': function(){
+						$("#reg").popup('destory');
+					}
+				},
+			})
+		$("#login").popup({
+				// matte: false,
+				// titleHide: true,
+				height: 300,
+				title: '初始化标题',
+				autoOpen: false,
+				// content: 'new content',
+				buttons: {
+					'修改标题': function(){
+						$('#reg').popup('options','title','修改后的标题')
+					},
+					'修改内容': function(){
+						$('#reg').popup('options','content','修改后的内容')
+					},
+					'隐藏头部': function(){
+						$('#reg').popup('options','titleHide',true)
+					},
+					'显示头部': function(){
+						$('#reg').popup('options','titleHide',false)
+					},
+					// '修改宽度': function(){
+					// 	$('#reg').popup('options','width','600')
+					// },
+					// '修改高度': function(){
+					// 	$('#reg').popup('options','height','600')
+					// },
+					"关闭": function(){
+						$("#reg").popup('close');
+					},
+					'销毁(最后点击)': function(){
+						$("#reg").popup('destory');
+					}
+				},
+			})
+		$("#reg_a").on("click",function(){
+			$("#reg").popup('open');
+		})
+		$("#login_a").on("click",function(){
+			$("#login").popup('open')
+		})
+	})
+
+</script>
+	<button id="reg_a">注册框</button>
+	<button id="login_a" class="popup1 popup2">登录框</button>
+	<div id="reg">
+		初始化内容
+	</div>
+	<div id="login"></div>
+</body>
+</html>

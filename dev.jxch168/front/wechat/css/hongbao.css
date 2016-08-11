@@ -1,0 +1,270 @@
+body {
+    background: #ff2d4b;
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+img {
+    width: 100%
+}
+
+.pageOne {
+    display: block
+}
+
+.pageTwo {
+    display: block
+}
+
+.pageThree {
+    display: block
+}
+
+.slogan {
+    position: relative;
+    width: 100%;
+    height: auto
+}
+
+.slogan .red-packet {
+    width: 100%;
+    height: 100%
+}
+
+.slogan .shopinfo {
+    display: none;
+    position: absolute;
+    top: 3%;
+    width: 100%;
+    text-align: center;
+}
+
+.slogan .shopinfo>img {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.slogan .shopinfo .iconwrap {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border-bottom: 2px solid #ffd162
+}
+
+.slogan .shopinfo .iconwrap .shopicon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    overflow: hidden
+}
+
+.slogan .shopinfo .msg {
+    width: 18em;
+    font-size:0.875rem;
+    color: #F9EB5E;
+    border: 2px solid #F9EB5E;
+    background-color: #fbae03;
+    text-shadow: 1px 1px 3px #666;
+    box-shadow: 1px 1px 3px #333;
+    border-radius: 20% 0  20% 0;
+    padding:3px;
+    font-weight: bold;
+    text-align: center;
+    margin: 8px auto 0;
+    
+    
+}
+
+.slogan .shopinfo .msg .alt{
+    font-size: 1rem;
+    color: white;
+}
+
+.slogan .couponinfo {
+    display: none;
+    position: absolute;
+    top: 40%;
+    left: 38px;
+    right: 0;
+    text-align: center;
+    margin: 0 auto
+}
+
+.slogan .couponinfo .price {
+    font-size: 64px;
+    color: #ff2d4b
+}
+
+.slogan .couponinfo .yuan {
+    font-size: 21px;
+    color: #ff2d4b
+}
+
+.slogan .failinfo {
+    display: none;
+    position: absolute;
+    top: 51%;
+    left: 0;
+    right: 0;
+    width: 60%;
+    margin: 0 auto
+}
+
+.slogan .failinfo p {
+    color: #fbea69;
+    font-size: 30px;
+    text-align: center;
+    max-height: 3.5em;
+    overflow: hidden
+}
+
+.slogan .failinfo.small p {
+    font-size: 21px
+}
+
+.slogan .section {
+    display: none;
+    position: absolute;
+    width: 60%;
+    left: 0;
+    right: 0;
+    margin: 0 auto
+}
+
+.slogan .section .btn {
+    display: block;
+    background: #fceb54;
+    width: 100%;
+    height: 40px;
+    border-bottom: 4px solid #dc0033;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    color: #fc1a3a;
+    float: left
+}
+
+.slogan .section .vericode-btn {
+    background: #b00019;
+    padding: 12px 0;
+    width: 47%;
+    border: 1px solid #d61631;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    color: #fceb54;
+    float: right
+}
+
+.slogan .form {
+    top:48%
+}
+
+.slogan .form .phone-label {
+    font-size: 12px;
+    color: #fff86b;
+    text-align: center;
+    margin-bottom: 8px
+}
+
+.slogan .form .phone-input {
+    width: 100%;
+    padding: 11px 0;
+    border: 2px solid #d61631;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #d61631;
+    text-align: left
+}
+
+.slogan .form .vericode-input {
+    width: 49%;
+    padding: 11px 0;
+    border: 2px solid #d61631;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #d61631;
+    text-align: left;
+    float: left
+}
+
+.slogan .form .btn-label {
+    font-size: 12px;
+    color: #ab0e24;
+    text-align: center;
+    margin-bottom: 8px
+}
+
+.slogan .book {
+    top: 63%
+}
+
+.slogan .book .label {
+    font-size: 0.8125em;
+    color: #fceb54;
+    text-align: center;
+    margin-bottom: 8px
+}
+
+.slogan .book .label.marbottom {
+    margin-bottom: 12px
+}
+
+.slogan .book .label .modify {
+    color: #fff
+}
+
+.slogan .order {
+    top: 73%
+}
+
+.bars {
+    display: none;
+    width: 91%;
+    margin: 0 auto
+}
+
+.rule-list {
+    display: none;
+    padding: 10px 5% 30px
+}
+
+.rule-list ul {
+    list-style: none;
+    padding: 10px;
+    background: #d00023;
+    border-radius: 8px
+}
+
+.rule-list li {
+    color: #fff;
+    font-size: 11px;
+    margin-bottom: .5em
+}
+
+.rule-list li span {
+    display: inline-block;
+    width: 0.875rem;
+    height: 0.875rem;
+    border-radius: 0.875rem;
+    background: #fff28b;
+    color: #db002a;
+    font-size: 11px;
+    text-align: center
+}
+
+.rule-list li p {
+    padding-left: 20px;
+    margin-top: -18px;
+    line-height: 2em
+}
+
+.rule-list li:last-child {
+    margin-bottom: 0
+}

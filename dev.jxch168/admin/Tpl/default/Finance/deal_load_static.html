@@ -1,0 +1,121 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="/front/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/exporting.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/chart.js"></script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<script>
+var data_name = <?php echo $data_name;?>;
+var series_name = <?php echo $series_name;?>;
+var pie_data_array = <?php echo $pie_data_array;?>;
+    $(function(){
+        var abc = $('#pie_chart').highcharts(pie_plot(series_name,data_name,pie_data_array,'标的入金统计'));
+    });
+$(function () {
+    $('#pie_chart1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '标的入金统计'
+        },
+
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '15px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Population (millions)'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+        },
+        series: [{
+            name: 'Population',
+            data: <?php echo $new_data_array; ?>,
+            dataLabels: {
+                enabled: true,
+                //rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.1f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+});
+</script>
+<php>
+	function get_date_url($date){
+		return "<a href=\"m.php?m=WebsiteStatistics&a=website_recharge_info&time=$date\">$date</a>";
+	}
+        function get_day($repay_time){
+            return $repay_time."天";
+        }
+        function n_format($value){
+            return number_format(num_format($value),2);
+        }
+</php>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title" style="height:30px;"><span style="font-size:16px;line-height:30px;font-weight:bold;">标的入金统计<span>
+<!--    <button style="float:right;position:relative;top:4px;" class="button" >{:L(EXPORT_ALL)}</button>-->
+</div>
+<div class="blank5"></div>
+
+	<form name="search" id = "search_form"  action="__APP__" method="get">
+		<input type="hidden" value='{$q_date_diff}' name="q_date_diff" id="q_date_diff"  />
+		<label id="start_time_item_title">开始日期:</label><input class = "require textbox" type="text" name="start_time" id="q_start_time" value="{$_REQUEST['start_time']}" style=""  onfocus="return showCalendar('q_start_time', '%Y-%m-%d', false, false, 'q_start_time');" />
+		<label id="end_time_item_title">结束日期:</label><input class = "require textbox" type="text" name="end_time" id="q_end_time" value="{$_REQUEST['end_time']}" style=""  onfocus="return showCalendar('q_end_time', '%Y-%m-%d', false, false, 'q_end_time');" />
+
+		<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+		<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+
+<if condition="$type eq 'line'">
+<div id="line_chart" style="min-width:700px;height:400px"></div>
+</if>
+
+<if condition="$type eq 'pie'">
+<div id="pie_chart" style="min-width:700px;height:400px"></div>
+<div id="pie_chart1" style="min-width:700px;height:400px"></div>
+
+</if>
+<div style="clear:both"></div>
+
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	datasource="list"
+	show="repay_time|get_day:周期
+	,total_money|n_format:投资总额(元)
+		"/>
+</div>
+<style>
+    td{
+        text-align:center;
+    }
+</style>
+<include file="Public:footer" />

@@ -1,0 +1,55 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<script type="text/javascript">
+    //按要求搜索排行榜记录
+    function export_rank(){
+            do_ajax = true;
+            var begin_time = $("#begin_time").val();
+            var end_time = $("#end_time").val();
+            var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_rank";
+            var param = "&begin_time="+begin_time+"&end_time="+end_time;
+            location.href = url+param;
+    }
+</script>
+<php>
+        function n_format($value){
+            return number_format(num_format($value),2);
+        }       
+</php>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">会员提现排行榜</div>
+<div class="blank5"></div>
+<div class="search_row">
+        <form name="search" id = "search_form"  action="__APP__" method="get">	
+		<input type="hidden" value='{$q_date_diff}' name="q_date_diff" id="q_date_diff"  />
+		<label id="start_time_item_title">开始日期:</label><input class = "require textbox" type="text" name="start_time" id="q_start_time" value="{$start_time}" style=""  onfocus="return showCalendar('q_start_time', '%Y-%m-%d', false, false, 'q_start_time');" />
+		<label id="end_time_item_title">结束日期:</label><input class = "require textbox" type="text" name="end_time" id="q_end_time" value="{$end_time}" style=""  onfocus="return showCalendar('q_end_time', '%Y-%m-%d', false, false, 'q_end_time');" />
+		
+		<input type="hidden" value="WebsiteStatistics" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+<!--		<input type="button" class="button" value="{%EXPORT}" onclick="export_csv_recharge_total();" />-->	
+	</form>
+</div>
+<div class="blank5"></div>
+<?php
+function hb($total_money)
+{
+   return intval($total_money/10000) * 50;
+}
+?>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="item"
+	datasource="list"
+	show="key:编号|100px,id:会员ID|100px,id|get_user_name_real:会员名称,total_money|n_format=2:提现金额(元)"  />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

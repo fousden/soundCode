@@ -1,0 +1,201 @@
+<div id="vipcenter">
+                <div class="top">
+                    <!--<img src="/front/images/personpic.png" class="f_l">-->
+                    <div class="f_l">
+                        <p class="smname">昵称：<span><a href="{url x="shop" r="uc_center"}">{$user_info.user_name}</a></span></p>
+                        <p class="jifen">总积分：<span>{$user_info.score}</span></p>
+                    </div>
+                    <div class="Clear"></div>
+                </div>
+                <div class="bottom">
+                    <div class="safeimg">
+                        <a class='credit pr' style="top:-1px" href='{url x="index" r="uc_account#security"}' title="实名认证，{if $user_data.idcardpassed eq 1}已认证{else}未认证{/if}">
+<!--                                <i class="iconfont {if $user_info.idcardpassed eq 1}f_blue{/if}">&#xe633;</i>-->
+                            {if $user_info.idcardpassed eq 1}
+                                <img src="/front/images/safe_name2.png" alt="">
+                            {else}
+                                <img src="/front/images/safe_name1.png" alt="">
+                            {/if}
+                        </a>
+
+                        <a class='credit' href='{url x="index" r="uc_account#security"}' title="手机认证，{if $user_data.mobilepassed eq 1}已认证{else}未认证{/if}">
+<!--                                <i class="iconfont {if $user_info.mobilepassed eq 1}f_blue{/if}">&#xe632;</i>-->
+                            {if $user_info.mobilepassed eq 1}
+                                <img src="/front/images/safe_phone2.png" alt="">
+                            {else}
+                                <img src="/front/images/safe_phone1.png" alt="">
+                            {/if}
+                        </a>
+                         <a class='credit' href='{url x="index" r="uc_account#security"}' title="邮箱认证，{if $user_data.emailpassed eq 1}已认证{else}未认证{/if}">
+<!--                                <i class="iconfont {if $user_info.emailpassed eq 1}f_blue{/if}">&#xe636;</i>-->
+                            {if $user_info.emailpassed eq 1}
+                                <img src="/front/images/safe_mail2.png" alt="">
+                            {else}
+                                <img src="/front/images/safe_mail1.png" alt="">
+                            {/if}
+                        </a>
+                        <a class='credit pr' href='{url x="index" r="uc_account#security"}' title="支付密码，{if $user_data.paypassword neq ''}已设置{else}未设置{/if}">
+<!--                                <i class="iconfont ps small {if $$user_info.paypassword neq ''}f_blue{/if}">&#xe604;</i>-->
+<!--                                <i class="iconfont {if $user_info.paypassword neq ''}f_blue{/if}">&#xe634;</i>-->
+                            {if $user_info.paypassword neq ''}
+                                <img src="/front/images/safe_word2.png" alt="">
+                            {else}
+                                <img src="/front/images/safe_word1.png" alt="">
+                            {/if}
+                        </a>
+                        <a class='credit ' href="{url x="index" r="uc_account"}" title="个人资料">
+<!--                                <i class="iconfont f_blue">&#xe60c;</i>-->
+                                <img src="/front/images/safe_set2.png" alt="">
+                        </a>
+                    </div>
+                    <p class="safelv">
+                        安全等级
+                        <span class="level">
+                            {if $user_info.mobilepassed eq 1 AND $user_info.idcardpassed eq 1 AND $user_info.emailpassed eq 1 AND $user_info.paypassword neq ''}
+                                高
+                            {elseif $user_info.mobilepassed eq 1 AND $user_info.emailpassed eq 1}
+                                中
+                            {elseif $user_info.mobilepassed eq 1 AND $user_info.paypassword neq ''}
+                                中
+                            {elseif $user_info.mobilepassed eq 1 AND $user_info.idcardpassed eq 1}
+                                中
+                            {else}
+                                低
+                            {/if}
+                        </span>
+                        <a href="/member.php?ctl=uc_account&act=security" class="addsafe">提升></a>
+                    </p>
+                </div>
+            </div>
+
+        <!-- 导航部分要把每一个navcontent元素的display值，传到url地址中，并且根据 url中的字符串，传值到新打开的页面 -->
+            <div id="managenav">
+                {if $user_data["user_name"] neq "李明明" AND $user_data["is_auto"] neq 1}
+                <div class="capital managelist">
+                    <p class="title">
+                        <img src="/front/images/资金管理.png">
+                        <span>资金管理</span>
+                        <i>-</i>
+                        <div class="Clear"></div>
+                    </p>
+                    <ul class="capitalnav navcontent">
+                        <a class="uc_cate" href="{url x="index" r="uc_money#incharge"}" title="充值"><li class="{if $MODULE_NAME eq 'uc_money' && ($ACTION_NAME == "incharge" || $ACTION_NAME == "incharge_log")}act{/if}" >充值</li></a>
+			<a class="uc_cate" href="{url x="index" r="uc_money#carry"}" title="提现"><li class="{if $MODULE_NAME eq 'uc_money' && ($ACTION_NAME == "carry" || $ACTION_NAME == "carry_log")}act{/if}" >提现</li></a>
+                        <a class="uc_cate" href="{url x="index" r="uc_money#bank"}" title="银行卡列表"><li class="{if $MODULE_NAME eq 'uc_money' && $ACTION_NAME == "bank"}act{/if}" >银行卡列表</li></a>
+                    </ul>
+                </div>
+                {/if}
+                <div class="invest managelist">
+                    <p class="title">
+                        <img src="/front/images/投资管理.png">
+                        <span>投资管理</span>
+                        <i>-</i>
+                        <div class="Clear"></div>
+                    </p>
+                    <ul class="investnav navcontent">
+                        <a class="uc_cate" href="{url x="index" r="uc_invest"}" title="{$LANG.UC_INVEST}"><li class="{if $MODULE_NAME eq 'uc_invest'}act{/if}" > {$LANG.UC_INVEST}</li></a>
+			<!-- <li class="{if $MODULE_NAME eq 'uc_repay_plan'}act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_repay_plan"}" title="{$LANG.UC_REPAY_PLAN}">{$LANG.UC_REPAY_PLAN}</a></li>
+			<li class="{if $MODULE_NAME eq 'uc_transfer'}act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_transfer"}" title="{$LANG.UC_TRANSFER}">{$LANG.UC_TRANSFER}</a></li>	 -->
+			<a class="uc_cate" href="{url x="index" r="uc_collect"}" title="{$LANG.UC_COLLECT}"><li class="{if $MODULE_NAME eq 'uc_collect'}act{/if}" > {$LANG.UC_COLLECT}</li></a>
+			<!--<li class="last {if $MODULE_NAME eq 'uc_earnings'}act{/if}" > <a class="uc_cate"  href="{url x="index" r="uc_earnings"}" title="{$LANG.UC_EARNINGS}">{$LANG.UC_EARNINGS}</a></li>
+			 {if app_conf("OPEN_AUTOBID") eq 1}<li class="{if $MODULE_NAME eq 'uc_autobid'}act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_autobid"}" title="{$LANG.UC_AUTO_BID}">{$LANG.UC_AUTO_BID}</a></li>{/if} -->
+                    </ul>
+                </div>
+                <div class="account managelist">
+                    <p class="title">
+                        <img src="/front/images/loginname.png">
+                        <span>账户管理</span>
+                        <i>-</i>
+                        <div class="Clear"></div>
+                    </p>
+                    <ul class="accountnav navcontent">
+                        <a class="uc_cate" href="{url x="index" r="uc_account"}" title="{$LANG.UC_ACCOUNT}"><li class="{if $MODULE_NAME eq 'uc_account' && ($ACTION_NAME eq 'index'||$ACTION_NAME eq 'work') }act{/if}" > {$LANG.UC_ACCOUNT}</li></a>
+			{if $user_info.user_type eq 1}
+			<a class="uc_cate" href="{url x="index" r="uc_company"}" title="{$LANG.UC_COMPANY}"><li class="{if $MODULE_NAME eq 'uc_company'}act{/if}" >{$LANG.UC_COMPANY}</li></a>
+			{/if}
+                        <a class="uc_cate" href="{url x="index" r="uc_account#security"}" title="{$LANG.UC_SECURITY}"><li class="{if $MODULE_NAME eq 'uc_account' && $ACTION_NAME eq 'security'}act{/if}" > {$LANG.UC_SECURITY}</li></a>
+
+                                                    <!--{if $user_info.user_type eq 1}-->
+			<!--<li class="{if $MODULE_NAME eq 'uc_company'}act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_company"}" title="{$LANG.UC_COMPANY}">{$LANG.UC_COMPANY}</a></li>-->
+			<!--{/if}-->
+			<!-- <li class="{if $MODULE_NAME eq 'uc_credit'}act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_credit"}" title="{$LANG.UC_CREDIT}">{$LANG.UC_CREDIT}</a></li>-->
+			 <!--<li class="{if $MODULE_NAME eq 'uc_account' && $ACTION_NAME eq 'security'}act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_account#security"}" title="{$LANG.UC_SECURITY}">{$LANG.UC_SECURITY}</a></li>-->
+			<!--<li class="{if $MODULE_NAME eq 'uc_center' &&$ACTION_NAME eq 'setweibo'}act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_center#setweibo"}" title="{$LANG.UC_SETWEIBO}">{$LANG.UC_SETWEIBO}</a></li>-->
+			<!--{if app_conf("OPEN_QUOTA") eq 1}
+					<li class="{if $MODULE_NAME eq 'uc_deal_quota' && $ACTION_NAME eq 'index'}act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_deal_quota#index"}" title="授信额度申请">授信额度申请</a></li>
+				{/if}
+				{if app_conf("OPEN_POINT") eq 1}
+				<li class="{if $MODULE_NAME eq 'uc_quota' && $ACTION_NAME eq 'index'}act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_quota#index"}" title="申请信用额度">申请信用额度</a></li>
+				{/if}
+			-->
+                    </ul>
+                </div>
+                <div class="activity managelist">
+                    <p class="title">
+                        <img src="/front/images/活动管理.png">
+                        <span>活动管理</span>
+                        <i>-</i>
+                        <div class="Clear"></div>
+                    </p>
+                    <ul class="activitynav navcontent">
+                        <a class="uc_cate" href="{url x="index" r="uc_invite"}" title="{$LANG.UC_INVITE}"><li class="{if $MODULE_NAME eq 'uc_invite' && ACTION_NAME neq 'reward' }act{/if}" >{$LANG.UC_INVITE}</li></a>
+                        <a class="uc_cate" href="/member.php?ctl=uc_bonus&amp;act=index&amp;type=1 " title="我的红包"><li class="{if $MODULE_NAME eq 'uc_bonus'}act{/if}">我的红包</li></a>
+                        <a class="uc_cate" href="{url x="index" r="uc_coupon"}" title="我的优惠券"><li class="{if $MODULE_NAME eq 'uc_coupon'}act{/if}">我的优惠券</li></a>
+                        <a class="uc_cate" href="/member.php?ctl=uc_price&act=index&type=0" title="我的奖品"><li class="{if $MODULE_NAME eq 'uc_price'}act{/if}">我的奖品</li></a>
+<!--			<li class="last {if $MODULE_NAME eq 'uc_invite' && ACTION_NAME eq 'reward' }act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_invite#reward"}" title="奖励记录">奖励记录</a></li>
+			<li class="last {if $MODULE_NAME eq 'uc_invite' && ACTION_NAME eq 'reward' }act{/if}" > <a class="uc_cate" href="{url x="index" r="uc_myinvite"}" title="我的推荐">我的推荐</a></li>   -->
+                <!--    <li>个人积分</li>   -->
+                    </ul>
+                </div>
+                <div class="activity managelist">
+                    <p class="title">
+                        <img src="/front/images/消息管理.png">
+                        <span>消息管理</span>
+                        <i>-</i>
+                        <div class="Clear"></div>
+                    </p>
+                    <ul class="activitynav navcontent">
+                        <li class="{if $MODULE_NAME eq 'uc_msg'}act{/if}">
+                            <a class="uc_cate" href="{url x="index" r="uc_msg"}" title="站内通知">站内通知</a>
+                            {if $user_msg_count neq 0}<div class="message message_margin">{$user_msg_count}</div>{/if}
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        <script type="text/javascript">
+            clearInterval(timer);
+        // 左侧导航栏交互js
+        $(document).ready(function(){
+            $(".managelist .title").click(function(){
+                var $thisproperty=$(this).parent().find(".navcontent");
+                var result=$thisproperty.css("display");
+                if(result == "block"){
+                    // alert(2);
+                    $thisproperty.slideUp(300);
+                    $(this).find("i").html("+");
+                }else{
+                    $thisproperty.slideDown(300);
+                    $(this).find("i").html("-");
+                };
+            })
+        })
+        </script>
+        <style>
+             .message{
+                color:white;
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                background-color: #f2650C;
+                border-radius: 50%;
+                text-indent: 0;
+            }
+            .message_margin{
+                float:right;
+                margin-top: 8px; 
+                margin-right: 6px;
+            }
+        </style>

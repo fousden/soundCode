@@ -1,0 +1,314 @@
+{include file="inc/header.html"}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="Generator">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>投资理财注册平台、投资理财登录、30秒注册坐等收益、金享财行</title>
+        <link rel="stylesheet" type="text/css" href="./front/css/StyleSheet.min.css">
+        <link rel="stylesheet" type="text/css" href="/front/css/activity/market_activities/market_activities.css">
+        <script type="text/javascript" src="./front/js/activity/market_activities/lottery.js"></script>
+        <script type="text/javascript">
+            var user_info=new Object();
+            user_info.mobile = "{$user_info.mobile}";
+            user_info.email = "{$user_info.user_name}";
+            user_info.pwd = "{$user_info.user_pwd}";
+            function closebtn() {
+                $(this).parent(".main").fadeOut(100);
+            }
+            $(function () {
+                // 获奖记录的点击事件
+                $(".getrecord").click(function () {
+                    $(".cover").fadeIn(100);
+                    $(".alertrecord").fadeIn(100);
+                    var winH = $(window).height();
+                    var thisH = $(".alertrecord .main").outerHeight();
+                    $(".alertrecord .blank").animate({"height": (winH - thisH) / 2 + "px"}, 200)
+                })
+                // 获奖记录的关闭按钮
+                $(".alertrecord .closebtn").click(function () {
+                    $(".alertrecord .blank").animate({"height": "0px"}, 100, function () {
+                        $(".alertrecord").fadeOut(1);
+                    });
+                    if ($(".alertresult").css("display") == "block") {
+                        return false;
+                    } else {
+                        $(".cover").fadeOut(200);
+                    }
+                })
+                // 获取机会的关闭按钮
+                $(".alertshare .closebtn").click(function () {
+                    $(".alertshare .blank").animate({"height": "0px"}, 100, function () {
+                        $(".alertshare").fadeOut(1);
+                    });
+                    if ($(".alertresult").css("display") == "block") {
+                        return false;
+                    } else {
+                        $(".cover").fadeOut(200);
+                    }
+
+                })
+                $(".copylink").click(function () {
+                    // 此处要注意恩培各自的分享链接
+                })
+                // 抽奖成功的确定按钮
+                $(".successbtn").click(function () {
+                    $(".alertresult .blank").animate({"height": "0px"}, 100, function () {
+                        $(".alertresult").fadeOut(1);
+                    });
+                    $(".cover").fadeOut(200);
+                })
+                $(".getchance").click(function () {
+                    $(".cover").fadeIn(100);
+                    $(".alertshare").fadeIn(100);
+                    var winH = $(window).height();
+                    var thisH = $(".alertshare .main").outerHeight();
+                    $(".alertshare .blank").animate({"height": (winH - thisH) / 2 + "px"}, 200)
+                })
+                $(".saomiao").hover(
+                        function () {
+                            $(".alertshare .erweima").fadeIn(100);
+                        },
+                        function () {
+                            $(".alertshare .erweima").fadeOut(100);
+                        }
+                )
+            })
+            // 转盘停止后的事件
+            function alertresult() {
+                var data_image = $(".lottery .active img").attr("src");
+                $(".alertresult .main .cont img").attr({"src": data_image});
+                $(".cover").fadeIn(100);
+                $(".alertresult").fadeIn(100);
+                var winH = $(window).height();
+                var thisH = $(".alertresult .main").outerHeight();
+                $(".alertresult .blank").animate({"height": (winH - thisH) / 2 + "px"}, 200)
+            }
+            window.onload = function () {
+                lottery.lottery({
+                    selector: '#lottery',
+                    width: 3,
+                    height: 3,
+                    index: 0, // 初始位置
+                    initSpeed: 100, // 初始转动速度
+                    //upStep: 10, // 加速滚动步长
+                    // upMax: 200, // 速度上限
+                    //  downStep: 50, // 减速滚动步长
+                    downMax: 100, // 减速上限
+                    waiting: 500, // 匀速转动时长
+                    beforeRoll: function () { // 重写滚动前事件：beforeRoll
+                        // console.log(this);
+                        // alert(1);
+                    },
+                    beforeDown: function () { // 重写减速前事件：beforeDown
+                        // console.log(this);
+                        // alert(1);
+                    },
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="lottery">
+            <div class="banner">
+                <div class="main">
+                    <div class="kongbai">                 
+                    </div>
+                    <div class="lottery">
+                        <table cellspacing="0" cellpadding="0" border="0">
+                            <tr class="lottery-group">
+                                <td class="lottery-unit" data-unit="1"><img src="/front/images/activity/market_activities/xiaolian.png"></td>
+                                <td class="lottery-unit" data-unit="2"><img src="/front/images/activity/market_activities/weibolu.png" height="100" width="150"></td>
+                                <td class="lottery-unit" data-unit="3"><img src="/front/images/activity/market_activities/mini.png" height="100" width="150"></td>
+                            </tr>
+                            <tr class="lottery-group">
+                                <td class="lottery-unit" data-unit="8"><img src="/front/images/activity/market_activities/saodi.png" height="100" width="150"></td>
+                                <td>
+                                    <div class="getbtnbox">
+                                        <a href="javascript:;" class="getbtn"></a>
+                                    </div>
+                                </td>
+                                <td class="lottery-unit" data-unit="4"><img src="/front/images/activity/market_activities/felipu.png" height="97" width="151"></td>
+                            </tr>
+                            <tr class="lottery-group">
+                                <td class="lottery-unit" data-unit="7"><img src="/front/images/activity/market_activities/tv.png" height="100" width="150"></td>
+                                <td class="lottery-unit" data-unit="6"><img src="/front/images/activity/market_activities/dxq.png" height="100" width="150"></td>
+                                <td class="lottery-unit" data-unit="5"><img src="/front/images/activity/market_activities/xiaolian.png" height="100" width="150"></td>
+                            </tr>
+                        </table>
+                    </div>          
+                </div>
+                <div class="huojiangjilu">
+                    {if $user_info}
+
+                    <p>您当前剩余&nbsp<span class='lottery_number'>{$lottery_number}</span>&nbsp次抽奖机会</p><br/>
+                    <p>
+                        <a href="javascript:;" class="getchance">获取通道></a>&nbsp&nbsp
+                        <a href="javascript:;" class="getrecord" onclick="viewLoanItem('.Text-1');">获奖记录></a>
+                    <div class="Clear"></div>
+                    </p>
+                    {else}
+                    <p style="margin-top:15px;font-size:30px;"><a href="javascript:ajax_login();">点击登录</a></p>
+                    {/if}
+                </div> 
+                <div id="middle">            
+                </div>
+
+                <div id="showgift">
+                </div>
+
+                <div class="f_r">
+                    <div class="winlist">
+                        <p class="title"></p>
+                        <div class="cont">
+                            <div class="pbox">
+                                {foreach from=$log_list item=v}
+                                <p>{$v.create_date}   恭喜{function name="get_mobile" v=$v.mobile} 抽中<span>{$v.prize_name}</span></p>
+                                {/foreach}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cover"></div>
+            <div class="alertrecord">
+                <div class="blank"></div>
+                <div class="main">
+                    <p class="title">奖品记录</p>
+                    <dl class="cont">
+                        <dt>
+                        <span class="name">奖品名称</span>
+                        <span class="date">时间</span>
+                        <div class="Clear"></div>
+                        </dt>
+                        <div id="myText">
+
+                        </div>
+                        <a class="closebtn"></a>
+                </div>
+            </div>
+            <div class="alertresult">
+                <div class="blank"></div>
+                <div class="main">
+                    <p class="title">恭喜您获得</p>
+                    <div class="cont">
+                        <img src="">
+                    </div>
+                    <a href="javascript:;" class="successbtn">确定</a>
+                </div>
+            </div>
+            <div class="alertshare">
+                <div class="blank"></div>
+                <div class="main">
+                    <p class="title">获取抽奖机会</p>
+                    <div class="cont">
+                        <p>点击下方图标进行分享获取抽奖机会</p>
+                        <div class="bdsharebuttonbox" data-tag="share_1">
+                            {$show_share_code}
+                        </div>
+                        <script type="text/javascript">
+                            var qr_url = "{$SITE_DOMAIN}/index.php?ctl=activity&act=lottery&type=market_activities&is_pc=1";
+                            function shareTo(site) {
+                                var e = encodeURIComponent, s = screen, d = document, wd = 640, hg = 480, u = d.location;
+                                d.title = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+                                var uuid = '';
+                                var img = "http://www.jxch168.com/public/images/logo.png";
+                                var ctxt = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+                                var url = "http://api.bshare.cn/share/" + site + "?url=" + e("" + qr_url + "") + "&title=" + e(d.title) + "&publisherUuid=" + uuid + "&summary=" + ctxt + "&pic=" + img;
+                                window.open(url, 'bshare', ['toolbar=0,status=0,resizable=1,width=' + wd + ',height=' + hg + ',left=' + (s.width - wd) / 2 + ',top=' + (s.height - hg) / 2]);
+                            }
+                        </script>
+                    </div>
+                    <!-- <a href="javascript:;" class="saomiao">扫描右侧二维码分享>></a> -->
+                    <a href="{$SITE_DOMAIN}/index.php?ctl=deals" class="goinvite" target='_blank'>现在去投资>></a>
+                    <a class="closebtn"></a>
+                    <img src="./front/images/activity/lottery/alert_getchance_erweima.png" height="180" width="180" class="erweima">
+                </div>
+            </div>
+        </div>
+        <script>
+            $(".bdsharebuttonbox").click(function () {
+                var query = new Object();
+                query.mobile = "{$user_info.mobile}";
+                $.ajax({
+                    url: "/index.php?ctl=activity&act=lottery&type=market_activities&action=add_lottery_number&is_pc=1",
+                    data: query,
+                    type: "post",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.status == 0) {
+                            alert("每日分享获得抽奖次数为5次");
+                        } else {
+                            $(".lottery_number").html(result.lottery_number);
+                        }
+                    },
+                });
+            });
+            function viewLoanItem(obj) {
+                if ($(obj).hasClass("hide")) {
+                    $(obj).removeClass("hide");
+                }
+                else {
+                    $(obj).removeClass("hide");
+                }
+
+                //		if($.trim($(obj).html()) == "" || $.trim($(obj).html()) == ""){
+                getLoanItem(obj, 1);
+                //		}
+
+            }
+            function getLoanItem(obj, p) {
+                var query = new Object();
+                query.obj = obj;
+                query.p = p;
+                query.mobile = "{$user_info.mobile}";
+//                                alert(query.mobile);
+                $.ajax({
+                    url: "/index.php?ctl=activity&act=get_user_info",
+                    data: query,
+                    type: "post",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.status == 1) {
+                            $("#myText").html(result.info);
+                        }
+                        else {
+                            alert(result.info);
+                        }
+                    },
+                    error: function () {
+                        alert("请求数据失败");
+                    }
+                });
+            }
+        </script>
+        <style>
+            .bdsharebuttonbox img{
+                margin-left:5px;
+            }
+        </style>
+        <script language="javascript" type="text/javascript">
+            function scrollnews() {
+                var news = $(".winlist .cont .pbox");
+                var lineheight = news.find("p:first").height();
+
+                news.animate({"margin-top": +lineheight + "px"}, 1050, function () {
+                    news.css({"margin-top": "0px"}).find("p:first").before($(news.find("p:last")));
+//                    news.find("p:last").remove();
+                });
+            }
+            $(function () {
+                var scrolltime;
+                $(".winlist .cont .pbox").hover(function () {
+
+                    clearInterval(scrolltime)
+                }, function () {
+                    scrolltime = setInterval("scrollnews()", 2000);
+                });
+                $(".winlist .cont .pbox").triggerHandler("mouseout");
+            })
+        </script>
+    </body>
+</html>
+{include file="inc/footer.html"}

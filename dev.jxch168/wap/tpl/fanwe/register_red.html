@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>金享财行注册领红包</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="/front/wechat/css/lib.css">
+    <link rel="stylesheet" type="text/css" href="/front/wechat/css/hongbao.css">
+    <script type="text/javascript" src="/app/Tpl/blue/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div class="pageOne">
+        <div class="slogan before">
+            <figure class="red-packet">
+                <img src="/front/wechat/images/bg.jpg" data-node="bgImg"/>
+            </figure>
+            <div class="shopinfo" style="display: block;">
+                <img src="/front/wechat/images/hongbaoTopBg.png"/>
+                <!--<div class="iconwrap">
+                    <figure class="shopicon">
+                        <img src="front/wechat/images/logo.png">
+                    </figure>
+                </div>-->
+                <!--<p class="msg">拉上好友享现金，轻轻松松<span class="alt">玩出钱!</span></p>-->
+            </div>
+            <div class="section form" style="display: block;">
+                <!--<p class="phone-label">直接输入手机账号，代金券进账</p>-->
+                <input value="" placeholder="  请输入您的手机号" id="user_name" type="tel" class="phone-input" data-node="phoneInput">
+                <input value="" placeholder="  请输入您的密码" id="user_pwd" type="password" class="phone-input" data-node="passwordInput">
+                <div>
+                    <input value="" placeholder="  验证码" id="mobile_code" type="tel" class="vericode-input" data-node="vericodeInput"><a class="vericode-btn" id="getcode" data-node="sendVericode">发送验证码</a>
+                </div>
+                <input class="logininput mainborder" value="<?php echo $_GET['r'];?>" id="referer" name="referer" type="hidden" />
+                <div>
+                    <a class="btn" data-node="openPacket" id="signup-submit" >注册有红包</a>
+                </div>
+            </div>
+        </div>
+        <div class="rules">
+            <figure class="bars" style="display: block;">
+                <img src="/front/wechat/images/rules_7fff170.jpg">
+            </figure>
+            <div class="rule-list" style="display: block;">
+                <ul>
+                    <li>
+                        <span>1</span>.
+                        <p>注册后，请下载安装金享财行客户端，或者在www.jxch168.com 网站进行登陆后开始投资；</p>
+                    </li>
+                    <li>
+                        <span>2</span>.
+                        <p>在活动期，投资用户满10000元即获得50元现金红包一个，满20000元即获得现金红包100元，以此类推；</p>
+                    </li>
+                    <li>
+                        <span>3</span>.
+                        <p>金享财行限时加息活动正在火热进行中，现在投资即可享受限时加息0.5%，最高可达18%；</p>
+                    </li>
+                    <li>
+                        <span>4</span>.
+                        <p>金享财行保留法律范围内允许的对活动的解释权。</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        $("#signup-submit").click(function(){
+                var name;
+                name=$.trim($("#user_pwd").val());
+                var reg=/^[a-zA-z0-9]{6,}$/;
+                var regs=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+                if(reg.test(name)){
+                        if(regs.test(name)){
+                        }
+                        else{
+                                alert("安全等级低，请用数字+字母");
+                                return false;
+                        }
+                }
+                else{
+                        alert("长度在6~16之间，只能包含字符、数字和下划线。");
+                        return false;
+                }
+
+                //var ajaxurl = '{wap_url a="index" r="register"}';
+                var ajaxurl = '/mapi/index.php?act=register&r_type=1';
+                var query = new Object();
+                query.user_name = $.trim($("#user_name").val());
+                query.user_pwd = $.trim($("#user_pwd").val());
+                query.user_pwd_confirm = $.trim($("#user_pwd").val());
+                query.mobile = $.trim($("#user_name").val());
+                query.mobile_code = $.trim($("#mobile_code").val());
+                query.referer = $.trim($("#referer").val());
+                query.search_channel = 'wxactive1';
+                //query.post_type = "json";
+                $.ajax({
+                        url:ajaxurl,
+                        data:query,
+                        type:"Post",
+                        dataType:"json",
+                        success:function(data){
+                                if(data.response_code == 1)
+                                {
+                                        alert('注册成功');
+                                        window.location.href = 'http://wap.jxch168.com';
+                                }else{
+                                        alert(data.show_err);
+                                }
+                        }
+                });
+        });
+
+        $("#getcode").click(function(){
+                //var ajaxurl = '{wap_url a="index" r="send_register_code"}';
+                var ajaxurl = '/mapi/index.php?act=send_register_code&r_type=1';
+                var query = new Object();
+                query.mobile = $.trim($("#user_name").val());
+                $.ajax({
+                        url:ajaxurl,
+                        data:query,
+                        type:"POST",
+                        dataType:"json",
+                        success:function(data){
+                                alert(data.show_err);
+                        }
+                });
+        });
+
+
+        $("#user_name").bind("blur",function(){
+                var obj = $(this);
+                var ajaxurl = APP_ROOT+"/index.php?ctl=ajax&act=check_field";
+                var query = new Object();
+                query.field_name = "user_name";
+                query.field_data = $.trim(obj.val());
+                $.ajax({
+                        url: ajaxurl,
+                        data : query,
+                        type: "POST",
+                        dataType: "json",
+                        success: function(data){
+                                if(data.status==1) {
+                                }
+                                else {
+                                        alert(data.info);
+                                }
+                        }
+                });
+        }); //用户名验证
+
+        </script>
+</body>
+</html>

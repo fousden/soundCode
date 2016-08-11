@@ -1,0 +1,54 @@
+ <script type="text/javascript" src="./js/jquery-1.8.2.min.js"></script><!--jquery文档-->
+
+<div class="inc wb bdl p20" style="display:none;">
+	<div class="inc_main p10">
+		<div class="msg_box">
+			<p style="padding: 20px 0pt; text-align: center;">
+				{$data.program_title}
+				[&nbsp;&nbsp;{$data.notice_sn} ：<span class="red">{$data.payment_notice.notice_sn}</span>&nbsp;&nbsp;]
+			</p>
+
+			<div style="padding: 20px 0pt; text-align: center;" class="order-check-form">
+				{$data.payment_code}
+			</div>
+		</div>
+
+	</div><!--end inc_main-->
+	<div class="inc_foot"></div>
+</div>
+
+<script type="text/javascript">
+	$(function($){
+		var src = $('form input[type=image]').attr("src");
+		$('form input[type=image]').attr("src",src.replace("/mapi.",""))
+	});
+
+	$(document).ready(function() {
+		$(".paybutton").bind("click", function() {
+			$.weeboxs.open(APP_ROOT + "/index.php?ctl=payment&act=tip&id={$data.payment_notice.id}",
+					{contentType: 'ajax', showButton: false, title: LANG['PAYMENT_TIP'], width: 460, height: 150, type: 'wee'});
+		});
+	});
+	document.getElementById("incharge_now").submit();
+</script>
+
+<style type="text/css">
+	form input[type=image]{
+	//	width: 200px;
+	//	height: 200px;
+	}
+
+	.paybutton{
+		margin: 15px;
+		background: #39A1EA;
+		color: #FFFFFF;
+		cursor: pointer;
+		padding: 0px 1em;
+		height: 36px;
+		line-height: 36px;
+		border-color: #68E1FF #00B0DD #00B0DD #68E1FF;
+		border-width: 2px;
+		border-style: solid;
+	}
+
+</style>

@@ -1,0 +1,112 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/js/colorpicker.js' />
+<load href='__TMPL__Common/style/colorpicker.css' />
+
+<load href='__TMPL__Common/style/jquery.autocomplete.css' />
+<load href='__TMPL__Common/js/jquery.autocomplete.min.js' />
+
+<div class="main">
+    <div class="main_title">{%ADD} <a href="{:u("ActivityConf/index")}" class="back_list">{%BACK_LIST}</a></div>
+    <div class="blank5"></div>
+
+    <form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+        <div class="blank5"></div>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+            <tr>
+                <td class="item_title">活动类型:</td>
+                <td class="item_input">
+                    <select class="require" name="type" id="act_sel" >
+                        <foreach name="type_conf" item="item">
+                        <option value="{$key}">{$item}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">名称:</td>
+                <td class="item_input">
+                    <input type="text" name="name" class='require'/>
+                    <span class="tip_span"></span>
+                </td>
+            </tr>
+            <script>
+                $("input[name='name']").keyup(function(){
+                    var name=$("input[name='name']").val();
+                    $.get("/m.php?m=ActivityConf&a=get_pinyin&name="+name,function(res){
+                        $("input[name='key']").val(res);
+                    });
+                });
+            </script>
+            <tr>
+                <td class="item_title">查询标识key:</td>
+                <td class="item_input">
+                    <input type="text" name="key" value="{$data.key}" size="30" class='require'/>
+                    <span class="tip_span">(该标识用于区分活动，线上线下要一致)</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">开始时间:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="start_time" id="start_time" value="" onfocus="
+                            return showCalendar('start_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_start_time');" />
+                    <input type="button" class="button" id="btn_start_time" value="{%SELECT_TIME}" onclick="return showCalendar('start_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_start_time');" />
+                    <input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#start_time').val('');" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">结束时间:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="end_time" id="end_time" value="" onfocus="
+                            return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+                    <input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+                    <input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#end_time').val('');" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">参数:</td>
+                <td class="item_input">
+                    <input type="text" name="parameter"  />
+                    <span class="tip_span pare para"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">活动详情:</td>
+                <td class="item_input">
+                    <textarea  name="description"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <input type="hidden" name="{:conf("VAR_MODULE")}" value="ActivityConf" />
+                           <input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+                           <!--隐藏元素-->
+                           <input type="submit" class="button" value="{%ADD}" />
+                    <input type="reset" class="button" value="{%RESET}" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+    $("#act_sel").change(function () {
+        var val = $(this).val();
+        if (val == 1) {
+            $(".para").html("请输入参数:金额,期限,有效期类型，有效期。例:100,10000,1,90");
+        }else if(val==2){
+            $(".para").html("请输入参数:金额,期限,有效期类型，有效期。例:100,10000,1,90");
+        }
+
+    })
+</script>
+<include file="Public:footer" />

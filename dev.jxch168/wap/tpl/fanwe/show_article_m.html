@@ -1,0 +1,254 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>充值</title>
+    <!--账户充值-->
+    <style type="text/css">
+    * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+    
+    html,
+    body {
+        background-color: #f4f4f4;
+        color: #333;
+        font-size: 14px;
+        -webkit-text-size-adjust: none;
+    }
+    
+    body {
+        color: #333;
+        background-color: #eee;
+        font-size: 16px;
+        width: 100%;
+    }
+    
+    body,
+    html {
+        min-height: 100%;
+        width: 100%;
+    }
+    
+    input {
+        outline: 0;
+    }
+    
+    a,
+    body,
+    dd,
+    div,
+    dl,
+    dt,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    html,
+    input,
+    li,
+    ol,
+    p,
+    span,
+    ul {
+        -moz-appearance: none;
+        -moz-text-size-adjust: none;
+        -ms-appearance: none;
+        -ms-text-size-adjust: none;
+        -o-appearance: none;
+        -o-text-size-adjust: none;
+        -webkit-appearance: none;
+        -webkit-text-size-adjust: none;
+        appearance: none;
+        font-family: -apple-system-font, simhei, "Helvetica Neue", "Hiragino Sans GB", "冬青黑体", 'Microsoft Yahei', Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-size-adjust: none;
+    }
+    
+    input,
+    textarea,
+    keygen,
+    select,
+    button,
+    isindex {
+        margin: 0em;
+        font: -webkit-small-control;
+        color: initial;
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: start;
+        border: none;
+    }
+    
+    input,
+    textarea,
+    keygen,
+    select,
+    button,
+    isindex,
+    meter,
+    progress {
+        -webkit-writing-mode: horizontal-tb;
+        font-size: 100%;
+    }
+    
+    input,
+    select,
+    textarea {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-appearance: none;
+        border: none;
+        border-radius: 0;
+    }
+    
+    input,
+    textarea,
+    keygen,
+    select,
+    button,
+    isindex {
+        margin: 0em;
+        font: -webkit-small-control;
+        color: initial;
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: start;
+        border: none;
+    }
+    
+    li,
+    ol,
+    ul {
+        list-style: none;
+    }
+    
+    .clearfix {
+        clear: both;
+    }
+    
+    a {
+        color: #595e69;
+        text-decoration: none;
+    }
+    
+    a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    a:active,
+    a:hover,
+    a:link,
+    a:visited {
+        text-decoration: none;
+    }
+    
+    a:active,
+    a:hover,
+    a:link,
+    a:visited {
+        text-decoration: none;
+    }
+    
+    .Headerbackground_dark {
+        background: #e84f41;
+        color: #fff;
+    }
+    
+    .mainborder {
+        border-color: #d7d7d7;
+    }
+    
+    .article_li .backg {
+        padding: 0px 50px 0 10px;
+        margin: 0 10px;
+        border-bottom: 1px solid @border_color;
+        line-height: 40px;
+        font-size: 16px;
+        position: relative;
+        height: 40px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        overflow: hidden;
+        font-weight: 700;
+    }
+    
+    .article_list {
+        background: @box_color;
+        padding-bottom: 20px;
+    }
+    
+    .article_li .backg i {
+        position: absolute;
+        right: 0px;
+        top: 12px;
+        color: @font_main;
+    }
+    
+    .article_show {
+        background: #fff;
+        padding: 10px 10px 40px 10px;
+    }
+    
+    .article_show h2 {
+        font-size: 18px;
+        line-height: 40px;
+        text-align: center;
+        font-weight: bolder;
+        margin: 0px 20px;
+    }
+    
+    .article_show .show_detail {
+        line-height: 25px;
+        text-indent: 30px;
+        padding: 10px 0;
+        color: @font_main;
+    }
+    
+    .article_show .jieshao {
+        line-height: 20px;
+        text-align: right;
+    }
+    
+    .jieshao span {
+        padding: 0 10px;
+    }
+    
+    .page_total {
+        display: none;
+    }
+    
+    .article_show img {
+        width: 100%;
+    }
+    </style>
+    <script type="text/javascript" src="/wap/tpl/fanwe/js/jquery-1.8.2.min.js"></script>
+</head>
+
+<body>
+    <!--文字详情-->
+    <div class="article_show">
+        <h2>{$data.title}</h2>
+        <p class="show_detail">
+            {$data.content}
+        </p>
+    </div>
+</body>
+
+</html>

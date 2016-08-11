@@ -1,0 +1,195 @@
+<style type="text/css">
+	.overview {
+		width: 945px;
+		margin: 20px auto 30px auto;
+	}
+	#redbagway .rebaglist .list .cont{
+		width: 820px !important;
+	}
+	.overview>.title {
+		font-size: 18px;
+		color: #666666;
+		border-bottom: 1px solid #dfe0e5;
+		margin-bottom: 10px;
+	}
+
+	.overview .list {
+		float: left;
+		width: 472px;
+		text-align: center;
+		margin: 20px 0;
+		border-right: 1px solid #dfe0e5;
+	}
+
+	.overview .list > .title {
+		margin-bottom: 20px;
+	}
+
+	.overview .list > .title span {
+		font-size: 16px;
+		margin-right: 10px;
+	}
+
+	.overview .list > .cont {
+		font-size: 22px;
+		text-align: center;
+	}
+
+	.overview .list > .cont span {
+		font-size: 16px;
+	}
+</style>
+<div class="tabbox">
+	<div class="tab"><a href="{url x=" index " r="uc_invite "}">我要推荐</a></div>
+	<!--<div class="tab"><a href="{url x="index" r="uc_invite#invite"}">已投资用户</a></div>-->
+	<div class="tab"><a href="{url x=" index " r="uc_invite#invite " p="type=1 "}">未投资用户</a></div>
+	<div class="tab cur"><a href="{url x=" index " r="uc_invite#reward "}">推荐返利</a></div>
+	<!--	<div class="tab cur"><a href="{url x="index" r="uc_myinvite"}">我的推荐</a></div>    -->
+</div>
+<div class="uc_box bdd bt0 clearfix">
+	<div id="redbagcontainer">
+
+		<div class="overview">
+			<div class="title">返利总览</div>
+			<div class="list">
+				<p class="title">
+					<span>返利总金额</span>
+				</p>
+				<p class="cont">
+					<label style="color: red;">{if $reward_count}{$reward_count}{else}0.00{/if}<span>&nbsp;元</span></p>
+			</div>
+			<div class="list redbag" style="border: none;">
+				<p class="title">
+					<span>到账总金额</span>
+				</p>
+				<p class="cont">{if $repay_count}{$repay_count}{else}0.00{/if}<span>&nbsp;元</span></p>
+			</div>
+			<div class="Clear"></div>
+		</div>
+		<div id="redbagcont">
+			<div class="title">返利列表</div>
+			<?php /*
+			<div class="filtrate">
+				<div>
+					<span class="title">使用状态:</span>
+					<a href="/member.php?ctl=uc_bonus&amp;act=index&amp;type=1 " {if $type eq 1}class="select" {/if} id="notuse">未使用</a>
+					<a href="/member.php?ctl=uc_bonus&amp;act=index&amp;type=2 " {if $type eq 2}class="select" {/if} id="used">已使用</a>
+					<a href="/member.php?ctl=uc_bonus&amp;act=index&amp;type=3 " {if $type eq 3}class="select" {/if} id="end">已过期</a>
+					<div class="Clear"></div>
+				</div>
+			</div>
+			*/
+			?>
+				<dl class="cont">
+					<dt class="tabletitle">
+                <p class="bag_type">投资用户</p>
+                <p class="bag_duration">投资项目</p>
+                <p class="bag_rules">投资时间</p>
+                <p class="bag_from">预计发放时间</p>
+                <p class="bag_status">返利金额(元)</p>
+                <div class="Clear"></div>
+	    </dt>
+					{if $list}
+					{foreach from=$list item="item" key="key"}
+
+					<dt class="tablecont">
+		                <p class="bag_type">{$item.name}</p>
+		                <p class="bag_duration"><a href="index.php?ctl=deal&id={$item.deal_id}" target="_blank">{$item.deal_name}</a></p>
+		                <p class="bag_rules">{$item.create_time}</p>
+		                <p class="bag_from">{$item.release_date}</p>
+		                <p class="bag_status">
+		                     <span>{$item.money}</span>
+		                </p>
+            		</dt>
+
+					{/foreach}
+					<div class="pages">{$pages}</div>
+					{else}
+					<dt class="tablecont">
+                		<span style="text-align:center; width:100%;display:block;">暂无记录</span>
+            		</dt>
+					{/if}
+				</dl>
+		</div>
+
+		<div id="redbagway">
+			<div class="title">返利说明</div>
+			<div class="rebaglist">
+<!--				<ul class="list">
+					<li>
+						<p class="title">活动规则</p>
+						<p class="cont" style="color: #666;">1、金享财行会员可邀请其小伙伴共同加入金享财行，邀请方式：</p>
+					</li>
+					<li>
+						<p class="title">&nbsp;</p>
+						<p class="cont">
+							&nbsp;&nbsp;&nbsp;&nbsp;（1）新小伙伴在注册时，在“推荐人”一栏输入邀请人手机号即可
+						</p>
+					</li>
+					<li>
+						<p class="title">&nbsp;</p>
+						<p class="cont">
+							&nbsp;&nbsp;&nbsp;&nbsp;（2）会员登录“我的账户”→“我的邀请”，即可选择推荐方式进行邀请
+						</p>
+					</li>
+					<li>
+						<p class="title">&nbsp;</p>
+						<p class="cont" style="color: #666;">2、小伙伴每进行一笔投资，其邀请人可获得此小伙伴投资金额的年化0.5%的投资奖励。<br/></p>
+					</li>
+					<li>
+						<p class="title">&nbsp;</p>
+						<p class="cont">
+							&nbsp;&nbsp;&nbsp;&nbsp;（如小伙伴投资100万，1年期项目，则其邀请人获得的奖励为100万*0.5%=5000元）
+						</p>
+					</li>
+					<li>
+						<p class="title">&nbsp;</p>
+						<p class="cont" style="color: #666;">3、小伙伴投资的项目还款时，向其邀请人账户返还奖励。</p>
+					</li>
+					<li>
+						<p class="title">&nbsp;</p>
+						<p class="cont" style="color: #666;">4、截止到2015年12月31日，根据邀请小伙伴投资总额评选前三名，将分别获得由金享财行提供的10000元、8000元、5000元的现金大奖。</p>
+					</li>
+					<li>
+						<p class="title">&nbsp;</p>
+						<p class="cont" style="color: #666;">5、本次活动最终解释权归金享财行所有。</p>
+					</li>
+				</ul>
+				<ul class="list">
+					<li>
+						<p class="title">温馨提示</p>
+						<p class="cont">若对活动不理解，请联系客服电话 400-091-2828</p>
+					</li>
+				</ul>-->
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	//红包提现申请
+	function carry_now(bonus_id) {
+		//                do_ajax = true;
+		if (!confirm("确定要红包提现吗？")) {
+			return false;
+		}
+		$.ajax({
+			type: 'POST',
+			url: "/member.php?ctl=uc_bonus&act=carry_now",
+			data: {
+				bonus_id: bonus_id
+			},
+			dataType: "json",
+			success: function(data) {
+				if (data.status == 1) {
+					$.showErr(data.info);
+					//location.href = '/member.php?ctl=uc_bonus';
+					setTimeout(function() {
+						window.location.reload()
+					}, 1000);
+				} else {
+					$.showErr(data.info);
+				}
+			}
+		});
+	}
+</script>

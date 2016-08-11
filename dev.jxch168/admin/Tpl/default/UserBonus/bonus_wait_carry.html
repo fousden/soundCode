@@ -1,0 +1,105 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/bonus.js' />
+<script type="text/javascript">
+        $(function(){
+            $('.A_opration').remove();
+            $('.op_action').remove();
+        });
+	function adv(id)
+	{
+		location.href = ROOT+"?m=BonusManage&a=index&rel_table=user_bonus&rel_id="+id;
+	}
+</script>
+<?php
+        function get_time($create_time){
+            if(!$create_time){
+                return '暂无';
+            }else{
+                return to_date($create_time,"Y-m-d H:i:s");
+            }
+        }
+        function get_date($create_time){
+            if(!$create_time){
+                return '暂无';
+            }else{
+                return to_date($create_time,"Y-m-d");
+            }
+        }
+
+        function is_effect($is_effect){
+            if($is_effect == 0){
+                return '无效';
+            }else if($is_effect == 1){
+                return '有效';
+            }
+        }
+
+        function grant_money($null,$id){
+            return "<span class='is_black' style='position:relative;left:28px;' onclick='grant_money(".$id.",this);'>立即放款</span>";
+        }
+?>
+<input type="hidden" id='action' name='action' value='{$now_action}'/>
+<input type="hidden" id='status' name='status' value='0'/>
+<div class="main">
+<div class="main_title">红包列表</div>
+<div class="blank5"></div>
+<div class="button_row">
+    <form name="search" id='search_bonus' action="__APP__" method="get">
+         {%REAL_NAME}：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+         {%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+         {%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+         {%STATUS}：<select name="userBonus">
+                                    <option value="0">请选择</option>
+                                    <option value="1"<if condition="intval($_REQUEST['userBonus']) eq 1 ">selected</if>>未处理</option>
+                                    <option value="2"<if condition="intval($_REQUEST['userBonus']) eq 2 ">selected</if>>申请提现中</option>
+                                    <option value="3"<if condition="intval($_REQUEST['userBonus']) eq 3 ">selected</if>>已放款</option>
+                              </select>
+        <!-- <input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" /> -->
+<!--        <input type="hidden" id='now_action' name='now_action' value='{$now_action}'/>-->
+        <input type="hidden" value="UserBonus" name="m" />
+	<input type="hidden" value="{$now_action}" name="a" />
+        <input type="submit" class="button" value="{%SEARCH}"/>
+    <!--<input type="button" class="button" value="导出全部" onclick="export_bonus();" />
+    	<input type="button" class="button" value="批量放款" onclick="batch_deal();" />-->
+    </form>
+<!--
+        <input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+-->
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+             ,user_id|get_user_name_real:用户名
+              ,money|format_price:红包金额
+              ,bonus_type|getBonusTypeName:红包类型
+              ,status|getBonusStatusName:红包状态
+              ,generation_time|get_time:红包生成时间
+              ,apply_time|get_time:申请提现时间
+              ,release_time|get_date:预计发放日期
+              ,min_limit:金额限制
+              ,start_time|get_time:开始时间
+              ,end_time|get_time:结束时间
+	      ,is_effect|get_is_effect=$deal['id']:{%IS_EFFECT}
+              ,remark:备注"
+	actionwidth="0px"/>
+<!--  actionlist="del:{%DEL}
+        ,apply_time|get_time:申请提现时间
+        ,release_date|get_date:预计发放日期
+       ,grant|grant_money=$deal['id']:红包放款"-->
+        <!--	actionlist="edit:{%EDIT}, del:{%DEL}"-->
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

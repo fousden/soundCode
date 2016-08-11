@@ -1,0 +1,50 @@
+{include file="inc/header.html"}
+<div class="wrap">
+<div class="blank"></div>
+<div class="short f_l">
+	<div id="tree-box" class="tree-box">
+		<div class="tree">
+		{foreach from=$acate_tree item="cate" key=key}
+		{if $cate.pid neq 0}
+			<div class="hd {if $smarty.get.id eq $cate.id}act{/if}">
+			    <a href="/index.php?ctl=helpcenter&id={$cate.id}">{$cate.title}</a>
+			</div>
+		{/if}
+		{/foreach}
+		</div>
+	</div>
+</div>
+<div class="long f_r">
+    <div class="bdd bddf article_box clearfix" >
+        <div class="article_info">
+
+
+                <div style="font-size:20px;padding:10px 0px;border-bottom:1px solid #999999;">
+                    {$cate.title}
+                </div>
+                {if $list}
+                {foreach from=$list item=item}
+                <div style="padding:20px 0;border-bottom:1px dashed #999999;">
+                        <div style="font-size:18px;color:#333333;">
+                            <img style=" vertical-align:middle;" src="./front/images/question.png" />
+			    <a href="{$item.url}" style=" vertical-align:middle;font-size: 16px;">{$item.title}</a>
+                        </div>
+                    <div style="clear:both;">
+                    </div>
+                </div>
+                {/foreach}
+                {else}
+                <div class="p20 tc">
+                    {$page_title}{$LANG.NO_ARTICLE}
+                </div>
+                {/if}
+                <div class="blank"></div>
+                <div class="pages">{$pages}</div>
+                <div class="blank"></div>
+
+        </div>
+    </div>
+</div>
+<div class="blank"></div>
+</div>
+{include file="inc/footer.html"}

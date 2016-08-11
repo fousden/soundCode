@@ -1,0 +1,123 @@
+{include file="./inc/header.html"}
+<style type="text/css">
+	.redbagmain {
+        width: 100%;
+        height: 100%;
+        background: #f6f6f6;
+    }
+    
+    .redbaglist {
+        width: 90%;
+        margin: 10px auto;
+        background: white;
+        padding: 10px;
+    }
+    
+    .redbaglist:last-child {
+        margin-bottom: 0px;
+    }
+    
+    .redbaglist .content {
+        width: 70%;
+        float: left;
+    }
+    
+    .redbaglist .content .title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    
+    .redbaglist .content .redbagnum {
+        margin-bottom: 0.5em;
+        font-size: 1rem;
+    }
+    
+    .redbaglist .content .redbagnum span {
+        color: red;
+        font-size: 1rem;
+        padding-left: 1rem;
+    }
+    
+    .redbaglist .content .redbagdate {
+        font-size: 1rem;
+    }
+    
+    .redbaglist .content .redbagcont {
+        font-size: 1rem;
+        margin-top: 8px;
+        line-height: 1.2rem;
+    }
+    .redbaglist .button-content{
+    	width: 30%;
+    	padding: 30px 0;
+    	float: right;
+    	/*background: red;*/
+    }
+
+	.redbaglist .button-content a{
+		background-color:#47A2E3;
+		border-radius:6px;
+		width:85px;
+		color:white;
+		padding: 6px;
+		vertical-align: middle;
+		text-align: center;
+	}
+</style>
+{if $data.item}
+	<div class="redbagmain">
+		<div class="blank" style="height: 10px;"></div>
+		{foreach from=$data.item item="bag"}
+		<div class="redbaglist">
+			<div class="content">
+				<h1 class="title">{$bag.bonus_type}</h1>
+				<div>
+					<div class="redbagnum">
+						{$bag.status}<span>￥{$bag.money}</span>
+					</div>
+					<div class="redbagdate">{$bag.generation_time}</div>
+					<div style="clear: both"></div>
+				</div>
+				<p class="redbagcont">{$bag.remark}</p>
+			</div>
+			<div class="button-content">
+				{if $bag.m_status == 0}
+					<a href="javascript:void(0);" onclick="carry_now('{$bag.id}')">申请提现</a>
+				{else}
+					{$bag.status}
+				{/if}
+			</div>
+			<div style="clear: both"></div>
+		</div>
+		{/foreach}
+	</div>
+{else}
+<div style="height: 100%; padding-top: 35%">
+	<img src="/wap/tpl/fanwe/images/redbagbg.png" style="display: block; width:50%; margin: 0 auto; ">
+</div>
+{/if}
+
+<script type="text/javascript">
+	function carry_now(bonus_id){
+			$.ajax({
+				url: '/mapi/index.php?act=uc_bonus_carry&r_type=1',
+				data: {
+					'email': '{$data.email}',
+					'pwd': '{$data.pwd}',
+					'bonus_id': bonus_id,
+					'post_type':"json"
+				},
+				type:"Post",
+				dataType: "json",
+				success: function(data){
+					alert(data.show_err);
+					if(data.response_code == 1){
+						location.reload();
+					}
+				}
+			});
+		}
+</script>
+
+{include file="./inc/footer.html"}

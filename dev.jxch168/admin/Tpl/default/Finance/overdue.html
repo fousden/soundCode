@@ -1,0 +1,62 @@
+{// 引入标签库 }
+
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+    function export_csv_overdue_total()
+    {
+        var query = $("#search_form").serialize();
+        var url = ROOT + "?"  + "&" + query + '&xls=true';
+        location.href = url;
+    }
+
+</script>
+<div class="main">
+    <div class="main_title">逾期还款列表</div>
+    <div class="blank5"></div>
+
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" id = "search_form" action="__APP__" method="get">
+            用户名：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+            用户真实姓名：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+            手机号：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+            模糊查询:<input type="checkbox" name="is_mohu" value="1" <if condition="intval($_REQUEST['is_mohu']) eq 1">checked="checked"</if> />
+            结息时间：
+            <input type="text" class="textbox" name="begin_time" id="begin_time" value="{$begin_time}" onfocus="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'begin_time');" style="width:130px" />
+            -
+            <input type="text" class="textbox" name="end_time" id="end_time" value="{$end_time}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" style="width:130px" />
+            <input type="hidden" value="Finance" name="m" />
+            <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+            <input type="button" class="button" value="{%EXPORT}" onclick="export_csv_overdue_total();" />
+        </form>
+    </div>
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+    <html:list
+        id="dataTable"
+        style="dataTable"
+        name="user"
+        datasource="list"
+        show="user_id|get_user_name_real:用户名|250px
+        ,deal_name:标的名称
+        ,true_repay_date:实际还款日
+        ,jiexi_time:结息日
+        ,deal_load_money:投资金额
+        ,deal_rate:年化利率
+        ,day:逾期天数
+        ,jxmoney|num_format:逾期补偿金额
+        " />
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+         
+<include file="Public:footer" />

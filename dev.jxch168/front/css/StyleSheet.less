@@ -1,0 +1,4422 @@
+﻿//引入全局样式
+@import "Site.less";
+.header{
+    border: none;
+}
+//覆盖原CSS文件中关于我们页面左侧导航样式
+.tree-box .tree .hd,.tree-box .tree .aboutnews .item{
+    background: white;
+    color:#666666;
+    &:hover{
+        background: @ColorDarkRed !important;
+        color: white !important;
+    }
+}
+.tree-box .tree .hd a,.tree-box .tree .aboutnews .item a{
+    display: block;
+    &:hover{
+        background:  @ColorDarkRed !important;
+        color: white !important;
+    }
+}
+.tree .act{
+    background: @ColorDarkRed !important;
+    a{
+        color: white !important;
+    }
+}
+
+//
+.tabbox .cur{
+    border-top: 2px solid @ColorLightOrange !important;
+    height: 44px;
+    a{
+        color: @ColorLightOrange;
+    }
+}
+//覆盖原CSS文件中关于我们右侧内容框样式
+.bdd{
+    // border: none;
+    .bdd_article_list{
+        padding: 10px 0;
+        margin-top: 10px;
+        border-bottom: 1px solid @ColorLightBorder;
+        width: 935px;
+        margin: 0 auto;
+        font-size: 20px;
+    }
+    .bdd_article_title_date{
+        min-height: 40px;
+        width: 935px;
+        margin: 0 auto;
+        .article_title{
+            float: left;
+            line-height: 50px;
+        }
+        .publish_time{
+            float: right;
+            border: none;
+            line-height: 60px;
+        }
+    }
+    .article_info{
+        background-color:white !important; padding:0 !important;
+        // border:1px solid @ColorLightBorder;
+        min-height: 590px;
+        width: 935px;
+        margin: 0 auto;
+        padding-bottom: 30px;
+        .artical_back{
+          display: block;
+          width: 100px;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          margin-top: 20px;
+        }
+    }
+}
+//统一导航样式
+.navBox{
+    margin-top:20px;
+    font-size:16px;
+}
+//页头页脚统一样式
+#header,#footer{
+    background-color:#4D4D57 !important;
+}
+//页头
+#header{
+    position:fixed;
+    z-index:1000 !important;
+    width:100%;
+    top:0;
+    border-bottom: 2px solid @ColorLightOrange !important;
+    >.constr{
+        height:29px !important;
+        line-height:30px !important;
+        #J_APP_DOWN{
+            .item{
+               position:relative;
+               color:@ColorTopFontColor;
+               margin-right:15px;
+               font-size:14px;
+               >span{
+                   display:inline-block;
+               }
+               img.icon{
+                   position:relative;
+                   top:5px;
+                   margin-right:7px;
+                   cursor:pointer;
+               }
+
+               .ShowQRCode{
+                   position:relative;
+                   >img.icon{
+                       cursor:pointer;
+                   }
+               }
+
+               .box{
+                   position:absolute;
+                   display:none;
+                   top:40px;
+                   left:-76px;
+                   z-index:100;
+                   background-color:white;
+                   border:10px solid #333;
+                   .BoxRadius;
+                   .BoxShadow;
+                   &:before{
+                        border-left: 6px solid transparent;
+                        border-right: 6px solid transparent;
+                        border-bottom: 10px solid #333;
+                        content:"";
+                        position:absolute;
+                        top:-20px;
+                        left:44%;
+                        z-index:101;
+                   }
+               }
+
+            }
+        }
+        #user_head_tip{
+            padding-top:4px;
+            a{
+                color:@ColorTopFontColor;
+                font-size:14px;
+                &:hover{
+                    text-decoration:underline;
+                    color:white;
+                }
+            }
+            i{
+                margin-left:8px;
+                color:#6F6F77;
+            }
+        }
+    }
+
+    >.main_bars{
+        height:69px;
+        border-bottom:1px solid @ColorLightBorder;
+        >.main_bar{
+            height:inherit;
+            >.logo{
+                height:inherit;
+                a{
+                    height:inherit;
+                }
+            }
+            .no-nav-text{
+                margin-top: 15px;
+                font-size: 18px;
+            }
+            >.main_nav{
+                margin-top:20px;
+                li{
+                    background-color:transparent !important;
+                    >a{
+                        color:@ColorFont333;
+                        &:hover{
+                            color:@ColorLightOrange !important;
+                        }
+                    }
+                    &.current{
+                        >a{
+                            font-weight:bold;
+                        color:@ColorDarkOrange !important;
+                        }
+                    }
+                }
+
+                .sub_main_nav{
+                    a{
+                        text-align:center;
+                        width:100% !important;
+                        padding-left:0;
+                        &:hover{
+                            color:@ColorLightOrange !important;
+                            background-color:transparent !important;
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+}
+//页脚
+#footer{
+    height:245px;
+    width:100%;
+    padding:20px 0;
+    margin-top: 30px;
+    color:white;
+    .solid{
+        display:inline-block;
+        float:right;
+        width:0;
+        height:160px;
+        border-right:1px solid #686870;
+    }
+
+    .left,.center,.right{
+        float:left;
+        margin:0;
+        padding:0;
+        height:100%;
+    }
+
+    .left{
+        width:555px;
+        .menuLIst{
+            display:inline-block;
+            dt,dd{
+                text-align:center;
+                margin-bottom:10px;
+            }
+            dt{
+                font-size:16px;
+            }
+            dd{
+                font-size:14px;
+                a{
+                    color:@ColorTopFontColor;
+                    &:hover{
+                         text-decoration:underline;
+                         color:white;
+                    }
+                }
+            }
+        }
+
+        .addr{
+            margin-top:16px;
+            font-size:13px;
+            line-height: 18px;
+        }
+    }
+
+    .center{
+        width:418px;
+        >.contact{
+            display:inline-block;
+            margin-left:50px;
+            dt,dd{
+                margin-bottom:20px;
+            }
+            dt{
+                font-size:16px;
+                img{
+                    position:relative;
+                    top:3px;
+                    margin-right:10px;
+                }
+            }
+            dd{
+                text-indent:29px;
+                font-size:26px;
+            }
+        }
+
+        >.credit{
+            margin-left:29px;
+            margin-top:12px;
+            >.fimg{
+                display:inline-block;
+                width:109px;
+                height:50px;
+                background-size:109px 50px;
+                margin-right:10px;
+            }
+            >.fimg1{
+                background:url(../images/footer_1_1.png)  top no-repeat;
+                &:hover{
+                    background:url(../images/footer_1_2.png)  top no-repeat;
+                }
+            }
+            >.fimg2{
+                background:url(../images/footer_2_1.png)  top no-repeat;
+                &:hover{
+                    background:url(../images/footer_2_2.png)  top no-repeat;
+                }
+            }
+            >.fimg3{
+                background:url(../images/footer_3_1.png)  top no-repeat;
+                &:hover{
+                    background:url(../images/footer_3_2.png)  top no-repeat;
+                }
+            }
+        }
+    }
+
+    .right{
+        >.Wechat{
+            margin-left:20px;
+            dt,dd{
+                width:160px;
+                text-align:center;
+                font-size:16px;
+            }
+
+            dd{
+                position:relative;
+                top:25px;
+            }
+
+        }
+    }
+}
+//登录
+#loginpage{
+	height: 500px;
+    position:relative;
+	background:url(../images/loginpagebg.jpg) top center no-repeat;
+    // background-size:100%;
+		.cover,#loginbox{
+			width: 340px;
+	    	height: 310px;
+		    .BoxRadius;
+	    	position: absolute;
+		    top: 75px;
+		    right: 0;
+		}
+		.cover{
+	    	background-color: black;
+	    	z-index: 1;
+	    	.Opacity(30);
+	    }
+        .loginbanner{
+            position: absolute;
+            left: 0;
+            top: 75px;
+            z-index: 100;
+        }
+		#loginbox {
+		    color: red;
+		    z-index:100;
+		    h6{
+                width: 260px;
+		    	margin: 10px auto 20px auto;
+		    	color: white;
+		    	padding: 15px 0 10px 0;
+		    	font-size: 22px;
+                font-weight:normal;
+                text-align: center;
+		    }
+            .loginname,.loginpassowrd{
+                width: 100%;
+                input{
+                    width: 260px;
+                    line-height: 1em;
+                    padding: 12px 0;
+                    display: block;
+                    margin: 0 auto;
+                    margin-bottom: 20px;
+                    text-indent: 45px;
+                    font-size: 14px;
+                }
+            }
+            .loginname input{
+                background: url(../images/loginname.jpg) left center no-repeat;
+                background-color: white;
+            }
+            .loginpassowrd input{
+                background: url(../images/loginpassword.jpg) left center no-repeat;
+                background-color: white;
+            }
+            .other{
+                margin-bottom: 16px;
+                margin-top: -4px;
+            }
+		    .loginbtn{
+		    	display: block;
+		    	width: 260px;
+		    	height: 46px;
+                margin:0 auto;
+		    	background-color: @ColorDarkOrange;
+		    	.BoxRadius;
+		    	color: white;
+		    	text-align: center;
+		    	line-height: 46px;
+                font-size: 16px;
+		    	&:hover{
+		    		color: white!important;
+                    background-color: @ColorLightOrange;
+		    	}
+		    }
+            .register,.forgetword{
+                // width: 50%;
+                color: white;
+                position:relative;
+            }
+		    .register{
+		    	text-align: left;
+                left:40px;
+                float:left;
+                font-size: 14px;
+                vertical-align: middle;
+                input[type=checkbox]{
+                    position:relative;
+                    top:2px;
+                    margin-top: -1px;
+                    margin-right:5px;
+                    width: 18px;
+                    height: 18px;
+                    vertical-align: middle;
+                }
+		    }
+		    .forgetword{
+		    	text-align: right;
+                right:40px;
+                float:right;
+                color:@ColorDarkBlue;
+                &:hover{
+                    color:@ColorLightBlue;
+                }
+		    }
+		}
+        .loginfoot{
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            z-index: 2;
+            width: 100%;
+            p{
+                text-align: center;
+                color: #666;
+            }
+        }
+}
+
+//注册
+
+
+//首页banner
+#indexBanner{
+    position:relative;
+    height:auto;
+    #registerBox,#loginBox{
+        color:@ColorFont666;
+        position:absolute;
+        z-index:2;
+        width:350px;
+        height:250px;
+        background:url(../images/registerBoxbg.png) repeat;
+        .BoxRadius;
+        top:50px;
+        right:0px;
+    }
+    #registerBox{
+        p{
+            display:block;
+            margin:0 auto;
+            width:300px;
+            white-space:nowrap;
+           overflow:hidden;
+            &.title,&.adv{
+                font-size:16px;
+            }
+            &.title,&.adv,&.bottomLinks{
+                margin-top:10px;
+            }
+            &.title{
+                color:@ColorFont333;
+            }
+            &.percentage{
+                margin:20px auto;
+                font-size:60px;
+                text-align:center;
+                height:50px;
+                line-height:50px;
+                overflow:visible;
+                font-weight:bold;
+                color:@ColorLightYellow;
+                font-family:Arial, Helvetica, sans-serif;
+            }
+            &.adv{
+                >.count{
+                    font-weight:bold;
+                    color:@ColorFont333;
+                }
+            }
+            &.bottomLinks{
+               text-align:right; 
+               a{
+                   color:@ColorDarkBlue;
+                   &:hover{
+                       text-decoration:underline;
+                       color:@ColorLightBlue;
+                   }
+               }
+            }
+        }
+        .registerbtn{
+            background-color:@ColorDarkOrange;
+            margin:0 auto;
+            width:85%;
+            .BoxRadius;
+            margin-top:10px;
+            height:45px;
+            line-height:45px;
+            font-size:18px;
+            text-align:center;
+            cursor:pointer;
+            display:block;
+            color:white;
+            &:hover{
+                background-color:@ColorLightOrange;
+                color:white !important;
+            }
+        }
+    }
+    #loginBox{
+        color: @ColorFont666;
+        p{
+            display:block;
+            margin:0 auto;
+            width:300px;
+            white-space:nowrap;
+            overflow:hidden;
+            &.title,&.adv{
+                font-size:16px;
+            }
+            &.title{
+                margin-top:10px;
+                color:@ColorFont333;
+                font-weight:bold;
+            }
+
+            &.info{
+                margin:30px auto;
+                >.name{
+                    font-weight:bold;
+                    color:@ColorFont333;
+                }
+            }
+
+            &.bottomLinks{
+                margin-top:30px;
+               text-align:right; 
+               a{
+                    text-decoration:underline;
+                    color:@ColorFont999;
+                   &:hover{
+                       color:@ColorFont666;
+                       text-decoration:underline;
+                   }
+               }
+            }
+        }
+        .registerbtn{
+            background-color:@ColorDarkOrange;
+            margin:0 auto;
+            width:85%;
+            .BoxRadius;
+            margin-top:10px;
+            height:45px;
+            line-height:45px;
+            font-size:18px;
+            text-align:center;
+            cursor:pointer;
+            display:block;
+            color:white;
+            &:hover{
+                background-color:@ColorLightOrange;
+                color:white !important;
+            }
+        }
+    }
+
+    #main_adv_box{
+        height:350px !important;
+        >.main_adv_ctl{
+            ul{
+                >li{
+                    height:10px;
+                    width:10px;
+                    background-color:#9F89A1;
+                    &.act{
+                        background-color:@ColorDarkOrange;
+                        height:8px;
+                        width:8px;
+                        border:2px solid white;
+                        .BoxRadius(10px);
+                        position:relative;
+                        top:-1px;
+                    }
+                }
+            }
+        }
+    }
+    #showcase{
+        height:90px;
+        background-color:#E5E5E5;
+        .left,.right{
+            float:left;
+            display:block;
+            height:100%;
+            &:hover{
+                .info{
+                    color:@ColorDarkOrange;
+                    .title{
+                        color:@ColorDarkOrange;
+                    }
+                }
+            }
+            .img,.info{
+                float:left;
+            }
+            .img{
+                display:inline;
+                margin-left:40px;
+                margin-right:10px;
+                position:relative;
+                top:5px;
+            }
+
+            .info{
+                margin-top:5px;
+                display:inline-block;
+                color:@ColorFont666;
+                font-size:16px;
+                line-height:40px;
+                >.title{
+                    color:@ColorFont333;
+                    font-size:18px;
+                }
+                >.amount{
+                    font-size:22px;
+                    .FontIconLeftAndRight;
+                    font-weight:bold;
+                    color:@ColorLightYellow;
+                    margin-top: -4px;
+                }
+            }
+        }
+
+        .left{
+            width:530px;
+        }
+
+        .right{
+            width:670px;
+        }
+    }
+}
+
+#indexguide{
+    width: 100%;
+    height: 400px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99998;
+    overflow: visible;
+    #indexguidecover{
+        width: 100%;
+        height: 0px;
+        background-color: black;
+        .Opacity(50);
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: none;
+    }
+
+    #indexguidebox{
+        width: 700px;
+        height: 392px;
+        position: relative;
+        background-color: white;
+        .BoxRadius(10px);
+        // border: 1px solid red;
+        background: white;
+        background: url(../images/gbg.png);
+        background-position: -20px -18px;
+        background-size: 736px 421px;
+        .flexslider{
+            width: 605px;
+            height: 392px;
+            margin: 0 auto;
+            border: 0px;
+            .boxShadow2(0px,0px,0px,#333);
+            .BoxRadius(30px);
+            // display: none;
+            .flex-viewport{
+                // display: none;
+            }
+            .flex-control-nav{
+                top:360px;
+                  li a{
+                   .BoxRadius(50%) !important;
+                   background: @ColorDark2Orange;
+                  }
+                li a:hover{
+                    background: @ColorDark1Orange;
+                }
+                .flex-active{
+                    background: @ColorDark1Orange;
+                }
+            }
+            .flex-direction-nav{
+                li a{
+                    display: block;
+                    height: 392px;
+                    width: 46px;
+                    top: 20px;
+                    .Opacity(100%);
+                    z-index: 5;
+                    background-color: rgba(251, 251, 246, 0);
+                    &:hover{
+                        background-color: rgba(255, 255, 248, 30%);
+                    }
+                }
+                li a.flex-prev{
+                    left: -48px;
+                    // border-top-left-radius:8px;
+                    // border-bottom-left-radius:8px;
+                    background-position: 8px center;
+                    &:hover{
+                        background-position: -57px center;
+                    }
+                }
+                li a.flex-next{
+                    left: 606px;
+                    // border-top-right-radius:8px;
+                    // border-bottom-right-radius:8px;
+                    background-position: -120px center;
+                    &:hover{
+                        background-position: -188px center;
+                    }
+                }
+            }
+            .flex-direction-nav a {
+                opacity: 100%;
+            }
+        }
+        .indexguideclose{
+            width: 13px;
+            height: 13px;
+            background:url(../images/indexguideclose.png);
+            background-size: 100% 200%;
+            position: absolute;
+            background-color: #f3f6f8;
+            z-index: 10;
+            top: 13px;
+            right: 13px;
+            border: 4px solid #f3f6f8;
+            &:hover{
+                background-position: bottom center;
+                cursor: pointer;
+            }
+        }
+    }
+}
+#notice{
+    height:39px;
+    // border-bottom: 1px solid @ColorLightBorder;
+    border-top: 1px solid @ColorLightBorder;
+    background-color: white;
+    font-size: 0;
+    .name,.cont{
+        font-size: 14px;
+        float: left;
+        height: 100%;
+        line-height: 39px;
+    }
+    .name{
+        width: 200px;
+        text-align: center;
+        border-right: 1px solid @ColorLightBorder;
+    }
+    .cont{
+        width: 999px;
+        white-space: nowrap;
+        overflow: hidden;
+        a{
+            margin-right: 28px;
+            color: @ColorFont999;
+            &:hover{
+                color: @ColorLightOrange;
+            }
+        }
+    }
+
+}
+#showcase{
+    border-top: 1px solid @ColorLightBorder;
+    border-bottom: 1px solid @ColorLightBorder;
+    padding-bottom: 20px;
+    .wrap{
+        &:after{
+            display: block;
+            content: "";
+            clear: both;
+        }
+        .morenum{
+            display: block;
+            text-align: right;
+            vertical-align: middle;
+            padding-top: 20px;
+            a{
+                padding-right: 20px;
+            }
+        }
+        .item{
+            width: 171px;
+            float: left;
+            padding:10px 0 0 0;
+            text-align: center;
+            .num{
+                font-size: 28px;
+                color: @ColorLightOrange;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+//首页
+#index{
+    position:relative;
+    
+    #figure{
+        // margin-top:20px;
+        // background-color: white;
+        // border: 1px solid @ColorLightBorder;
+        // border-top: 1px solid @ColorLightBorder;
+        margin:20px auto;
+        overflow: hidden;
+        // padding-top: 30px;
+        padding-bottom:30px;
+        transform: all .5;
+        &:hover{
+            // border: 1px solid @ColorDarkBorder;
+        }
+
+        .left{
+            width:430px;
+            .container{
+                // width: 80%;
+                margin-right: 0;
+                margin-left: 20px;
+            }
+            .tit{
+                font-size: 18px;
+                color: @ColorFont666;
+                font-weight: bold;
+            }
+            .info{
+                margin-top: 14px;
+                // text-indent: 28px;
+                font-size: 12px;
+                text-align: justify;
+            }
+        }
+        .right{
+            width: 730px;
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+            &:after{
+                display: block;
+                content: "";
+                clear: both;
+            }
+            .animate{
+                // display: block;
+                position: absolute;
+                top: 0;
+                left: -80px;
+                // width: 80px;
+                // height: 80px;
+                // border: none!important;
+            }
+            .f_box{
+                float: left;
+                width: 240px;
+                // margin-left: 10px;
+                border: none;
+                img{
+                    width: 70px;
+                    float: left;
+                    vertical-align: middle;
+                    // margin-top: 10px;
+                    margin-right: 10px;
+                }
+                >div{
+                    float: right;
+                    width: 160px;
+                    .name,info{
+                        display: block;
+                    }
+                    .name{
+                        font-size: 16px;
+                        text-align: left;
+                        // margin-bottom: 10px;
+                        color: @ColorFont333;
+                    }
+                    .info{
+                        // margin-top: 10px;
+                        font-size: 12px;
+                        text-align: left;
+                        color: @ColorFont999;
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+    #investList{
+        margin-top:20px;
+        .box{
+            margin-top:20px;
+            margin-bottom:20px;
+            height:230px;
+            border:1px solid @ColorLightBorder;
+            .BoxRadius;
+            background-color:white;
+            position: relative;
+            &:hover{
+                border:1px solid @ColorDarkBorder;
+            }
+            &:first-child{
+                margin-top:0;
+            }
+            &:last-child{
+                margin-bottom:0;
+            }
+            >.tips{
+                position: absolute;
+                top: -14px;
+                left: 0;
+                width: 175px;
+                padding: 0;
+                z-index: 200;
+                border: none;
+                font-size: 20px;
+                background: none;
+                >.header{
+                    height: 58px;
+                    color: white;
+                    line-height: 58px;
+                    text-indent: 2em;
+                    cursor: pointer;
+                    border: none;
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+                .more{
+                    display: none;
+                    font-size: 18px;
+                    width: 165px;
+                    margin: 0;
+                    padding: 10px 0 20px 0;
+                    // opacity: 0;
+                    p{
+                        width: 110px;
+                        margin: 0 auto;
+                        line-height: 35px;
+                        color: white;
+                        text-indent: 1.5em;
+                        cursor: pointer;
+                        background:url(../images/index_list_moreicon.png) no-repeat left center;
+                    }
+                }
+                .more_piaohao{
+                    background: url(../images/index_morepiaohao.png);
+                }
+                .more_baoli{
+                    background: url(../images/index_morebaoli.png);
+                }
+                .more_zulin{
+                    background: url(../images/index_morezulin.png);
+                }
+                .more_yinhang{
+                    background: url(../images/index_moreyinhang.png);
+                }
+            }
+            >.piaohao{
+                .header{
+                    background:url(../images/index_list_tipsbg.png) left top;
+                }
+            }
+            >.baoli{
+                .header{
+                    background:url(../images/index_list_tipsbg.png) left -58px;
+                }
+            }
+            >.zulin{
+                .header{
+                    background:url(../images/index_list_tipsbg.png) left -116px;
+                }
+            }
+            >.yinhang{
+                .header{
+                    background:url(../images/index_list_tipsbg.png) left -174px;
+                }
+            }
+
+
+            >.f_l{
+                // width: 898px;
+                border-right: 1px solid @ColorLightBorder;
+                >.header{
+                    padding-left: 200px;
+                    padding-top: 20px;
+                    font-size: 20px;
+                    // cursor: pointer;
+                }
+                .infotop{
+                    text-align: center;
+                    padding: 15px 0;
+                    .rate,.duration,.safeperson{
+                        border: none;
+                        >.title{
+                            font-size: 16px;
+                            margin: 20px 0;
+                        }
+                    }
+                    .rate{
+                        width: 190px;
+                        .cont{
+                            color: @ColorLightYellow;
+                            font-size: 24px;
+                            font-weight: bold;
+                        }
+                    }
+                    .duration{
+                        width: 138px;
+                        .cont{
+                            color: @ColorFont666;
+                            font-size: 24px;
+                            font-weight: bold;
+                        }
+                    }
+                    .safeperson{
+                        width: 200px;
+                        .cont{
+                            // width: 180px;
+                            height: 30px;
+                            display: block;
+                            margin: 0 auto;
+                            border: none;
+                        }
+                    }
+                    .other{
+                        width: 360px;
+                        .progressbarbox{
+                            margin: 20px auto;
+                            width: 80%;
+                            position: relative;
+                            height: 10px;
+                            .BoxRadius(10px);
+                            background: @ColorLightBorder;
+                            >.cont{
+                                display: block;
+                                width: 0%;
+                                height: 100%;
+                                .BoxRadius(5px);
+                                background: @ColorLightOrange;
+                            }
+                        }
+                        .surplus{
+                            // font-size: 16px;
+                        }
+                    }
+                }
+                .infobottom{
+                    width: 849px;
+                    margin: 0 auto;
+                    padding: 15px 0;
+                    border-top: 1px solid @ColorLightBorder;
+                    // margin-top: 10px;
+                    >.f_l{
+                        padding-left: 20px;
+                        span{
+                            color: @ColorDarkRed;
+                            font-size: 16px;
+                        }
+                    }
+                    >.f_r{
+                        padding-right: 20px;
+                        // font-size: 14px;
+                    }
+                }
+            }
+            >.f_r{
+                width: 300px;
+                padding-top: 20px;
+                .investnum,.investresult{
+                    width: 271px;
+                    margin: 10px auto;
+                    border-bottom: 1px solid @ColorLightBorder;
+                    .title,.unit{
+                        float: left;
+                        margin-top: 10px;
+                    }
+                    input{
+                        width: 140px;
+                        float: left;
+                        height: 22px;
+                        line-height: 22px;
+                        padding: 10px;
+                        font-size: 18px;
+                        color: @ColorFont999;
+                    }
+                }
+                .investresult{
+                    input{
+                        color: @ColorLightYellow;
+                        // font-size: 20px;
+                    }
+                }
+                .investbtn{
+                    display: block;
+                    width: 155px;
+                    padding: 6px 0;
+                    margin: 40px auto;
+                    background: white;
+                    // .BoxRadius(4px);
+                    border: 2px solid @ColorLightOrange;
+                    text-align: center;
+                    color: @ColorLightOrange;
+                    // font-weight: bold;
+                    font-size: 16px;
+                    &:hover{
+                        background: @ColorLightOrange;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+    #news{
+        padding-top: 14px;
+        margin: 20px 0;
+        // height: 234px;
+        background: url(../images/index_news_bg.png) no-repeat top left;
+        .container{
+            border: 1px solid @ColorLightBorder;
+            // overflow: hidden;
+            background-color: white;
+            .BoxRadius(4px);
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            &:after{
+                display: block;
+                content: "";
+                clear: both;
+            }
+            .sub_nav{
+                width: 165px;
+                float: left;
+                // height: 234px;
+                background: url(../images/index_news_leftbg.png) repeat-y;
+                // position: relative;
+                // top: 0px;
+                // left: 0px;
+                // z-index: 30;
+                margin-left: -1px;
+                margin-top: -1px;
+                li{
+                    // background: url(../images/index_news_leftbg.png);
+                    border: none;
+                    padding: 6px 0;
+                    padding-left: 20px;
+                    // background-color: #fa8439;
+                    a{
+                        display: block;
+                        padding: 12px 0;
+                        font-size: 16px;
+                        text-indent: 24px;
+                        color: white;
+                    }
+                }
+                .active{
+                    a{
+                        background: white;
+                        font-weight: bold;
+                        color: #fa8439;
+                    }
+                }
+                .morenews{
+                    text-indent: 2em;
+                    span{
+                        background: lighten(@ColorLightOrange,20%);
+                        padding: 4px 10px;
+                        font-size: 14px;
+                        &:hover{
+                            background-color: darken(@ColorLightOrange,1%)
+                        }
+                    }
+                }
+            }
+            .newscont{
+                width: 610px;
+                height: 214px;
+                // overflow: hidden;
+                float: left;
+                margin: 30px 50px 0 40px;
+                // padding: 20px 40px 0 40px;
+                position: relative;
+                .zixun,.huodong,.gonggao{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    display: none;
+                    .item{
+                        margin-bottom: 15px;
+                        .top{
+                            &:after{
+                                display: block;
+                                content: "";
+                                clear: both;
+                            }
+                            .title{
+                                float: left;
+                                font-weight: bold;
+                                font-size: 16px;
+                                width: 60%;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                            }
+                            .date{
+                                font-size: 16px;
+                                float: right;
+                            }
+                        }
+                        .cont{
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                    }
+                }
+                .active{
+                    display: block;
+                }
+            }
+            .subimg{
+                width: 260px;
+                height: 170px;
+                padding: 20px 0 0 0 ;
+                float: left;
+                margin: 16px 0 0 30px;
+                // height: 80%;
+                // border: 1px solid @ColorLightBorder;
+                img{
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+    #co-media{
+        margin: 20px 0;
+        .name{
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        ul.slidebox{
+            height: 180px;
+            /* &:after{
+                display: block;
+                content: "";
+                clear: both;
+            } */
+            li.item{
+                float: left;
+                width: 240px;
+                a{
+                    display: block;
+                    padding: 5px 10px;
+                    img{
+                        display: block;
+                        border: none;
+                        width: 100%;
+                    }
+                }
+            } 
+            /* li{
+                background-color: orange;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                font-size: 30px;
+            } */
+        }
+    }
+    >#floatlink{
+        position: fixed;
+        top: 0px;
+        right: 2%;
+        width: 50px;
+        z-index: 30;
+        display: none;
+        a{
+            width: 50px;
+            height: 50px;
+            display: block;
+            margin-bottom: 2px;
+            background-position: left top;
+            background-repeat: no-repeat;
+            &:hover{
+                background-position: -52px top;
+            }
+        }
+        .esq{
+            background: url(../images/float_link_esq.png);
+        }
+        .esqcont{
+            position: relative;
+            display: none;
+            top: -260px;
+            right: 250px;
+            width: 240px;
+            border-radius: 4px;
+            background: #465058;
+            color: white;
+            padding: 5px 0;
+            .hotline,.qun,.kefuwechat{
+                width: 160px;
+                padding: 5px 0 5px 50px;
+                p{
+                    line-height: 1.7em;
+                    width: 160px;
+                    font-size: 14px;
+
+                }
+            }
+            .hotline{
+                background: url(../images/floatlink_phone.png) no-repeat;
+                background-size:  10% auto;
+                background-position: 5px 10px;
+            }
+            .qun{
+                background: url(../images/floatlink_qun.png) no-repeat;
+                background-size:  14% auto;
+                background-position: 5px 10px;
+            }
+            .line{
+                font-size: 20px;
+                border-bottom: 1px dotted white;
+            }
+            .kefuwechat{
+                background: url(../images/floatlink_weiqun.png) no-repeat;
+                background-size:  14% auto;
+                background-position: 5px 10px;
+                img{
+                    width: 80%;
+                    margin-top: 5px;
+                    border: 5px solid #323a41;
+                    border-radius: 4px;
+                    // height: 200px;
+                }
+            }
+        }
+        .counter{
+            background: url(../images/float_link_counter.png);
+        }
+        .active{
+            background: url(../images/float_link_active.png);
+        }
+        .app{
+            background: url(../images/float_link_app.png);
+        }
+        .wechat{
+            background: url(../images/float_link_wechat.png);
+        }
+        .dingyue{
+            position: relative;
+            top: -50px;
+            left: -160px;
+            display: none;
+            padding: 5px;
+            background: @ColorFont666;
+            .BoxRadius(5px);
+        }
+    }
+}
+//投资列表
+#investmentList{
+    position:relative;
+    #navBox{
+        margin-top:20px;
+        font-size:16px;
+    }
+
+    #FilterBox{
+        margin:0 auto;
+        margin-top:16px;
+        font-size:18px;
+        overflow:hidden;
+        position:relative;
+        background-color: white;
+        border:1px solid @ColorLightBorder;
+        .BoxRadius(4px);
+        padding-top: 10px;
+        .canHideBox{
+           width:100%;
+           overflow:hidden;
+        }
+        dl.item{
+            display:block;
+            margin-left:20px;
+            clear:both;
+            height:30px;
+            margin-bottom:10px;
+            font-size: 16px;
+            &:last-child{
+                margin-bottom:0;
+            }
+            dt,dd{
+                float:left;
+                min-width:120px;
+                height:30px;
+                line-height:30px;
+            }
+            dt{
+                color:@ColorFont333;
+                text-align:left;
+            }
+            dd{
+                text-align:center;
+                // text-indent: 1em;
+                &:last-child{
+                    margin-right:0;
+                }
+                a{
+                    color:@ColorFont666;
+                    display:inline-block;
+                    width: 90px;
+                    margin-left: 10px;
+                    height:30px;
+                    line-height:30px;
+                    padding:0 16px;
+                    background-color:transparent;
+                    .BoxRadius;
+                    &:hover{
+                        // background-color:@ColorLightOrange;
+                        color:@ColorLightOrange !important;
+                    }
+                    &.current{
+                        background-color:@ColorLightOrange;
+                        color:white;
+                        &:hover{
+                            color:white !important;
+                        }
+                    }
+                }
+            }
+        }
+        a.ShowAndHide{
+            color:@ColorLightBlue;
+            font-size: 16px;
+            display:inline-block;
+            float:right;
+            position:absolute;
+            bottom:10px;
+            right:20px;
+            cursor: pointer;
+            >.iconfont{
+                color:@ColorFont333;
+            }
+        }
+    }
+
+    #orderBox{
+        // border:1px solid @ColorLightBorder;
+        height:50px;
+        line-height:50px;
+        // background-color:white;
+        font-size:16px;
+        text-indent:20px;
+        // margin-top:20px;
+        >.name{
+            color:@ColorFont333;
+            margin-right:10px;
+        }
+        >a{
+            margin: 0 30px;
+            color:@ColorFont666;
+        }
+        span{
+            color:@ColorLightBorder;
+            font-size:20px;
+        }
+    }
+
+    #investList{
+        margin-top:10px;
+        .box{
+            background-color:white;
+            margin-bottom:10px;
+            height:178px;
+            border:1px solid @ColorLightBorder;
+            .BoxRadius;
+            &:hover{
+                border:1px solid @ColorDarkBorder;
+            }
+            &:first-child{
+                margin-top:0;
+            }
+            &:last-child{
+                margin-bottom:0;
+            }
+            .p_info,.pct{
+                float:left;
+                height:100%;
+            }
+            &.complete{
+                .btnInvest{
+                    background-color:@ColorDarkBorder !important;
+                }
+            }
+
+            .p_info{
+                width:100%;
+                .top,.bottom{
+                    width:1139px;
+                    margin-left:30px;
+                }
+
+                .top{
+                    height:50px;
+                    line-height:50px;
+                    color:@ColorFont666;
+                    border-bottom:1px solid @ColorLightBorder;
+                    .name{
+                        font-size:20px;
+                        cursor: pointer;
+                        cursor: pointer;
+                    }
+                    .time{
+                        font-size:16px;
+                    }
+                }
+
+                .bottom{
+                    height:110px;
+                    .layout{
+                        display:inline-block;
+                        overflow:hidden;
+                        height:100%;
+                        >.title{
+                            margin-top:15px;
+                            font-size:16px;
+                        }
+                        >.content{
+                            margin-top:33px;
+                            font-size:32px;
+                            font-weight:bold;
+                            color: @ColorLightYellow;
+                            .unit{
+                                font-size:16px;
+                                margin-left:16px;
+                                color: @ColorFont666;
+                            }
+                        }
+
+                        &.rate{
+                        width:210px;
+                        }
+                        &.timeLimit{
+                            width:215px;
+                        }
+                        &.prodAmount{
+                            width:275px;
+                        }
+                        &.security{
+                            width:240px;
+                        }
+                        &.opt_right{
+                            width:165px;
+                            //这里的css定义投资列表内的进度条
+                            .progressbarbox {
+                                // height:30px;修改之前的样式
+                                //修改后begin
+                                height: 8px;
+                                background-color: @ColorLightBorder;
+                                margin: 25px 0;
+                                .BoxRadius(5px);
+                                position: relative;
+                                //修改后end
+                                .sample_goal{
+                                   //margin-top:30px;修改之前的样式
+                                   //修改后begin
+                                    width: 0%;
+                                    height: 8px;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    background-color: @ColorDarkOrange;
+                                    margin-bottom: 25px;
+                                    .BoxRadius(5px);
+                                    //修改后end0
+                                }
+                                .sample_text{
+                                    color: @ColorFont999;
+                                    padding-top: 16px;
+                                    text-align: center;
+                                    font-size: 16px;
+                                }
+                            }
+                            .btnInvest{
+                                margin-top:15px;
+                                display:inline-block;
+                                height:40px;
+                                line-height:40px;
+                                color:white;
+                                background-color:@ColorDarkOrange;
+                                width:100%;
+                                text-align:center;
+                                &:hover{
+                                    color:white !important;
+                                    background-color:@ColorLightOrange;
+                                }
+                            }
+                        }
+                    }
+                    .timeLimit .content{
+                        color: @ColorFont666;
+                    }
+
+                    
+                }
+            }
+        }
+    }
+}
+//投资详细
+#investbag{
+    width: 1200px;
+    margin: 0 auto;
+    font-size: 16px;
+    background-color: @ColorBody;
+    .webplace{
+        font-size: 16px;
+        padding: 20px 0;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .webplace .place3{
+        color: @ColorDarkBlue;
+    }
+    .topcont{
+        width: 1198px;
+        border: 1px solid @ColorLightBorder;
+        margin: 0 auto;
+        background-color: white;
+        .topconttitle{
+            width: 1160px;
+            height: 49px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-bottom: 1px solid @ColorLightBorder;
+            .bagname{
+                float: left;
+                font-size: 22px;
+                line-height: 49px;
+            }
+            .bagnum{
+                line-height: 49px;
+                float: right;
+                margin-right: 30px;
+                em{
+                color: @ColorLightRed;
+                border-bottom: 1px solid @ColorLightRed;
+                // font-size: 18px;
+                }
+            } 
+            .follow{
+                float: right;
+                width: 76px;
+                height: 26px;
+                line-height: 26px;
+                background-color: @ColorLightBlue;
+                text-align: center;
+                border: none;
+                font-size: 14px;
+                .BoxRadius(3px);
+                color: white;
+                margin-top: 12px;
+                margin-right: 20px;
+            }
+            .followaway{
+                background: @ColorLightBorder;
+                color: @ColorLightBlue;
+            }
+        }
+        .load{
+            background:url(../images/load.png) no-repeat;
+        }
+        .load_before{
+            background:url(../images/load_before.png) no-repeat;
+        }
+        .load_done{
+            background:url(../images/load_done.png) no-repeat;
+        }
+        .load_fail{
+            background:url(../images/load_fail.png) no-repeat;
+        }
+        .load_full{
+            background:url(../images/load_full.png) no-repeat;
+        }
+        .load_in_progress{
+            background:url(../images/load_in_progress.png) no-repeat;
+        }
+        .bagcont{
+            width: 1160px;
+            margin: 10px auto;
+            // overflow: hidden;
+            background-position: 650px 170px;
+            // padding-bottom: 20px;
+            .leftlist,.middlelist,.rightlist{
+                float: left;
+            }
+            .leftlist{
+                width: 180px;
+                height: 250px;
+                margin-top: 80px;
+                border-right: 1px solid @ColorLightBorder;
+                .rate{
+                    padding-top: 50px;
+                    width: 169px;
+                    float: left;
+                    height: 210px;
+                    .name{
+                        color: @ColorFont666;
+                        text-align: center;
+                    }
+                    .cont{
+                        text-align: center;
+                        color: @ColorLightYellow;
+                        font-size: 42px;
+                        margin-top: 35px;
+                        font-weight: bold;
+                    }
+                }
+            }
+            .middlelist{
+                margin-left: 30px;
+                margin-top: 40px;
+                width: 560px;
+                height: 270px;
+                // border-right: 1px solid @ColorLightBorder;
+                .name{
+                    color: @ColorFont999;
+                    text-align: center;
+                }
+                .otherlist{
+                    float: left;
+                    height: 83px;
+                    padding: 0 10px;
+                    .cont{
+                        color: @ColorFont666;
+                        font-weight: bold;
+                        margin: 0 auto;
+                        text-align: center;
+                    }
+                }
+                .duration,.money,.interest,.mode,.safeperson,.deadline{
+                    padding-bottom: 20px;
+                    // border-bottom: 1px solid @ColorLightBorder;
+                }
+                .middleup,.middledown{
+                    overflow: hidden;
+                }
+                .middleup{
+                    margin-top: 40px;
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid @ColorLightBorder;
+                    .duration{
+                        width: 120px;
+                        border-right: 1px solid @ColorLightBorder;
+                        .cont{
+                            margin-top: 30px;
+                            span{
+                                color: @ColorFont666;
+                                font-size: 24px;
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                    .money{
+                        width: 194px;
+                        border-right: 1px solid @ColorLightBorder;
+                        .cont{
+                            margin-top: 30px;
+                            span{
+                                color: @ColorLightYellow;
+                                font-size: 24px;
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                    .interest{
+                        width: 120px;
+                        .cont{
+                            margin-top: 30px;
+                            font-size: 24px;
+                            color: @ColorLightYellow;
+                        }
+                    }
+                }
+                .middledown{
+                    padding-top: 20px;
+                    .mode{
+                        width: 120px;
+                        border-right: 1px solid @ColorLightBorder;
+                        .cont{
+                            margin-top: 36px;
+                        }
+                    }
+                    .safeperson{
+                        width: 194px;
+                        border-right: 1px solid @ColorLightBorder;
+                        .cont{
+                            margin-top: 35px;
+                            display: block;
+                            width: auto;
+                            height: 30px;
+                        }
+                    }
+                    .deadline{
+                        width: 120px;
+                        .cont{
+                            margin-top: 36px;
+                        }
+                    }
+                }
+            }
+            .rightlist{
+                width: 358px;
+                float: right;
+                min-height: 388px;
+                // height: 320px;
+                .BoxRadius(4px);
+                border: 1px solid @ColorLightBorder;
+                >ul{
+                    width: 300px;
+                    margin: 0 auto;
+                    list-style: none;
+                    >li{
+                        // overflow: hidden;
+                        // height: 40px;
+                        margin-bottom: 10px;
+                        input{
+                            display: block;
+                            padding: 8px 0;
+                            width: 298px;
+                            color: @ColorDarkBorder;
+                            font-weight: bold;
+                            font-size: 16px;
+                            border:1px solid @ColorLightBorder;
+                            text-indent: 0.5em;
+                        }
+                        .btn_group{
+                            width: 294px;
+                            // height: 20px;
+                            position: relative;
+                            margin-bottom: 20px;
+                            position: relative;
+                            .dropdown_toggle{
+                                display: block;
+                                width: 100%;
+                                height: 40px;
+                                border: 1px solid @ColorLightBorder;
+                                .BoxRadius(2px);
+                                text-align: center;
+                                line-height: 40px;
+                                cursor: pointer;
+                            }
+                            .caret{
+                                position: absolute;
+                                left: 260px;
+                                top: 18px;
+                                border: 5px solid transparent;
+                                display: block;
+                                width: 0px;
+                                height: 0px;
+                                border-top-color: @ColorFont666;
+                            }
+                            .dropdown_menu{
+                                display: none;
+                                width: 100%;
+                                position: absolute;
+                                border: 1px solid @ColorLightBorder;
+                                background: white;
+                                left: 0;
+                                top: 0px;
+                                z-index: 300;
+                                .BoxRadius(4px);
+                                li{
+                                    width: 100%;
+                                    display: block;
+                                    padding: 10px 0;
+                                    // height: 60px;
+                                    text-indent: 1em;
+                                    &:hover{
+                                        background: lighten(@ColorLightBorder, 5%)
+                                    }
+                                    .dixian{
+                                        color: @ColorLightOrange;
+                                        font-size: 18px;
+                                    }
+                                    .shouyi{
+                                        font-size: 18px;
+                                        color: @ColorLightBlue;
+                                    }
+                                    .nocoupon{
+                                        color: @ColorFont666;
+                                        line-height: 40px;
+                                    }
+                                    .biaozhu{
+                                        font-size: 12px;
+                                        color: @ColorFont999;
+                                    }
+                                }
+                            }
+                        }
+                        .investbtn{
+                            height: 40px;
+                            display: block;
+                            width: 296px;
+                            color: white;
+                            margin: 0 auto;
+                            background-color: @ColorDarkOrange;
+                            .BoxRadius(4px);
+                            text-align: center;
+                            line-height: 40px;
+                            &:hover{
+                                background-color: @ColorLightOrange;
+                                color: white !important;
+                            }
+                        }
+                        
+                    }
+                    >.title{
+                        float: left;
+                        // color: red;
+                    }
+                    .recharge{
+                        color: @ColorLightBlue;
+                        float: right;
+                        margin-left: 5px;
+                        font-weight: bold;
+                    }
+                    .persentnum{
+                        color: @ColorLightBlue;
+                        float: right;
+                        font-weight: bold;
+                    }
+                    .balance,.bagbalance{
+                        float: right;
+                        font-weight: bold;
+                    }
+                    .earnings{
+                        float: right;
+                        color: @ColorLightRed;
+                        font-weight: bold;
+                        margin-left: 10px;
+                    }
+                    .actual{
+                        float: right;
+                        color: @ColorLightRed;
+                        font-weight: bold;
+                    }
+                    .progressbarbox {
+                        // height:30px;修改之前的样式
+                        //修改后begin
+                        height: 8px;
+                        background-color: @ColorLightBorder;
+                        margin: 20px 0 20px 0;
+                        .BoxRadius(5px);
+                        position: relative;
+                        //修改后end
+                        .sample_goal{
+                           //margin-top:30px;修改之前的样式
+                           //修改后begin
+                            width: 0%;
+                            height: 8px;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            background-color: @ColorDarkOrange;
+                            margin-bottom: 25px;
+                            .BoxRadius(5px);
+                            //修改后end0
+                        }
+                    }
+                    .touz-login{
+                        margin-top: 60px;
+                    }
+                }
+            }
+        }//bagcont end
+    }
+    .midcont{
+        height: 200px;
+        border: 1px solid @ColorLightBorder;
+        background: white;
+        margin: 10px 0;
+        position: relative;
+        color: @ColorFont666;
+        font-size: 14px;
+        line-height: 1em;
+        .text{
+            position: absolute;
+            left: 10px;
+            top: 0;
+            z-index: 80;
+            >.step{
+                float: left;
+                width: 100px;
+                text-align: center;
+                margin-right: 165px;
+                .time{
+                    margin:30px 0 20px 0;
+                }
+                .stepnum{
+                    width: 32px;
+                    height: 32px;
+                    margin: 20px auto;
+                    line-height: 30px;
+                    // color: white;
+                    background: url(../images/investbag_stepbg.png);
+                    // border: 1px solid @ColorDarkOrange;
+                    // .boxShadow2(0px,0px,4px,white);
+                }
+            }
+        }
+        .map{
+            width: 1100px;
+            margin: 89px auto;
+            >.stepbar{
+                width: 235px;
+                height: 10px;
+                background: @ColorLightBorder;
+                float: left;
+                position: relative;
+                margin-left: 25px;
+                .progressimg{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    display: block;
+                    height: 10px;
+                    width: 0%;
+                    background: @ColorDarkOrange;
+                }
+            }
+            >.step2{
+                width: 235px;
+                margin-left: 30px;
+            }
+            >.step3{
+                width: 235px;
+                margin-left: 30px;
+            }
+            >.step4{
+                width: 235px;
+                margin-left: 30px;
+            }
+        }
+        .f_orange{
+            color: @ColorDarkOrange;
+        }
+        .currentbg{
+            background-position: left bottom !important;
+            color: white;
+        }
+    }
+    .bottomcont{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        .BoxRadius(4px);
+        .f_l{
+            width: 820px;
+            // margin-left: 1px;
+            // border: 1px solid @ColorLightBorder;
+            .bagcontnav{
+                overflow: hidden;
+                // margin-left: 1px;
+                padding-left: 1px;
+                a{
+                    float: left;
+                    width: 272px;
+                    height: 50px;
+                    line-height: 40px;
+                    text-align: center;
+                    font-size: 20px;
+                    text-decoration: none;
+                    color: @ColorFont666;
+                    border: 1px solid @ColorLightBorder;
+                    margin-left: -1px;
+                    background: lighten(@ColorLightBorder,8%);
+                    cursor: pointer;
+                    span{
+                        display: block;
+                        width: 100%;
+                        height: 5px;
+                        background-color: lighten(@ColorLightBorder,8%);
+                    }
+                }
+                .currentnav{
+                    color: @ColorDarkOrange;
+                    background: white;
+                    border-bottom-color:  lighten(@ColorLightBorder,8%);
+                    span{
+                        background: @ColorLightOrange;
+                    }
+                }
+            }
+            .itembox,.riskbox,.ensurebox{
+                width: 778px;
+                padding: 0 20px;
+                min-height: 400px;
+                margin: 0 auto;
+                padding-top: 20px;
+                border: 1px solid @ColorLightBorder;
+                margin-top: -1px;
+                background: white;
+                .nocont{
+                    display: block;
+                    font-size: 40px;
+                    margin-top: 50px;
+                    text-align: center;
+                }
+                h6{
+                    line-height: 30px;
+                    background-color: @ColorLightBorder;
+                    font-size: 16px;
+                    border-left: 5px solid @ColorLightRed;
+                    text-indent: 1em;
+                    margin-bottom: 10px;
+                    color: @ColorFont666;
+                    font-weight: normal;
+                }
+                p{
+                    line-height: 28px;
+                    margin-bottom: 20px;
+                }
+            }
+            .itembox{
+                // display: none;
+            }
+            .riskbox{
+                display: none;
+            }
+            .ensurebox{
+                display: none;
+            }
+        }
+        
+        .assurebox{
+            float: right;
+            width: 358px;
+            // height: 300px;
+            border: 1px solid @ColorLightBorder;
+            background: white;
+            .titlebox{
+                width: 348px;
+                .title{
+                    float: left;
+                    font-size: 20px;
+                    line-height: 50px;
+                    margin-left: 10px;
+                }
+                .imgnav{
+                    float: left;
+                    margin-right: 15px;
+                    margin-left: 20px;
+                    a{
+                        width: 8px;
+                        height: 8px;
+                        float: left;
+                        .BoxRadius(100%);
+                        // background-color: red;
+                        border: 1px solid @ColorDarkBorder;
+                        margin-right: 10px;
+                        margin-top: 20px;
+                        cursor: pointer;
+                    }
+                    .currentnav{
+                        background: @ColorLightOrange;
+                        border-color: @ColorLightOrange;
+                    }
+                }
+                .prevbtn,.nextbtn{
+                    float: left;
+                    margin-top: 20px;
+                    width: 8px;
+                    height: 11px;
+                    background-image: url(../images/turnbtn_sm.png);
+                    background-size: 200%;
+                    cursor: pointer;
+                }
+                .prevbtn{
+                    background-position: left top;
+                    margin-left: 85px;
+                    &:hover{
+                        background-position: left bottom;
+                    }
+                }
+                .nextbtn{
+                    background-position: right top;
+                    margin-right: 15px;
+                    &:hover{
+                        background-position: right bottom;
+                    }
+                }
+            }
+            .imgbox{
+                width: 348px;
+                margin: 0 auto;
+                height: 276px;
+                // margin-left: 10px;
+                overflow: hidden;
+                .imgpage{
+                    width: 348px;
+                    // display: inline-block;
+                    // padding: 0 10px;
+                    // margin-right: 10px;
+                    margin: 0 auto;
+                    // background-color: red;
+                    // border: 1px solid red;
+                    // float: left;
+                    .imgitem{
+                        width: 166px;
+                        height: 80px;
+                        margin: 0 10px 10px 0 ;
+                        overflow: hidden;
+                        float: left;
+                        position: relative;
+                        background-position: center center;
+                        text-align: center;
+                        cursor: pointer;
+                        border: 1px solid @ColorLightBorder;
+                        img{
+                            height: 100%;
+                            width: 80%;
+                        }
+                        &:hover{
+                            border-color: @ColorDarkBlue;
+                            .boxShadow2(0px,0px,10px,@ColorLightBlue);
+                        } 
+                    }
+                }
+                .imgpage_hide{
+                    display: none;
+                }
+            }
+            .alertimgcover,.alertimgshow{
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .alertimgcover{
+                background: black;
+                z-index: 1001;
+                .Opacity(95);
+                display: none;
+            }
+            .alertimgshow{
+                z-index: 1005;
+                display: none;
+                .titlebox{
+                    margin: 0;
+                    color: white;
+                    width: 100%;
+                    height: 50px;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    .title{
+                        float: left;
+                        line-height: 50px;
+                    }
+                    .closebtn{
+                        float: right;
+                        margin-right: 20px;
+                        margin-top: 20px;
+                        line-height: 50px;
+                        cursor: pointer;
+                        width: 15px;
+                        height: 15px;
+                        background-image: url(../images/closebtn.png);
+                        background-position: left top;
+                        background-size: 100% auto;
+                        &:hover{
+                            background-position: left bottom;
+                        }
+                    }
+                }
+                .main{
+                    width: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    // border: 1px solid red;
+                    img{
+                        display: block;
+                        margin: 0 auto;
+                        // max-height: 100%;
+                        // height: 100%;
+                    }
+                    .imgbig{
+                        height: 90%;
+                    }
+                    .imgcenter{
+                        margin: 0 auto;
+                    }
+                }
+                .smimg{
+                    margin: 0 auto;
+                    overflow: hidden;
+                    position: fixed;
+                    height: 86px;
+                    bottom: 20px;
+                    left: 0;
+                    img{
+                        width: 80px;
+                        height: 80px;
+                        // float: left;
+                        margin-right: 10px;
+                        border: 3px solid transparent;
+                        cursor: pointer;
+                        &:hover{
+                            border-color: @ColorLightBlue;
+                        }
+                    }
+                    .currentimg{
+                        border-color: @ColorLightBlue;
+                    }
+                }
+                .smimg_scroll{
+                    width: 80%;
+                    height: 106px;
+                    overflow-x: scroll;
+                    white-space: nowrap;
+                }
+                .lastbtn,.nextbtn{
+                    position: fixed;
+                    top: 50%;
+                    width: 41px;
+                    height: 40px;
+                    // border: 1px solid red;
+                    font-size: 40px;
+                    color: white;
+                    background-image: url(../images/turnbtn.png);
+                    cursor: pointer; 
+                }
+                .lastbtn{
+                    left: 20px;
+                    background-position: left top;
+                    &:hover{
+                        background-position: left bottom;
+                    }
+                }
+                .nextbtn{
+                    right: 20px;
+                    background-position: right top;
+                    &:hover{
+                        background-position: right bottom;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+//我的账户首页new
+#manageleft{
+    background: white;
+    width: 192px;
+    #vipcenter{
+        border: 1px solid @ColorLightBorder;
+        .top{
+            border-bottom: 1px solid @ColorLightBorder;
+            // img{
+            //  margin: 15px 10px;
+            //  border: 1px solid @ColorDarkBorder;
+            //  .BoxRadius(5px);
+            // }
+            div{
+                width: 172px;
+                margin: 0 10px;
+                vertical-align: middle;
+                .smname span{
+                    display: inline-block;
+                    // color: red;
+                    width: 70%;
+                    line-height: 36px;
+                    vertical-align: middle;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            p{
+                padding: 2px 0;
+            }
+            .smname span{
+                color: @ColorLightBlue;
+            }
+        }
+        .bottom{
+            margin-top: 10px;
+            margin-left: 10px;
+            .safeimg{
+                width: 182px;
+                padding: 5px 0;
+                img{
+                    display: inline-block;
+                    width: 25px;
+                    height: 25px;
+                    margin-right: 7px;
+                }
+            } 
+            .safelv{
+                margin: 10px 0;
+                .level{
+                    color: @ColorDarkRed;
+                }
+                .addsafe{
+                    width: 70px;
+                    text-align: right;
+                    .DisplayInlineBlock;
+                    color: @ColorDarkBlue;
+                }
+            }
+        }
+    }
+    #managenav{
+        border-top: 1px solid @ColorLightBorder;
+        border-left: 1px solid @ColorLightBorder;
+        border-right: 1px solid @ColorLightBorder;
+        margin-top: 10px;
+        .managelist{
+            >.title{
+                background: @ColorBody;
+                // width: 100%;
+                height: 42px;
+                margin: 0;
+                cursor: pointer;
+                border-bottom: 1px solid @ColorDarkBorder;
+                // text-indent: 3em;
+                &:hover{
+                    background: @ColorDarkOrange;
+                    color: white;
+                }
+                img{
+                    width: 15px;
+                    height: 15px;
+                    float: left;
+                    margin: 14px 5px 0 10px;
+                }
+                span{
+                    width: 140px;
+                    float: left;
+                    padding-top: 8px
+                }
+                i{
+                    float: left;
+                    padding-top: 8px
+                }
+            }
+            .navcontent li{
+                width: 100%;
+                height: 36px;
+                font-size: 14px;
+                line-height: 37px;
+                border-bottom: 1px solid @ColorDarkBorder;
+                text-indent: 3em;
+                cursor: pointer;
+                &:hover{
+                    background: @ColorLightOrange;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+#managecont{
+    width: 993px;
+    min-height: 400px;
+    border: 1px solid @ColorLightBorder;
+    background: white;
+    margin-left: 10px;
+    padding: 0 0 20px 0;
+    .tabbox{
+        border: none;
+        margin-top: 1px;
+        border-bottom: 1px solid @ColorLightBorder;
+        .tab{
+            border: none;
+            margin-top: -2px;
+            border-right: 1px solid @ColorLightBorder;
+        }
+    }
+    .bdd{
+        border: none;
+    }
+    .accountbig,.toubiao,.daihuikuan,.lately{
+        width: 933px;
+        margin-bottom: 20px;
+        >.title{
+            border-bottom: 1px solid @ColorLightBorder;
+            margin-bottom: 20px;
+            height: 47px;
+            span{
+                border-bottom: 4px solid @ColorLightOrange;
+                float: left;
+                width: 120px;
+                padding: 10px 0;
+                font-size: 18px;
+            }
+            a{
+                float: right;
+                padding-top: 20px;
+                color: @ColorDarkBlue;
+                font-size: 14px;
+            }
+        }
+    }
+    .accountbig .content{
+        .list{
+            float: left;
+            width: 232px;
+            text-align: center;
+            border-right: 1px solid @ColorLightBorder;
+            >.title i{
+                padding-right:20px;
+                background:url(../images/tipicon.png) no-repeat right center;
+            }
+            >.cont span{
+                font-size: 22px;
+                margin-right: 10px;
+            }
+        }
+        .redbag .title{
+            color: @ColorDarkRed;
+        }
+        .btncont{
+            margin-top: 20px;
+            border-top: 1px solid @ColorLightBorder;
+        }
+        .withdraw,.recharge{
+            float: right;
+            width: 140px;
+            padding: 6px 0;
+            background: tomato;
+            text-align: center;
+            .BoxRadius;
+            color: white;
+            text-decoration: none;
+            margin: 30px 5px 0px 5px;
+            &:hover{
+                background: lighten(tomato, 5%);
+            }
+        }
+    }
+    .toubiao>.content{
+        // min-height: 300px;
+        // height: 400px;
+        width: 100%;
+    }
+    .daihuikuan>.content,.lately>.content{
+        dt,dd{
+            width: 100%;
+            border-bottom: 1px solid @ColorLightBorder;
+            padding: 12px 0;
+            text-align: center;
+            span{
+                display: inline-block;
+                width: 140px;
+            }
+        }
+        dt{
+            background: @ColorLightBlue;
+            border-top: 1px solid @ColorDarkBlue;
+            border-left: 1px solid @ColorDarkBlue;
+            border-right: 1px solid @ColorDarkBlue;
+            span{
+                border-right: 1px solid @ColorLightBorder;
+                color: white;
+            }
+        }
+        dd{
+            padding: 6px 0;
+            border-left: 1px solid @ColorLightBorder;
+            border-right: 1px solid @ColorLightBorder;
+            span{
+                font-size: 14px;
+            }
+        }
+    }
+}
+// 充值失败反馈
+#coverrechargeerror,#alertrechargeerror{
+    // position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#coverrechargeerror{
+    position: fixed;
+    background: black;
+    z-index: 30;
+    .Opacity(50);
+}
+#alertrechargeerror{
+    position: absolute;
+    z-index: 31;
+    >.container{
+        width: 750px;
+        margin: 10px auto;
+        padding: 0px 30px 30px 30px;
+        background: white;
+        position: relative;
+        .closebtn{
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            z-index: 32;
+            display: block;
+            padding: 10px 0;
+            width: 80px;
+            text-align: center;
+        }
+        >.header{
+            font-size: 20px;
+            padding: 20px 0;
+            // font-weight: bold;
+        }
+        >.main{
+            .nav{
+                overflow: hidden;
+                .navitem{
+                    float: left;
+                    width: 100px;
+                    height: 50px;
+                    line-height: 50px;
+                    text-align: center;
+                    &:hover{
+                        background: @ColorLightBlue;
+                        color: white;
+                    }
+                }
+                .current{
+                    background: @ColorDarkBlue;
+                    color: white;
+                }
+            }
+            .banklist{
+                li{
+                    overflow: hidden;
+                    padding-left: 1px;
+                    margin-top: -1px;
+                    // padding-top: 10px;
+                    .select_tips{
+                        color: @ColorFont333;
+                        display: block;
+                        height: 50px;
+                        line-height: 50px;
+                    }
+                    .select_tips_error{
+                        color: red;
+                    }
+                    .item{
+                        float: left;
+                        width: 126px;
+                        // height: 60px;
+                        padding: 8px 10px 10px 10px;
+                        border: 1px solid @ColorLightBorder;
+                        margin-left: -1px;
+                        // margin-top: -1px; 
+                        input[type=radio]{
+                            display: inline;
+                            margin-right: 10px;
+                            vertical-align: middle;
+                        }
+                        img{
+                            width: 90px;
+                            height: 23px;
+                            padding-top: 0px;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+            .banklist_qiye{
+                display: none;
+            }
+            .reason{
+                .reason_tips{
+                    color: @ColorFont333;
+                    height: 50px;
+                    line-height: 50px;
+                }
+                .reason_tips_error{
+                    color: red;
+                }
+                .reasonlist{
+                    border: 1px solid @ColorLightBorder;
+                    padding: 10px 0;
+                    input{
+                        display: inline;
+                        margin-left: 20px;
+                        margin-right: 10px;
+                    }
+                    span{
+                        margin-right: 30px;
+                    }
+                }
+            }
+            .advice{
+                .advice_tips{
+                    color: @ColorFont333;
+                    height: 50px;
+                    line-height: 50px;
+                }
+                .advice_tips_error{
+                    color: red;
+                }
+                textarea{
+                    width: 100%;
+                    height: 100px;
+                    padding: 10px 0;
+                    text-indent: 1em;
+                    border: 1px solid @ColorLightBorder;
+                }
+            }
+            .submit{
+                overflow: hidden;
+                .submiterror{
+                    // float: right;
+                    display: block;
+                    width: 320px;
+                    height: 50px;
+                    text-align: center;
+                    line-height: 50px;
+                    background: @ColorDarkRed;
+                    color: white;
+                    .BoxRadius(5px);
+                    margin: 10px auto;
+                    &:hover{
+                        background: @ColorLightRed;
+                    }
+                }
+            }
+        }
+    }
+}
+/*我的账户-红包*/
+#redbagcontainer{
+    // background: red;
+    #redbagmain,#redbagcont,#redbagway{
+        width: 945px;
+        margin: 20px auto 30px auto;
+        >.title{
+            font-size: 18px;
+            color: @ColorFont666;
+            border-bottom: 1px solid @ColorLightBorder;
+            margin-bottom: 10px;
+        }
+    }
+    #redbagmain{
+        .cont{
+            height: 130px;
+            margin-left:260px;
+            line-height: 100px;
+            font-size: 20px;
+        }
+        .cont{
+            padding-left: 160px;
+            background: url(../images/redbagmain.png) no-repeat left center;
+            .text{
+                width: 50%;
+                line-height: 1.5em;
+                font-size: 20px;
+                padding-top: 35px;
+                color: @ColorFont333;
+                // text-align: right;
+            }
+            .redbagnum{
+                color: @ColorLightYellow;
+                font-size: 40px;
+                line-height: 1.4em;
+                span{
+                    display: inline-block;
+                    margin-left: 10px;
+                    font-size: 1rem;
+                    color: @ColorFont999;
+                }
+            }
+        }
+    }
+    #redbagcont .filtrate{
+            padding: 10px 0;
+            div{
+                margin-bottom: 5px;
+                .title{
+                    padding: 8px 10px;
+                    line-height: 1em;
+                    font-weight: bold;
+                    float: left;
+                    width: 100px;
+                }
+                a{
+                    float: left;
+                    padding: 8px 15px;
+                    line-height: 1em;
+                    width: 50px;
+                    margin-right: 10px;
+                    text-align: center;
+                    .BoxRadius(2px);
+                    &:hover{
+                        background: @ColorLightOrange;
+                        color: white;
+                    }
+                }
+                .select{
+                    background: @ColorLightOrange;
+                    color: white;
+                }
+            }
+        }
+    #redbagcont .cont {
+        .tabletitle,.tablecont{
+            // height:40px;
+            border: 1px solid @ColorLightBorder;
+            p{
+                display: inline-block;
+                // width: 19%;
+                text-align: center;
+                line-height: 20px;
+                vertical-align: middle;
+            }
+            .bag_type{
+                width: 18%;
+            }
+            .bag_duration{
+                width: 28%;
+            }
+            .bag_rules{
+                width: 14%;
+            }
+            .bag_from{
+                width: 19%;
+            }
+            .bag_status{
+                width: 19%;
+                a{
+                    color: @ColorLightBlue;
+                }
+            }
+        }
+        .tabletitle{
+            background-color: @ColorLightBlue;
+            color: white;
+            height: 40px;
+            line-height: 40px;
+        }
+        .tablecont{
+            background-color: white;
+            border-top: none;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+    }
+    #redbagway{
+        .rebaglist{
+            ul.list{
+                // background: @ColorLightBorder;
+                margin-bottom: 20px;
+                .header{
+                    font-size: 16px;
+                    color: @ColorFont333;
+                }
+                li{
+                    // margin-bottom: 0px;
+                    overflow: hidden;
+                    .title{
+                        float: left;
+                        border: none;
+                        width: 110px;
+                        color: ColorFont666;
+                        // font-weight: bold;   
+                        font-size: 14px;
+                        margin-bottom: 0px;
+                    }
+                    .cont{
+                        float: left;
+                        width: 750px;
+                        color: @ColorFont999;
+                        a{
+                            color: @ColorDarkBlue;
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+}
+// 我的账户-站内信
+#sitemsg{
+    margin-top: 20px;
+    // padding: 15px;
+    // border: 1px solid red;
+    >.header{
+        .filtrate{
+            padding: 10px 0;
+            float: left;
+            .title{
+                padding: 8px 15px;
+                line-height: 1em;
+                font-weight: bold;
+                float: left;
+            }
+            a{
+                padding: 8px 15px;
+                line-height: 1em;
+                float: left;
+                margin-right: 10px;
+                .BoxRadius(2px);
+                &:hover{
+                    background: @ColorLightOrange;
+                    color: white;
+                }
+            }
+            .select{
+                background: @ColorLightOrange;
+                color: white;
+            }
+        }
+        .clearall{
+            float: right;
+            margin: 5px 15px;
+            padding-left: 20px;
+            cursor: pointer;
+            color: @ColorDarkOrange;
+            background: url(../images/sitemsg_deleteall_icon.png) no-repeat left center;
+            background-size: auto 60%;
+            &:hover{
+                color: @ColorDarkOrange;
+            }
+        }
+    }
+    >.container{
+        margin-top: 20px;
+        .msglist{
+            // margin-bottom: 20px;
+            padding: 15px;
+            &:hover{
+                background: lighten(@ColorLightBorder, 8%);
+            }
+            .typebox{
+                padding-left: 60px;
+                width: 100px;
+                height: 50px;
+                background: url(../images/sitemsg_typebg.png) no-repeat left top;
+                // border: 1px solid red;
+            }
+            .readed{
+                background-position: left -48px;
+            }
+            >.container{
+                width: 780px;
+                >.header{
+                    height: 50px;
+                    // line-height: 50px;
+                    .title{
+                        width: 700px;
+                        height: 50px;
+                        cursor: pointer;
+                    }
+                    .jiacu{
+                        font-weight: bold;
+                    }
+                    .show{
+                        color: @ColorLightRed;
+                    }
+                }
+                >.cont{
+                    color: @ColorFont999;
+                    .text{
+                        line-height: 20px;
+                        width: 600px;
+                        text-align: justify;
+                    }
+                    .deletebtn{
+                        padding: 5px 15px;
+                        margin-top: 5px;
+                        background: @ColorDarkOrange;
+                        .BoxRadius(4px);
+                        color: white;
+                        display: block;
+                        text-align: center;
+                        text-indent: 0;
+                        &:hover{
+                            background: @ColorDarkRed;
+                        }
+                    }
+                    // display: none;
+                }
+                .showmsg{
+                    display: block;
+                }
+                .hidemsg{
+                    display: none;
+                }
+            }
+        }
+    }
+    #pagecount{
+        text-align: center;
+        span,a{
+            padding: 0 6px;
+        }
+    }
+}
+// 我的账户-优惠券
+#coupon{
+    margin-top: 20px;
+    .overview{
+        .list{
+            float: left;
+            width: 232px;
+            text-align: center;
+            padding: 10px 0;
+            border-right: 1px solid @ColorLightBorder;
+            >.title{
+                margin-bottom: 20px;
+                i{
+                    padding-right:20px;
+                    background:url(../images/tipicon.png) no-repeat right center;
+                }
+                span{
+                    font-size: 16px;
+                margin-right: 10px;
+                }
+            }
+            >.cont{
+                font-size: 22px;
+                text-align: center;
+                span{
+                    font-size: 16px
+                }
+            }
+        }
+        .redbag .title{
+            color: @ColorDarkRed;
+        }
+        .btncont{
+            margin-top: 20px;
+            border-top: 1px solid @ColorLightBorder;
+        }
+        .withdraw,.recharge{
+            float: right;
+            width: 140px;
+            padding: 6px 0;
+            background: tomato;
+            text-align: center;
+            .BoxRadius;
+            color: white;
+            text-decoration: none;
+            margin: 30px 5px 0px 5px;
+            &:hover{
+                background: lighten(tomato, 5%);
+            }
+        }
+    }
+    .main{
+        margin-top: 40px;
+        .header{
+            font-size: 16px;
+            color: @ColorLightOrange;
+            padding-bottom: 10px;
+            border-bottom: 1px solid @ColorLightBorder;
+            p{
+                width: 163px;
+                // border-top: 2px solid columns: ;orLightOrange;
+                text-align: center;
+                padding-top: 10px;
+                line-height: 1em;
+            }
+        }
+        .filtrate{
+            padding: 10px 0;
+            div{
+                margin-bottom: 5px;
+                .title{
+                    padding: 8px 10px;
+                    line-height: 1em;
+                    font-weight: bold;
+                    float: left;
+                    width: 100px;
+                }
+                a{
+                    float: left;
+                    padding: 8px 15px;
+                    line-height: 1em;
+                    width: 50px;
+                    margin-right: 10px;
+                    text-align: center;
+                    .BoxRadius(2px);
+                    &:hover{
+                        background: @ColorLightOrange;
+                        color: white;
+                    }
+                }
+                .select{
+                    background: @ColorLightOrange;
+                    color: white;
+                }
+            }
+        }
+        >.cont{
+            padding: 0 10px;
+            .navbar{
+                background: @ColorLightBlue;
+                color: white;
+                padding: 8px 0;
+                .typename,.overdate,.rules,.from{
+                    width: 230px;
+                    float: left;
+                    text-align: center;
+                }
+//              .typename,.overdate{
+//                  cursor: pointer;
+//                background:url(../images/coupon_paixu_bg.png) no-repeat 150px center;
+//              }
+            }
+            .list{
+                padding: 20px 0;
+                cursor: pointer;
+                &:hover{
+                    background: lighten(@ColorLightBorder, 9%)
+                }
+                .quanimg{
+                    float: left;
+                    width: 230px;
+                    height: 90px;
+                    background: url(../images/quanimg_bg.png) no-repeat;
+                    background-size: 100% 100%;
+                    color: white;
+                    padding-top: 40px;
+                    padding-left: 5px;
+                    font-size: 20px;
+                    position: relative;
+                    >p{
+                        margin-bottom: 10px;
+                    }
+                    .unit{
+                        font-size: 30px;
+                    }
+                    .je{
+                        font-size: 50px;
+                        width: 100px;
+                        font-weight: bold;
+                        display: inline-block;
+                        text-align: center;
+                    }
+                    .seal{
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        display: none;
+                        height: 100%;
+                        background-position: right center;
+                        background-repeat: no-repeat;
+                        background-size: auto 80%;
+                    }
+                }
+                .used,.overdate{
+                    background: url(../images/quanimg_used_bg.png) no-repeat;
+                }
+                .used .seal{
+                    background-image: url(../images/quan_sealbg_used.png);
+                    display: block;
+                }
+                .overdate .seal{
+                    background-image: url(../images/quan_sealbg_overdate.png);
+                    display: block;
+                }
+                >p{
+                    float: left;
+                    width: 230px;
+                    height: 100px;
+                    text-align: center;
+                    padding: 20px 0;
+                    >span{
+                        display: block;
+                        padding-top: 25px;
+                    }
+                }
+            }
+        }
+    }
+    .help{
+        margin-top: 40px;
+        >.header{
+            font-size: 16px;
+            padding-left: 30px;
+            color: @ColorLightOrange;
+            padding-bottom: 10px;
+            border-bottom: 1px solid @ColorLightBorder;
+            margin-bottom: 20px;
+        }
+        .helplist{
+            padding: 0 20px;
+            ul.list{
+                // background: @ColorLightBorder;
+                margin-bottom: 20px;
+                .header{
+                    font-size: 16px;
+                    color: @ColorFont333;
+                }
+                li{
+                    // margin-bottom: 0px;
+                    overflow: hidden;
+                    .title{
+                        float: left;
+                        border: none;
+                        width: 110px;
+                        color: ColorFont666;
+                        // font-weight: bold;   
+                        font-size: 14px;
+                        margin-bottom: 0px;
+                    }
+                    .cont{
+                        float: left;
+                        width: 750px;
+                        color: @ColorFont999;
+                        a{
+                            color: @ColorDarkBlue;
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+}
+// 数据统计
+#dataStatistics{
+    position:relative;
+    width:100%;
+    >.title{
+        margin-top:20px;
+        font-size:24px;
+        font-weight:bold;
+        color:@ColorFont333;
+    }
+    #accumulatedInvestment,#distribution,#dataCollection,#dataExplain,#dataExpose{
+        margin:0 auto;
+        margin-top:20px;
+        width:1200px;
+        border:1px solid @ColorLightBorder;
+        background-color:white;
+        .BoxRadius;
+        &:hover{
+            border-bottom:1px solid @ColorDarkBorder;
+        }
+        .name{
+            border-bottom:1px solid @ColorLightBorder;
+            height:40px;
+            line-height:40px;
+            font-size:20px;
+            text-indent:20px;
+        }
+
+        dl.adv{
+            display:block;
+            overflow:hidden;
+            border-top:1px solid @ColorLightBorder;
+            height:162px;
+            >dd{
+                float:left;
+                display:block;
+                width:274px;
+                margin:20px 0;
+               margin-left:20px;
+                text-align:center;
+                border:1px solid @ColorLightBorder;
+                .tit,.cnt{
+                    height:60px;
+                    line-height:60px;
+
+                }
+                .tit{
+                    font-size:22px;
+                }
+                .cnt{
+
+                    font-size:26px;
+                    font-weight:bold;
+                }
+            }
+        }
+    }
+    #accumulatedInvestment{
+        .chart{
+            padding:30px 0;
+            width:1180px;
+            height:400px;
+        }
+    }
+    #distribution{
+        display:block;
+        .left,.right{
+            background-color:white;
+            width:570px;
+            float:left;
+            margin:20px 0;
+            margin-left:20px;
+            border:1px solid @ColorLightBorder;
+            .chart{
+                width:100%;
+                height:450px;
+            }
+
+            dl.content{
+            display:block;
+            overflow:hidden;
+            border-top:1px solid @ColorLightBorder;
+            height:162px;
+            >dd{
+                float:left;
+                display:block;
+                width:254px;
+                margin:20px 0;
+               margin-left:20px;
+                border:1px solid @ColorLightBorder;
+                .tit,.cnt{
+                    height:120px;
+                    float:left;
+                }
+                .tit{
+                    text-align:right;
+                    width:80px;
+                    img{
+                        margin-top:30px;
+                    }
+                }
+                .cnt{
+                    text-align:center;
+                    width:174px;
+                    font-weight:bold;
+                    .top,.bottom{
+                        display:block;
+                    }
+
+                    .top{
+                        margin-top:35px;
+                    }
+
+                    .bottom{
+                        font-size:16px;
+                        color:@ColorLightYellow;
+                    }
+                }
+            }
+        }
+        }
+    }
+    #dataCollection{
+        .left,.right{
+            float:left;
+            height:500px;
+        }
+        .left{
+            width:400px;
+            .list{
+                clear:both;
+                margin-top:30px;
+                height:126px;
+                .icon,.txt{
+                    float:left;
+                    margin-top:13px;
+                    margin-left:13px;
+                    overflow:hidden;
+                }
+                .icon{
+                    margin-left:15px !important;
+                    width:80px;
+                    height:100px;
+                    display:inline-block;
+                    background-size:80px 80px;
+                    background-position-y:10px;
+                    background-repeat:no-repeat;
+                    color:white;
+                    font-size:26px;
+                    overflow:hidden;
+                    .frt,.sed,.trd{
+                        position:relative;
+                        display:inline-block;
+                        position:relative;
+                        top:43px;
+                        width:70px;
+                        text-align:center;
+                    }
+
+                    .trd{
+                        top:30px
+                    }
+                }
+
+                .txt{
+                    display:inline;
+                    width:70%;
+                }
+            }
+            .list1,.list3{
+                .txt{
+                    position:relative;
+                    top:30px;
+                }
+            }
+            .list2{
+                .txt{
+                    position:relative;
+                    top:35px;
+                }
+            }
+        }
+        .right{
+            text-align:left;
+            width:800px;
+            /*background-color:#1b1b1b;*/
+            .chart{
+                height:490px;
+                width:750px;
+            }
+        }
+    }
+    table#dataExplain{
+        width:1140px;
+        margin-bottom:60px;
+        >caption{
+            text-align:center;
+            height:80px;
+            line-height:80px;
+            .txt{
+                color:@ColorLightRed;
+            }
+        }
+
+        th,td{
+                text-align:center;
+                padding:5px;
+        }
+        td{
+            padding-top:4px;
+            padding-bottom:4px;
+            font-size:14px;
+        }
+        th{
+            border-left:1px solid white;
+            border-right:none;
+            background-color:@ColorLightBorder;
+            &:first-child{
+                border-left:none;
+            }
+        }
+        td{
+             color:@ColorFont999;
+        }
+    }
+    #dataExpose{
+        .content{
+            .BoxRadius;
+            overflow:hidden;
+            width:385.9px;
+            float:left;
+            margin:10px 0;
+            margin-left:9.3px;
+            border:1px solid @ColorLightBorder;
+            .tit{
+                font-size:16px;
+                text-indent:10px;
+                border-bottom:1px solid @ColorLightBorder;
+                height:36px;
+                line-height:36px;
+            } 
+            .cnt{
+                overflow:hidden;
+                height:auto;
+                text-align:center;
+                .chart{
+                    width:100%;
+                    height:270px;
+                }
+                .txt{
+                    display:inline-block;
+                    width:100%;
+                    height:40px;
+                    line-height:40px;
+                    text-align:center;
+                    font-weight:bold;
+                    background-color:@ColorLightOrange;
+                    color:white;
+                }
+            }
+
+        }
+    }
+    #register{
+        text-align:center;
+        margin-bottom:10px;
+            a{
+                border-radius: 3px;
+              color: #fff;
+              display: block;
+              font-size: 18px;
+              height: 50px;
+              line-height: 50px;
+              margin: 60px auto;
+              text-align: center;
+              text-decoration: none;
+              width: 220px;
+              background-color:@ColorDarkOrange;
+            &:hover{
+                background-color:@ColorLightOrange;
+            }
+        }
+        
+    }
+}
+// 入口页
+#entry{
+    width: 100%;
+    .banner{
+        height: 450px;
+        background: #d8232c;
+        .container{
+            width: 1200px;
+            margin: 0 auto;
+            img{
+                display: block;
+                margin-top: 30px;
+            }
+            .register{
+                width: 294px;
+                background: white;
+                margin-top: 20px;
+                padding: 20px;
+                .header{
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    color: @ColorFont666;
+                    margin-bottom: 10px;
+                }
+                ul{
+                    li{
+                        // overflow: hidden;
+                        padding-bottom: 26px;
+                        .title{
+                            float: left;
+                            width: 70px;
+                            text-align: justify;
+                            padding: 6px 0;
+                        }
+                        .cont{
+                            width: 204px;   
+                            float: right;
+                            position: relative;
+                            input{
+                                width: 202px;
+                                height: 13px;
+                                line-height: 13px;
+                                padding: 11px 0px;
+                                text-indent: 1em;
+                                .BoxRadius(2px);
+                                border: 1px solid @ColorLightBorder;
+                                &:hover{
+                                    border: 1px solid @ColorLightRed;
+                                    .boxShadow2(0px,0px,4px,@ColorLightRed);
+                                }
+                                &:focus{
+                                    border: 1px solid @ColorDarkRed;
+                                    .boxShadow2(0px,0px,4px,@ColorLightRed);
+                                }
+                            }
+                            .atips{
+                                color: @ColorFont999;
+                                position: absolute;
+                                top: 37px;
+                                left: 0;
+                                font-size: 12px;
+                            }
+                            .dataempty{
+                                padding-left: 30px;
+                                color: red;
+                                background: url(../images/entry_dataerror.png) no-repeat;
+                                background-size: auto 100%; 
+                            }
+                            .dataerror{
+                                padding-left: 30px;
+                                color: red;
+                                background: url(../images/entry_dataerror.png) no-repeat;
+                                background-size: auto 100%; 
+                            }
+                            .datasuccess{
+                                padding-left: 30px;
+                                color: green;
+                                background: url(../images/entry_datasuccess.png) no-repeat;
+                                background-size: auto 100%;
+                            }
+                            .getcodebtn{
+                                position: absolute;
+                                top: 1px;
+                                right: 0px;
+                                display: block;
+                                background: @ColorLightBorder;
+                                line-height: 13px;
+                                padding: 11px 10px;
+                                color: @ColorFont999;
+                                cursor: default;
+                                text-align: center;
+                            }
+                            .allowget{
+                                background: @ColorDarkRed;
+                                color: white;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    .xieyi{
+                        vertical-align: middle;
+                        // margin-bottom: 10px;
+                        span {
+                            line-height: 16px;
+                            a{
+                                color: @ColorLightBlue;
+                            }
+                        }
+                    }
+                }
+                .regbtn{
+                    display: block;
+                    text-align: center;
+                    width: 100%;
+                    background: @ColorDarkRed;
+                    color: white;
+                    padding: 10px 0;
+                    .BoxRadius(5px);
+                    &:hover{
+                        background: @ColorLightRed;
+                    }
+                }
+            }
+        }
+    }
+    .product{
+        width: 100%;
+        background: @ColorLightBorder;
+        .container{
+            width: 1200px;
+            margin: 0 auto;
+            padding: 30px 0;
+            .header{
+                font-weight: bold;
+                font-size: 2em;
+                margin-bottom: 20px;
+            }
+            .cont{
+                a{
+                    float: left;
+                    margin-right: 15px;
+                    img{
+                        display: block;
+                    }
+                    &:hover{
+                        .boxShadow2(0px,0px,20px,@ColorLightRed);
+                    }
+                }
+            }
+        }
+    }
+    .product,.iswhat,.reason,.example,.active,.end{
+        width: 100%;
+        >.container{
+            width: 1200px;
+            margin: 0 auto;
+            padding: 60px 0;
+            >.header{
+                font-size: 2em;
+                font-weight: bold;
+                margin-bottom: 30px;
+                border: none;
+            }
+        }
+    }
+    .iswhat{
+        height: 350px;
+        .container{
+            // width: 1200px;
+            // margin: 0 auto;
+            // padding: 30px 0;
+            >.f_l{
+                margin-top: 30px;
+                width: 360px;
+                .header{
+                    font-size: 2em;
+                    font-weight: bold;
+                    margin-bottom: 40px;
+                }
+                .cont{
+                    line-height: 2em;
+                    text-align: justify;
+                }
+            }
+            >.f_r{
+                // margin-top: 30px;
+                .f_l,.f_r{
+                    width: 250px;
+                    >.title{
+                        width: 140px;
+                        background: @ColorLightBorder;
+                        color: @ColorFont666;
+                        margin: 0 auto;
+                        text-align: center;
+                    }
+                    >.cont{
+                        margin: 40px auto 0 auto;
+                        color: @ColorDarkRed;
+                        padding: 0 30px;
+                        span{
+                            font-size: 5em;
+                            font-weight: bold;
+                        }
+                    }
+                }
+                .f_l{
+                    border-right: 1px solid @ColorLightBorder;
+                }
+            }
+        }
+    }
+    .reason{
+        background: #f2f2f2;
+    }
+    .example{
+        background: white;
+        >.container{
+            .gotoinvestbtn{
+                display: block;
+                width: 284px;
+                margin: 0 auto;
+                padding: 15px 0;
+                background: @ColorDarkRed;
+                font-size: 1.5em;
+                color: white;
+                text-align: center;
+                &:hover{
+                    background: @ColorLightRed;
+                    .boxShadow2(0px,0px,5px,@ColorLightRed);
+                }
+            }
+        }
+    }
+    .active{
+        background: @ColorLightBorder;
+    }
+    .end{
+        .header{
+            text-align: center;
+        }
+        .cont{
+            // overflow: hidden;
+            width: 920px;
+            margin: 40px auto;
+            .num{
+                width: 60px;
+                height: 93px;
+                float: left;
+                background:url(../images/entry_end_numbg.png);
+                margin-right: 10px;
+                span{
+                    color: white;
+                    font-size: 6em;
+                    line-height: 90px;
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+            .unit{
+                float: left;
+                text-align: center;
+                color: @ColorLightRed;
+                padding: 60px 10px 0 5px;
+                font-size: 1.5em;
+
+            }
+        }
+        .gotoinvestbtn{
+            display: block;
+            width: 284px;
+            margin: 0 auto;
+            padding: 15px 0;
+            background: @ColorDarkOrange;
+            font-size: 1.5em;
+            color: white;
+            text-align: center;
+            &:hover{
+                background: @ColorLightOrange;
+                .boxShadow2(0px,0px,5px,@ColorLightRed);
+            }
+        }
+    }
+    #cover{
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        opacity: 0;
+    }
+    #alertregister{
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 999;
+        width: 100%;
+        opacity: 0;
+        .container{
+            width: 1100px;
+            height: 520px;
+            background: url(../images/entry_alert_bg.png) no-repeat;
+            margin: 0 auto;
+            position: relative;
+            .register{
+                width: 440px;
+                height: 480px;
+                background: white;
+                padding: 20px;
+                .header{
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    color: @ColorFont666;
+                    margin-bottom: 30px;
+                }
+                ul{
+                    li{
+                        // overflow: hidden;
+                        margin-bottom: 35px;
+                        .title{
+                            float: left;
+                            width: 70px;
+                            text-align: justify;
+                            padding: 10px 0;
+                        }
+                        .cont{
+                            width: 304px;   
+                            float: right;
+                            position: relative;
+                            input{
+                                width: 302px;
+                                height: 15px;
+                                line-height: 15px;
+                                padding: 15px 0px;
+                                text-indent: 1em;
+                                .BoxRadius(2px);
+                                border: 1px solid @ColorLightBorder;
+                                &:hover{
+                                    border: 1px solid @ColorLightRed;
+                                    .boxShadow2(0px,0px,4px,@ColorLightRed);
+                                }
+                                &:focus{
+                                    border: 1px solid @ColorDarkRed;
+                                    .boxShadow2(0px,0px,4px,@ColorLightRed);
+                                }
+                            }
+                            .atips{
+                                color: @ColorFont999;
+                                margin-top: 10px;
+                                position: absolute;
+                                top: 40px;
+                                left: 0;
+                            }
+                            .dataempty{
+                                padding-left: 30px;
+                                color: red;
+                                background: url(../images/entry_dataerror.png) no-repeat;
+                                background-size: auto 100%; 
+                            }
+                            .dataerror{
+                                padding-left: 30px;
+                                color: red;
+                                background: url(../images/entry_dataerror.png) no-repeat;
+                                background-size: auto 100%; 
+                            }
+                            .datasuccess{
+                                padding-left: 30px;
+                                color: green;
+                                background: url(../images/entry_datasuccess.png) no-repeat;
+                                background-size: auto 100%;
+                            }
+                            .getcodebtn{
+                                position: absolute;
+                                top: 1px;
+                                right: 0px;
+                                display: block;
+                                height: 15px;
+                                line-height: 15px;
+                                padding: 15px 15px;
+                                background: @ColorLightBorder;
+                                color: @ColorFont999;
+                                cursor: default;
+                            }
+                            .allowget{
+                                background: @ColorDarkRed;
+                                color: white;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    .xieyi{
+                        vertical-align: middle;
+                        margin-bottom: 10px;
+                        span {
+                            line-height: 16px;
+                            a{
+                                color: @ColorLightBlue;
+                            }
+                        }
+                    }
+                }
+                .regbtn{
+                    display: block;
+                    text-align: center;
+                    width: 100%;
+                    background: @ColorDarkRed;
+                    color: white;
+                    padding: 10px 0;
+                    .BoxRadius(5px);
+                    &:hover{
+                        background: @ColorLightRed;
+                    }
+                }
+            }
+            .closealert{
+                display: block;
+                width: 14px;
+                height: 14px;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: url(../images/indexguideclose.png);
+                &:hover{
+                    background-position: bottom center;
+                }
+            }
+        }
+    }
+}
+// 收益计算器
+#counter{
+    .blank{
+        height: 20px;
+        width: 100%;
+    }
+    >.main{
+        .top,.bottom{
+            // border: 1px solid @ColorLightBorder;
+            margin-bottom: 20px;
+            >.header{
+                // border-bottom: 1px solid @ColorLightBorder;
+                height: 44px;
+                span{
+                    border-top: 2px solid @ColorLightRed;
+                    border-right: 1px solid @ColorLightBorder;
+                    border-left: 1px solid @ColorLightBorder;
+                    padding: 13px 10px;
+                    line-height: 1em;
+                    font-size: 18px;
+                    float: left;
+                    width: 150px;
+                    text-align: center;
+                    margin-top: -1px;
+                    background: white;
+                }
+            }
+            >.cont{
+                background:white;
+                border: 1px solid @ColorLightBorder;
+            }
+        }
+        .top{
+            .cont{
+                padding: 30px 0;
+                font-size: 16px;
+                ul{
+                    float: left;
+                    width: 300px;
+                    // margin-top: 30px;
+                    margin-right: 70px;
+                    li{
+                        margin-bottom: 20px;
+                        position: relative;
+                        .tips{
+                            border: none;
+                            background: none;
+                            padding: 0;
+                            font-size: 14px;
+                            color: red;
+                            // padding-left: 100px;
+                            // display: none;
+                            position: absolute;
+                            left: 90px;
+                            top: 33px;
+                            visibility: hidden;
+                        }
+                        .tips_show{
+                            visibility: visible;
+                        }
+                    }
+                    input{
+                        border: 1px solid @ColorLightBorder;
+                        padding: 10px;
+                        color: @ColorFont333;
+                    }
+                    .tznum{
+                        margin: 0;
+                    }
+                }
+                .left{
+                    margin-left: 150px;
+                    input{
+                        font-size: 12px;
+                        // color: @ColorFont999;
+                    }
+                }
+                .right{
+                    margin-right: 0;
+                    a{
+                        display: block;
+                        width: 100px;
+                        padding: 5px 10px;
+                        text-align: center;
+                        color: white;
+                    }
+                    .countbtn{
+                        background: @ColorDarkRed;
+                        &:hover{
+                            background: @ColorLightRed;
+                        }
+                    }
+                    .resetbtn{
+                        background: @ColorDarkBlue;
+                        &:hover{
+                            background: @ColorLightBlue;
+                        }
+                    }
+                }
+                .dateselect{
+                    margin-left: 150px;
+                    position: relative;
+                    .mh_date{
+                        border: 1px solid @ColorLightBorder;
+                        width: 200px;
+                        text-align: center;
+                    }
+                    .tips{
+                        border: none;
+                        background: none;
+                        padding: 0;
+                        font-size: 14px;
+                        color: red;
+                        // padding-left: 100px;
+                        // display: none;
+                        visibility: hidden;
+                        position: absolute;
+                    }
+                    .tips_show{
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+        .bottom{
+            visibility: hidden;
+            width: 100%;
+            .cont{
+                min-height: 200px;
+                padding: 80px 0;
+                >.title,.text{
+                    width: 900px;
+                    margin: -1px auto;
+                    border: 1px solid @ColorLightBorder;
+                    span{
+                        float: left;
+                        width: 178px;
+                        height: 27px;
+                        text-align: center;
+                        padding: 15px 0 ;
+                        font-size: 20px;
+                        border-right: 1px solid white;
+                        margin: 0;
+                    }
+                }
+                >.text{
+                    span{
+                        border-right: 1px solid @ColorLightBorder;
+                        font-size: 16px;
+                    }
+                }
+                
+            }
+        }
+        .bottom_show{
+            visibility: visible;
+        }
+    }
+
+}
+#dk_index{
+    .banner{
+        width: 100%;
+        height: 352px;
+        background: orange;
+        background: url(../images/dk_index_banner.jpg) no-repeat top center;
+        .main{
+            width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            .form,.formcover{
+                width:304px;
+                height: 320px;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                // background: lighten(white,60%);
+            }
+            .formcover{
+                background-color: white;
+                .Opacity(95);
+                .BoxRadius(4px);
+            }
+            .form{
+                .h1{
+                    border-bottom: 1px solid #f66435;
+                    text-indent: 1em;
+                    font-size: 20px;
+                    padding: 10px 0;
+                    color: #f66435;
+                }
+                p{
+                    padding: 5px 8px;
+                    margin-bottom: 4px;
+                    .text{
+                        display: inline-block;
+                        text-align: center;
+                        width: 86px;
+                        vertical-align: middle;
+                    }
+                    input[type=text]{
+                        width: 170px;
+                        display: inline-block;
+                        vertical-align: middle;
+                        padding: 8px;
+                        border: 1px solid #ccc;
+                    }
+                    input[type=radio]{
+                        size: 10px;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    label{
+                        vertical-align: middle;
+                    }
+                }
+                .error{
+                    width: 250px;
+                    margin: 0 auto;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                    border: 1px solid #f66435;
+                    color: red;
+                    text-indent: 2em;
+                    visibility: hidden;
+                    // display: none;
+                    background: url(../images/errortips.png) 10px center no-repeat lighten(#f66435,20%);
+                }
+                .errorshow{
+                    padding: 5px 8px;
+                    visibility: visible;
+                }
+                .secret{
+                    label,input[type=checkbox]{
+                        font-size: 10px;
+                        vertical-align: middle;
+                    }
+                    input[type=checkbox]{
+                        margin: 0;
+                        margin-left: 6px;
+                    }
+                    label a{
+                        color: #f66435;
+                    }
+                }
+                #submit{
+                    display: block;
+                    background-color: #f66435;
+                    text-align: center;
+                    width: 90%;
+                    font-size: 18px;
+                    margin: 0 auto;
+                    padding: 8px 0;
+                    .BoxRadius(4px);
+                    color: white;
+                    &:hover{
+                        background-color: lighten(#f66435,10%);
+                    }
+                }
+            }
+        }
+    }
+}
+#dkinfo{
+    width: 100%;
+    .main{
+        width: 1200px;
+        min-height: 1100px;
+        margin: 0 auto;
+        padding: 438px 0 50px 0;
+        background: url(../images/dk_info_banner.jpg) no-repeat white;
+        .formbox{
+            float: left;
+            .dataitem{
+                margin-bottom: 10px;
+                .dataname,.data{
+                    display: inline-block;
+                }
+                .dataname{
+                    width: 140px;
+                    text-align: right;
+                    padding: 0 20px;
+                    margin-right: 20px;
+                    border-right: 1px solid @ColorLightBorder;
+                }
+                .data{
+                    // width: 191px;
+                    margin-right: 30px;
+                    position: relative;
+                    input[type=text]{
+                        display: inline-block;
+                        width: 150px;
+                        height: 15px;
+                        padding: 10px;
+                        color: @ColorFont333;
+                        border: 1px solid @ColorLightBorder;
+                    }
+                    input[type=radio]{
+                        display: inline-block;
+                    }
+                }
+                .datatip{
+                    // background-color: lighten(@ColorLightOrange,40%);
+                    border: 1px solid @ColorLightOrange;
+                    color: @ColorLightOrange;
+                    padding: 8px 40px;
+                    background: url(../images/errortips.png) no-repeat 10px center lighten(@ColorLightOrange,40%);
+                    font-size: 12px;
+                    display: none;
+                }
+            }
+            .age{
+                .data{
+                    label{
+                        position: absolute;
+                        top: 6px;
+                        right: 10px;
+                    }
+                }
+            }
+            .status,.status_time,.status_num{
+                display: none;
+            }
+            .dropdown{
+                .data{
+                    position: relative;
+                    input[type=text]{
+                        cursor: pointer;
+                    }
+                    label{
+                        position: absolute;
+                        top: 0;
+                        right: 0px;
+                        height: 35px;
+                        border: 1px solid @ColorLightBorder;
+                        background-color: lighten(@ColorLightBorder,10%);
+                        width: 38px;
+                        text-align: center;
+                        cursor: pointer;
+                        i{
+                            display: block;
+                            margin-top:16px;
+                            margin-left: 14px; 
+                            width: 0px;
+                            height: 0px;
+                            border: 5px solid darken(@ColorDarkBorder,20%);
+                            border-bottom-color: transparent;
+                            border-left-color: transparent;
+                            border-right-color: transparent;
+                        }
+                    }
+                    .value{
+                        width: 189px;
+                        display: none;
+                        position: absolute;
+                        z-index: 30;
+                        background-color: white;
+                        left: 0;
+                        top: 35px;
+                        border: 1px solid @ColorLightBorder;
+                        .valueitem{
+                            padding: 5px;
+                            cursor: pointer;
+                            text-indent: 1em;
+                            &:hover{
+                                background-color: @ColorLightBorder;
+                            }
+                        }
+                    }
+                }
+            }
+            .salary_way,.fangdai,.chedai,.chexian,.shouxian,.xinyongka{
+                .data{
+                    label{
+                        width: 60px;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    input[type=radio]{
+                        vertical-align: middle;
+                    }
+                }
+            }
+            .submit{
+                display: block;
+                width: 172px;
+                padding: 10px 0;
+                .BoxRadius(4px);
+                color: white;
+                text-align: center;
+                margin-left: 206px;
+                margin-top: 20px;
+                background-color: @ColorLightOrange;
+            }
+        }
+        .right{
+            float: right;
+            margin-top: 100px;
+            margin-right: 100px;
+        }
+    }
+}
+#dksucc{
+    margin-top: 30px;
+    .main{
+        width: 1200px;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+        min-height: 250px;
+        padding-top: 100px;
+        background: url(../images/dk_success.png) no-repeat 30px center;
+        p{
+            padding-left: 300px;
+            font-size: 20px;
+            line-height: 1.8em;
+            a{
+                color: @ColorLightOrange;
+            }
+            i{
+                border-left-color: @ColorLightOrange;
+            }
+        }
+    }
+}

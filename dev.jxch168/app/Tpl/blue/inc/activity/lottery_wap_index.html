@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://dev.jxch168.com/wap/member.php?ctl=uc_center -->
+<html>
+
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<title></title>
+	<script type="text/javascript" src="./front/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="./front/js/lottery_wap.js"></script>
+    </head>
+    <div class="page_total"></div>
+    <!--分页总数-->
+    <link rel="stylesheet" type="text/css" href="./front/css/activity/lottery_wap.css?56464">
+    <script type="text/javascript">
+	    $('.navbar span').html("会员中心")
+    </script>
+    <script>
+	window.onload = function () {
+	    var oTop = document.getElementById("go_top");
+	    oTop.onclick = function () {
+		document.documentElement.scrollTop = document.body.scrollTop = 0;
+	    }
+	}
+    </script>
+    <a target="_self" id="go_top"></a>
+    <script>
+	$(document).ready(function () {
+	    //截断进步比的小数点后两位
+	    $(".content_pic h1").each(function () {
+		var thisvalue = $(this).html();
+		$(this).html(Math.round(thisvalue * 100) / 100 + "%")
+
+	    });
+	});
+    </script>
+
+    <div id="lottery">
+        <div class="mainbg">
+            <img src="./front/images/activity/lottery_wap/lottery_bg.png" >
+        </div>
+        <div class="main">
+            <div class="blank"></div>
+            <div class="lottery">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr class="lottery-group">
+                        <td class="lottery-unit" data-unit="1">
+                            <img src="./front/images/activity/lottery_wap/1.png" />
+                        </td>
+                        <td class="lottery-unit" data-unit="2">
+                            <img src="./front/images/activity/lottery_wap/2.png" />
+                        </td>
+                        <td class="lottery-unit" data-unit="3">
+                            <img src="./front/images/activity/lottery_wap/3.png" />
+                        </td>
+                        <td class="lottery-unit" data-unit="4">
+                            <img src="./front/images/activity/lottery_wap/4.png" />
+                        </td>
+                    </tr>
+                    <tr class="lottery-group">
+                        <td class="lottery-unit" data-unit="12">
+                            <img src="./front/images/activity/lottery_wap/12.png" />
+                        </td>
+                        <td colspan="2" rowspan="2" style="background: #d01504;">
+                            <!-- <div class="getbtnbox"> -->
+			    <a href="javascript:;" class="getbtn">开始抽奖</a>
+                            <!-- </div> -->
+                        </td>
+                        <td class="lottery-unit" data-unit="5">
+                            <img src="./front/images/activity/lottery_wap/5.png" />
+                        </td>
+                    </tr>
+                    <tr class="lottery-group">
+                        <td class="lottery-unit" data-unit="11">
+                            <img src="./front/images/activity/lottery_wap/11.png" />
+                        </td>
+                        <td class="lottery-unit" data-unit="6">
+                            <img src="./front/images/activity/lottery_wap/6.png" />
+                        </td>
+                    </tr>
+                    <tr class="lottery-group">
+                        <td class="lottery-unit" data-unit="10">
+                            <img src="./front/images/activity/lottery_wap/10.png" />
+                        </td>
+                        <td class="lottery-unit" data-unit="9">
+                            <img src="./front/images/activity/lottery_wap/9.png" />
+                        </td>
+                        <td class="lottery-unit" data-unit="8">
+                            <img src="./front/images/activity/lottery_wap/8.png" />
+                        </td>
+                        <td class="lottery-unit" data-unit="7">
+                            <img src="./front/images/activity/lottery_wap/7.png" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="btncover"></div>
+            </div>
+            <div class="rules">
+                <img src="./front/images/activity/lottery_wap/lottery_rules_img.png">
+            </div>
+        </div>
+        <div class="cover"></div>
+        <div class="alertresult">
+            <div class="blank"></div>
+            <div class="main">
+                <p class="title">恭喜您获得</p>
+                <div class="cont">
+                    <img src="">
+                </div>
+                <a href="javascript:;" class="successbtn">下载APP领取奖品</a>
+                <a href="javascript:;" class="goonbtn">继续抽奖</a>
+            </div>
+        </div>
+        <div class="alertregister">
+            <div class="blank"></div>
+            <div class="main">
+                <div class="closebtn"></div>
+                <p class="title">请输入您的手机号码</p>
+                <input type="text" class="phonecont" placeholder="在此输入您的手机号" />
+                <p class="errortips">您输入的手机号码不合法</p>
+                <a href="javascript:;" class="goblottery gobtn">继续抽奖</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+	    function setimgblank() {
+		var imgH = $(".mainbg img").outerHeight();
+		// alert(imgH)
+		$(".main>.blank").css({"height":!imgH || imgH == 0?"15rem": imgH * 0.75 + "px"});
+	    }
+	    function alertregister() {
+		$(".cover").fadeIn(100);
+		$(".alertregister").fadeIn(100);
+		var winH = $(window).height();
+		var thisH = $(".alertregister .main").outerHeight();
+		$(".alertregister .blank").animate({"height": (winH - thisH) / 2 + "px"}, 200)
+		$(".btncover").fadeOut(1);
+
+	    }
+	    // 转盘停止后的事件
+	    function alertresult() {
+		var data_image = $(".lottery .active img").attr("src");
+		$(".alertresult .main .cont img").attr({"src": data_image});
+		$(".cover").fadeIn(100);
+		$(".alertresult").fadeIn(100);
+		var winH = $(window).height();
+		var thisH = $(".alertresult .main").outerHeight();
+		$(".alertresult .blank").animate({"height": (winH - thisH) / 2 + "px"}, 200)
+
+	    }
+	    $(function () {
+		$(".goonbtn").click(function () {
+		    $(".alertresult .blank").animate({"height": "0px"}, 100, function () {
+			$(".alertresult").fadeOut(1);
+		    });
+		    $(".cover").fadeOut(200);
+		})
+		$(".btncover").click(function () {
+		    alertregister();
+		})
+		// alertregister();
+		$(".goblottery").click(function () {
+		    var phonenum = $(".phonecont").val();
+		    var reg = /^1[0-9]{10}$/;
+		    if (!reg.test(phonenum)) {
+			$(this).prev(".errortips").html("您输入的手机号码不合法").addClass("show")
+		    } else {
+			if (phonenum == "11111111111") {// 如果已经存在；领取记录
+			    $(this).prev(".errortips").html("您已经领取过了").addClass("show")
+			} else {
+			    $(".cover").fadeOut(100);
+			    $(".alertregister").fadeOut(100);
+			    // window.onload = function() {
+			    lottery.lottery({
+				selector: '#lottery',
+				width: 4,
+				height: 4,
+				index: 0, // 初始位置
+				initSpeed: 50, // 初始转动速度
+				upStep: 10, // 加速滚动步长
+				upMax: 100, // 速度上限
+				downStep: 50, // 减速滚动步长
+				downMax: 200, // 减速上限
+				waiting: 1000, // 匀速转动时长
+
+				beforeRoll: function () { // 重写滚动前事件：beforeRoll
+				    
+				},
+				beforeDown: function () { // 重写减速前事件：beforeDown;
+			    
+				},
+							// 禁用抽奖
+				
+				aim: function () { // 重写计算中奖号的方法：aim
+				    var query = new Object();
+				    query.mobile=phonenum;
+				    var tmpObj = this;
+				    $.ajax({
+					    url:'{url x="index" r="activity#doprize&is_pc=1"}',
+					    data:query,
+					    type:"POST",
+					    dataType:"json",
+					    success:function(result){
+//						alert(result);
+						var num=result.num-1;
+//						$(".lottery_number").text(result.lottery_number);
+						tmpObj.options.target =num;
+					    }
+					});
+				}
+				
+	
+				
+				
+			    });
+			}
+
+		    }
+		})
+		// 初始化blank高度
+		setimgblank();
+		// 抽奖成功的确定按钮
+		$(".successbtn").click(function () {
+		    location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.hmt.jinxiangApp&g_f=991653";
+		})
+	    })
+
+        </script>
+    </div>
+    <script type="text/javascript">
+	$(".close").click(function () {
+	    $(".download-banner").hide();
+	});
+    </script>
+</body>
+
+</html>

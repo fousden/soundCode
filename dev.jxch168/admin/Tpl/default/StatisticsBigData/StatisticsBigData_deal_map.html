@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<tagLib name="html" />
+<include file="Public:header" />
+<script src="/front/echarts/asset/js/jquery.min.js"></script>
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="金享财行">
+    <meta name="author" content="https://www.jxch168.com">
+    <title>金享财行</title>
+    <link href="/front/echarts/asset/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/front/echarts/asset/css/bootstrap.css" rel="stylesheet">
+    <link href="/front/echarts/asset/css/carousel.css" rel="stylesheet">
+    <link href="/front/echarts/asset/css/echartsHome.css" rel="stylesheet">
+    <!--&lt;!&ndash; HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries &ndash;&gt;-->
+    <!--&lt;!&ndash;[if lt IE 9]>-->
+    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+
+    <script src="/front/echarts/js/echarts.js"></script>
+    <script src="/front/echarts/asset/js/codemirror.js"></script>
+    <script src="/front/echarts/asset/js/javascript.js"></script>
+
+    <link href="/front/echarts/asset/css/codemirror.css" rel="stylesheet">
+    <link href="/front/echarts/asset/css/monokai.css" rel="stylesheet">
+    <style type="text/css">
+        .CodeMirror {
+            height: 550px;
+        }
+    </style>
+</head>
+<body>
+<!-- Fixed navbar -->
+<!--<div class="navbar navbar-default navbar-fixed-top" role="navigation" id="head"></div>-->
+<div style="margin-top:-43px;"></div>
+<div class="main_title">大数据地图</div>
+<div class="blank5"></div>
+<div class="blank5"></div>
+<div class="search_row">
+    <form name="pingan" action="__APP__" method="get">
+        选择时间区间:
+        <input style="height:25px" type="text" class="textbox" name="begin_time" id="begin_time" value="{$begin_time}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+        -
+        <input style="height:25px" type="text" class="textbox" name="end_time" id="end_time" value="{$end_time}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+
+        <input type="hidden" value="StatisticsBigData" name="m" />
+        <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+        <input type="submit" class="button" value="{%SEARCH}" />
+        <input type="submit" class="button_none" name="submit_date_7" value="最近一周" />
+        <input type="submit" class="button_none" name="submit_date_30" value="最近一个月" />
+        <input type="button" class="button btn-sm btn-success" onclick="refresh(true)" style="display:none" value="刷新" /><!--此处注释掉一个btn-->
+        <span class="text-primary" style="display:none">切换主题</span>
+        <select id="theme-select"style="display:none"></select>
+        <span id='wrong-message' style="color:red"></span>
+    </form>
+</div><br>
+
+<div class="container-fluid" style="position:relative;top:-40px;">
+    <!--<div class="row-fluid example">-->
+        <div id="sidebar-code" class="col-md-4" style="display:none">
+            <div class="well sidebar-nav">
+                <div style="color:blue" class="nav-header"><a href="#" onclick="autoResize()" class="glyphicon glyphicon-resize-full" id ="icon-resize" ></a>option</div>
+                <textarea id="code" name="code">
+option = {
+    tooltip : {
+        trigger: 'item'
+    },
+                         title: {
+                                text: '全国入金分布图',
+                                x: 'center'
+                            },
+                               legend: {
+                                orient: 'vertical',
+                                x: 'left',
+                                data: ['入金数量']
+                            },
+  dataRange: {
+        x: 'left',
+        y: 'bottom',
+        splitList: [
+            {start:10000001},
+            {start:5000001,end:10000000},
+            {start:1000001,end:5000000},
+            {start:500001,end:1000000},
+            {start: 300000,end:500000},
+            {start: 100001, end: 300000},
+            {start: 50001, end: 100000},
+            {start: 10001, end: 50000},
+            {start: 1001, end: 10000},
+            //{start: 5, end: 5},
+            {end: 1000}
+        ],
+        color: ['red','orange', 'yellow','#A3E00B']
+    },
+    toolbox: {
+        show : true,
+        orient: 'vertical',
+        x:'right',
+        y:'center',
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false}
+        }
+    },
+    series : [
+        {
+
+
+            name: '全省入金总量',
+            type: 'map',
+            mapType: 'china',
+            mapLocation: {
+                x: 'left',
+                y: 'top',
+                width: '50%'
+            },
+            roam: true,
+            selectedMode : 'single',
+            itemStyle:{
+                normal:{label:{show:true}},
+                emphasis:{label:{show:true}},
+            },
+
+            data:[
+
+                        <?php foreach($pro_list as $val){
+                            echo "{name:'".$val['province']."',value:".$val['count']."},";
+                        }
+                        ?>
+
+                        ]
+        }
+    ],
+    animation: false
+};
+
+var ecConfig = require('echarts/config');
+myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
+    var selected = param.selected;
+    var selectedProvince;
+    var name;
+    for (var i = 0, l = option.series[0].data.length; i < l; i++) {
+        name = option.series[0].data[i].name;
+        option.series[0].data[i].selected = selected[name];
+        if (selected[name]) {
+            selectedProvince = name;
+        }
+    }
+    if (typeof selectedProvince == 'undefined') {
+        option.series.splice(1);
+        option.legend = null;
+        option.dataRange = null;
+        myChart.setOption(option, true);
+        return;
+    }
+    option.series[1] = {
+        name: '入金总数',
+        type: 'map',
+        mapType: selectedProvince,
+        itemStyle:{
+            normal:{label:{show:true}},
+            emphasis:{label:{show:true}}
+        },
+        mapLocation: {
+            x: '50%'
+        },
+        roam: true,
+        data:[
+
+                        <?php foreach($city_list as $val){
+                            echo "{name:'".$val['city']."市',value: ".$val['count']."},";
+                        }
+                        ?>
+                        ]
+    };
+    option.legend = {
+        x:'right',
+        data:['入金数量']
+    };
+    option.dataRange = {
+        x: 'left',
+        y: 'bottom',
+        splitList: [
+                    {start:10000001},
+            {start:5000001,end:10000000},
+            {start:1000001,end:5000000},
+            {start:500001,end:1000000},
+            {start: 300000,end:500000},
+            {start: 100001, end: 300000},
+            {start: 50001, end: 100000},
+            {start: 10001, end: 50000},
+            {start: 1001, end: 10000},
+            {end: 1000}
+        ],
+        color: ['#E0022B', '#E09107', '#A3E00B']
+    };
+    myChart.setOption(option, true);
+
+})
+
+                    </textarea>
+
+            </div><!--/.well -->
+        </div><!--/span-->
+
+        <br/><br/><div id="graphic" class="col-md-8" style="width:100%">
+            <div id="main" class="main" style="height: 700px;"></div>
+            <!--<div>-->
+                <!--<button type="button" class="btn btn-sm btn-success" onclick="refresh(true)">刷 新</button>-->
+                <!--<span class="text-primary" style="display:none">切换主题</span>-->
+                <!--<select style="display:none" id="theme-select"></select>-->
+
+                <!--<span id='wrong-message' style="color:red"></span>-->
+            <!--</div>-->
+            <!--<div style="height:200px;"></div>-->
+        </div><!--/span-->
+    </div><!--/row-->
+</div><!--/.fluid-container-->
+<!--<footer id="footer"></footer>-->
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="/front/echarts/asset/js/echartsHome.js"></script>
+<script src="/front/echarts/asset/js/bootstrap.min.js"></script>
+<script src="/front/echarts/asset/js/echartsExample.js"></script>
+<script src="/front/echarts/asset/js/jquery.min.js"></script>
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+</body>
+<script type="text/javascript">
+
+</script>
+<include file="Public:footer" />
+</html>

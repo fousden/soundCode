@@ -1,0 +1,179 @@
+<script>
+window.onload = function(){
+  var oTop = document.getElementById("go_top");
+  oTop.onclick = function(){
+    document.documentElement.scrollTop = document.body.scrollTop =0;
+  }
+}
+</script>
+<a target="_self" id="go_top"></a>
+<script>
+$(document).ready(function(){
+	//截断进步比的小数点后两位
+	$(".content_pic h1").each(function(){
+		var thisvalue=$(this).html();
+		$(this).html(Math.round(thisvalue*100)/100+"%")
+
+	});
+});
+</script>
+{if $pages}
+	<div class="fy">
+		{$pages}
+	</div>
+{/if}
+<footer style="width: 100%; background-color: transparent; font-size: .8em; color: #666; padding-top: 20px; padding-bottom: 18px;">
+    <p style="width: 100%; height: 16px; line-height: 16px; text-align: center;">
+        <span style="margin-right: 10px;">©金享财行 jxch168.com</span>
+        <span> 沪ICP备15014770号</span>
+    </p>
+    <p style="width: 100%; height: 20px; line-height: 20px; text-align: center; padding-bottom: 10px;">
+        <a class="loadinglink" style="margin-right: 10px;" href="index.php">首页</a>
+        <a class="loadinglink" style="margin-right: 10px;" href="../index.php?is_pc=1">PC版</a>
+        <a href="tel://4000912828">客服电话：400-091-2828</a>
+    </p>
+    {if !$_vm}
+    <div class="download-banner">
+        <div class="download-banner-bg"></div>
+        <div class="download-logop"></div>
+        <div class="download-p">
+            <span></span><span>下载APP投资领红包</span>
+        </div>
+        <div class="download-b"><a href="http://wap.jxch168.com" style="color:#fff">点击下载</a></div>
+        <div class="download-c close"></div>
+    </div>
+    {/if}
+</footer>
+<script type="text/javascript">
+	$(".close").click(function(){
+		$(".download-banner").hide();
+	});
+</script>
+<!--<footer>
+	<div class="footer">
+		<div class="footer-t">
+					
+					<a style="float: right;padding-right: 15px;color:skyblue;" href="http://wap.jxch168.com">体验金享财行客户端 > ></a>
+		</div>
+		<div class="footer-sort">
+					<ul>
+						<li><a href="{wap_url a="index" r="init"}">首页</a></li>
+						<li><a href="../index.php?is_pc=1">电脑版</a></li>
+						<li><a href="{wap_url a="index" r="deals"}">投资</a></li>
+						<li><a href="{wap_url a="index" r="transfer"}">债权</a></li>
+						<li><a href="{wap_url a="index" r="article_list"}">帮助</a></li>
+					</ul>
+		</div>
+
+		<div class="footer_num">
+				<div class="footer_bor">
+					<div class="footer_text">
+						<?php
+							if(strripos($_SERVER['HTTP_HOST'],'m.chhmt.com')==0){
+								echo '华陌通';
+							}else{
+								echo '金享财行';
+							}
+						?>
+					</div>
+				</div>
+		</div>
+	</div>
+
+	<img src="{$hmtPixel}" width="0" height="0" />
+</footer>-->
+
+<style type="text/css">
+    /*这几条不要 end*/
+    .footer{
+
+    }
+    .footer1 {
+        height: 10%;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .footer1>p {
+        margin: 2% 0;    
+    }
+    
+    .footer1>.logo,.footer1>.download {
+    	height: 55%;
+    	line-height: 55%;
+        margin-top:3.5%;
+        float: left;
+    }
+
+    .footer1>.download{
+    	float:right;
+    	margin-top: 4%;
+    	margin-right: 4.7%;
+    }
+
+
+   .footer1>.logo {
+       margin-left:2%;
+       margin-right:2%;
+       width: 3rem;
+       height: 3rem;
+    }
+
+    .footer1>.txt {
+        font-size: 1.2rem;
+        color: white;
+        background: red;
+        float: left;
+        margin-top: 10%;
+        margin-right: 2%;
+    }
+	.footer1>.download {
+	    display: inline-block;
+	}
+
+	.footer1>.download>img {
+	    border: none;
+	    height: 100%;
+	}
+
+	.footer1 > .close{
+		position: absolute;
+		right: 0px;
+	}
+</style>
+
+<!--<div class="footer1">
+    <img class="logo" src="tpl/fanwe/images/icon-90.png" alt=""/>
+    <a href="http://wap.jxch168.com" class="download">
+        <img src="tpl/fanwe/images/xiaz.png" alt="" />
+    </a>
+
+    <a href="javascript:void(0);" class="close">
+        <img src="tpl/fanwe/images/close.png" alt="" />
+    </a>
+</div>-->
+
+<!--<script type="text/javascript">
+	$(".footer1 a.close").click(function(){
+		$(".footer1").hide();
+	});
+</script>-->
+
+<!--统计代码 begin-->
+<div style="display:none;">
+<script type="text/javascript">
+//隐藏
+//百度统计代码
+//var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+//document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F8275aea4d6c86ea64ee5e0488ac8b330' type='text/javascript'%3E%3C/script%3E"));
+//cnzz统计代码
+var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1255781229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255781229%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+<!--统计代码 end-->
+
+</body>
+</html>

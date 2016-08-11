@@ -1,0 +1,281 @@
+{include file="./wap/header_wap.html"}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>至尊老友，金享人生，东南亚八国十地免费双人游超级攻略！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection" content="telephone=no,email=no">
+  <link rel="stylesheet" type="text/css" href="./front/css/activity/jxch_travel/lyv_wap.css">
+    <script type="text/javascript" src="./wap/tpl/fanwe/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="./front/third_party/jquery.popup/jquery.popup.js"></script>
+    <script type="text/javascript" src="./front/js/activity/jquery.slotmachine.js"></script>
+    <script type="text/javascript" src="./app/Tpl/blue/js/utils/des.js"></script>
+    <style type="text/css">
+
+
+    body {
+        font-size: 14px;
+    }
+
+    #logincover {
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: black;
+        opacity: 0.8;
+        z-index: 100;
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    #loginbox {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 80%;
+        background: red;
+        border: 5px solid yellow;
+        border-radius: 4px;
+        z-index: 101;
+        display: none;
+    }
+
+    #loginbox .header {
+        font-size: 1.2rem;
+        /*font-weight: bold;*/
+        border-bottom: 1px solid yellow;
+        text-align: center;
+        color: white;
+        padding: 10px 0;
+        margin-bottom: 5%;
+    }
+
+    #loginbox .inputlist span {
+        vertical-align: middle;
+        color: white;
+        padding-left: 1em;
+        width: 25%;
+        font-size: .9rem;
+        display: inline-block;
+    }
+
+    #loginbox .inputlist input {
+        border: none;
+        border: 1px solid yellow;
+        display: inline-block;
+        width: 60%;
+        margin: 2% auto;
+        padding: 2% 0;
+        vertical-align: middle;
+    }
+    .btnbox{
+        width: 80%;
+        margin: 0 auto;
+    }
+    #loginbtn,#regbtn {
+        float: left;
+        width: 45%;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        background: red;
+        border: 1px solid yellow;
+        border-radius: 4px;
+        margin: 3% auto;
+        padding: 3% 0;
+    }
+    #regbtn{
+        float: right;
+    }
+
+    #closebtn {
+        position: absolute;
+        top: 0rem;
+        right: 0rem;
+        color: white;
+        padding: 4%;
+    }
+
+    #alertresult {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 80%;
+        background: red;
+        border: 5px solid yellow;
+        border-radius: 4px;
+        z-index: 101;
+        padding: 5% 0;
+        display: none;
+    }
+
+    #alertresult .title {
+        font-size: 24px;
+        line-height: 30px;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        float: none;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    #alertresult .cont {
+        width: 80%;
+        height: 124px;
+        margin: 0 auto;
+        background: white;
+        margin-bottom: 20px;
+    }
+
+    #alertresult .cont img {
+        display: block;
+        margin: 0 auto;
+        padding-top: 10px;
+    }
+
+    #alertresult .successbtn {
+        width: 80%;
+        margin: 0 auto;
+        background: red;
+        display: block;
+        height: 40px;
+        color: white;
+        text-align: center;
+        border: 1px solid yellow;
+        text-decoration: none;
+        line-height: 40px;
+        font-size: 16px;
+    }
+    </style>
+  <div class="main">
+     <div class="login">
+      {if $user_id}
+      <h3>截至目前</h3>
+      <p>你已经累计推荐&nbsp<span>{$invite_user}</span>&nbsp人</p>
+      <p>你已经累计入金&nbsp<span class="money1">{$invest_money}</span>&nbsp元</p>
+      <p>你已经累计推荐入金&nbsp<span class="money2">{$invite_money}</span>&nbsp元</p>
+      {else}
+      <a href="javascript:;" id="login_a">点击登录</a>
+      {/if}
+    </div>
+   </div>
+  <div id="cover"></div>
+  <div id="alertrecord">
+    <div class="blank"></div>
+    <div class="main">
+      <a class="closebtn">点击确认</a>
+    </div>
+  </div>
+ <div id="loginbox">
+            <div class="header">用户登录</div>
+            <div id="closebtn">×</div>
+            <p class="inputlist">
+                <span>账号：</span>
+                <input type="text" name="email" id="moble" />
+            </p>
+            <p class="inputlist">
+                <span>密码：</span>
+                <input type="password" name="pwd" id="pass" />
+            </p>
+            <div class="btnbox">
+                <a href="javascript:;" id="loginbtn">登录</a>
+                <a href="/wap/index.php?ctl=register&spm=/index.php?ctl=activity-act=jxch_travel-is_pc=1<?php echo $_GET['s']?'&s='.$_GET['s']:'';?>" id="regbtn">注册</a>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+<script>
+    $(function(){
+        var btnNums = 0;
+        setCentXY($('#loginbox'));
+        setCentXY($('#alertresult'));
+        $("#login_a").click(login_a);
+        function login_a(){
+            if("<?php echo $_GET['_m']?>"){
+                location.href="jxch://user/login";
+            }else{
+                $('#loginbox').fadeIn(100);
+                $('#logincover').fadeIn(100);
+            }
+        }
+        $('#closebtn').click(function() {
+            $('#loginbox').fadeOut(100);
+            $('#logincover').fadeOut(100);
+        })
+        function setCentXY(ele) {
+            var winW = $(window).width();
+            var winH = $(window).height();
+            var eleW = $(ele).outerWidth();
+            var eleH = $(ele).outerHeight();
+            $(ele).css({
+                'left': (winW - eleW) / 2,
+                'top': (winH - eleH) / 2,
+                // 'display': 'none'
+            })
+        }
+        var num=0;
+        $("#loginbtn").click(function() {
+            var email = $("#loginbox input[name='email']").val();
+            var pwd = $("#loginbox input[name='pwd']").val();
+            if (!email) {
+                alert("请输入账号或手机号");
+            } else if (!pwd) {
+                alert("请输入密码");
+            } else {
+                ajaxurl = '{url x="index" r="activity#user_login&is_pc=1"}';
+                var query = new Object();
+                query.email = email;
+                query.pwd = pwd;
+                $.ajax({
+                    url: ajaxurl,
+                    dataType: "json",
+                    data: query,
+                    type: "POST",
+                    success: function(data) {
+                        if (data.code == 0) {
+                            alert(data.errmsg);
+                        } else {
+                            window.location.href="index.php?ctl=activity&act=jxch_travel&is_pc=1&email="+data.user_name+"&pwd="+data.user_pwd_md5;
+                        }
+                    }
+                })
+            }
+        })
+        
+        {if $result}
+            $("#cover").fadeIn(100);
+            $("#alertrecord").fadeIn(100);
+            var winH = $(window).height();
+            var thisH = $("#alertrecord .main").outerHeight();
+            $("#alertrecord .blank").animate({"height":(winH-thisH)/2+"px"},200)
+        {/if}
+        // 获奖记录的关闭按钮
+        $("#alertrecord .closebtn").click(function(){
+            $("#alertrecord .blank").animate({"height":"0px"},100,function(){
+            $("#alertrecord").fadeOut(1);
+            });
+            // if($("#alertresult").css("display") == "block"){
+            //     return false;
+            // }else{
+                $("#cover").fadeOut(200);
+            // }
+
+        })
+        // 抽奖成功的确定按钮
+        $(".successbtn").click(function(){
+            $("#alertresult .blank").animate({"height":"0px"},100,function(){
+            $("#alertresult").fadeOut(1);
+            });
+            $("#cover").fadeOut(200);
+        })
+    })
+    
+</script>
+</body>
+</html>
+{include file="./wap/footer_wap.html"}

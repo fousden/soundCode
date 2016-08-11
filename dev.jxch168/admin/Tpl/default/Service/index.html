@@ -1,0 +1,76 @@
+{// 引入标签库 }
+
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+function address(user_id)
+{
+
+	location.href = ROOT + '?m=Service&a=index&id='+user_id;
+}
+
+</script>
+
+<php>
+
+
+	function user_company($id,$user){
+		if($user['user_type']==1){
+			return "<a href='javascript:user_company(".$id.");'>公司</a>&nbsp;";
+		}
+	}
+
+        function get_date($create_time){
+            return to_date($create_time,"Y-m-d");
+        }
+
+</php>
+<div class="main">
+<div class="main_title">充值反馈</div>
+<div class="blank5"></div>
+
+
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+                                   {%REAL_NAME}：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+		{%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+		{%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+                                   订单流水号：<input type="text" class="textbox" name="order_id" value="{:trim($_REQUEST['order_id'])}" style="width:100px;" />
+
+		<div class="blank5"></div>
+
+		反馈时间：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'begin_time');" style="width:130px" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" style="width:130px" />
+
+		<input type="hidden" name="user_type" value="<if condition="ACTION_NAME eq 'index' or ACTION_NAME eq 'register'">0<else/>1</if>" />
+		<input type="hidden" value="Service" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user"
+	checkbox="true"
+
+	datasource="list"
+        show="id:{%ID}|10px,user_id1|get_user_name_real:会员|20px:edit,create_time|get_date:反馈时间,order_id:订单流水号|30px,payment_type:支付类型和银行以及失败原因,user_agent:浏览器类型,login_ip:用户ip地址,feedback:反馈"
+ />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

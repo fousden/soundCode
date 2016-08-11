@@ -1,0 +1,238 @@
+{include file="./inc/header.html"}
+<?php
+	$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_incharge.css";
+?>
+
+<script type="text/javascript">
+    /**
+     × JQUERY 模拟淘宝控件银行帐号输入
+     * @Author 312854458@qq.com 旭日升
+     **/
+    (function($){
+        // 输入框格式化
+        $.fn.bankInput = function(options){
+            var defaults = {
+                min: 10, // 最少输入字数
+                max: 25, // 最多输入字数
+                deimiter: ' ', // 账号分隔符
+                onlyNumber: true, // 只能输入数字
+                copy: true // 允许复制
+            };
+            var opts = $.extend({}, defaults, options);
+            var obj = $(this);
+            obj.css({
+                imeMode: 'Disabled',
+                borderWidth: '1px',
+                color: '#000',
+                fontFamly: 'Times New Roman'
+            }).attr('maxlength', opts.max);
+            if (obj.val() != '')
+                obj.val(obj.val().replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1" + opts.deimiter));
+            obj.bind('keyup', function(event){
+                if (opts.onlyNumber) {
+                    if (!(event.keyCode >= 48 && event.keyCode <= 57)) {
+                        this.value = this.value.replace(/\D/g, '');
+                    }
+                }
+                this.value = this.value.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1" + opts.deimiter);
+            }).bind('dragenter', function(){
+                return false;
+            }).bind('onpaste', function(){
+                return !clipboardData.getData('text').match(/\D/);
+            }).bind('blur', function(){
+                this.value = this.value.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1" + opts.deimiter);
+                if (this.value.length < opts.min) {
+                    alert('最少输入' + opts.min + '位账号信息！');
+                }
+            })
+        }
+        // 列表显示格式化
+        $.fn.bankList = function(options){
+            var defaults = {
+                deimiter: ' ' // 分隔符
+            };
+            var opts = $.extend({}, defaults, options);
+            return this.each(function(){
+                $(this).text($(this).text().replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1" + opts.deimiter));
+            })
+        }
+    })(jQuery);
+</script>
+
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+
+<style type="text/css">
+    
+    .figure{
+        height: auto;
+    }
+    .figure input,select[name=bank_id]{
+        padding-left: 40px;
+    }
+
+    .figure select{
+        padding-left: 40px;
+        line-height: 40px;
+        background: none;
+        font-size: 16px;
+        color: #b6b6b6;
+        width: 100%;
+    }
+</style>
+
+<div class="uc_incharge"><!--线上支付-->
+    <div class="figure">
+        <span>开户名</span>
+        <input readonly class="" type="text" value="{$data.real_name}">
+        <input name="real_name" class="" type="hidden" value="{$data.real_name}">
+    </div>
+    <div class="figure">
+        <span>帐户类型</span>
+        <input readonly class="" type="text" value="借记卡  (不支持信用卡)">
+    </div>
+
+    <div class="figure" group="edit">
+        <span><font color="red">*</font>选择银行</span>
+        <select name="bank_id">
+            <option value=''>请选择</option>
+            {foreach from='$data.bank_list' item='item'}
+            <option value='{$item.fuyou_bankid}'>{$item.name}</option>
+            {/foreach}
+            <option value='other'>其他</option>
+        </select>
+    </div>
+
+    <div class="figure" group="edit">
+        <span><font color="red">*</font>开户行所在地</span>
+        <select name='region_lv1'>
+            <option selected='selected'>请选择省</option>
+            {foreach from=$data.region_lv1 item=lv1}
+            <option value='{$lv1.DistrictCode}'>{$lv1.DistrictName}</option>
+            {/foreach}
+        </select>
+        <select name='region_lv2'>
+            <option selected='selected'>请选择市</option>
+        </select>
+    </div>
+
+    <div class="figure" group="edit">
+        <span><font color="red">*</font>银行卡号</span>
+        <input name="bankcard" class="" type="text" value="">
+    </div>
+
+    <div class="figure" group="edit">
+        <span><font color="red">*</font>确认卡号</span>
+        <input name="reBankcard" class="" type="text" value="">
+    </div>
+
+    <div class="figure" group="readonly">
+        <span><font color="red">*</font>选择银行</span>
+        <input readonly name="bank_id_r"/>
+    </div>
+
+    <div class="figure" group="readonly">
+        <span><font color="red">*</font>开户行所在地</span>
+        <input readonly  name="region_lv1_r"/>
+        <input readonly name="region_lv2_r"/>
+    </div>
+
+    <div class="figure" group="readonly">
+        <span><font color="red">*</font>银行卡号</span>
+        <input readonly  name="bankcard_r"/>
+    </div>
+</div>
+
+<div class="detail_foot">
+    <div class="lookdetail" style=" width:100%;">确认</div>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+
+        if('{$data.response_code}' == '0'){
+
+            if('{$data.response_code_e}' == '1'){
+                alert('{$data.show_err}');
+                window.document.location.replace('{wap_url a="index" r="uc_real_name"}');
+            }
+            if('{$data.response_code_e}' == '2'){
+                $.ajax({
+                    type:"POST",
+                    url:'{wap_url a="index" r="uc_queryblank"}',
+                    data:{
+                        'post_type': 'json'
+                    },
+                    dataType:"json",
+                    success: function(result){
+                        if(result['list'].length == 1){
+                            var obj = result['list'][0];
+                            $("div.detail_foot").hide();
+                            $("div[group=edit]").hide();
+                            $("div[group=readonly]").show();
+
+                            $("input[name=bank_id_r]").val(obj['bankcard_name']);
+                            $("input[name=region_lv1_r]").val(obj['region_lv1_name']);
+                            $("input[name=region_lv2_r]").val(obj['region_lv2_name']);
+                            $("input[name=bankcard_r]").val(obj['bankcard_s']);
+                        }
+                        
+                    }     
+                });
+            }
+        }
+
+        $("div[group=edit]").show();
+        $("div[group=readonly]").hide();
+
+        $("select[name=region_lv1]").bind('change',function(){
+            $("select[name=region_lv2] option:first").nextAll().remove();
+            $.ajax('/wap/member.php?ctl=city',{
+                method: 'GET',
+                dataType:'json',
+                data: {
+                    id:$("select[name=region_lv1]").val(),
+                    'post_type': 'json'
+                },
+                success: function(data){
+                    
+                    $.each(data,function(index,item){
+                        if(item.DistrictCode != undefined)
+                            $("select[name=region_lv2]").append("<option value='"+item.DistrictCode+"'>"+ item.DistrictName +"</option>");
+                    });
+                }
+            });
+        });
+
+        $('input[name=bankcard],input[name=reBankcard]').bankInput();
+
+        $(".lookdetail").click(function(){
+            var ajaxurl = '/wap/member.php?ctl=savebank';
+            var query = new Object();
+            query.bank_id = $('select[name=bank_id]').val();
+            query.real_name = $('input[name=real_name]').val();
+            query.region_lv1 = $('select[name=region_lv1]').val();
+            query.region_lv2 = $('select[name=region_lv2]').val();
+            query.bankzone = $('input[name=bankzone]').val();
+            query.bankcard = $('input[name=bankcard]').val();
+            query.post_type = 'json';
+
+            $.ajax({
+                url: ajaxurl,
+                data: query,
+                type:"POST",
+                dataType:"json",
+                success:function(data){
+                    if(data.response_code === 0){
+                        alert(data.show_err);
+                    }else{
+                        alert(data.show_err);
+                        window.location.href = '{wap_url a="index" r="uc_center"}';
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+{include file="./inc/footer.html"}

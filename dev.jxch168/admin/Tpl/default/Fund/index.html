@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+    function address(user_id)
+    {
+        location.href = ROOT + '?m=Fund&a=index&id='+user_id;
+    }
+</script>
+<php>
+
+
+    function user_company($id,$user){
+    if($user['user_type']==1){
+    return "<a href='javascript:user_company(".$id.");'>公司</a>&nbsp;";
+    }
+    }
+
+    function get_date($create_time){
+    return to_date($create_time,"Y-m-d H:i:s");
+    }
+
+</php>
+<div class="main">
+    <div class="main_title">基金联系人</div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="user"
+            checkbox="true"
+            datasource="data['list']"
+            show="id:{%ID}|50px,id|get_user_name_real:用户名,connect_time|get_date:更新时间"
+    />
+    <div class="blank5"></div>
+    <!--<div class="page">{$page}</div>-->
+</div>
+<include file="Public:footer" />
+</html>

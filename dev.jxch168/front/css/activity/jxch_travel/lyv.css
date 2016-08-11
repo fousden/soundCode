@@ -1,0 +1,109 @@
+body,html{
+  margin:0;
+  padding: 0 ;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  position: relative;
+}
+.main{
+  background: url(../../../images/activity/jxch_travel/lybg.jpg) no-repeat center top;
+  position: relative;
+  margin: 0 auto;
+  height:2193px;
+  width: 100%;
+}
+.main .bg{
+  width: 1200px;
+  background: rgba(0,0,0,0);
+  height: 290px;
+  margin: 0 auto;
+}
+.main .login{ 
+  float: right;
+  width: 230px;
+  height: 40px;
+  position: relative;
+  top:116px;
+  color: red;
+  margin-right: 76px;
+  text-align: right;
+  font-family:"Microsoft YaHei",;
+}
+.main .login h3{
+  font-weight: 700;
+  line-height: 36px;
+}
+.main .login p{
+  font-weight: 700;
+  line-height: 30px;
+}
+.main .login img{
+  margin-top: 50px;
+  margin-right: -25px;
+}
+.main .login span{
+  border-bottom:1px red solid; 
+}
+.main .text{
+  position: absolute;
+  top: 51.5%;
+  left: 25%;
+  color: red;
+}
+.main .text h3{
+  display: block;
+  line-height: 20px;
+  top: 51.5%;
+  left: 490px;
+}
+.main .text p{
+  display: block;
+  text-indent: 2em;
+  font-weight: 700;
+}
+.main .text a{
+  color: red;
+  text-decoration: none;
+}
+.main .text a:hover{
+  color: red;
+  text-decoration:underline ;
+}
+#cover{
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: none;
+  opacity: 0.8;
+}
+#alertrecord{
+  width: 100%;
+  height:100%;
+  position: fixed;
+  top:0;
+  z-index: 2;
+  display: none;
+}
+#alertrecord .main{
+  background: rgba(0,0,0,0)url(../../../images/activity/jxch_travel/alert.png) no-repeat;
+  width: 100%;
+  position: relative;
+  width: 682px;
+  height:452px;   
+}
+#alertrecord .main .closebtn {
+  display: block;
+  position: absolute;
+  top: 6px;
+  right: -66px;
+  width: 38px;
+  height: 38px;
+  padding-bottom: 10px;
+  background: url(../../../images/activity/jxch_travel/x.png) no-repeat center center;
+  border: 2px solid transparent;
+}

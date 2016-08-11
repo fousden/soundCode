@@ -1,0 +1,554 @@
+{include file="inc/header.html"}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml/"><head>
+		<meta name="Generator">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>投资理财注册平台、投资理财登录、30秒注册坐等收益、金享财行</title>
+		<link rel="icon" href="https://www.jxch168.com/favicon.ico" type="/image/x-icon">
+		<link rel="shortcut icon" href="https://www.jxch168.com/favicon.ico" type="/image/x-icon">
+		<meta name="keywords" content="金享财行,理财,理财产品,理财网,互联网理财,在线理财,投资理财,网上理财,金融理财,保本理财,商业保理,融资租赁,银行理财产品,理财平台,无风险理财,高收益理财,低风险理财,合理理财">
+		<meta name="description" content="金享财行是一家创新型互联网金融信息服务平台，在细分金融领域，票据理财、融资租赁、商业保理范畴，真正能做到用户体验的极致。健全的风控体系，6大安全保障,助您的理财资产最大化！"> <link rel="stylesheet" type="text/css" href="/front/images/activity/hfbl/711a75a3afca298fc1bfdf8ba6992808.css">
+        <meta name="viewport" content="width=device-width,target-densitydpi=high-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+				<link href="/front/images/activity/hfbl/slotMachine.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="/front/images/activity/hfbl/slotMachine.css">
+		<script type="text/javascript" src="/front/images/activity/hfbl/jquery_002.js"></script>
+		<script type="text/javascript" src="/front/images/activity/hfbl/jquery_004.js"></script>
+		<script type="text/javascript" src="/front/images/activity/hfbl/jquery_003.js"></script>
+                <script type="text/javascript" src="/front/images/activity/hfbl/jquery.js"></script>
+                <link rel="stylesheet" type="text/css" href="/front/images/activity/hfbl/jquery.css">
+		<link rel="stylesheet" type="text/css" href="/front/images/activity/hfbl/thanksday.css">
+		<script type="text/javascript" src="/front/images/activity/hfbl/thanksday.js"></script>
+                <style>
+                    #header{
+                        padding-top: 0;
+                        padding-bottom: 0;
+                        overflow:visible;
+                    }
+                    #footer{
+                        /*padding: 0 0;*/
+                        border: none;
+                        height: auto;
+                    }
+                    .bdsharebuttonbox img{
+                        margin-left:10px;
+                    }
+/*                    .magins{
+                        margin:auto;
+                    }*/
+                </style>
+		<!--因为header为可浮动 此blank100的作用为将头部浮动的区域撑开 请勿去掉 begin-->
+		<div class="blank100"></div>
+		<div id="showitem">
+			<img src="/front/images/activity/hfbl/image_err.gif">
+			<p class="name"></p>
+			<p class="jg"></p>
+			<p class="tj"></p>
+		</div>
+		<!--因为header为可浮动 此blank100的作用为将头部浮动的区域撑开 请勿去掉 end-->
+		<div id="thanksgiving" style="margin-top: -106px; margin-bottom: -40px;">
+			<div id="main">
+				<div id="banner" style="height:471px;"></div>
+				<div id="slotMachineBox">
+					<div class="main">
+						<div id="slotMain">
+							<div style="overflow: hidden;" id="machine1" class="slotMachine">
+								<div style="margin-top: -2160px;" class="slotMachineContainer"><div class="slot slot12"></div><div class="slot slot1"></div><div class="slot slot2"></div><div class="slot slot3"></div><div class="slot slot4"></div><div class="slot slot5"></div><div class="slot slot6"></div><div class="slot slot7"></div><div class="slot slot8"></div><div class="slot slot9"></div><div class="slot slot10"></div><div class="slot slot11"></div><div class="slot slot12"></div><div class="slot slot1"></div></div>
+							</div>
+							<div style="overflow: hidden;" id="machine2" class="slotMachine">
+								<div style="margin-top: -1980px;" class="slotMachineContainer"><div class="slot slot12"></div><div class="slot slot1"></div><div class="slot slot2"></div><div class="slot slot3"></div><div class="slot slot4"></div><div class="slot slot5"></div><div class="slot slot6"></div><div class="slot slot7"></div><div class="slot slot8"></div><div class="slot slot9"></div><div class="slot slot10"></div><div class="slot slot11"></div><div class="slot slot12"></div><div class="slot slot1"></div></div>
+							</div>
+							<div style="overflow: hidden;" id="machine3" class="slotMachine">
+								<div style="margin-top: -1800px;" class="slotMachineContainer"><div class="slot slot12"></div><div class="slot slot1"></div><div class="slot slot2"></div><div class="slot slot3"></div><div class="slot slot4"></div><div class="slot slot5"></div><div class="slot slot6"></div><div class="slot slot7"></div><div class="slot slot8"></div><div class="slot slot9"></div><div class="slot slot10"></div><div class="slot slot11"></div><div class="slot slot12"></div><div class="slot slot1"></div></div>
+							</div>
+						</div>
+						<div id="getBtn"></div>
+						<!-- <img src="https://www.jxch168.com/front/images/activity/ThanksDay/getbtn.png" /> -->
+
+                                                 {if $user_info}
+                                                 <div id="slotRules">
+							<p>您当前还有<span class="lottery_number">{$lottery_number}</span>次抽奖机会，<a href="javascript:;" class="getchance">点击获取</a></p>
+							<p>
+								<a href="javascript:;" style="margin-left: 30px;" class="getrecord" onclick="viewLoanItem('.Text-1');">查看获奖记录</a>
+							</p>
+						</div>
+                                                 {else}
+                                                   <div id="slotRules">
+
+                                                <a href="javascript:;" onclick="ajax_login();">未登录，请点击登录</a>
+                                                </div>
+                                                 {/if}
+                                                					</div>
+				</div>
+				<div id="showgift">
+					<div class="main">
+						<div id="carousel" class="wrap">
+							<span id="prev" class="btn prev"></span>
+							<span id="next" class="btn next"></span>
+							<div id="listBox" class="listBox">
+								<ul style="width: 1112px;" class="cf">
+                                                                                                                                                                <li class="on" id="data8" data-name="Apple Watch sport" data-jg="2588">
+										<img src="/front/images/activity/hfbl/watch.png">
+										<i class="arr2">Apple Watch sport</i>
+									</li>
+
+									<li id="data2" data-name="小米手环" data-jg="69">
+										<img src="/front/images/activity/hfbl/xiaomishouhuan.png">
+										<i class="arr2">小米手环</i>
+									</li>
+
+									<li id="data7" data-name="全自动足疗机DE-F18" data-jg="669">
+										<img src="/front/images/activity/hfbl/zuliaoji.png">
+										<i class="arr2">全自动足疗机DE-F18</i>
+									</li>
+									<li id="data6" data-name="美的MF-TN20A空气炸锅" data-jg="599">
+										<img src="/front/images/activity/hfbl/dfb.png">
+										<i class="arr2">美的MF-TN20A空气炸锅</i>
+									</li>
+
+									<li id="data4" data-name="韩国BD-YS1801养生壶" data-jg="139">
+										<img src="/front/images/activity/hfbl/yangshenghu.png">
+										<i class="arr2">韩国BD-YS1801养生壶</i>
+									</li>
+
+									<li id="data5" data-name="九阳JYZ-V1立式榨汁机" data-jg="499">
+										<img src="/front/images/activity/hfbl/yuanzhiji.png">
+										<i class="arr2">九阳JYZ-V1立式榨汁机</i>
+									</li>
+
+
+									<li id="data10" data-name="iPad Air 2 64G" data-jg="4288">
+										<img src="/front/images/activity/hfbl/ipadair.png">
+										<i class="arr2">iPad Air 2 64G</i>
+									</li>
+
+									<li id="data11" data-name="iPhone 6s plus 64G " data-jg="6888">
+										<img src="/front/images/activity/hfbl/iphone.png">
+										<i class="arr2">iPhone 6s plus 64G</i>
+									</li>
+
+									<li id="data9" data-name="iPad mini 16G" data-jg="2888">
+										<img src="/front/images/activity/hfbl/padmini.png">
+										<i class="arr2">iPad mini 16G</i>
+									</li>
+
+									<li id="data3" data-name="小米体重秤" data-jg="99">
+										<img src="/front/images/activity/hfbl/c.png">
+										<i class="arr2">小米体重秤</i>
+									</li>
+
+                                                                                                                                                                <li id="data1" data-name="100元抵用券（投满10000可用）" data-jg="100" style="display:none">
+										<img src="/front/images/activity/hfbl/dxq.png">
+										<i class="arr2">100元抵用券</i>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="winnerList">
+					<div class="main">
+						<div style="height: 120px;"></div>
+						<ul id="nameList" class="marquee">
+                                                        {foreach from=$log_list item=v}
+                                                        <li style="margin-left: 0px; text-align: left; line-height: 30px;">
+								<span style="padding-right:90px;padding-left:120px;">{$v.create_date}</span>
+								<span style="padding-right:90px;">恭喜{function name="get_mobile" v=$v.mobile}</span>
+								<span style="">抽中&nbsp;{$v.prize_name}</span>
+							</li>
+                                                         {/foreach}
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+        <div id="cover"></div>
+		<div id="alertshare">
+            <div class="blank"></div>
+            <div class="main">
+                <p class="title">获取抽奖机会</p>
+                <div class="cont">
+                    <p>点击下方图标进行分享获取抽奖机会</p>
+                     <div class="bdsharebuttonbox" data-tag="share_1">
+			<style type="text/css">#share a img{width:24px;height:24px;margin-right:3px;}</style><a title="分享到新浪微博" onclick="shareTo('sinaminiblog')" href="javascript:void(0);"><img src="/front/images/activity/hfbl/sinaminiblog.png"></a><a title="分享到腾讯微博" onclick="shareTo('qqmb')" href="javascript:void(0);"><img src="/front/images/activity/hfbl/qqmb.png"></a><a title="分享到微信" onclick="shareTo('weixin')" href="javascript:void(0);"><img src="/front/images/activity/hfbl/weixin.png"></a><a title="分享到QQ空间" onclick="shareTo('qzone')" href="javascript:void(0);"><img src="/front/images/activity/hfbl/qzone.png"></a><a title="分享到人人网" onclick="shareTo('renren')" href="javascript:void(0);"><img src="/front/images/activity/hfbl/renren.png"></a><a title="分享到开心网" onclick="shareTo('kaixin001')" href="javascript:void(0);"><img src="/front/images/activity/hfbl/kaixin001.png"></a>                    </div>
+                    <script type="text/javascript">
+                        var qr_url = "{$SITE_DOMAIN}/index.php?ctl=activity&act=lottery&type=hfbl&is_pc=1";
+                    function shareTo(site){
+                        var e = encodeURIComponent, s = screen, d = document, wd = 640, hg = 480, u = d.location;
+                        d.title = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+                        var uuid = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+                        var img ="http://www.jxch168.com/public/images/logo.png";
+                        var ctxt = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+                        var url = "http://api.bshare.cn/share/"+site+"?url="+e(""+qr_url+"")+"&title="+e(d.title)+"&publisherUuid="+uuid+"&summary="+ctxt+"&pic="+img;
+                        window.open(url, 'bshare', ['toolbar=0,status=0,resizable=1,width='+ wd +',height='+ hg +',left='+ (s.width - wd) / 2+ ',top='+ (s.height - hg) / 2]);
+                    }
+                </script>
+                </div>
+                <!-- <a href="javascript:;" class="saomiao">扫描右侧二维码分享>></a> -->
+                <a href="https://www.jxch168.com/index.php?ctl=deals" class="goinvite" target="_blank">现在去投资&gt;&gt;</a>
+                <a class="closebtn"></a>
+                <img src="/front/images/activity/hfbl/alert_getchance_erweima.png" class="erweima" height="180" width="180">
+            </div>
+        </div>
+		<div id="alertresult">
+            <div class="blank"></div>
+            <div class="main">
+                <p class="title">恭喜您获得</p>
+                <div class="cont" style="margin-bottom: 0">
+                    <!-- <img src=""> -->
+                </div>
+                <p class="name" style="color: white; text-align: center; display:block;"></p>
+                <p class="jg" style="color: white; text-align: center; display:block;"></p>
+                <a href="javascript:;" class="successbtn">确定</a>
+            </div>
+        </div>
+
+        <div id="alertrecord">
+            <div class="blank"></div>
+            <div class="main">
+                <p class="title">奖品记录</p>
+                <dl class="cont">
+                <!-- 如果该客户暂时没有抽奖记录 直接显示“暂时没有抽到礼品” -->
+
+                    <dt>
+                        <span class="name">奖品名称</span>
+                        <span class="date">时间</span>
+                        <div class="Clear"></div>
+                    </dt>
+
+		    <div id="myText" class="hide Text-1">
+
+		     </div>
+                </dl>
+                <a class="closebtn"></a>
+            </div>
+        </div>
+        <style>
+            .popupbox{
+	background: yellow;
+	padding: 8px;
+	border-radius: 4px;
+}
+.popupbox .popupmain{
+	background: red;
+}
+.popupbox .popupmain .popupheader{
+	color: white;
+	/*font-weight: bold;*/
+}
+.popupbox .popupmain .popupclose{
+	color: white;
+}
+.popupbox .popupmain .popupcontent{
+	color: white;
+}
+.popupbox .popupmain .popupbtns input{
+	color: white;
+}
+.popupbox .popupmain .popupbtns input:hover{
+	color: red;
+	/*background: yellow;*/
+}
+        </style>
+<script type="text/javascript">
+    <?php if(date('Ymd') < '20160216' && isMobile() == false) :?>
+        content_a = '<div><p style="text-align: center;">公告</p>'+
+'<p>各会员单位及投资者：</p>'+
+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据我公司2016年春节放假安排，2016年2月05日（腊月二十七）至2016年2月14日（正月初七），共10天为我公司春节假期，2016年2月15日（正月初八）正式上班，期间有会员及投资者参与活动抽奖，所抽取奖品将于假期结束后由我司统一采购发放，届时，将由客服人员电话联系您，请保持电话畅通！！！'+
+'感谢您的理解以及一直以来对金享财行的支持与信任，金享财行衷心祝愿您新年吉祥，万事如意，财源广进！！！'+
+'<Br>'
++'<div><p style="text-align: right;"><br/>2016年1月28日</p></div>';
+$(document).popup({
+        // matte: false,
+        // titleHide: true,
+        height: 300,
+        title: '春节活动安排',
+        // autoOpen: false,
+         content: content_a,
+        buttons: {
+        },
+})
+<?php endif;?>
+    var btnNums = 0;
+    var zjnum = 0;
+    function get_log_list(){
+        var str='';
+        var query=new Object();
+//        query.maxLogId=maxLogId;
+        $.ajax({
+                url:'/index.php?ctl=activity&act=get_log_info',
+                data:query,
+                type:"POST",
+                dataType:"json",
+                success:function(result){
+                        if(result.status==1){
+                            $.each(result.data,function(i,item){
+                                str+="<li style='margin-left: 0px; text-align: left; line-height: 30px;'><span style='padding-right:90px;padding-left:120px;'>"+item.cteate_date+"</span><span style='padding-right:90px;'>恭喜"+item.mobile+"</span><span>抽中&nbsp;"+item.prize_name+"</span></li>";
+                            })
+//                            maxLogId=result.maxLogId;
+                            $(".marquee").html(str);
+                          }
+                }
+            });
+    }
+                 function viewLoanItem(obj){
+                    if($(obj).hasClass("hide")){
+                            $(obj).removeClass("hide");
+                    }
+                    else{
+                            $(obj).removeClass("hide");
+                    }
+
+    //		if($.trim($(obj).html()) == "" || $.trim($(obj).html()) == ""){
+                            getLoanItem(obj,1);
+    //		}
+
+	}
+        function getLoanItem(obj,p){
+		var query=new Object();
+		query.obj = obj;
+		query.p = p;
+		query.mobile="{$user_info.mobile}";
+
+		$.ajax({
+			url:"/index.php?ctl=activity&act=get_user_info",
+			data:query,
+			type:"post",
+			dataType:"json",
+			success:function(result){
+				if(result.status==1){
+					$("#myText").html(result.info);
+				}
+				else{
+					alert(result.info);
+				}
+			},
+			error:function(){
+				alert("请求数据失败");
+			}
+		});
+	}
+
+                 $(".bdsharebuttonbox").click(function(){
+		var query=new Object();
+		query.mobile="{$user_info.mobile}";
+		$.ajax({
+			url:"/index.php?ctl=activity&act=lottery&type=hfbl&action=add_lottery_number",
+			data:query,
+			type:"post",
+			dataType:"json",
+			success:function(result){
+			    if(result.status==0){
+				alert("每日分享获得抽奖次数为5次");
+			    }
+			    $(".lottery_number").text(result.lottery_number);
+			},
+		});
+	    });
+
+        $(document).ready(function(){
+                var machine1 = $("#machine1").slotMachine({
+                        active	: 11,
+                        delay	: 100
+                });
+
+                var machine2 = $("#machine2").slotMachine({
+                        active	: 10,
+                        delay	: 100
+                });
+
+                var machine3 = $("#machine3").slotMachine({
+                        active	: 9,
+                        delay	: 100
+                });
+                function checkResult(){
+                        // **********这里开始是确认奖品之后的操作***************
+                        // console.log(machine1.active+","+machine2.active+","+machine3.active);
+                         $("#getBtn").removeClass('getbtn2');
+                        if(machine1.active == machine2.active &&  machine2.active == machine3.active){
+                                console.log('中奖')
+                                console.log('恭喜您获得'+machine1.active);
+
+                                $("#cover").fadeIn(100);
+                                $("#alertresult").fadeIn(100);
+                                var winH = $(window).height();
+                                var thisH = $("#alertresult .main").outerHeight();
+                                $("#alertresult .blank").animate({"height":(winH-thisH)/2+"px"},200);
+
+                             //   var newurl = '.slot'+(machine1.active+1);
+                               // console.log(newurl)
+
+                                var imgurl = $("#data"+zjnum+" img").attr('src');
+                                console.log(imgurl);
+                                // $('#alertresult').find('.cont').html(imgurl)
+                                $('#alertresult').find('.cont').css({
+                                        'background-image': 'url("' + imgurl +'")',
+                                        'background-repeat': 'no-repeat',
+                                        'background-size': 'auto 100%'
+                                        ,'background-position': 'center center'
+//                                        'background-color': 'transparent'
+                                });
+
+                        }else{
+                                console.log('没中奖');
+                        }
+                }
+                // 检查有没有抽奖机会
+
+                $("#getBtn").click(function(){
+                    if (machine1.isRunning || machine2.isRunning || machine3.isRunning){
+                            return false;
+                       }else{
+                           var query = new Object();
+                        query.mobile="{$user_info.mobile}";
+                        var tmpObj = this;
+                        if(btnNums) return; btnNums++;
+                        $.ajax({
+                                url:'index.php?ctl=activity&act=lottery&type=hfbl&action=do_lottery',
+                                data:query,
+                                type:"POST",
+                                dataType:"json",
+                                success:function(data){
+
+                                    btnNums=0;
+                                    if(data.code=='-1'){
+                                        ajax_login();
+                                    }else if(data.code==0){
+                                        alert(data.errmsg);
+                                    }else if(data.code==1){
+                                        get_log_list();
+                                        $(".lottery_number").html(data.lottery_number);
+                                        var num=data.num-1;
+                                        if (machine1.isRunning || machine2.isRunning || machine3.isRunning){
+                                            return false;
+                                          }
+                                          zjnum = data.num;
+                                          $('#alertresult').find('.name').html($("#data"+data.num+" i").html());
+                                          $('#alertresult').find('.jg').html('价值'+$("#data"+data.num).attr("data-jg"));
+                                       // $("#getBtn").addClass('getbtn2');
+                                        machine1.setRandomize(num);
+                                        machine1.shuffle(6);
+                                        setTimeout(function(){
+                                        machine2.setRandomize(num);
+                                        machine2.shuffle(6);
+                                }, 1);
+
+                                setTimeout(function(){
+                                        machine3.setRandomize(num);
+                                        machine3.shuffle(6,function(){
+                                                checkResult();
+                                        });
+                                }, 1);
+                                    }
+                                }
+                            });
+                       }
+
+                });
+                $('#nameList').marquee({
+                         direction: 'up',
+                         duration: 3000,
+                         gap: 0,
+                         pauseOnHover: true,
+                         duplicated: true
+                });
+        })
+		</script><div style="width: 1903px; height: 914px; position: fixed; top: 0px; left: 0px; z-index: 100; background-color: black; opacity: 0.4; display: none;" class="coverundefined popupcover"></div><div style="position: fixed; z-index: 101; left: 683.5px; top: 256px; display: none;" class="popupundefined popupbox"><div class="popupmain"><div style="width: 500px;" class="popupheader">春节活动安排</div><div style="width: 500px; height: 300px;" class="popupcontent"><div><p style="text-align: center;">公告</p><p>各会员单位及投资者：</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+根据我公司2016年春节放假安排，2016年2月05日（腊月二十七）至2016年2月14日（正月初七），共10天为我公司春节假期，2016年2月
+15日（正月初八）正式上班，期间有会员及投资者参与活动抽奖，所抽取奖品将于假期结束后由我司统一采购发放，届时，将由客服人员电话联系您，请保持电话
+畅通！！！感谢您的理解以及一直以来对金享财行的支持与信任，金享财行衷心祝愿您新年吉祥，万事如意，财源广进！！！<br><div><p style="text-align: right;"><br>2016年1月28日</p></div></div></div><div style="width: 500px;" class="popupbtns"></div><div style="position: absolute; cursor: pointer;" class="popupclose">×</div></div></div>
+
+
+		<script type="text/javascript">
+			(function() {
+				function G(s) {
+					return document.getElementById(s);
+				}
+
+				function getStyle(obj, attr) {
+					if (obj.currentStyle) {
+						return obj.currentStyle[attr];
+					} else {
+						return getComputedStyle(obj, false)[attr];
+					}
+				}
+
+				function Animate(obj, json) {
+					if (obj.timer) {
+						clearInterval(obj.timer);
+					}
+					obj.timer = setInterval(function() {
+						for (var attr in json) {
+							var iCur = parseInt(getStyle(obj, attr));
+							iCur = iCur ? iCur : 0;
+							var iSpeed = (json[attr] - iCur) / 5;
+							iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+							obj.style[attr] = iCur + iSpeed + 'px';
+							if (iCur == json[attr]) {
+								clearInterval(obj.timer);
+							}
+						}
+					}, 30);
+				}
+				var oList = G("listBox");
+				var oPrev = G("prev");
+				var oNext = G("next");
+				var oListLi = oList.getElementsByTagName("li");
+				var len2 = oListLi.length;
+				var oListUl = oList.getElementsByTagName("ul")[0];
+				var w2 = oListLi[0].offsetWidth;
+				oListUl.style.width = w2 * len2 /2 + "px";
+				var index = 0;
+				var num = 5;
+				var num2 = Math.ceil(num / 2);
+
+				function Change() {
+					if (index < num2) {
+						Animate(oListUl, {
+							left: 0
+						});
+					} else if (index + num2 <= len2) {
+						Animate(oListUl, {
+							left: -(index - num2 + 1) * w2
+						});
+					} else {
+						Animate(oListUl, {
+							left: -(len2 - num) * w2
+						});
+					}
+					for (var i = 0; i < len2; i++) {
+						oListLi[i].className = "";
+						if (i == index) {
+							oListLi[i].className = "on";
+						}
+					}
+				}
+				/*oNext.onclick = function() {
+					index++;
+					index = index == len2 ? 0 : index;
+					Change();
+				}
+				oPrev.onclick = function() {
+					index--;
+					index = index == -1 ? len2 - 1 : index;
+					Change();
+				}
+				for (var i = 0; i < len2; i++) {
+					oListLi[i].index = i;
+					oListLi[i].onclick = function() {
+						index = this.index;
+						Change();
+					}
+				}*/
+			})()
+		</script>
+
+
+<div class="Clear"></div>
+ {include file="inc/footer.html"}
+
+</html>

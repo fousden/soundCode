@@ -1,0 +1,135 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+
+<style type="text/css">
+.hide {
+    display: none;
+}
+</style>
+<style type="text/css">
+    table {width:400px;height:200px;font-size:16px;border:1px solid #c9c9c9;}
+    table th{color:black;}
+    //table tr {border:1px solid #c9c9c9;}
+    //table tr td{border:1px solid #c9c9c9;}
+    table tr .mtd{background-color:#c9c9c9;}
+    table td .minput{width:200px;height:30px;}
+    ul{margin:0px;padding:0px;}
+    ul li {margin:0px;padding:0px;float:left;list-style:none;line-height:40px;margin-left:20px;}
+    ul li a{font-size:16px;}
+</style>
+<div class="main">
+    <div class="main_title" style="height:30px;"><span style="font-size:16px;line-height:30px;font-weight:bold;">密码管理</div>
+    <div class="blank5"></div>
+    <div class="blank5"></div><div class="blank5"></div><div class="blank5"></div>
+    <div align="center">
+        <table border="1px" cellpadding="0" cellspacing="0">
+            <form action="/m.php?m=UserReward&a=savePwd" method="post" id="identify_password">
+                <tr><td class="mtd" align="right">登录账号：</td><td style="text-align:center">{$adminInfo.adm_name}</td></tr>
+                <input type="hidden" name="type" value="identify"/>
+                <input type="hidden" name="ajax_off" value="true"/>
+                <tr><td class="mtd" align="right">提成奖励审核新密码：</td><td><input type="password" class="minput" name="identify_password" /></td></tr>
+                <tr><td class="mtd" align="right">确认提成奖励审核密码：</td><td><input type="password" class="minput" name="confirm_identify_password" /></td></tr>
+                <tr><td class="mtd"></td><td>　<input type="button" onclick="return checkOldPwd('identify','提成奖励审核');" value="修改" />　　<input type="reset" value="重置" /></td></tr>
+            </form>
+        </table>
+    </div>
+    <div class="blank5"></div><div class="blank5"></div><div class="blank5"></div>
+    <div align="center">
+        <table border="1px" cellpadding="0" cellspacing="0">
+            <form action="/m.php?m=UserReward&a=savePwd" id="repay_password" method="post">
+                <tr><td class="mtd" align="right">登录账号：</td><td style="text-align:center">{$adminInfo.adm_name}</td></tr>
+                <input type="hidden" name="type" value="repay"/>
+                <input type="hidden" name="ajax_off" value="true"/>
+                <tr><td class="mtd" align="right">提成奖励放款新密码：</td><td><input type="password" class="minput" name="repay_password" /></td></tr>
+                <tr><td class="mtd" align="right">确认提成奖励放款密码：</td><td><input type="password" class="minput" name="confirm_repay_password" /></td></tr>
+                <tr><td class="mtd"></td><td>　<input type="button" onclick="return checkOldPwd('repay','提成奖励放款');" value="修改" />　　<input type="reset" value="重置" /></td></tr>
+            <form>
+        </table>
+    </div>
+</div>
+<style type="text/css">
+    .sub_btn{cursor:pointer; margin:0; padding:0; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; overflow:visible; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .sub_btn:hover{background-color:#0087E5;}
+    .reset_btn{cursor:pointer; background:none; border:none; background-color:#ddd; color:#666; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .true_btn{cursor:pointer; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+</style>
+<script type="text/javascript">
+        //密码验证
+        function checkOldPwd(verify,info){
+            var initial_password = '';
+            var password= $("input[name='"+verify+"_password']").val();
+            var confirm_password = $("input[name='confirm_"+verify+"_password']").val();
+            if(!password){
+                alert(info+'新密码不能为空');
+                return false;
+            }
+            if(!confirm_password){
+                alert(info+'确认密码不能为空');
+                return false;
+            }
+            if(password != confirm_password){
+                alert("两次输入的"+info+"密码不一致，请重新输入！");
+                return false;
+            }
+            if(verify == 'identify'){
+                initial_password = "{$adminInfo.reward_identify_pwd}";
+            }else if(verify == 'repay'){
+                initial_password = "{$adminInfo.reward_repay_pwd}";
+            }
+            if(initial_password){
+                var html = '<div class="tc p15">';
+                 html += '<div style="height:100px;margin-top:30px;font-size:22px;color:red;font-weight:bold;text-align:center">修改'+info+'密码</div>';
+                 html += '<div style="height:40px;font-size:22px;margin:-40px 0px 0px 30px;">原始密码：<input type="password" placeholder="请输入'+info+'原密码" style="line-height:40px;font-size:16px;width:190px;height:40px;" class="f-input ui-textbox" value="" id="old_password" /></div>';
+                 html += '<div class="blank5"></div>';
+                 html += '<input style="position:relative;left:90px;top:40px;" type="button" class="sub_btn" id="J_oper_password_btn" onclick="checkForm('+"'"+verify+"'"+','+"'"+info+"'"+');" value="修改密码">&nbsp;&nbsp;';
+                 html += '<input style="position:relative;left:110px;top:40px;" type="button" class="reset_btn" onclick="closeWindow();" id="J_cancel_rbtn" value="取消">';
+                 html += "</div>";
+                 $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"输入"+info+"密码", width:380, height:240, type:'wee'});
+                 init_ui_textbox();
+            }else{
+                $("#"+verify+"_password").submit();
+            }
+        }
+
+        function checkForm(verify,info){
+            var password= $("input[name='"+verify+"_password']").val();
+            var confirm_password = $("input[name='confirm_"+verify+"_password']").val();
+            var old_password = $("#old_password").val();
+            var flag = true;
+            var query = new Object();
+            query.type = verify;
+            query.info = info;
+            query.old_password = old_password;
+            query.ajax = 1;
+            $.ajax({
+                    url:'/m.php?m=UserReward&a=checkOldPwd',
+                    data:query,
+                    type:"POST",
+                    dataType:"json",
+                    async:false,
+                    success:function(result){
+                        if (result.status == 0){
+                            flag = false;
+                            alert(result.info);
+                        }
+                    }
+            });
+            if(flag){
+                $("#"+verify+"_password").submit();
+            }
+        }
+
+        function closeWindow(){
+            $.weeboxs.close();
+        }
+</script>
+<include file="Public:footer" />

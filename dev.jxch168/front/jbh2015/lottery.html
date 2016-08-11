@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>大转盘</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable= no,minimum-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black"> -->
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" type="text/css" href="style2.css">
+    </head>
+    <body>
+        <script src="js/jquery-1.7.2.min.js"></script>
+        <script src="js/jQueryRotate.2.2.js"></script>
+        <script src="js/jquery.easing.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var winheight = $(window).height();
+                // alert(winheight);
+                // $(".zhuanlun").css({"height":winheight});
+                var bgwidth = $(".mainbg").outerWidth();
+                $(".mainbg").css({"height": bgwidth});
+                //alert(bgwidth);
+                $(".mainbox").css({
+                    "width": bgwidth,
+                    "height": bgwidth
+                });
+                var starwidth = $(".starbtnbox").outerWidth();
+                // alert(starwidth);
+                var lywidth = $(".mainbox").outerWidth();
+                $(".starbtnbox").css({
+                    "left": (lywidth - starwidth) / 2 + "px",
+                    "top": (bgwidth - starwidth) / 2 + "px"
+                });
+            })
+        </script>
+        <div class="bg">
+            <div class="zhuanlun">
+                <!-- <div class="blank"></div> -->
+                <img class="top_title" src="top_title2.png" />
+                <div class="mainbox">
+                    <div class="mainbg"><img src="mainbg2.png"></div>
+                    <div class="starbtnbox"><img src="rotate-static.png" id="startbtn"></div>
+                </div>
+                <!-- <div class="sharebox">
+                    <img src="images/share.png">
+                </div> -->
+                <img src="diazhui.png" class="dianzhui">
+                <a href="http://wap.jxch168.com/" id="downbtn">
+                    <span>下载APP</span>
+                </a>
+                <div class="rules">
+                    <p>1、本活动是为上海理财博览会特定，金享财行理财专用版；</p>
+                    <p>2、凡在此活动页面注册，即时成为金享成员。随即下载APP客户端，在平台内完成实名认证，即可得100元现金红包；</p>
+                    <p>3、当即完成注册，可参与抽奖（100%有奖），实物当场可领取；</p>
+                    <p>4、本活动最终解释权归金享财行所有；</p>
+                    <p>5、如有疑问请拨打客服热线：400-091-2828</p>
+                </div>
+            </div>
+        </div>
+        <div class="cover"></div>
+        <div class="phone tipbox">
+            <div class="main">
+                <div class="closebtn"></div>
+                <p class="title">请输入您的手机号码</p>
+                <input type="text" class="phonecont" placeholder="在此输入您的手机号" />
+                <p class="errortips">您输入的手机号码不合法</p>
+                <a href="javascript:void(0)" class="goblottery gobtn">继续抽奖</a>
+            </div>
+        </div>
+        <div class="repeat tipbox">
+            <div class="main">
+                <div class="closebtn"></div>
+                <p class="title">您已参与过抽奖</p>
+                <a href="http://www.jxch168.com/wap/index.php?ctl=register" class="golingqu gobtn">立即领取</a>
+            </div>
+        </div>
+        <div class="success tipbox">
+            <div class="main">
+                <!-- <div class="closebtn"></div> -->
+                <p class="title">恭喜您获得</p>
+                <p class="content">10元现金红包</p>
+                <p class="smtip">请联系金享财行的工作<br/>人员获取您的实物奖品</p>
+                <a href="http://www.jxch168.com/wap/index.php?ctl=register" class="golingqu gobtn">确定</a>
+            </div>
+        </div>
+        <script>
+
+            $(function () {
+                $(".golingqu").click(function (event) {
+                    event.preventDefault();
+                    confirm("请联系工作人员之后再关闭本页面");
+                    $(".cover").hide(1);
+                    $(".tipbox").hide(1);
+                })
+                var timeOut = function () {  //超时函数
+                    $("#startbtn").rotate({
+                        angle: 0,
+                        duration: 10000,
+                        animateTo: 2160, //这里是设置请求超时后返回的角度，所以应该还是回到最原始的位置，2160是因为我要让它转6圈，就是360*6得来的
+                        callback: function () {
+                            alert('什么都没有，再试一次吧')
+                        }
+                    });
+                };
+                var rotateFunc = function (awards, angle, text, msg) {  //awards:奖项，angle:奖项对应的角度
+                    $('#startbtn').stopRotate();
+                    $("#startbtn").rotate({
+                        angle: 0,
+                        duration: 5000,
+                        animateTo: angle + 1440, //angle是图片上各奖项对应的角度，1440是我要让指针旋转4圈。所以最后的结束的角度就是这样子^^
+                        callback: function () {
+                            $(".cover").show(1);
+                            // $(".tipbox").hide(1);
+                            $(".success .main .content").html(text);
+                            $(".success .main .smtip").html(msg);
+                            $(".success").show(1);
+                        }
+                    });
+                };
+
+                $(".closebtn").click(function () {
+                    $(".cover").hide(1);
+                    $(".tipbox").hide(1);
+                })
+
+                $("#startbtn").click(function () {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/index.php?ctl=activity&act=jbh2015&mobile=" + getUrlParam('mobile') + "&is_pc=1",
+                        //   data: "",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (res) {
+                            if (res == -1)
+                            {
+                                alert('检测到该手机号未注册请金享财行工作人员');
+                            } else if (res == -2) {
+                                 alert('您的手机号已经抽过奖了，请至工作人员处确认');
+                            } else {
+                                data2 = res
+                                $(".cover").hide(1);//隐藏遮罩层
+                                $(".tipbox").hide(1);//隐藏弹出框
+                                var time = [1];
+                                time = time[Math.floor(Math.random() * time.length)];
+                                if (time == 0) {
+                                    timeOut(); //网络超时
+                                }
+                                if (time == 1) {
+
+                                    if (data2 == 1) {
+                                        rotateFunc(1, 190, '周大福黄金吊坠,', '请联系金享财行的工作人员获取您的实物奖品')
+                                    }
+                                    if (data2 == 2) {
+                                        rotateFunc(2, 270, '京东E卡', '请联系金享财行的工作人员获取您的实物奖品')
+                                    }
+                                    if (data2 == 3) {
+                                        rotateFunc(3, 340, '金士顿金属U盘', '请联系金享财行的工作人员获取您的实物奖品')
+                                    }
+                                    if (data2 == 4) {
+                                        rotateFunc(4, 30, '手机自拍杆', '请联系金享财行的工作人员获取您的实物奖品')
+                                    }
+                                    if (data2 == 5) {
+                                        rotateFunc(5, 160, '金享财行100元抵现券', '奖品已放入您的账户中，请登录官方平台我的优惠券中确定')
+                                    }
+                                    // if(data==0){
+                                    //  var angle = [67,112,202,292,337];
+                                    //      angle = angle[Math.floor(Math.random()*angle.length)]
+                                    //  rotateFunc(0,angle,'很遗憾，这次您未抽中奖')
+                                    // }
+                                }
+                            }
+
+                        }
+                    });
+
+                })
+
+            })
+
+            function getUrlParam(name) {
+                //构造一个含有目标参数的正则表达式对象
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                //匹配目标参数
+                var r = window.location.search.substr(1).match(reg);
+                //返回参数值
+                if (r != null)
+                    return unescape(r[2]);
+                return null;
+            }
+        </script>
+    </body>
+</html>

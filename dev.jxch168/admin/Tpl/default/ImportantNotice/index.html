@@ -1,0 +1,69 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+    function get_client_type($type){
+        if($type==1){
+            return "移动端";
+        }else{
+            return "PC端";
+        }
+    }
+    //function get_client_type_name($type){
+    //$conf=[1=>'移动端',2=>'PC端'];
+    //return $conf[$type];
+    //}
+</php>
+<div class="main">
+    <div class="main_title">通告列表</div>
+    <div class="blank5"></div>
+    <div class="button_row">
+        <if condition="$default_map">
+            <input type="button" class="button" value="{%ADD}" onclick="location.href='{:u("ImportantNotice/add")}';" />
+            <else />
+            <input type="button" class="button" value="{%ADD}" onclick="add();" />
+        </if>
+        <!--<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />-->
+    </div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            是否有效:
+            <select name="is_effect">
+                <option value="0">全部</option>
+                <option value="1" <if condition="$_REQUEST['is_effect'] eq 1">selected</if> >无效</option>
+                <option value="2" <if condition="$_REQUEST['is_effect'] eq 2">selected</if> >有效</option>
+            </select>
+            客户端:
+            <select name="client_type">
+                <option value="0">全部</option>
+                <option value="1" <if condition="$_REQUEST['client_type'] eq 1">selected</if> >移动端</option>
+                <option value="2" <if condition="$_REQUEST['client_type'] eq 2">selected</if> >PC端</option>
+            </select>
+            <input type="hidden" value="ImportantNotice" name="m" />
+            <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="list"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|200px
+                ,title:通告标题
+                ,content:通告内容
+                ,remark:备注
+                ,client_type|get_client_type:客户端
+                ,begin_time|to_date:开始时间
+                ,end_time|to_date:结束时间
+                ,create_time|to_date:创建时间
+                ,update_time|to_date:更新时间"
+            actionlist="edit:{%EDIT}, foreverdel:{%FOREVERDEL}" />
+
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

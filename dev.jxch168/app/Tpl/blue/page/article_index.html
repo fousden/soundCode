@@ -1,0 +1,37 @@
+{include file="inc/header.html"} 
+<div class="wrap">
+<div class="blank"></div>
+<div class="tree-box clearfix f_l">
+    {foreach from=$deal_help key=key item=cate}
+    {if $cate.id eq 2}
+    {if $cate.help_list}
+    <div class="tree">
+        {foreach from=$cate.help_list item=item key=key}
+        {if $item.title neq "联系我们"}
+        <div class="hd {if $item.id eq $article.id}act{/if}"><a href="{$item.url}" {if $item.new eq 1}target="_blank"{/if}>{$item.title}</a></div>
+        {/if}
+        {/foreach}
+        <div class="hd lasthd">最新资讯</div>
+        <div class="aboutnews">
+            {foreach from=$acate_tree item="cate_item" key=key}
+            {if $cate_item.type_id eq 0 || $cate_item.type_id eq 2}
+            <div class="item {if $article.id eq $cate_item.id}act{/if}"><a href="{$cate_item.url}&type=1">{$cate_item.title}</a></div>
+            {/if}
+            {/foreach}
+        </div>
+        {foreach from=$cate.help_list item=item key=key}
+        {if $item.title eq "联系我们"}
+        <div class="hd {if $item.id eq $article.id}act{/if}"><a href="{$item.url}" {if $item.new eq 1}target="_blank"{/if}>{$item.title}</a></div>
+        {/if}
+        {/foreach}
+    </div>
+    {/if}
+    {/if}
+    {/foreach}
+</div>
+<div class="long f_r" >
+	{include file="inc/inc_article_info.html"}
+</div>
+<div class="blank"></div>
+</div>
+{include file="inc/footer.html"}

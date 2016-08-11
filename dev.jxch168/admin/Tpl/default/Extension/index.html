@@ -1,0 +1,82 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+<div class="main">
+<div class="main_title">推广检索</div>
+<div class="blank5"></div>
+
+	<form name="search" id = "search_form"  action="__APP__" method="get">	
+		<input type="hidden" value='{$q_date_diff}' name="q_date_diff" id="q_date_diff"  />
+		<label id="start_time_item_title">开始日期:</label><input class = "require textbox" type="text" name="start_time" id="q_start_time" value="{$start_time}" style=""  onfocus="return showCalendar('q_start_time', '%Y-%m-%d', false, false, 'q_start_time');" />
+		<label id="end_time_item_title">结束日期:</label><input class = "require textbox" type="text" name="end_time" id="q_end_time" value="{$end_time}" style=""  onfocus="return showCalendar('q_end_time', '%Y-%m-%d', false, false, 'q_end_time');" />
+		
+		<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+		<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />
+		
+		<input type="button" id = "submit_date_0" class="button_none" value="今天" />
+		<input type="button" id = "submit_date_1" class="button_none" value="昨天" />
+		<input type="button" id = "submit_date_7" class="button_none" value="最近一周" />
+		<input type="button" id = "submit_date_30" class="button_none" value="最近一月" />
+
+		<label id="channel_title">&nbsp;&nbsp;渠道信息:</label>
+		<select id="q_channel" name="channel">
+			<option value="">全部</option>
+                        <foreach name="channel_arr" item="item" key="key"  >
+                            <option value="{$key}" <php>if($channel==$key)echo "selected";</php>>{$item}</option>
+                        </foreach>
+		</select>
+
+		<input type="submit" class="button" value="{%SEARCH}"/>
+
+		<input type="button" class="button" value="导出Excel报表" onclick="javascript:export_excel();" />
+	</form>
+
+	<form name="excel" id="excel" action="__APP__" target='_blank' method="get">
+		<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" >
+		<input type="hidden" value='do_export_load' name="a" >
+		<input type="hidden" name="start_time" id="e_start_time">
+		<input type="hidden" name="end_time" id="e_end_time">
+		<input type="hidden" name="channel" id="e_channel">
+	</form>
+	<script type="text/javascript">
+		function export_excel(){
+			$("#e_channel").val($("#q_channel").val());
+			$("#e_start_time").val($("#q_start_time").val());
+			$("#e_end_time").val($("#q_end_time").val());
+			$("#excel").submit();
+		}
+	</script>
+	
+<div class="blank5"></div>
+<div class="blank5"></div>
+<div class="main_title">数据列表</div>
+<div class="blank5"></div>
+<table id="dataTable" class="dataTable" cellpadding=0 cellspacing=0 >
+	
+    <tr class="row" >
+	<foreach name="list" item="item" key="key"  >
+            <if condition="$key eq 0">
+		<foreach name="item" item="item2" key="key2"  >
+                    <th>{$key2}</th>
+		</foreach>
+            </if>
+	</foreach>
+	</tr>
+	<foreach name="list" item="item" key="key"  >
+            <tr class="row" >
+		<foreach name="item" item="item2" key="key2"  >
+                    <td style="text-align: center;">{$item2}</td>
+		</foreach>
+            </tr>
+	</foreach>
+</table>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+
+<include file="Public:footer" />

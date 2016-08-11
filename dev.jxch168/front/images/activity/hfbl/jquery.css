@@ -1,0 +1,45 @@
+.popupbox{
+	background: #ccc;
+	padding: 8px;
+	border-radius: 4px;
+}
+.popupbox .popupmain{
+	background: white;
+}
+.popupbox .popupmain .popupheader{
+	color: #aaa;
+	padding: 10px;
+	border-bottom: 1px solid #aaa;
+	font-size: 20px;
+	/*font-weight: bold;*/
+}
+.popupbox .popupmain .popupclose{
+	color: #aaa;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-size: 20px;
+	top: 20px;
+	right: 20px;
+}
+.popupbox .popupmain .popupcontent{
+	color: #aaa;
+	padding: 10px;
+}
+.popupbox .popupmain .popupbtns{
+	padding: 10px;
+}
+.popupbox .popupmain .popupbtns input{
+	margin: 0 6px;
+	min-width: 80px;
+	height: 30px;
+	background: white;
+	border: 2px solid #aaa;
+	color: #aaa;
+	margin-bottom: 10px;
+}
+.popupbox .popupmain .popupbtns input:hover{
+	color: red;
+	/*background: yellow;*/
+}

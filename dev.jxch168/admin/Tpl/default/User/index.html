@@ -1,0 +1,203 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+function address(user_id)
+{
+	location.href = ROOT + '?m=User&a=address&id='+user_id;
+}
+</script>
+<php>
+	function get_user_group($group_id)
+	{
+		$group_name = M("UserGroup")->where("id=".$group_id)->getField("name");
+		if($group_name)
+		{
+			return $group_name;
+		}
+		else
+		{
+			return l("NO_GROUP");
+		}
+	}
+	function get_user_level($id)
+	{
+		$level_name = M("UserLevel")->where("id=".$id)->getField("name");
+		if($level_name)
+		{
+			return $level_name;
+		}
+		else
+		{
+			return "<span style='color:red'>无</span>";
+		}
+	}
+	function get_referrals_name($user_id)
+	{
+		$user_name = M("User")->where("id=".$user_id)->getField("user_name");
+		if($user_name)
+		return $user_name;
+		else
+			return '无';
+	}
+
+
+
+	function ips_status($ips_acct_no){
+		if($ips_acct_no==""){
+			return "未同步";
+		}
+		else{
+			return "已同步";
+		}
+	}
+	function user_type_status($type){
+		if($type==1){
+			return "企业";
+		}
+		else{
+			return "普通";
+		}
+	}
+	function user_company($id,$user){
+		if($user['user_type']==1){
+			return "<a href='javascript:user_company(".$id.");'>公司</a>&nbsp;";
+		}
+	}
+	function get_is_black($tag,$id){
+		if($tag)
+		{
+			return "<span class='is_black' data='".$tag."' onclick='set_black(".$id.",this);'>是</span>";
+		}
+		else
+		{
+			return "<span class='is_black' data='".$tag."' onclick='set_black(".$id.",this);'>否</span>";
+		}
+	}
+        function get_date($create_time){
+            return to_date($create_time,"Y-m-d H:i:s");
+        }
+        function deal_cl($null,$id){
+            return "<span class='is_black' onclick='cash_synchro(".$id.",this);'>同步</span>";
+        }
+        function bank_synchro($null,$id){
+            return "<span class='is_black' onclick='bank_synchro(".$id.",this);'>同步</span>";
+        }
+        function mobile_synchro($null,$id){
+            return "<span class='is_black' onclick='mobile_synchro(".$id.",this);'>同步</span>";
+        }
+</php>
+<div class="main">
+<div class="main_title">{:L(MODULE_NAME."_".ACTION_NAME)}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<if condition="ACTION_NAME eq 'index' || ACTION_NAME eq 'company_index'"><input type="button" class="button" value="{%ADD}" onclick="add();" /></if>
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+</div>
+
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+                                   {%REAL_NAME}：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+		{%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+		{%USER_EMAIL}：<input type="text" class="textbox" name="email" value="{:trim($_REQUEST['email'])}" style="width:100px;" />
+		{%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+		注册来源：<input type="text" class="textbox" name="search_channel" value="{:trim($_REQUEST['search_channel'])}" style="width:100px;" />
+		销售：<input type="text" class="textbox" name="admin_name" value="{:trim($_REQUEST['admin_name'])}" style="width:100px;" />
+		模糊查询:<input type="checkbox" name="is_mohu" value="1" <if condition="intval($_REQUEST['is_mohu']) eq 1">checked="checked"</if> />
+
+		{%USER_GROUP}:
+		<select name="group_id">
+				<option value="0" <if condition="intval($_REQUEST['group_id']) eq 0">selected="selected"</if>>{%ALL}</option>
+				<foreach name="group_list" item="group_item">
+					<option value="{$group_item.id}" <if condition="intval($_REQUEST['group_id']) eq $group_item['id']">selected="selected"</if>>{$group_item.name}</option>
+				</foreach>
+		</select>
+		<if condition="ACTION_NAME eq 'index' or ACTION_NAME eq 'company_index'">
+		<select name="is_effect">
+				<option value="-1" <if condition="$_REQUEST['is_effect'] eq -1 || $_REQUEST['is_effect'] eq ''">selected="selected"</if>>{%ALL}</option>
+				<option value="1" <if condition="intval($_REQUEST['is_effect']) eq 1">selected="selected"</if>>有效</option>
+				<option value="0" <if condition="intval($_REQUEST['is_effect']) eq 0 && isset($_REQUEST['is_effect'])">selected="selected"</if>>无效</option>
+
+		</select>
+		</if>
+		<div class="blank5"></div>
+                                     {%REFERRALS_NAME}：<input type="text" class="textbox" name="pid_name" value="{:trim($_REQUEST['pid_name'])}" style="width:100px;" />
+		注册时间：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+
+		<input type="hidden" name="user_type" value="<if condition="ACTION_NAME eq 'index' or ACTION_NAME eq 'register'">0<else/>1</if>" />
+                <select class="welfare">
+                    <option value="0">请选择...</option>
+                    <option value="dixian" data='100' min_limit='10000'>100元抵现劵（满10000元可使用）</option>
+                    <option value="dixian1" data='100' min_limit='50000'>100元抵现劵（满50000元可使用）</option>
+                </select>
+                <input type="button" class="button" value="送福利" onclick="send_welfare();" />
+		<input type="hidden" value="User" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+    	<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user"
+	checkbox="true"
+	action="true"
+	datasource="list"
+        show="id:{%ID}|50px,user_name:会员:edit,create_time|get_date:注册时间,mobile|hideMobile:手机号,email|hideEmail:邮箱,money|format_price:余额,lock_money:冻结,deal|format_price:累积投标金额,payment|format_price:累积充值金额,success_num:充值成功次数,error_num:充值失败次数,search_channel:注册来源,pid|get_referrals_name:{%REFERRALS_USER},admin_id|get_admin_name:销售,is_effect|get_is_effect=$user['id']:{%IS_EFFECT},is_black|get_is_black=$user['id']:黑名单,ids|deal_cl=$user['id']:资金同步,ids|bank_synchro=$user['id']:银行卡同步"
+	actionlist="edit:{%EDIT}, del:{%DEL},address:收货地址,id|user_company=$user,user_work:{%USER_WORK_SHORT}, user_passed:{%USER_PASSED_SHORT},account_detail:{%USER_ACCOUNT_DETAIL_SHORT},info_down:资料,view_info:资料展示,bank_manage:银行卡,load_manage:投标记录,gains_info:收益信息,private_info:私人资料查看,trading_record:富友交易记录,incharge_carry_record:富友充值提现记录" actionwidth="150px" actionidx="3" />
+
+<!--ids|mobile_synchro=$user['id']:手机号同步,-->
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<script>
+    function send_welfare(){
+        var chk_value =[];
+        $('input[name="key"]:checked').each(function(){
+        chk_value.push($(this).val());
+        });
+        if(chk_value=='' || chk_value<=0){
+            alert("请选择发放的用户！");
+            return;
+        }
+        var tmpObj=$(".welfare").find("option:selected");
+        var type=tmpObj.val();
+        if(type==0){
+            alert("请选择发送的类型！");
+        }else{
+            var remark = prompt('请输入备注信息');
+            if(remark.indexOf(' ') > -1 || remark.length<=0){
+                alert("请输入备注信息");
+                return;
+            }else if(confirm("您确定要发放吗？")){
+            var url="/m.php?m=User&a=send_welfare";
+            var query = new Object();
+            query.type = type;
+            query.min_limit = tmpObj.attr("min_limit");
+            query.value = tmpObj.attr("data");
+            query.remark = remark;
+            query.user_id = chk_value;
+            query.type_name =tmpObj.text();
+            $.get(url,query,function(data){
+                $("#info").css("display","none");
+                alert(data.info);
+                location.reload();
+            },'json');
+        }
+        }
+    }
+</script>
+<include file="Public:footer" />

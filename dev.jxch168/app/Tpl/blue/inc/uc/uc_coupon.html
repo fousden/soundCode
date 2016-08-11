@@ -1,0 +1,148 @@
+<div class="tabbox clearfix">
+    <div class="tab {if $ACTION_NAME eq 'index'}cur{/if}"><a href="{url x="index" r="uc_bonus"}">我的优惠券</a></div><!-- {$page_title} -->
+</div>
+<div class="uc_box bdd bt0 clearfix">
+    <div id="coupon">
+        <div class="overview">
+            <div class="list">
+                <p class="title">
+                    <span>未使用优惠券</span>
+                    <!-- <i title="这里是解释"></i> -->
+                </p>
+                <p class="cont">{if $not_use}{$not_use}{else}0{/if}<span>张</span></p>
+            </div>
+            <div class="list">
+                <p class="title">
+                    <span>已过期优惠券</span>
+                    <!-- <i title="这里是解释"></i> -->
+                </p>
+                <p class="cont">{if $end_coupon}{$end_coupon}{else}0{/if}<span>张</span></p>
+            </div>
+            <div class="list">
+                <p class="title">
+                    <span>抵现券总额</span>
+                    <!-- <i title="这里是解释"></i> -->
+                </p>
+                <p class="cont">{if $money}{$money}{else}0{/if}<span>元</span></p>
+            </div>
+            <div class="list redbag" style="border: none;">
+                <p class="title">
+                    <span>收益券总额</span>
+                    <i title="累积使用收益券后汇算的总和"></i>
+                </p>
+                <p id='explain_bubble' style='display:none;'>
+                    累积使用收益券后汇算的总和
+                </p>
+                <p class="cont" id='profit_p'>{if $profit_money}{$profit_money}{else}0{/if}<span>元</span></p>
+            </div>
+            <div class="Clear"></div>
+        </div>
+        <div class="main">
+            <div class="header">
+                <p class="text">优惠券列表</p>
+            </div>
+            <!-- 注意这里的筛选功能 -->
+            <div class="filtrate">
+                <div>
+                    <span class="title">使用状态:</span>
+                    <a href="/member.php?ctl=uc_coupon&act=index&type=<?php echo $_GET['type']; ?>&use=1 "  class="<?php if ($_GET['use'] == 1) {echo 'select';}?>" id='notuse'>未使用</a>
+                    <a href="/member.php?ctl=uc_coupon&act=index&type=<?php echo $_GET['type']; ?>&use=2 "  class="<?php if ($_GET['use'] == 2) {echo 'select';}?>" id='used'>已使用</a>
+                    <a href="/member.php?ctl=uc_coupon&act=index&type=<?php echo $_GET['type']; ?>&use=3 " class="<?php if ($_GET['use'] == 3) {echo 'select';}?>" id='end'>已过期</a>
+                    <div class="Clear"></div>
+                </div>
+                <div>
+                    <span class="title">类型:</span>
+                    <a href="/member.php?ctl=uc_coupon&act=index&type=-1&use=<?php echo $_GET['use']; ?>" class="<?php if ($_GET['type'] == -1) {echo 'select';}?>" id="all" >全部</a>
+                    <a href="/member.php?ctl=uc_coupon&act=index&type=2&use=<?php echo $_GET['use']; ?>" class="<?php if ($_GET['type'] == 2) {echo 'select';}?>" id="money">抵现券</a>
+                    <a href="/member.php?ctl=uc_coupon&act=index&type=1&use=<?php echo $_GET['use']; ?>" class="<?php if ($_GET['type'] == 1) {echo 'select';}?>"  id="profit">收益券</a>
+                    <div class="Clear"></div>
+                </div>
+            </div>
+
+            <dl class="cont">
+                <dt class="navbar">
+                <!-- 注意类型和有效时期 的位置是可以点击的 ，点击之后按照相应规则排序 -->
+                    <span class="typename">类型/面值</span>
+                    <span class="overdate">有效时期</span>
+                    <span class="rules">使用规则</span>
+                    <span class="from">来源</span>
+                    <div class="Clear"></div>
+                </dt>
+                <!-- 正式环境中只需循环一个list元素 -->
+                {if $list}
+                {foreach from =$list item="item"}
+                <dd class="list">
+                    {if $item.coupon_type==2}
+                    <div class="quanimg <?php if($_GET['use']==2){echo 'used';}elseif($_GET['use']==3){echo 'overdate';} ?>">
+                        <p><span class="unit">￥</span>&nbsp;<span class="je">{$item.face_value}</span>元&nbsp;抵现券</p>
+                        <p>&nbsp;满<span>{$item.min_limit}</span>元抵现<span>{$item.face_value}元</span></p>
+                        <div class="seal"></div>
+                    </div>
+                    {/if}
+                    {if $item.coupon_type==1}
+                    <div class="quanimg <?php if($_GET['use']==2){echo 'used';}elseif($_GET['use']==3){echo 'overdate';} ?>">
+                        <p><span class="unit">+</span>&nbsp;<span class="je">{$item.face_value}</span>%&nbsp;收益券</p>
+                        <p>&nbsp;满<span>{$item.min_limit}</span>收益增加<span>{$item.face_value}</span>%</p>
+                        <div class="seal"></div>
+                    </div>
+                    {/if}
+                    <p>
+                        <span>开始：{$item.start_time}<br/>结束：{$item.end_time}</span>
+                    </p>
+                    <p>
+                        <span>所有标的均可使用<br/>（单笔仅限一张）</span>
+                    </p>
+                    <p>
+                        <span>{$item.remark}</span>
+                    </p>
+                    <div class="Clear"></div>
+                </dd>
+                {/foreach}
+                <div class="pages">{$pages}</div>
+                {else}
+                <dt class="tablecont">
+                    <span style="text-align:center; width:100%;">暂无记录</span>
+                </dt>
+                {/if}
+                </dl>
+        </div>
+        <div class="help">
+            <div class="header">如何获取优惠券</div>
+                       <div class="helplist">
+                            <ul class="list">
+                                <li class="header">一、大转盘活动抽奖</li>
+                                <li>
+                                    <p class="title">领奖规则：</p>
+                                    <p class="cont">
+                                        1.凡在金享财行投资任意金额的用户即可获得一次抽奖机会；<br/>
+                                        2.将此活动分享至朋友圈还可获得更多抽奖机会。
+                                    </p>
+                                    <div class="Clear"></div>
+                                </li>
+                                <li>
+                                    <p class="title">领奖方式：</p>
+                                    <p class="cont">
+                                        1.注册成为金享财行会员并投资成功，进行抽奖，相应奖励将直接放入理财账户<br/>
+                                        2.微信端用户转发并输入手机号抽奖即可将奖励放入理财账户
+                                    </p>
+                                    <div class="Clear"></div>
+                                </li>
+                                <li>
+                                    <p class="title">活动时间：</p>
+                                    <p class="cont"><a href='index.php?ctl=activity&act=lottery&is_pc=1' >详见活动详情页</a></p>
+                                    <div class="Clear"></div>
+                                </li>
+                                <li>
+                                    <p class="title">温馨提示：</p>
+                                    <p class="cont">1、若在使用过程中遇到问题，请联系客服电话：<b>400-091-2828</b></p>
+                                </li>
+
+                            </ul>
+                        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>

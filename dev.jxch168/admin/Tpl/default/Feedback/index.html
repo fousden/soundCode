@@ -1,0 +1,76 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">客户反馈回复</div>
+<div class="blank5"></div>
+<div class="blank5"></div>
+
+	<?php
+		foreach($list as $key => $val){
+			$msg_id = M("feedback")->where("id=".$val['id'])->getField("msg_id");
+			if($msg_id>0){
+				$list[$key]['act'] = 1;
+			}else{
+				$list[$key]['act']=0;
+			}
+		}
+
+		function get_terminal($terminal){
+			if($terminal == 1){
+				return "WEB";
+			}
+			if($terminal == 2){
+				return "WAP";
+			}
+			if($terminal == 3){
+				return "Android";
+			}
+			if($terminal == 4){
+				return "IOS";
+			}
+			return "";
+		}
+
+		function get_act($act,$id){
+			if($act==1){
+				return "<a href='javascript:view_response($id);'>查看</a>";
+			}else{
+				return "<a href='javascript:response($id);'>回复</a>";
+			}
+		}
+
+	?>
+	<div class="search_row">
+		<form name="search" action="__APP__" method="get">
+			用户分类：<select name="user">
+				<option value="">所有</option>
+				<option value="1" <if condition="$_REQUEST['user'] eq 1">selected="selected"</if>>注册用户</option>
+				<option value="2" <if condition="$_REQUEST['user'] eq 2">selected="selected"</if>>非注册用户</option>
+			</select>
+			状态：<select name="is_response">
+				<option  value=''>所有</option>
+				<option value="1" <if condition="$_REQUEST['is_response'] eq 1">selected="selected"</if>>未回复</option>
+				<option value="2" <if condition="$_REQUEST['is_response'] eq 2">selected="selected"</if>>已回复</option>
+			</select>
+			<input type="hidden" value="Feedback" name="m" />
+			<input type="hidden" value="index" name="a" />
+			<input type="submit" class="button" value="{%SEARCH}" />
+
+		</form>
+	</div>
+	<div class="blank5"></div>
+
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="list"
+	checkbox="true"
+	datasource="list" 
+	show="id:{%ID}|50px,user_id|get_user_name:用户名|80px,linked:联系人信息|80px,content:反馈内容|300px,create_time|to_date:反馈时间|80px,terminal|get_terminal:来源|80px,msg_id|get_status:是否回复|80px,act|get_act=$list['id']:操作|80px"
+	/>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

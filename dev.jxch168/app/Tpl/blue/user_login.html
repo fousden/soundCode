@@ -1,0 +1,164 @@
+{include file="inc/header.html"}
+<!--登录 begin-->
+<div id="loginpage" class="Iajax_login_form" method="post" action="{url x="index" r="user#dologin"}" name="ajax_login_form">
+    <div class="wrap">
+        <img class="loginbanner" src="./front/images/loginbanner.png" height="401" width="788" />
+        <div id="loginbox">
+            <h6>登录金享财行</h6>
+            <div class="loginname">
+                <!-- <i></i> -->
+                <input type="text"  id="login_email_address" name="email" tabindex="1" value='{$user_name}'  placeholder="Email/昵称/手机"/>
+            </div>
+            <div class="loginpassowrd">
+                <!-- <i></i> -->
+                <input type="password"  id="login_password" name="user_pwd" tabindex="2" value='{$user_pwd}' placeholder="请输入密码"/>
+            </div>
+            <div class="other">
+                <label class="register"><input type="checkbox" id='autologin' onclick='changeStatus();'  value=''/>记住账号</label>
+                <a href="{url x="index" r="user#getpassword"}" class="forgetword" style="float: right;">忘记密码</a>
+                <div class="Clear"></div>
+            </div>
+            <div><a href="" class="loginbtn" id="ajax_login_submit" name="commit" tabindex="5">登&nbsp;录</a></div>
+        </div>
+        <div class="cover"></div>
+        <div class="loginfoot">
+            <p>
+                版权所有：上海金享财行投资管理有限公司（及旗下上海华陌通金融信息服务有限公司）<br/>Copyright © All Rights
+            Reserved 沪ICP备15014770号
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+	/*#header{
+		border-bottom: none!important;
+	}
+	.main_bars{
+		background-image: none!important;
+		border: none!important;
+	}
+	.blank100{
+		height: 99px!important;
+	}*/
+</style>
+    <script type="text/javascript">
+
+    function changeStatus() {
+        if ($('#autologin').attr('checked') == 'checked') {
+            $('#autologin').val('1');
+        } else {
+            $('#autologin').val('0');
+        }
+    }
+    $(function() {
+        // 初始化login板块高度
+        setloginH()
+        $(window).resize(function(){
+            setloginH();
+        })
+        function setloginH(){
+            var winH = $(window).height();
+            var headH = $("#header").outerHeight();
+            var setH = winH - headH;
+            var loginpage = $("#loginpage");
+            var loginbox = loginpage.find("#loginbox");
+            var loginbanner = loginpage.find(".loginbanner");
+            var logincover = loginpage.find(".cover");
+            // alert(winH+","+headH+","+setH)
+            loginpage.css({"height":setH});
+            loginbox.css({"top":(setH-loginbox.outerHeight())/3*1});
+            logincover.css({"top":(setH-loginbox.outerHeight())/3*1});
+            loginbanner.css({"top":(setH-loginbanner.outerHeight())/3*1});
+
+        }
+        $("#ajax_login_submit").click(function() {
+            return ajaxCheckLogin()
+        });
+
+        $("#loginpage input").keydown(function(e) {
+            var curKey = e.which;
+            if (curKey == 13) {
+                ajaxCheckLogin();
+            }
+        });
+    });
+
+    function ajaxCheckLogin() {
+        if ($.trim($("#login_email_address").val()).length == 0) {
+
+            $.showErr("Email格式错误，请重新输入或者昵称格式错误，请重新输入");
+            $("#login_email_address").focus();
+            return false;
+        }
+        if (!$.minLength($("#login_password").val(), 4, false)) {
+            $.showErr("密码格式错误，请重新输入");
+            $("#login_password").focus();
+            return false;
+        }
+
+        var ajaxurl = $("#loginpage").attr("action");
+        var query = new Object();
+        query.email = $("#login_email_address").val();
+        query.user_pwd = FW_Password($("#login_password").val());
+
+
+        if ($("#Jverify").length > 0)
+            query.verify = $("#Jverify").val();
+        query.auto_login = $("#autologin").val();
+        query.ajax = 1;
+
+        $.ajax({
+            url: ajaxurl,
+            dataType: "json",
+            data: query,
+            type: "POST",
+            success: function(ajaxobj) {
+                if (ajaxobj.status == 0) {
+                    if ($("#Jverify_img").length > 0)
+                        $("#Jverify_img").attr("src", '/verify.php?w=89&h=44&rand=' + Math.random());
+                    $.showErr(ajaxobj.info);
+                } else {
+                    var integrate = $("<span id='integrate'>" + ajaxobj.data + "</span>");
+                    $("body").append(integrate);
+                    close_pop();
+
+                    update_user_tip();
+
+                    $("#integrate").remove();
+                    if (ajaxobj.status == 1) {
+                        $.showSuccess(ajaxobj.info, function() {
+                            if(document.referrer.indexOf("login_out") > 0 || document.referrer.indexOf("register") > 0 ){                   
+                                window.location.reload();
+                            }else{
+                                location.replace(document.referrer);
+                            }
+                        });
+                    } else {
+                        $.showCfm(ajaxobj.info, function() {
+                            location.href = ajaxobj.jump1;
+                        }, function() {
+                            window.location.reload();
+                        });
+                    }
+                }
+            }
+        });
+        return false;
+    }
+
+    function update_user_tip() {
+        var ajaxurl = APP_ROOT + "/index.php?ctl=ajax&act=update_user_tip";
+        $.ajax({
+            url: ajaxurl,
+            type: "POST",
+            success: function(ajaxobj) {
+                $("#user_head_tip").html(ajaxobj);
+            }
+        });
+    }
+    </script>
+<!--登录 end-->
+</body>
+</html>

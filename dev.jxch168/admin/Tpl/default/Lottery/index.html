@@ -1,0 +1,71 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="/front/third_party/highcharts/chart.js"></script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title" >奖品列表</div><br>
+<form name="search" id = "search_form"  action="__APP__" method="get">
+手机号：<input type="text" name="mobile" id="mobile" value="{:trim($_REQUEST['mobile'])}">
+获得时间：<input type="text" class="textbox" name="start_time" id="start_time" value="{:trim($_REQUEST['start_time'])}" onfocus="return showCalendar('start_time', '%Y-%m-%d %H:%M:%S', false, false, 'start_time');" style="width:130px" />-
+<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" /><br />
+奖品的类型：
+<foreach name="prize_type_arr" item="v">
+<input type="checkbox"  name="prize_type[]" value="{$key}" <?php if(in_array($key,$prize_type)){echo "checked";}?> />{$v}
+</foreach><br>
+<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />
+<input type="submit" class="button" name="submit" value="{%SEARCH}" />
+<input type="hidden"  name="oper_type" id="oper_type" value="" />
+<input type="submit" class="button" name="submit"  onclick="$('#oper_type').val('export');" value="导出" />
+</form>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+<html:list
+        id="dataTable"
+        style="dataTable"
+        name="deal"
+        datasource="list"
+        show="id:编号
+	,prize_name:奖品名称
+	,create_time|to_date:获得时间
+	,mobile|get_mobile_name:账户名
+	,mobile:手机号码
+	,mobile|get_invest_money:投资总额
+	,prize_type|get_prize_type:奖品的类型
+                   ,prize_desc:备注
+	"
+	/>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+<php>
+    function get_invest_money($mobile){
+        $user_id = M("user")->where(array("mobile"=>$mobile))->getField("id");
+        $invest_money = M("deal_load")->where(array("user_id"=>$user_id,"is_auto"=>0,"contract_no"=>array("neq","")))->getField("sum(money)");
+        return number_format($invest_money,2);
+    }
+    function get_mobile_name($mobile){
+	return $GLOBALS['db']->getOne("select user_name from ".DB_PREFIX."user where mobile=$mobile");
+    }
+    //1 收益券 2 抵现券  3 红包类型 4 实物'
+    function get_prize_type($prize_type){
+	if($prize_type==1){
+	    return '收益券';
+	}else if($prize_type==2){
+	    return '抵现券';
+	}else if($prize_type==3){
+	    return '红包类型';
+	}else if($prize_type==4){
+	    return '实物';
+	}
+    }
+</php>
+</div>
+<style>
+    td{
+	text-align:center;
+    }
+</style>

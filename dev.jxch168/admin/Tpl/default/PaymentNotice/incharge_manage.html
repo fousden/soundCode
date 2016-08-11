@@ -1,0 +1,142 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+<PHP>
+	function get_is_paid($status)
+	{
+		if($status == 0)
+		return l("NO");
+		else
+		return l("YES");
+	}
+        function format_source($incharge_source){
+            if($incharge_source == 2){
+                return "WAP充值";
+            }else if($incharge_source == 3){
+                return "Android充值";
+            }else if($incharge_source == 4){
+                return "IOS充值";
+            }else{
+                return "官网充值";
+            }
+        }
+        function jump($notice_sn){
+
+            return "<a href='/m.php?&m=Service&a=index&order_id=" . $notice_sn ."'>".$notice_sn."</a>";
+        }
+        function manual_audit($payment_id,$payment_notice){
+            return "<span style='cursor:pointer;' onclick='inputVerifyPwd(".$payment_id.");'><a>充值审核</a></span>";
+
+        }
+
+</PHP>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		充值时间 ：
+		<input type="text" class="textbox" name="start_time" id="start_time" value="{:trim($_REQUEST['start_time'])}" onfocus="return showCalendar('start_time', '%Y-%m-%d', false, false, 'start_time');" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" />
+		（温馨提示：充值时间不能跨月搜索，尽量选择短时间段搜索！）
+                <div class="blank5"></div>
+		会员名：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" />
+		手机号：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" />
+		{%PAYMENT_NOTICE_SN}：<input type="text" class="textbox" name="notice_sn" value="{:trim($_REQUEST['notice_sn'])}" />
+<!--		{%PAYMENT_METHOD}：
+		<select name="payment_id">
+			<option value="0" <if condition="intval($_REQUEST['payment_id']) eq 0">selected="selected"</if>>{%ALL}</option>
+			<foreach name="payment_list" item="payment_item">
+				<option value="{$payment_item.id}" <if condition="intval($_REQUEST['payment_id']) eq $payment_item['id']">selected="selected"</if>>{$payment_item.name}</option>
+			</foreach>
+		</select>-->
+<!--		支付状态
+		<select name="is_paid">
+			<option value="-1" <if condition="intval($_REQUEST['is_paid']) eq -1 || !isset($_REQUEST['is_paid'])">selected="selected"</if>>{%ALL}</option>
+			<option value="0" <if condition="intval($_REQUEST['is_paid']) eq 0 && isset($_REQUEST['is_paid'])">selected="selected"</if>>未支付</option>
+			<option value="1" <if condition="intval($_REQUEST['is_paid']) eq 1">selected="selected"</if>>已支付</option>
+		</select>-->
+		<input type="hidden" value="PaymentNotice" name="m" />
+		<input type="hidden" value="incharge_manage" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="payment_notice"
+	datasource="list"
+	show="id:{%ID}|50px,notice_sn|jump:{%PAYMENT_NOTICE_SN},create_time|to_date:{%CREATE_TIME}
+	,pay_time|to_date:{%PAY_TIME}
+	,is_paid|get_is_paid:{%IS_PAID}
+	,user_id|get_user_name_real:{%USER_NAME}
+	,payment_id|get_payment_name:{%PAYMENT_METHOD}
+	,money|format_price:{%PAYMENT_MONEY}
+	,fee_amount|format_price:收手续费
+	,pay_fee_amount|format_price:支出手续费
+	,incharge_source|format_source:充值来源
+	,resp_describle:充值状态描述
+	,outer_notice_sn:{%OUTER_NOTICE_SN}
+	,memo:{%PAYMENT_MEMO}
+        ,id|manual_audit=$payment_notice:人工审核"
+	actionlist="del:{%DEL}" />
+
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<input type="hidden" id='action' name='action' value='{$now_action}'/>
+<style type="text/css">
+    .sub_btn{cursor:pointer; margin:0; padding:0; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; overflow:visible; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .sub_btn:hover{background-color:#0087E5;}
+    .reset_btn{cursor:pointer; background:none; border:none; background-color:#ddd; color:#666; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .true_btn{cursor:pointer; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+</style>
+<script>
+
+    function inputVerifyPwd(payment_id){
+        var html = '<div class="tc p15">';
+            html += '<div class="blank5"></div>';
+            html += '<div class="blank5"></div>';
+            html += '<div style="height:40px;margin:40px 0px 0px 80px;"><span style="font-size:22px;">请选择</span>：<input type="radio" style="font-size:14px;" value="0" name="is_paid" checked/>审核不通过　<input type="radio" style="font-size:14px;" value="1" name="is_paid" />审核通过</div>';
+            html += '<div class="blank5"></div>';
+            html += '<input style="position:relative;left:90px;top:35px;" type="button" class="sub_btn" id="J_oper_password_btn" onclick="manual_audit('+payment_id+');" value="立即审核">&nbsp;&nbsp;';
+            html += '<input style="position:relative;left:110px;top:35px;" type="button" class="reset_btn" onclick="closeWeebox();" id="J_cancel_rbtn" value="取消审核">';
+            html += "</div>";
+            $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"在线充值单人工审核", width:400, height:240, type:'wee'});
+            init_ui_textbox();
+    }
+    function manual_audit(payment_id){
+        do_ajax = true;
+        var now_action = document.getElementById('action').value;
+        var is_paid = $("input[name='is_paid']:checked").val();
+        $.ajax({
+                url: ROOT + "?" + VAR_MODULE + "=" + MODULE_NAME + "&" + VAR_ACTION + "=manual_audit&payment_id=" + payment_id+"&is_paid=" + is_paid,
+                data: "ajax=1",
+                async:false,
+                dataType: "json",
+                success: function(data){
+                            if(data.status == 1){
+                                alert(data.info);
+                                location.href = ROOT + '?m=PaymentNotice&a='+ now_action;
+                            }else{
+                                alert(data.info);
+                                location.href = ROOT + '?m=PaymentNotice&a='+ now_action;
+                            }
+                }
+        });
+    }
+    function closeWeebox(){
+        $.weeboxs.close();
+    }
+</script>
+<include file="Public:footer" />

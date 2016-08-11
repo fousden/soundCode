@@ -1,0 +1,221 @@
+{include file="./wap/header_wap.html"}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{$page_title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link href="/front/lottery/yuemojiaxi/css/style.css?v=1" rel="stylesheet" />
+    <script type="text/javascript" src="./wap/tpl/fanwe/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="./front/js/activity/jquery.slotmachine.js"></script>
+</head>
+
+<body>
+    <div id="thanksgiving_m">
+        <div class="header_m">
+            <img class="bg" src="/front/lottery/yuemojiaxi/img/header_bg.jpg" style="display: block;" / />
+        </div>
+        <div class="content_m">
+            <div class="slotMain_m">
+                <img class="bg" src="/front/lottery/yuemojiaxi/img/bg_03.jpg" style="display: block; font-size:0;" />
+                <div class="cnt">
+                    <p class="info">
+                        {if $user_info} 您当前剩余
+                        <span class="lottery_number" style="font-size:1.3rem;font-weight: bold;color:#ffffff ;">{$lottery_number}</span>&nbsp;获奖机会 {else}
+                        <a href="javascript:;" id="login_a">
+                                请点击此处登录
+                            </a> {/if}
+                    </p>
+                    <img id="btnPull" class="btnPull" src="/front/lottery/yuemojiaxi/img/btn1.png" />
+                    <img id="btnNon-sub" class="btnPull hide" src="/front/lottery/yuemojiaxi/img/btn2.png" />
+                </div>
+                <div class="prodShow_m">
+                    <img class="bg" src="/front/lottery/yuemojiaxi/img/bg_4.jpg" style="display: block;" />
+                </div>
+            </div>
+            <div id="loginbox">
+                <div class="header">用户登录</div>
+                <div id="closebtn">×</div>
+                <p class="inputlist">
+                    <span>账号：</span>
+                    <input type="text" name="email" id="moble" />
+                </p>
+                <p class="inputlist">
+                    <span>密码：</span>
+                    <input type="password" name="pwd" id="pass" />
+                </p>
+                <div class="btnbox">
+                    <a href="javascript:;" id="loginbtn">登录</a>
+                    <a href="/wap/index.php?ctl=register&spm=/index.php?ctl=lottery-type=yuemojiaxi-is_pc=1<?php echo $_GET['s']?'&s='.$_GET['s']:'';?>" id="regbtn">注册</a>
+                    <div style="clear:both"></div>
+                </div>
+            </div>
+            <div id="logincover"></div>
+            <div id="alertresult">
+                <p class="title">恭喜您获得</p>
+                <div class="cont">
+                </div>
+                <div class="text"></div>
+                <a href="javascript:;" class="successbtn">确定</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+        var num = 0;
+        $("#loginbtn").click(function() {
+            var email = $("#loginbox input[name='email']").val();
+            var pwd = $("#loginbox input[name='pwd']").val();
+            if (!email) {
+                alert("请输入账号或手机号");
+            } else if (!pwd) {
+                alert("请输入密码");
+            } else {
+                ajaxurl = '{url x="index" r="activity#user_login&is_pc=1"}';
+                var query = new Object();
+                query.email = email;
+                query.pwd = pwd;
+                $.ajax({
+                    url: ajaxurl,
+                    dataType: "json",
+                    data: query,
+                    type: "POST",
+                    success: function(data) {
+                        if (data.code == 0) {
+                            alert(data.errmsg);
+                        } else {
+                            window.location.href = "index.php?ctl=lottery&type=yuemojiaxi&is_pc=1&email=" + data.user_name + " & pwd=" + data.user_pwd_md5;
+                        }
+                    }
+                });
+            }
+        });
+        $(document).ready(function() {
+            var btnNums = 0;
+            setCentXY($('#loginbox'));
+            setCentXY($('#alertresult'));
+            $("#login_a").click(login_a);
+
+            function login_a() {
+                if ("<?php echo $_GET['_m']?>") {
+                    location.href = "jxch://user/login";
+                } else {
+                    $('#loginbox').fadeIn(100);
+                    $('#logincover').fadeIn(100);
+                }
+            }
+            $('#closebtn').click(function() {
+                $('#loginbox').fadeOut(100);
+                $('#logincover').fadeOut(100);
+            })
+
+            function setCentXY(ele) {
+                var winW = $(window).width();
+                var winH = $(window).height();
+                var eleW = $(ele).outerWidth();
+                var eleH = $(ele).outerHeight();
+                $(ele).css({
+                    'left': (winW - eleW) / 2,
+                    'top': (winH - eleH) / 2,
+                })
+            }
+            $('#loginbox').css({
+
+                })
+                //active ： 设置初始的奖品
+            var machine1 = $("#machine1").slotMachine({
+                active: 11,
+                delay: 100
+            });
+
+            var machine2 = $("#machine2").slotMachine({
+                active: 10,
+                delay: 100
+            });
+            var machine3 = $("#machine3").slotMachine({
+                active: 9,
+                delay: 100
+            });
+
+            //抽中的奖品号
+            $("#btnPull").click(function() {
+                    if ("$user_info") {
+                        var query = new Object();
+                        query.mobile = "{$user_info.mobile}";
+                        query.email = "{$user_info.user_name}";
+                        query.pwd = "{$user_info.user_pwd}";
+                        if (btnNums) {
+                            return
+                        };
+                        btnNums++;
+                        $.ajax({
+                            url: '/index.php?ctl=lottery&act=do_lottery&type=yuemojiaxi&is_pc=1',
+                            data: query,
+                            type: "POST",
+                            dataType: "json",
+                            success: function(data) {
+                                btnNums = 0;
+                                if (data.response_code == '-1') {
+                                    login_a();
+                                } else if (data.response_code == 0) {
+                                    alert(data.show_err);
+                                } else if (data.response_code == 1) {
+                                    //按钮点下
+                                    $("#btnPull").addClass("hide");
+                                    $("#btnNon-sub").removeClass("hide");
+                                    $(".lottery_number").html(data.lottery_number);
+                                    $('#alertresult').find('.text').html(data.name);
+                                    num = data.num;
+                                    setTimeout(alertResult, 1200);
+                                }
+                            }
+                        });
+                    } else {
+                        login_a();
+                    }
+                })
+                // 抽奖成功的确定按钮
+            $(".successbtn").click(function() {
+                // $("#alertresult .blank").animate({"height":"0px"},100,function(){
+                $("#alertresult").fadeOut(100);
+                // });
+                $("#logincover").fadeOut(100);
+            })
+
+            function alertResult() {
+                //按钮弹出
+                $("#btnPull").removeClass("hide");
+                $("#btnNon-sub").addClass("hide");
+
+                $('#logincover').fadeIn(100);
+                $('#alertresult').fadeIn(100);
+                $("#cover").fadeIn(100);
+                $("#alertresult").fadeIn(100);
+                var winH = $(window).height();
+                var thisH = $("#alertresult .main").outerHeight();
+                $("#alertresult .blank").animate({
+                    "height": (winH - thisH) / 2 + "px"
+                }, 200);
+
+                var imgurl = "url('http://dch.dev.jxch168.com/front/lottery/yuemojiaxi/img/prod/" + num + ".png')";
+                $('#alertresult').find('.cont').css({
+                    'background-image': imgurl,
+                    'background-repeat': 'no-repeat',
+                    'background-size': 'auto 80%',
+                    'background-position': 'center center',
+                });
+                $('#alertresult').find('.text').css({
+                    'text-align': 'center',
+                    'padding-bottom': '5%',
+                    'color': 'white'
+                });
+            }
+
+        });
+        </script>
+</body>
+
+</html>
+{include file="./wap/footer_wap.html"}

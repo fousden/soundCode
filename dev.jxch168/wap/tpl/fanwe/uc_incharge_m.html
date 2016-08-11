@@ -1,0 +1,394 @@
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<title></title>
+		<style type="text/css">
+			* {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			}
+
+			html,
+			body {
+				background-color: #f4f4f4;
+				color: #333;
+				font-size: 14px;
+				-webkit-text-size-adjust: none;
+			}
+
+			body {
+				color: #333;
+				background-color: #eee;
+				font-size: 16px;
+				width: 100%;
+				overflow: hidden;
+			}
+
+			body,
+			html {
+				min-height: 100%;
+				width: 100%;
+			}
+
+			input {
+				outline: 0;
+			}
+
+			a,
+			body,
+			dd,
+			div,
+			dl,
+			dt,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			html,
+			input,
+			li,
+			ol,
+			p,
+			span,
+			ul {
+				-moz-appearance: none;
+				-moz-text-size-adjust: none;
+				-ms-appearance: none;
+				-ms-text-size-adjust: none;
+				-o-appearance: none;
+				-o-text-size-adjust: none;
+				-webkit-appearance: none;
+				-webkit-text-size-adjust: none;
+				appearance: none;
+				font-family: -apple-system-font, simhei, "Helvetica Neue", "Hiragino Sans GB", "冬青黑体", 'Microsoft Yahei', Helvetica, Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				text-size-adjust: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex,
+			meter,
+			progress {
+				-webkit-writing-mode: horizontal-tb;
+				font-size: 100%;
+			}
+
+			input,
+			select,
+			textarea {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				-webkit-appearance: none;
+				border: none;
+				border-radius: 0;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			li,
+			ol,
+			ul {
+				list-style: none;
+			}
+
+			input.mt[type=radio]:checked,
+			input.mt[type=checkbox]:checked {
+				background-color: #fc8600;
+				border: 0;
+				color: #fff;
+			}
+
+			input.mt[type=radio],
+			input.mt[type=checkbox] {
+				-webkit-appearance: none;
+				width: 30px;
+				height: 30px;
+				margin: -3.5px 0;
+				border-radius: 50%;
+				border: 1px solid #ddd8ce;
+				text-align: center;
+				vertical-align: middle;
+				line-height: 32px;
+				outline: 0;
+			}
+
+			input.mt[type=radio]:checked:after,
+			input.mt[type=checkbox]:checked:after {
+				content: "✓";
+				font-size: 25px;
+				font-family: base_icon;
+			}
+
+			.mt {
+				position: absolute;
+				right: 10px;
+				top: 30px;
+			}
+
+			.pay_detail {
+				min-height: 65px;
+			}
+
+			.Menubox ul li {
+				width: 33.3%;
+			}
+
+			.Menubox ul li.hover {
+				width: 33.3%;
+			}
+
+			.clearfix {
+				clear: both;
+			}
+
+			.figure {
+				border-radius: 5px;
+				background: #fff;
+				border: 1px solid #d7d7d7;
+				position: relative;
+				margin: 10px;
+				height: 40px;
+				padding-left: 80px;
+			}
+
+			.figure span {
+				position: absolute;
+				line-height: 40px;
+				font-size: 15px;
+				color: #333;
+				padding: 0 10px;
+				left: 0px;
+			}
+
+			.figure input {
+				line-height: 40px;
+				width: 100%;
+				background: none;
+				font-size: 16px;
+				color: #b6b6b6;
+			}
+
+			.bank_list {
+				border-radius: 5px;
+				background: #fff;
+				border: 1px solid #d7d7d7;
+				margin: 10px;
+			}
+
+			.bank_list li:last-child {
+				border: none;
+			}
+
+			.bank_list li {
+				margin-left: 10px;
+				padding-right: 50px;
+				border-bottom: 1px solid #d7d7d7;
+				position: relative;
+			}
+
+			.pay_detail {
+				min-height: 65px;
+			}
+
+			.pay_detail {
+				color: #333;
+				padding: 5px;
+			}
+
+			.inline_pay_img_show {
+				float: left;
+				overflow: hidden;
+				height: 35px;
+				max-width: 50%;
+				margin: 15px 0 0 0px;
+			}
+
+			.inline_pay_name {
+				line-height: 65px;
+				font-size: 18px;
+				padding-left: 10px;
+				float: left;
+			}
+
+			.detail_foot {
+				padding: 8px 10px;
+				width: 100%;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				overflow: hidden;
+			}
+
+			.lookdetail {
+				border-radius: 5px;
+				display: inline-block;
+				width: 45%;
+				height: 40px;
+				line-height: 40px;
+				color: #fff;
+				font-size: 18px;
+				text-align: center;
+				background: #e84f41;
+				margin-right: 10%;
+				float: left;
+			}
+		</style>
+		<script type="text/javascript" src="/wap/tpl/fanwe/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+	<body>
+
+		<div id="con_one_1" class="uc_incharge">
+			<!--线上支付-->
+
+			{if $data.show_err}
+			<div style="padding:50% 10%;line-height:2rem;text-align: center;">
+				{$data.show_err}
+			</div>
+			{else}
+			<div class="figure">
+				<span>输入金额</span>
+				<input id="money1" name="money" class="" type="text" placeholder="输入金额,最低5元">
+			</div>
+			{if $data.payment_list}
+			<div class="bank_list in_line">
+				<ul>
+					{foreach from="$data.payment_list" item="item"}
+					<li>
+						<div class="pay_detail clearfix">
+							<div class="inline_pay_img_show">
+
+								<img src="{$item.logo}" height="35px">
+							</div>
+							<div class="inline_pay_name">
+								{$item.name}
+							</div>
+						</div>
+						<input class="mt" type="radio" value="{$item.id}" name="paypath1" checked>
+					</li>
+					{/foreach}
+				</ul>
+			</div>
+			{else}
+			<div class="no_data_block">
+				暂无数据
+			</div>
+			{/if}
+			<div style="margin-left:10px;margin-top:10px;margin-bottom:10px;">
+                            {$data.incharge_desc}
+			</div>
+			<div class="detail_foot">
+				<div class="lookdetail" style=" width:100%;" id="on_incharge_done">
+					确定
+				</div>
+			</div>
+			{/if}
+
+		</div>
+
+		<script>
+			/*线下/线下支付，默认选择第一个*/
+			$(".in_line ul li .mt:eq(0)").attr("checked", "checked");
+			$(".out_line ul li .mt:eq(0)").attr("checked", "checked");
+			$(".other_line ul li .mt:eq(0)").attr("checked", "checked");
+			/*第一种形式 第二种形式 更换显示样式*/
+			function setTab(name, cursel, n) {
+				for (i = 1; i <= n; i++) {
+					var menu = document.getElementById(name + i);
+					var con = document.getElementById("con_" + name + "_" + i);
+					menu.className = i == cursel ? "hover" : "";
+					con.style.display = i == cursel ? "block" : "none";
+				}
+			}
+			$('#money1').change(function() {
+				var reg = new RegExp("^[0-9]+(.[0-9]{1,3})?$");
+				if (!reg.test($(this).val())) {
+					$(this).val(5);
+				} else if ($(this).val() <= 5) {
+					$(this).val(5);
+				}
+			});
+			$('#on_incharge_done').click(function() {
+				if (!$.trim($("#money1").val())) {
+					alert("请输入充值金额");
+				} else {
+					$("#on_incharge_done").unbind("click");
+					$("#on_incharge_done").css({
+						"background": "#ccc"
+					});
+					$("#on_incharge_done").text("提交中,请稍后...");
+					var ajaxurl = '/wap/member.php?ctl=uc_do_incharge&_m={$_m}&version={$_v}';
+					var query = new Object();
+					query.payment_id = $.trim($("input[name='paypath1']:checked").val());
+					query.money = $.trim($("#money1").val());
+					query.email = "{$data.email}";
+					query.pwd = "{$data.pwd}";
+					query.post_type = "json";
+					$.ajax({
+						url: ajaxurl,
+						data: query,
+						type: "post",
+						dataType: "json",
+						success: function(data) {
+							document.location = '/wap/member.php?ctl=uc_pay&email={$data.email}&pwd={$data.pwd}&_m={$_m}&version={$_v}&id=' + data['payment_notice_id'];
+							/*try {
+
+					Android.urlwebviewAcitvity('/wap/member.php?ctl=uc_pay&email={$data.email}&pwd={$data.pwd}&_m={$_m}&version={$_v}&id=' + data['payment_notice_id'], "充值");
+				} catch (e) {
+					document.location = "protocol:///wap/member.php?ctl=uc_pay&version={$_v}&id=" + data['payment_notice_id'] + "&_m={$_m}01";
+				}
+*/
+						}
+					});
+				}
+			});
+		</script>
+	</body>
+
+</html>

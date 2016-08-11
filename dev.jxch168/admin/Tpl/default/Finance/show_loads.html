@@ -1,0 +1,297 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/show_loads.js' />
+<style type="text/css">
+.hide {
+    display: none;
+}
+</style>
+
+<script type="text/javascript">
+
+ 	/**
+	 * 满标放款
+	 */
+	function do_loans(id){
+                var oper_pwd = $("#oper_password").val();
+                if(!oper_pwd){
+                    alert("请输入入金操作密码！");
+                    return false;
+                }
+
+                if(!confirm("确定要现在入金放款吗？"))
+                {
+                    return false;
+                }
+
+                //置灰色
+                $("#J_income_money_btn").css("background-color","#C9C9C9");
+                $("#J_income_money_btn").val("入金放款中...");
+                $("#J_income_money_btn").attr("disabled","disabled");
+
+                is_do_lock = false;
+		if(is_do_lock){
+			alert("请等待处理！");
+			return false;
+		}
+
+
+		is_do_lock = true;
+		var query=new Object();
+                query.repay_start_time = $("#repay_start_time").val();
+                query.id = id;
+                query.get_manage = $("#get_manage:checked").val();
+                query.loans_pic = $("input[name=loans_pic]").val();
+                query.oper_password = $.trim($("#oper_password").val());
+                query.ca_balance = "{$ca_balance}";
+		$.ajax({
+			url:ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=do_loans",
+			data:query,
+			type:"post",
+			dataType:"json",
+			success:function(result){
+				is_do_lock = true;
+				if(result.status ==1)
+				{
+					alert(result.info);
+					window.location.reload();
+				}
+                                else if(result.status ==9){
+					alert(result.info);
+				}
+				else if(result.status ==2){
+					window.location.href = result.jump;
+				}
+				else{
+					alert(result.info);
+				}
+			}
+			,
+			error:function(){
+				alert("执行出错");
+				is_do_lock = false;
+			}
+		});
+	}
+        //export_all_load 导出投资记录
+        function export_all_load(id,deal_time){
+            window.location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_all_load&deal_id="+id+"&deal_time="+deal_time+"&type=qixi";
+        }
+
+</script>
+<style type="text/css">
+    table {color:#2191C3;}
+    table th{color:black;}
+    ul{margin:0px;padding:0px;}
+    ul li {margin:0px;padding:0px;float:left;list-style:none;line-height:40px;margin-left:20px;}
+    ul li a{font-size:16px;}
+</style>
+<div class="main">
+    <div class="main_title" style="height:30px;">
+        <div style="width:28%;float:left;">
+          <span style="font-size:16px;line-height:30px;font-weight:bold;">入金操作　　<a href="javascript:history.go(-1);">返回上一页</a></span>
+        </div>
+        <div style="float:left;">
+            <a style="font-size:16px;text-decoration: none;line-height:30px;font-weight:bold;text-align:center;" href="/m.php?m=Finance&a=show_loads&qixi_time={$pre_qixi_time}">前一天</a></span>
+        </div>
+        <div style="width:28%;float:left;text-align:center;">
+            <span style="font-size:16px;line-height:30px;font-weight:bold;text-align:center;">{$qixi_time}</span>
+        </div>
+        <div style="float:left;">
+            <a style="font-size:16px;text-decoration: none;line-height:30px;font-weight:bold;text-align:center;" href="/m.php?m=Finance&a=show_loads&qixi_time={$next_qixi_time}">后一天</a></span>
+        </div>
+        <div style="width:30%;float:right;">
+            <button style="float:right;position:relative;top:4px;" onclick='export_all_load("","{$qixi_time}");' class="button" >{:L(EXPORT_ALL)}</button>
+        </div>
+    </div>
+    <div style="width:auto;height:38px;background-color:#c9c9c9;margin-top:6px;padding-left:10px;padding-top:15px;font-size:16px;line:38px;">
+        企业账号：<span style="color:red;background-color:white;height:40px;">　{$FUYOU_MCHNT_FR}　</span>　　
+        可用金额（元）<span style="color:red;background-color:white;height:40px;">　{$ca_balance|number_format=2}　</span>　
+        ＋　预计入金金额（元）<span style="color:red;background-color:white;height:40px;">　{$all_loads_money|number_format=2}　</span>　
+        ＝　预计总额（元）<span style="color:red;background-color:white;height:40px;">　{$account_all_money|number_format=2}　</span>
+    </div>
+<table class="form conf_tab dataTable" cellpadding=0 cellspacing=0>
+        <tr>
+        <td colspan="17">
+                <!--<input type="button" class="button" value="导出每期计划列表" onclick="do_allrepay_plan_export_load({$deal_id});"> -->
+        </td>
+        </tr>
+        <tr>
+            <th>编号</td>
+            <th style="width:10%">标的名称</th>
+            <th>标的类型</th>
+            <th>标的总额（元）</th>
+            <th>投资期限</th>
+            <th>投标数</th>
+            <th title="该标的下所有投标金额之和">预计应还本金总额</th>
+            <th>利率（%）</th>
+            <th title="预计应还利息 = 预计应还本金总额 * 标的利率 * 标的期限">预计应还利息</th>
+            <th title="该标的下所有投标使用的抵现券面值之和">抵现券总额</th>
+            <th title="预计收益券总收益 = 该标的下每个投标所获得的收益券收益之和。单个投资收益券收益 = 投资金额 * 标的利率 * 标的期限 * 收益券收益百分比">预计收益券总收益</th>
+            <th title="预计活动总收益 = 该标的下每个投标所获得的活动收益之和。单个投资活动收益 = 投资金额 * 标的利率 * 标的期限 * 活动收益百分比">预计活动总收益</th>
+            <th title="预计总收益 = 预计应还利息 + 预计收益券总收益 + 预计活动总收益">预计总收益</th>
+            <th title="实际还款总额 = 应还本金总额 + 应还总利息">预计还款总额（元）</th>
+            <th>起息时间</th>
+            <th>还款日期</th>
+            <th style="width:280px;">操作</th>
+        </tr>
+        <foreach name="result.deal_lists" item="item" >
+        <tr>
+            <td>{$item.id}</td>
+            <td>{$item.name}</td>
+            <td>{$item.cate_name}</td>
+            <td style="text-align:right;">{$item.borrow_amount|number_format=2}</td>
+            <td style="text-align:right;">{$item.repay_time_name}</td>
+            <td>{$item.loads_passengers}</td>
+            <td style="text-align:right;">{$item.deal_all_capital|number_format=2}</td>
+            <td>{$item.rate}</td>
+            <td style="text-align:right;">{$item.deal_all_pure_interest|number_format=2}</td>
+            <td style="text-align:right;">{$item.deal_all_coupon_cash|number_format=2}</td>
+            <td style="text-align:right;">{$item.deal_all_coupon_interest|number_format=2}</td>
+            <td style="text-align:right;">{$item.deal_all_active_interest|number_format=2}</td>
+            <td style="text-align:right;">{$item.deal_all_interest|number_format=2}</td>
+            <td style="text-align:right;">{$item.deal_all_repay_money|number_format=2}</td>
+            <td>{$item.qixi_time}</td>
+            <td>{$item.jiexi_time}</td>
+            <td>
+                 <ul style="width:90%;margin:0px 0px 0px 3px;padding:0px;">
+                     <if condition="$item.deal_status eq 2" >
+                        <li style="margin:0px 0px 0px 3px;padding:0px;">
+                            <button class="button" onclick="inputOperPwd({$item.id});">确认入金</button>
+                        </li>
+                     <elseif condition="$item.deal_status eq 4" />
+                         <li style="margin:0px 0px 0px 3px;padding:0px;">
+                         <button  style="background-color:#C9C9C9;width:98px;height:27px;border-radius:6px;color:black" disabled="disabled">还&nbsp;款&nbsp;中&nbsp;</button>
+                         </li>
+                    <elseif condition="$item.deal_status eq 5" />
+                        <li style="margin:0px 0px 0px 3px;padding:0px;">
+                        <button  style="background-color:#C9C9C9;width:98px;height:27px;border-radius:6px;color:black" disabled="disabled">已&nbsp;还&nbsp;清&nbsp;</button>
+                        </li>
+                     </if>
+                     <li  style="margin:0px 0px 0px 3px;padding:0px;">
+                         <button class="button" onclick='export_all_load({$item.id},"{$qixi_time}");'>导出</button>
+                     </li>
+                     <li  style="margin:0px 0px 0px 3px;padding:0px;">
+                          <a style="color:#2191C3" href="javascript:void(0);" onclick="viewLoanItem('.Text-{$item.id}',{$item.id},{$item.id});">展开详情</a>
+                     </li>
+                 </ul>
+           </td>
+        </tr>
+        <tr>
+                <td colspan=16 class="hide Text-{$item.id}">
+                </td>
+        </tr>
+    </foreach>
+        <tr>
+            <td></td>
+            <td style="color:#C40000;">{$qixi_time}&nbsp;统计信息：</td>
+            <td style="color:#C40000;">总计：</td>
+            <td style="color:#C40000;">{$result.date_borrow_amount|number_format=2}</td>
+            <td></td>
+            <td></td>
+            <td style="color:#C40000;">{$result.date_all_capital|number_format=2}</td>
+            <td></td>
+            <td style="color:#C40000;">{$result.date_all_pure_interest|number_format=2}</td>
+            <td style="color:#C40000;">{$result.date_all_coupon_cash|number_format=2}</td>
+            <td style="color:#C40000;">{$result.date_all_coupon_interest|number_format=2}</td>
+            <td style="color:#C40000;">{$result.date_all_active_interest|number_format=2}</td>
+            <td style="color:#C40000;">{$result.date_all_interest|number_format=2}</td>
+            <td style="color:#C40000;">{$result.date_all_repay_money|number_format=2}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="17">
+                    当前 {$page}/{$page_all} 页 , {$rs_count} 条记录
+                    <if condition="$page gt 1">
+                    <a href="/m.php?m=Finance&a=show_loads&qixi_time={$qixi_time}&p=1" >第一页  </a>
+                    </if>
+                    <if condition="$page_prev gt 0"><a href="/m.php?m=Finance&a=show_loads&qixi_time={$qixi_time}&p={$page_prev}" >上一页 </a></if>
+                    <if condition="$page_next elt $page_all"><a href="/m.php?m=Finance&a=show_loads&qixi_time={$qixi_time}&p={$page_next}" >下一页  </a></if>
+                    <if condition="$page_next elt $page_all"><a href="/m.php?m=Finance&a=show_loads&qixi_time={$qixi_time}&p={$page_all}" >末一页  </a></if>
+            </td>
+        </tr>
+</table>
+    <style type="text/css">
+        .sub_btn{cursor:pointer; margin:0; padding:0; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; overflow:visible; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+        .sub_btn:hover{background-color:#0087E5;}
+        .reset_btn{cursor:pointer; background:none; border:none; background-color:#ddd; color:#666; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+        .true_btn{cursor:pointer; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    </style>
+    <script type="text/javascript">
+        //入金操作密码
+        function inputOperPwd(deal_id){
+            var oper_password ='{$adminInfo.oper_password}';
+            if(oper_password){
+               var html = '<div class="tc p15">';
+                    html += '<div style="height:100px;margin-top:30px;font-size:22px;color:red;font-weight:bold;text-align:center">确认入金操作</div>';
+                    html += '<div style="height:40px;font-size:22px;margin:-40px 0px 0px 50px;">密码：<input type="password" placeholder="请输入入金操作密码" style="line-height:40px;font-size:16px;width:160px;height:40px;" class="f-input ui-textbox" value="" id="oper_password" /></div>';
+                    html += '<div class="blank5"></div>';
+                    html += '<input style="position:relative;left:90px;top:40px;" type="button" class="sub_btn" id="J_income_money_btn" onclick="do_loans('+deal_id+');" value="确定入金">&nbsp;&nbsp;';
+                    html += '<input style="position:relative;left:110px;top:40px;" type="button" class="reset_btn" onclick="closeWindow();" id="J_cancel_rbtn" value="取消">';
+                    html += "</div>";
+                    $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"输入入金操作密码", width:380, height:240, type:'wee'});
+                    init_ui_textbox();
+            }else{
+                var html = '<div class="tc p15">';
+                    html += '<div style="height:100px;margin-top:30px;font-size:22px;color:red;font-weight:bold;text-align:center">您未设置入金操作密码</div>';
+                    html += '<div style="height:40px;font-size:22px;margin:-50px 0px 0px 50px;">　　密码：<input type="password" placeholder="请设置入金操作密码" style="line-height:40px;font-size:16px;width:160px;height:40px;" class="f-input ui-textbox" value="" id="set_oper_password" /></div>';
+                    html += '<div class="blank5"></div>';
+                    html += '<div class="blank5"></div>';
+                    html += '<div style="height:40px;font-size:22px;margin:10px 0px 0px 50px;">确认密码：<input type="password" placeholder="请确认入金操作密码" style="line-height:40px;font-size:16px;width:160px;height:40px;" class="f-input ui-textbox" value="" id="confirm_set_oper_password" /></div>';
+                    html += '<div class="blank5"></div>';
+                    html += '<input style="position:relative;left:90px;top:35px;" type="button" class="sub_btn" id="J_oper_password_btn" onclick="set_oper_passwd();" value="确定设置">&nbsp;&nbsp;';
+                    html += '<input style="position:relative;left:110px;top:35px;" type="button" class="reset_btn" onclick="closeWindow();" id="J_cancel_rbtn" value="取消">';
+                    html += "</div>";
+                    $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"设置入金操作密码", width:400, height:280, type:'wee'});
+                    init_ui_textbox();
+            }
+
+        }
+        //设置入金密码
+        function set_oper_passwd(){
+            var oper_password = $.trim($("#set_oper_password").val());
+            var confirm_oper_password = $.trim($("#confirm_set_oper_password").val());
+            if(oper_password != confirm_oper_password){
+                alert("两次输入的入金操作密码不一致，请重新输入！");
+                return false;
+            }
+            var query = new Object();
+            query.oper_password = oper_password;
+            query.confirm_oper_password = confirm_oper_password;
+            query.type = "income";
+            query.ajax = 1;
+            $.ajax({
+                     url:'/m.php?m=Finance&a=saveOperPwd',
+                    data:query,
+                    type:"POST",
+                    dataType:"json",
+                    success:function(result){
+                        if (result.status == 1){
+                                alert(result.info);
+                                //$.showSuccess(result.info, function(){
+                                window.location.reload();
+                               // });
+                        }else{
+                            alert(result.info);
+                           //$.showErr(result.info);
+                           return false;
+                        }
+                    }
+            });
+        }
+
+    </script>
+
+</div>
+<include file="Public:footer" />

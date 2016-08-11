@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0052)https://dev.jxch168.com/wap/member.php?ctl=uc_center -->
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <title>2015金博会</title>
+        <script type="text/javascript" src="/front/js/jquery-1.8.3.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="./register.css">
+    </head>
+
+    <body>
+        <div id="regPage">
+            <img class="top_title" src="./reg_top_title.png"  />
+            <div class="main">
+                <img class="main_top"  src="./reg_main_top.png" />
+                <div class="regform">
+                    <input type="text" id="moble" placeholder="请输入您的手机号码" maxlength="11">
+                    <input type="password" id="pass" placeholder="请输入您的密码" maxlength="16">
+
+<!--                    <div class="codebox">
+                        <input type="text" id="code" placeholder="验证码" maxlength="4">
+                        <button id="getcode" >验证码</button>
+                        <div class="codeCover"></div>
+                        <div style="clear: both;"></div>
+                    </div>-->
+                </div>
+                <div class="reg_success">
+                    <p>您的理财顾问：<span id="aname">周遗风</span></p>
+                    <p>注册成功，完成实名认证</p>
+                    <p>即可获得100元现金红包</p>
+                </div>
+            </div>
+            <a href="javascript:;" id="regbtn">立即注册</a>
+            <!-- 这里记得添加app下载链接 -->
+            <!-- <a href="javsctipt:; id="lottertbtn" ">幸运大转盘</a> -->
+            <div id="successbtn">
+                <a href="http://wap.jxch168.com" id="downbtn">
+                    <span>下载APP</span>
+                </a>
+                <a href="javascript:;"  id="ltybtn">进入抽奖</a>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="rules">
+                <p>1、本活动是为上海理财博览会特定，金享财行理财专用版；</p>
+                <p>2、凡在此活动页面注册，即时成为金享成员。随即下载APP客户端，在平台内完成实名认证，即可得100元现金红包；</p>
+                <p>3、当即完成注册，可参与抽奖（100%有奖），实物当场可领取；</p>
+                <p>4、本活动最终解释权归金享财行所有；</p>
+                <p>5、如有疑问请拨打客服热线：400-091-2828</p>
+            </div>
+        </div>
+        <script type="text/javascript">
+            //验证规则
+            var regMoble = /^1\d{10}$/;  //手机号码验证规则：以1 开头的11位数字
+            var regPass = /^\w{6,16}$/;  //密码验证规则： 不少于8位的数字字母组合
+            var regCode = /^\d{4}$/; //验证码验证规则： 4位数字
+
+            function timer(e, wait) {
+                if (wait >= 0) {
+                    $(e).text("已发送" + wait + "s");
+                    // document.title = wait;
+                    wait--;
+                    setTimeout(function () {
+                        timer(e, wait);
+                    }, 1000);
+                } else {
+                    $(e).text("验证码");
+                    $(".codeCover").removeClass("show");
+                    $(e).removeClass("disabled");
+                    // alert(2)
+                }
+
+            }
+
+            $(document).ready(function () {
+                function checkMoble(altStr) {
+                    // 验证手机号码格式
+                    if ($("#moble").val().match(regMoble)) {
+                        return true;
+                    } else {
+                        alert("请输入正确的手机号码");
+                        return false;
+                    }
+                }
+                // 验证密码格式
+                function checkPass(altStr) {
+                    if ($("#pass").val().match(regPass)) {
+                        return true;
+                    } else {
+                        alert("长度在6~16之间，只能包含字符、数字和下划线。");
+                        return false;
+                    }
+                }
+                // 验证验证码格式
+                // function checkCode(altStr) {
+ //                    return true;
+//                    if ($("#code").val().match(regCode)) {
+//                        return true;
+//                    } else {
+//                        alert("验证码格式错误");
+//                        return false;
+//                    }
+                // }
+                $("#getcode").click(function () {
+                    if (checkMoble()) {
+                        var ajaxurl = '/mapi/index.php?act=send_register_code&r_type=1';
+                        var query = new Object();
+                        query.mobile = $.trim($("#moble").val());
+                        var objTthis = $(this);
+                        $.ajax({
+                            url: ajaxurl,
+                            data: query,
+                            type: "POST",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.show_err == '已存在，请重新输入') {
+                                    alert(data.show_err);
+                                } else {
+                                    objTthis.text("已发送60s");
+                                    objTthis.addClass("disabled");
+                                    $(".codeCover").addClass("show");
+                                    // alert($(this).text())
+                                    timer(objTthis, 60);
+                                }
+                            }
+                        });
+                    } else {
+                        return false;
+                    }
+                })
+                $("#ltybtn").click(function () {
+                    window.location.href = '/front/jbh2015/lottery.html?mobile=' + $.trim($("#moble").val());
+                });
+                $("#regbtn").click(function () {
+                    if (checkMoble() && checkPass()) {
+                        //var ajaxurl = '{wap_url a="index" r="register"}';
+                        var ajaxurl = '/mapi/index.php?act=register&r_type=1';
+                        var query = new Object();
+                        query.user_name = $.trim($("#moble").val());
+                        query.user_pwd = $.trim($("#pass").val());
+                        query.user_pwd_confirm = $.trim($("#pass").val());
+                        query.mobile = $.trim($("#moble").val());
+                        // query.mobile_code = $.trim($("#code").val());
+                        query.referer = getUrlParam('referer');
+                        query.search_channel = 'jbh2015';
+                        $('#aname').html(decodeURI(((window.location.href.slice(window.location.href.indexOf("aname=")).split("&"))[0].split('='))[1]));
+                        //query.post_type = "json";
+                        $.ajax({
+                            url: ajaxurl,
+                            data: query,
+                            type: "Post",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.response_code == 1)
+                                {
+                                    // alert('注册成功');
+                                    // window.location.href = 'http://wap.jxch168.com';
+                                    $(".regform").addClass("hide");
+                                    $(".reg_success").addClass("show");
+                                    $("#regbtn").addClass("hide");
+                                    $("#successbtn").addClass("show");
+                                } else {
+                                    alert(data.show_err);
+                                }
+                            }
+                        });
+                    }
+                })
+            })
+
+            function getUrlParam(name) {
+                //构造一个含有目标参数的正则表达式对象
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                //匹配目标参数
+                var r = window.location.search.substr(1).match(reg);
+                //返回参数值
+                if (r != null)
+                    return unescape(r[2]);
+                return null;
+            }
+
+        </script>
+    </body>
+
+</html>

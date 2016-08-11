@@ -1,0 +1,33 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+    <div class="main_title">客户反馈回复</div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            {%REAL_NAME}：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+            {%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+            {%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+            <input type="hidden" value="ChangeReferee" name="m" />
+            <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+    <div class="blank5"></div>
+
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="list"
+            checkbox="true"
+            datasource="list"
+            action="true"
+            show="id:{%ID}|50px,id|get_user_name_real:用户名|80px,pid|get_user_name_real:推荐人信息|80px"
+            actionlist="edit:修改推荐人" />
+
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

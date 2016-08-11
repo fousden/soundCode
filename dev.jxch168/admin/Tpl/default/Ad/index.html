@@ -1,0 +1,72 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+    function get_position($type){
+        if($type==0){
+            return "电脑端";
+        }else{
+            return "移动端";
+        }
+    }
+</php>
+<div class="main">
+    <div class="main_title">广告列表</div>
+    <div class="blank5"></div>
+    <div class="button_row">
+        <if condition="$default_map">
+            <input type="button" class="button" value="{%ADD}" onclick="location.href='{:u("ImportantNotice/add")}';" />
+            <else />
+            <input type="button" class="button" value="{%ADD}" onclick="add();" />
+        </if>
+        <input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+    </div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            是否有效:
+            <select name="is_effect">
+                <option value="0">全部</option>
+                <option value="1" <if condition="$_REQUEST['is_effect'] eq 1">selected</if> >无效</option>
+                <option value="2" <if condition="$_REQUEST['is_effect'] eq 2">selected</if> >有效</option>
+            </select>
+            是否进行中:
+            <select name="status">
+                <option value="0">全部</option>
+                <option value="1" <if condition="$_REQUEST['status'] eq 1">selected</if> >未开始</option>
+                <option value="2" <if condition="$_REQUEST['status'] eq 2">selected</if>>进行中</option>
+                <option value="3" <if condition="$_REQUEST['status'] eq 3">selected</if>>已结束</option>
+            </select>
+            客户端
+            <select name="type">
+                <option value="0">全部</option>
+                <option value="1" <if condition="$_REQUEST['type'] eq 1">selected</if>>电脑端</option>
+                <option value="2" <if condition="$_REQUEST['type'] eq 2">selected</if>>移动端</option>
+            </select>
+            <input type="hidden" value="Ad" name="m" />
+            <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="adv"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|200px
+        ,sort:排序|200px
+	,name:广告名称:edit
+	,type|get_position:客户端
+	,begin_time|to_date:开始时间
+	,end_time|to_date:结束时间
+        ,begin_time|isOverByTime=$adv['end_time']:是否在周期内
+	,is_effect|get_is_effect=$adv['id']:{%IS_EFFECT}"
+
+            actionlist="edit:{%EDIT}, foreverdel:{%FOREVERDEL}" />
+
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

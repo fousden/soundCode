@@ -1,0 +1,72 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="/front/third_party/highcharts/chart.js"></script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title" >奖品列表</div><br>
+<form name="search" id = "search_form"  action="__APP__" method="get">
+账户：<input type="text" name="user_name" value="{:trim($_REQUEST['user_name'])}">
+获得时间：<input type="text" class="textbox" name="start_time" id="start_time" value="{:trim($_REQUEST['start_time'])}" onfocus="return showCalendar('start_time', '%Y-%m-%d %H:%M:%S', false, false, 'start_time');" style="width:130px" />-
+<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" /><br />
+优惠劵类型：
+<input type="radio" name="coupon_type" value="1" <?php if(trim($_REQUEST['coupon_type'])==1){echo 'checked';}; ?> />收益券
+<input type="radio" name="coupon_type" value="2" <?php if(trim($_REQUEST['coupon_type'])==2){echo 'checked';}; ?> />抵现券
+<!--<input type="radio" name="coupon_type" value="3" <?php if(trim($_REQUEST['coupon_type'])==3){echo 'checked';}; ?> />加息券-->
+<br>状态：
+<input type="radio" name="status" value="0" <?php if(trim($_REQUEST['status'])==='0'){echo 'checked';}; ?> />未使用
+<input type="radio" name="status" value="1" <?php if(trim($_REQUEST['status'])==='1'){echo 'checked';}; ?> />已使用<br>
+<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />	    
+<input type="submit" class="button" name="submit" value="{%SEARCH}" />	    
+</form>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+<html:list
+        id="dataTable"
+        style="dataTable"
+        name="deal"
+        datasource="list"
+        show="id:编号
+	,coupon_name:优惠券名称
+	,user_name:所属用户名
+	,face_value:优惠券面值
+	,coupon_type|get_coupon_type_name:优惠券类型
+	,status|get_status_name:状态
+	,load_id:所属标的
+	,gain_time|to_date:获得时间
+	,start_time|to_date:有效期开始时间
+	,end_time|to_date:有效期结束时间
+	,coupon_desc:说明
+	,remark:备注
+	,coupon_flag:优惠券标识
+	"
+	/>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+<php>
+    function get_status_name($status){
+	if($status==0){
+	    return '未使用';
+	}else if($status==1){
+	    return '已使用';
+	}
+    }
+    function get_coupon_type_name($coupon_type){
+	if($coupon_type==1){
+	    return '收益券';
+	}else if($coupon_type==2){
+	    return '抵现券';
+	}else if($coupon_type==3){
+	    return '加息券';
+	}
+    }
+</php>
+</div>
+<style>
+    td{
+	text-align:center;
+    }
+</style>

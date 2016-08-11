@@ -1,0 +1,122 @@
+
+
+<script type="text/javascript" src="/admin/public/third_party/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/admin/public/third_party/highcharts.js"></script>
+<script type="text/javascript" src="/admin/public/third_party/exporting.js"></script>
+<script type="text/javascript">
+
+</script>
+<script type="text/javascript">
+//图表参数初始化函数
+//xAxis_pot                              x轴，必填，类型为字符串数组
+//yAxis_title                             y轴名，必填，类型为字符串
+//group_name                         传入的数据名数组，对应每一组的名称，必填，数据名类型为字符串
+//data_array                            传入的数据数组，必填，类型为数组，长度应等于xAxis_pot的长度
+//title_name                             标题名，可选，类型为string，如为空则为主标题
+//使用时只需将相应的参数导入，然后执行如下jquery语句，其中#id为对应的div的id
+//    $(function(){
+//        var chart = $('#id').highcharts(stacking_plot(xAxis_pot,yAxis_title,group_name,data_array,title_name));
+//        })
+
+function stacking_plot(xAxis_pot,yAxis_title,group_name,data_array,title_name){
+
+          var title_name = arguments[4] ? arguments[4] : '主标题';                                                    //判断主标题是否为空，如为空，则标题名为主标题
+          var data_sequence = [];                                                                                                   //数据数组，根据传入的数据名数组和对应的数据数组合并
+          for (i in group_name){                                                                                                       //数据数组合并循环
+              temp = {};
+              temp.name = group_name[i];
+              temp.data = data_array[i];
+              data_sequence.push(temp);
+          }
+
+//折线图所需的参数
+        var options = {
+
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: title_name
+                },
+                xAxis: {
+                    categories: xAxis_pot
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: yAxis_title
+                    },
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'right',
+                    x: -70,
+                    verticalAlign: 'top',
+                    y: 20,
+                    floating: true,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>'+ this.x +'</b><br/>'+
+                            this.series.name +': '+ this.y +'<br/>'+
+                            'Total: '+ this.point.stackTotal;
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                        }
+                    }
+                },
+                series: data_sequence
+        };
+               return (options);                                                                                                                //返回图表数据
+}
+
+
+</script>
+<script>
+
+    var xAxis_pot = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var yAxis_title = "y axis";
+    var group_name = ['Tokyo','New York','Berlin','London'];
+    var data_array = [[7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+        [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5],
+        [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0],
+        [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+    ];
+//    var unit = '天';
+
+    $(function(){
+    var abc = $('#chart').highcharts(stacking_plot(xAxis_pot,yAxis_title,group_name,data_array));
+    })
+</script>
+<script>
+//    data_name = ['a','b'];
+//    data_array = [[1,2],[2,4]];
+//    var data_sequence = [];
+//          for (i in data_name){
+//              temp = {};
+//              temp.name = data_name[i];
+//              temp.data = data_array[i];
+//              data_sequence.push(temp);
+//          }
+//          alert(data_sequence[1].data);
+</script>
+
+
+<div id="chart" style="min-width:700px;height:400px"></div>
+

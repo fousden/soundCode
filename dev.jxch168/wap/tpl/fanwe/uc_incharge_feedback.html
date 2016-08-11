@@ -1,0 +1,87 @@
+{include file="./inc/header.html"}
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_incharge.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+
+<div class="figure" group="edit">
+    <span><font color="red">*</font>银行：</span>
+    <select name="bank_id">
+	<option value="0">请选择银行</option>
+	<option value="0102">中国工商银行</option>
+	<option value="0103">中国农业银行</option>
+	<option value="0104">中国银行</option>
+	<option value="0105">中国建设银行</option>
+	<option value="0309">兴业银行</option>
+	<option value="0305">中国民生银行</option>
+	<option value="0306">广东发展银行</option>
+	<option value="0307">平安银行股份有限公司</option>
+	<option value="0403">国家邮政局邮政储汇局</option>
+	<option value="0303">中国光大银行</option>
+	<option value="0302">中信实业银行</option>
+    </select></div>
+      
+<div class="figure" group="edit">
+    <span><font color="red">*</font>原因：</span>
+    <select name="cause_id">
+	<option value="0">请选择原因</option>
+	<option value="1">超出充值限额</option>
+	<option value="2">账户信息不符</option>
+	<option value="3">网络异常</option>
+	<option value="4">其他</option>
+    </select></div>
+<div class="figure" group="edit" style='padding-left:0px'>
+    <textarea name="feedback" style="width:95%;height:10rem;margin:2.5%;font-size: 1rem;resize: none;" placeholder='请留下您的问题及银行卡号，联系方式等。
+稍后客服会和您沟通解决。'></textarea>
+</div>
+<div class="detail_foot">
+    <div class="lookdetail" style=" width:100%;">确认提交</div>
+</div>
+<script>
+    $(".lookdetail").click(function(){
+//	alert({$data.mchnt_txn_ssn});
+            var ajaxurl = '/wap/member.php?ctl=uc_incharge_feedback';
+            var query = new Object();
+            query.bank_id = $('select[name=bank_id]').val();
+            query.cause_id = $('select[name=cause_id]').val();
+            query.feedback = $('textarea[name=feedback]').val();
+            query.mchnt_txn_ssn = "{$data.mchnt_txn_ssn}";
+            query.ajax = 1;
+	    query.post_type = "json";
+            $.ajax({
+                url: ajaxurl,
+                data: query,
+                type:"POST",
+                dataType:"json",
+                success:function(data){
+//		    alert(data.order_id);
+		    if(data.response_code==1){
+			alert(data.show_err);
+			window.location.href = '{wap_url a="index" r="uc_incharge"}';
+		    }else{
+			alert(data.show_err);
+		    }
+                }
+            });
+        });
+</script>
+
+<style type="text/css">
+
+    .figure{
+        height: auto;
+    }
+    .figure input,select[name=bank_id]{
+        padding-left: 40px;
+    }
+
+    .figure select{
+        padding-left: 40px;
+        line-height: 40px;
+        background: none;
+        font-size: 16px;
+        color: #b6b6b6;
+        width: 100%;
+    }
+</style>
+{include file="./inc/footer.html"}

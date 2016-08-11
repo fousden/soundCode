@@ -1,0 +1,227 @@
+{include file="./wap/header_wap.html"}
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>{$page_title}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" type="text/css" href="./front/css/activity/retail_financial/retail_financial_wap.css">
+  <script type="text/javascript" src="./front/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="./front/js/activity/retail_financial/lottery.js"></script>
+  <script type="text/javascript">
+      var user_info=new Object();
+      user_info.mobile = "{$user_info.mobile}";
+      user_info.email = "{$user_info.user_name}";
+      user_info.pwd = "{$user_info.user_pwd}";
+      function setimgblank() {
+    var imgH = $(".mainbg img").outerHeight();
+    // alert(imgH)
+    $(".main>.blank").css({"height":!imgH || imgH == 0?"15rem": imgH * 0.7 + "px"});
+      }
+      function alertregister() {
+    $(".cover").fadeIn(100);
+    $(".alertregister").fadeIn(100);
+    var winH = $(window).height();
+    var thisH = $(".alertregister .main").outerHeight();
+    $(".alertregister .blank").animate({"height": (winH - thisH) / 2 + "px"}, 200)
+    $(".btncover").fadeOut(1);
+
+      }
+      // 转盘停止后的事件
+      function alertresult() {
+    var data_image = $(".lottery .active img").attr("src");
+    $(".alertresult .main .cont img").attr({"src": data_image});
+    $(".cover").fadeIn(100);
+    $(".alertresult").fadeIn(100);
+    var winH = $(window).height();
+    var thisH = $(".alertresult .main").outerHeight();
+    $(".alertresult .blank").animate({"height": (winH - thisH) / 2 + "px"}, 200)
+      }
+
+      $(function () {
+    $(".goonbtn").click(function () {
+        $(".alertresult .blank").animate({"height": "0px"}, 100, function () {
+      $(".alertresult").fadeOut(1);
+        });
+        $(".cover").fadeOut(200);
+    })
+    $(".btncover").click(function () {
+        alertregister();
+    })
+    // alertregister();
+            window.onload = function () {
+                lottery.lottery({
+                    selector: '#lottery',
+                    width: 3,
+                    height: 3,
+                    index: 0, // 初始位置
+                    initSpeed: 100, // 初始转动速度
+                    //upStep: 10, // 加速滚动步长
+                    // upMax: 200, // 速度上限
+                    //  downStep: 50, // 减速滚动步长
+                    downMax: 100, // 减速上限
+                    waiting: 500, // 匀速转动时长
+                    beforeRoll: function () { // 重写滚动前事件：beforeRoll
+                        // console.log(this);
+                        // alert(1);
+                    },
+                    beforeDown: function () { // 重写减速前事件：beforeDown
+                        // console.log(this);
+                        // alert(1);
+                    },
+                  });
+            }
+    })
+    // 抽奖成功的确定按钮
+    $(".successbtn").click(function () {
+        location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.hmt.jinxiangApp&g_f=991653";
+    })
+    </script>
+</head>
+<body>
+  <div id="lottery">
+      <div class="mainbg">
+        <img src="./front/images/activity/retail_financial_wap/bg01.jpg">
+      </div>
+            <div class="main">
+                <div class="blank"></div>
+                <div class="lottery">
+                  <table cellspacing="0" cellpadding="0" border="0">
+                    <tr class="lottery-group">
+                      <td class="lottery-unit" data-unit="1"><img src="/front/images/activity/retail_financial_wap/10dyq.png"></td>
+                      <td class="lottery-unit" data-unit="2"><img src="/front/images/activity/retail_financial_wap/weibolu.png" ></td>
+                      <td class="lottery-unit" data-unit="3"><img src="/front/images/activity/retail_financial_wap/100dyq.png" ></td>
+                    </tr>
+                    <tr class="lottery-group">
+                      <td class="lottery-unit" data-unit="8"><img src="/front/images/activity/retail_financial_wap/saodi.png" ></td>
+                      <td>
+                          <a href="javascript:;" class="getbtn"><img src="/front/images/activity/retail_financial_wap/button.png"></a>
+                     </td>
+                      <td class="lottery-unit" data-unit="4"><img src="/front/images/activity/retail_financial_wap/felipu.png"></td>
+                    </tr>
+                    <tr class="lottery-group">
+                      <td class="lottery-unit" data-unit="7"><img src="/front/images/activity/retail_financial_wap/tv.png" ></td>
+                      <td class="lottery-unit" data-unit="6"><img src="/front/images/activity/retail_financial_wap/mini.png" ></td>
+                      <td class="lottery-unit" data-un  it="5"><img src="/front/images/activity/retail_financial_wap/35dyq.png" ></td>
+                    </tr>
+                  </table>
+                </div>  
+                <div class="huojiangjilu">
+                <p>
+                {if $user_info}
+                您当前剩余&nbsp<span class='lottery_number'>{$lottery_number}</span>&nbsp次抽奖机会
+                {else}
+                <a href="javascript:;" id="login_a">请点此登录</a>
+                {/if}
+              </p> 
+                </div>           
+             <div class="showgift">
+                <img src="./front/images/activity/retail_financial_wap/bg03.jpg">
+            </div>
+      </div>
+        <div id="loginbox">
+            <div class="header">用户登录</div>
+            <div id="closebtn">×</div>
+            <p class="inputlist">
+                <span>账号：</span>
+                <input type="text" name="email" id="moble" />
+            </p>
+            <p class="inputlist">
+                <span>密码：</span>
+                <input type="password" name="pwd" id="pass" />
+            </p>
+            <div class="btnbox">
+                <a href="javascript:;" id="loginbtn">登录</a>
+                <a href="/wap/index.php?ctl=register&spm=/index.php?ctl=activity-act=lottery-type=retail_financial-is_pc=1<?php echo $_GET['s']?'&s='.$_GET['s']:'';?>" id="regbtn">注册</a><p></p>
+                <div style="clear:both"></div>
+            </div>
+        </div>    
+     <div id="#logincover"></div>
+     <div class="alertresult"> 
+            <div class="blank"></div> 
+            <div class="main">
+                <p class="title">恭喜您获得</p>
+                <div class="cont">
+                    <img src="">
+                </div>
+                <a href="http://wap.jxch168.com" class="successbtn">下载APP领取奖品</a>
+                <a href="javascript:;" class="goonbtn">继续抽奖</a>
+            </div>
+     </div>
+     <div class="alertregister">
+            <div class="blank"></div>
+            <div class="main">
+                <div class="closebtn"></div>
+                <p class="title">请输入您的手机号码</p>
+                <input type="text" class="phonecont" placeholder="在此输入您的手机号" />
+                <p class="errortips">您输入的手机号码不合法</p>
+                <a href="javascript:;" class="goblottery gobtn">继续抽奖</a>
+            </div>
+        </div>
+    </div>
+   <script type="text/javascript">
+    function ajax_login() {
+      if("<?php echo $_GET['_m']?>"){
+                location.href="jxch://user/login";
+            }else{
+            $('#loginbox').fadeIn(100);
+            $('#logincover').fadeIn(100);
+        }
+    }
+    $("#loginbtn").click(function() {
+        var email = $("#loginbox input[name='email']").val();
+        var pwd = $("#loginbox input[name='pwd']").val();
+        if (!email) {
+            alert("请输入账号或手机号");
+        } else if (!pwd) {
+            alert("请输入密码");
+        } else {
+            ajaxurl = '{url x="index" r="activity#user_login&is_pc=1"}';
+            var query = new Object();
+            query.email = email;
+            query.pwd = pwd;
+            $.ajax({
+                url: ajaxurl,
+                dataType: "json",
+                data: query,
+                type: "POST",
+                success: function(data) {
+                    if (data.code == 0) {
+                        alert(data.errmsg);
+                    } else {
+                        window.location.href="/index.php?ctl=activity&act=lottery&type=retail_financial&is_pc=1&email="+data.user_name+"&pwd="+data.user_pwd_md5;
+                    }
+                }
+            });
+        }
+    });
+    $(document).ready(function() {
+         var btnNums = 0;
+        setCentXY($('#loginbox'));
+        setCentXY($('.alertresult'));
+        $('#login_a').click(function() {
+            ajax_login();
+        })
+        $('#closebtn').click(function() {
+            $('#loginbox').fadeOut(100);
+            $('#logincover').fadeOut(100);
+        })
+
+        function setCentXY(ele) {
+            var winW = $(window).width();
+            var winH = $(window).height();
+            var eleW = $(ele).outerWidth();
+            var eleH = $(ele).outerHeight();
+            $(ele).css({
+                'left': (winW - eleW) / 2,
+               // 'top': (winH - eleH) / 5,
+            })
+        }
+    });
+    </script>
+  </body>
+</html>
+{include file="./wap/footer_wap.html"}

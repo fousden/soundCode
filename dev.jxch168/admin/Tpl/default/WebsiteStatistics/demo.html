@@ -1,0 +1,136 @@
+
+
+<script type="text/javascript" src="/admin/public/third_party/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/admin/public/third_party/highcharts.js"></script>
+<script type="text/javascript" src="/admin/public/third_party/exporting.js"></script>
+<script type="text/javascript" src="/admin/public/third_party/chart.js"></script>
+
+<script type="text/javascript">
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+//图表参数初始化函数
+//xAxis_pot                         x轴数值名，必填，类型为字符串数组
+//yAxis_title                        y轴名，必填，类型为字符串
+//data_name                      传入的数据名数组，必填，数据名类型为字符串
+//data_array                       传入的数据数组，必填，类型为数组
+//unit                                  单位名，必填，鼠标划过线条显示数据的单位，类型为字符串
+//title_name                        标题名，可选，类型为string，默认为图表
+//subtitle_name                   副标题名，可选，类型为string，默认为空
+//使用时只需将相应的参数导入，然后执行如下jquery语句，其中#id为对应的div的id
+//    $(function(){
+//        var chart = $('#id').highcharts(brokenline_plot(xAxis_pot,yAxis_title,data_name,data_array,unit,array_name,title_name,subtitle_name));
+//        })
+
+//function brokenline_plot(xAxis_pot,yAxis_title,data_name,data_array,unit,title_name,subtitle_name){
+//
+//          var title_name = arguments[5] ? arguments[5] : '图表';                                                    //判断主标题是否为空，如为空，则标题名为图表
+//          var subtitle_name = arguments[6] ? arguments[6] : ' ';                                               //判断副标题是否为空，副标题默认为空
+//          var data_sequence = [];                                                                                                   //数据数组，根据传入的数据名数组和对应的数据数组合并
+//          for (i in data_name){                                                                                                       //数据数组合并循环
+//              temp = {};
+//              temp.name = data_name[i];
+//              temp.data = data_array[i];
+//              data_sequence.push(temp);
+//          }
+//
+////折线图所需的参数
+//        var options = {
+//
+//                title: {                                                                                                                        //标题设置
+//                    text: title_name,
+//                    x: -20 //center
+//                },
+//                subtitle: {                                                                                                                 //副标题设置
+//                    text: subtitle_name,
+//                    x: -20
+//                },
+//                xAxis: {                                                                                                                    //x轴设置
+//                    categories:xAxis_pot                                                                                              //x轴单位
+//                },
+//                yAxis: {                                                                                                                    //y轴设置
+//                    title: {                                                                                                                  //y轴标题
+//                        text: yAxis_title
+//                    },
+//                    plotLines: [{                                                                                                           //y轴线设置
+//                        value: 0,
+//                        width: 1,
+//                        color: '#808080'
+//                    }]
+//                },
+//                tooltip: {                                                                                                                  //鼠标滑过图表显示的设置
+//                    valueSuffix: unit                                                                                                   //设置单位
+//                },
+//                legend: {                                                                                                                   //图例设置
+//                    layout: 'vertical',
+//                    align: 'right',
+//                    verticalAlign: 'middle',
+//                    borderWidth: 0
+//                },
+//                series:data_sequence                                                                                                    //数据集
+//        };
+//               return (options);                                                                                                                //返回图表数据
+//}
+
+
+
+</script>
+<script>
+var xAxis_pot = <?php echo $xAxis_pot;
+
+?>;
+
+var yAxis_title = <?php echo $yAxis_title;
+
+?>;
+
+var data_name = <?php echo $data_name;
+
+?>;
+
+var data_array = <?php echo $data_array;
+
+?>;
+
+var unit = <?php echo $unit;
+
+?>;
+
+
+var series_name = <?php echo $series_name;
+
+?>;
+
+
+var pie_data_array = <?php echo $pie_data_array;
+
+?>;
+
+
+//    $(function(){
+//    var abc = $('#chart').highcharts(brokenline_plot(xAxis_pot,yAxis_title,data_name,data_array,unit));
+//    })
+
+//    $(function(){
+//    var abc = $('#chart').highcharts(column_plot(xAxis_pot,yAxis_title,data_name,data_array));
+//    })
+
+//    $(function(){
+//    var abc = $('#chart').highcharts(stackcolumn_plot(xAxis_pot,yAxis_title,data_name,data_array));
+//    })
+
+    $(function(){
+    var abc = $('#chart').highcharts(pie_plot(series_name,data_name,pie_data_array));
+    })
+</script>
+<script>
+
+</script>
+
+
+<div id="chart" style="min-width:700px;height:400px"></div>
+

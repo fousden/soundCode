@@ -1,0 +1,123 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+<PHP>
+	function get_carry_status($status)
+	{
+		if($status == 0){
+                    return "待审核";
+		}else if($status == 1){
+                    return "已付款";
+                }else if($status == 2){
+                    return "未通过";
+                }else if($status == 3){
+                    return "待付款";
+                }
+	}
+        function format_source($carry_source){
+            if($carry_source == 2){
+                return "WAP提现";
+            }else if($carry_source == 3){
+                return "Android提现";
+            }else if($carry_source == 4){
+                return "IOS提现";
+            }else{
+                return "官网提现";
+            }
+        }
+        function manual_audit($carry_id,$payment_notice){
+            return "<span style='cursor:pointer;' onclick='inputVerifyPwd(".$carry_id.");'><a>提现审核</a></span>";
+
+        }
+        function get_bank_name($bank_id){
+            return M("bank")->where(array("fuyou_bankid"=>$bank_id))->getField("name");
+        }
+
+</PHP>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		提现时间 ：
+		<input type="text" class="textbox" name="start_time" id="start_time" value="{:trim($_REQUEST['start_time'])}" onfocus="return showCalendar('start_time', '%Y-%m-%d', false, false, 'start_time');" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" />
+		（温馨提示：提现时间不能跨月搜索，尽量选择短时间段搜索！）
+                <div class="blank5"></div>
+		会员名：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" />
+		手机号：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" />
+		{%PAYMENT_NOTICE_SN}：<input type="text" class="textbox" name="mchnt_txn_ssn" value="{:trim($_REQUEST['mchnt_txn_ssn'])}" />
+		<input type="hidden" value="UserCarry" name="m" />
+		<input type="hidden" value="cash_manage" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user_carry"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px,user_id|get_user_name_real:{%USER_NAME},money|format_price:提现金额,bank_id|get_bank_name:银行,bankcard:卡号,create_time|to_date:申请时间,status|get_carry_status:提现状态,mchnt_txn_ssn:提现流水,carry_source|format_source:提现来源,resp_desc:提现状态描述,update_time|to_date:处理时间,id|manual_audit=$user_carry:人工审核"
+	 />
+
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<input type="hidden" id='action' name='action' value='{$now_action}'/>
+<style type="text/css">
+    .sub_btn{cursor:pointer; margin:0; padding:0; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; overflow:visible; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .sub_btn:hover{background-color:#0087E5;}
+    .reset_btn{cursor:pointer; background:none; border:none; background-color:#ddd; color:#666; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .true_btn{cursor:pointer; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+</style>
+<script>
+    $(".op_action").remove();
+    function inputVerifyPwd(carry_id){
+        var html = '<div class="tc p15">';
+            html += '<div class="blank5"></div>';
+            html += '<div class="blank5"></div>';
+            html += '<div style="height:40px;margin:40px 0px 0px 80px;"><span style="font-size:22px;">请选择</span>：<input type="radio" style="font-size:14px;" value="0" name="status" checked/>审核不通过　<input type="radio" style="font-size:14px;" value="1" name="status" />审核通过</div>';
+            html += '<div class="blank5"></div>';
+            html += '<input style="position:relative;left:90px;top:35px;" type="button" class="sub_btn" id="J_oper_password_btn" onclick="manual_audit('+carry_id+');" value="立即审核">&nbsp;&nbsp;';
+            html += '<input style="position:relative;left:110px;top:35px;" type="button" class="reset_btn" onclick="closeWeebox();" id="J_cancel_rbtn" value="取消审核">';
+            html += "</div>";
+            $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"在线提现单人工审核", width:400, height:240, type:'wee'});
+            init_ui_textbox();
+    }
+    function manual_audit(carry_id){
+        do_ajax = true;
+        var now_action = document.getElementById('action').value;
+        var status = $("input[name='status']:checked").val();
+        $.ajax({
+                url: "m.php?m=UserCarry&a=manual_audit&carry_id=" + carry_id+"&status=" + status,
+                data: "ajax=1",
+                async:false,
+                dataType: "json",
+                success: function(data){
+                            if(data.status == 1){
+                                alert(data.info);
+                                location.href = ROOT + '?m=UserCarry&a='+ now_action;
+                            }else{
+                                alert(data.info);
+                                location.href = ROOT + '?m=UserCarry&a='+ now_action;
+                            }
+                }
+        });
+    }
+    function closeWeebox(){
+        $.weeboxs.close();
+    }
+</script>
+<include file="Public:footer" />

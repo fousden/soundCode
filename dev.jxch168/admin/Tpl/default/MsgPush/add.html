@@ -1,0 +1,101 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">客户端消息推送</a></div>
+<div class="blank5"></div>
+<style>
+    .hide{
+        display:none;
+    }
+</style>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+        <tr>
+		<td class="item_title">消息标题:</td>
+		<td class="item_input">
+			<input type="text" class="textbox require" name="title" value="" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">消息内容:</td>
+		<td class="item_input">
+			<textarea name="content" class="textarea require"></textarea>
+		</td>
+	</tr>
+        <tr>
+		<td class="item_title">类型:</td>
+		<td class="item_input">
+                    <select name='type'>
+                                <option value="">打开应用</option>
+				<option value="1">网址</option>
+				<option value="2">Banner</option>
+				<option value="3">标的ID</option>
+				<option value="4">项目列表</option>
+                    </select>
+		</td>
+	</tr>
+	<tr id="data" class="hide">
+		<td class="item_title">值:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="data" value="" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">发送对象:</td>
+		<td class="item_input">
+			<select name='msg_type'>
+				<option value="1">全部用户</option>
+				<option value="2">苹果用户</option>
+				<option value="3">安卓用户</option>
+				<option value="4">指定用户</option>
+			</select>
+		</td>
+	</tr>
+	<tr id="user" class="hide">
+            <td class="item_title">用户ID:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="user_id" value="" />&nbsp;<label style="color:red">(多个用户，用英文逗号隔开)</label>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="MsgPush" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="add" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="发送" />
+			<input type="reset" class="button" value="重置" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<script>
+    $(function(){
+        $("select[name=type]").change(function(){
+            var item = $("select[name=type]").val();
+            if(item){
+                $("#data").removeClass("hide");
+            }else{
+                $("#data").addClass("hide");
+            }
+        })
+        
+        $("select[name=msg_type]").change(function(){
+            var type = $("select[name=msg_type]").val();
+            if(type == 4){
+                $("#user").removeClass("hide");
+            }else{
+                $("#user").addClass("hide");
+            }
+        })
+        
+    });
+    
+</script>
+<include file="Public:footer" />

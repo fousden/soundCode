@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>       
+        <meta charset="UTF-8">
+        <title>Document</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no,minimum-scale=1.0">
+        <meta content="telephone=no" name="format-detection" />
+        <meta name="apple-mobile-web-app-capable" content="yes">       
+        <link rel="stylesheet" type="text/css" href="../fanwe/css/diy.css">
+        <script src="../fanwe/js/jquery-1.7.2.min.js"></script>
+        <script src="../fanwe/js/jQueryRotate.2.2.js"></script>
+        <script src="../fanwe/js/jquery.easing.min.js"></script>
+        <script>
+          $(document).ready(function(){
+            var winheight = $(window).height();
+            // alert(winheight);
+            // $(".zhuanlun").css({"height":winheight});
+            var bgwidth = $(".mainbg").outerWidth();
+            $(".mainbg").css({"height":bgwidth});
+            //alert(bgwidth);
+            $(".mainbox").css({
+              "width":bgwidth,
+              "height":bgwidth
+            });
+            var starwidth = $(".starbtnbox").outerWidth();
+            // alert(starwidth);
+            var lywidth = $(".mainbox").outerWidth();
+            $(".starbtnbox").css({
+              "left":(lywidth-starwidth)/2+"px",
+              "top":(bgwidth-starwidth)/2+"px"
+            });
+          })
+        </script>
+    </head>
+    <body>
+        <div class="bg">
+          <div class="zhuanlun">
+            <div class="blank"></div>
+            <div class="mainbox">
+              <div class="mainbg"><img src="../fanwe/images/mainbg.png"></div>
+              <div class="starbtnbox"><img src="../fanwe/images/rotate-static.png" id="startbtn"></div>
+            </div>
+          </div>
+        </div>
+        <div class="cover"></div>
+        <div class="phone tipbox">
+          <div class="main">
+            <div class="closebtn"></div>
+
+          </div>
+        </div>
+        <div class="repeat tipbox">
+          <div class="main">
+            <div class="closebtn"></div>
+            <p class="title">您已参与过抽奖</p>
+            <a href="javascript:;" class="golingqu gobtn">立即领取</a>
+          </div>
+        </div>
+        <div class="success tipbox">
+          <div class="main">
+            <div class="closebtn"></div>
+            <p class="title">恭喜您获得</p>
+            <p class="content">10元现金红包</p>
+            <a href="javascript:;" class="golingqu gobtn">立即领取</a>
+          </div>
+        </div>
+    </body>
+</html>

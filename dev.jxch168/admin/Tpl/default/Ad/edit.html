@@ -1,0 +1,93 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+    <div class="main_title">{%EDIT} <a href="{:u("Ad/index")}" class="back_list">{%BACK_LIST}</a></div>
+    <div class="blank5"></div>
+    <form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">{%ADV_NAME}:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="name" value="{$vo.name}" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">选择投放位置:</td>
+                <td class="item_input">
+                    <select name="type" id="">
+                        <option value="-1">请选择...</option>
+                        <foreach name="arr" item="v" key="key">
+                            <option value="{$key}" <if condition="$vo.type eq $key">selected</if>>{$v}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">活动周期:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="begin_time" id="begin_time" value="{$vo.begin_time|to_date}" onfocus="return showCalendar('begin_time', '%Y-%m-%d 00:00:00', false, false, 'begin_time');" style="width:130px" />
+                    -
+                    <input type="text" class="textbox require" name="end_time" id="end_time" value="{$vo.end_time|to_date}" onfocus="return showCalendar('end_time', '%Y-%m-%d 23:59:59', false, false, 'end_time');" style="width:130px" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">图片:</td>
+                <td class="item_input">
+                    <html:imgUpload name = 'img_url' id='icon' value='$vo.img_url' />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">图片的链接地址:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="href" value="{$vo.href}" />
+                    <span class="tip_span">[站内链接:"/index.php?ctl=article&id=182";站外地址:"http://www.baidu.com"]</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">图片描述:</td>
+                <td class="item_input">
+                    <textarea name="description" rows="3",cols="20">
+                    {$vo.description}
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">{%IS_EFFECT}:</td>
+                <td class="item_input">
+                    <lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if> /></lable>
+                    <lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></lable>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">排序:</td>
+                <td class="item_input"><input type="text" name="sort" value="{$vo.sort}" /></td>
+            </tr>
+            <!--<tr>
+                <td class="item_title">{%CITY_IDS}:</td>
+                <td class="item_input"><input type="text" class="textbox" name="city_ids" value="{$vo.city_ids}" /></td>
+            </tr>-->
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <input type="hidden" name="id" value="{$vo.id}" />
+                    <!--<input type="hidden" name="rel_table" value="{$vo.rel_table}" />-->
+                    <!--<input type="hidden" name="rel_id" value="{$vo.rel_id}" />-->
+                    <input type="hidden" name="{:conf("VAR_MODULE")}" value="Ad" />
+                    <input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+                    <!--隐藏元素-->
+                    <input type="submit" class="button" value="{%EDIT}" />
+                    <input type="reset" class="button" value="{%RESET}" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<include file="Public:footer" />

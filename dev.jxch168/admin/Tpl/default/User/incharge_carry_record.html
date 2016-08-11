@@ -1,0 +1,109 @@
+{// 引入标签库 }
+
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+function address(user_id)
+{
+	location.href = ROOT + '?m=User&a=address&id='+user_id;
+}
+</script>
+<div class="main">
+<div class="main_title">富友充值提现记录</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<if condition="ACTION_NAME eq 'index' || ACTION_NAME eq 'company_index'"><input type="button" class="button" value="{%ADD}" onclick="add();" /></if>
+<!--	<input type="button" class="button" value="{%DEL}" onclick="del();" />-->
+</div>
+
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		<input type="hidden" value="User" name="m" />
+                <input type="hidden" value="{$user_id}" name="user_id" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+                <span style="font-size:14px;">请选择交易类型:</span><select name="trade_type">
+                    <option value="PW11" <if condition="$trade_type eq 'PW11'">selected</if>>充值</option>
+                    <option value="PWTX" <if condition="$trade_type eq 'PWTX'">selected</if>>提现</option>
+                </select>
+                <span style="font-size:14px;">起始时间：</span>
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{$begin_time}" onfocus="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'begin_time');" style="width:130px" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{$end_time}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" style="width:130px" />
+
+		<input type="submit" class="button" value="{%SEARCH}" />（温馨提示：充值记录查询起始时间不能跨月！提现记录查询起始时间从当前时间往后推31天为一周期，之前原始数据查询时间周期以此类推！）
+	</form>
+</div>
+<div class="blank5"></div>
+<script type="text/javascript">
+    $(function(){
+        $(".op_action").remove();
+    });
+</script>
+<php>
+    function get_ext_tp($ext_tp){
+        if($ext_tp){
+            $ext_tp = $ext_tp;
+        }else{
+            $ext_tp = $ext_tp[0];
+        }
+        return $ext_tp;
+    }
+    function get_remark($remark){
+        if($remark){
+            $remark = $remark;
+        }else{
+            $remark = $remark[0];
+        }
+        return $remark;
+    }
+    function get_rsp_cd_desc($rsp_cd_desc){
+        if($rsp_cd_desc){
+            $rsp_cd_desc = $rsp_cd_desc;
+        }else{
+            $rsp_cd_desc = $rsp_cd_desc[0];
+        }
+        return $rsp_cd_desc;
+    }
+    function get_is_jx($mchnt_ssn,$list){
+        if($list["jxtype"] == 1){
+            return "<span style='color:#c40000'>".$mchnt_ssn."</span>";
+        }else{
+            return $mchnt_ssn;
+        }
+    }
+</php>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user"
+	checkbox="true"
+	action="true"
+	datasource="list"
+        show="id:{%ID}|50px
+        ,ext_tp|get_ext_tp:扩展类型
+        ,txn_date:充值提现日期
+        ,txn_time:充值提现时分
+        ,mchnt_ssn|get_is_jx=$user:充值提现流水
+        ,txn_amt:充值提现金额
+        ,fuiou_acct_no:用户虚拟账户
+        ,cust_no:用户名
+        ,artif_nm:用户名称
+        ,remark|get_remark:备注
+        ,txn_rsp_cd:返回码
+        ,rsp_cd_desc:返回码描述
+        "
+	actionlist="" actionwidth="150px" actionidx="3" />
+
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

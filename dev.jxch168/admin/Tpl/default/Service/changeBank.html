@@ -1,0 +1,58 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<php>
+
+        function get_date($create_time){
+            return $create_time ? to_date($create_time,"Y-m-d H:i:s") : "无";
+        }
+        
+        function get_change_status($change_status){
+            if($change_status == 1){
+                return "审核通过";
+            }else if($change_status == 2){
+                return "审核未通过";
+            }else if($change_status == 0){
+                return "待审核";
+            }
+        }
+        
+        function get_effect($is_effect){
+            return $is_effect == 1 ? "有效" : "无效";
+        }
+</php>
+<div class="main">
+<div class="main_title">更换银行卡申请列表</div>
+<div class="blank5"></div>
+
+
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+                {%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+		{%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+                请求流水号：<input type="text" class="textbox" name="mchnt_txn_ssn" value="{:trim($_REQUEST['mchnt_txn_ssn'])}" style="width:100px;" />
+                <input type="hidden" value="Service" name="m" />
+		<input type="hidden" value="changeBank" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user_bank_examine"
+	checkbox="true"
+        action="true"
+	datasource="list"
+        show="id:{%ID}|10px,user_id|get_user_name_real:会员名称|220px,mchnt_txn_ssn:请求流水号|30px,create_time|get_date:创建时间,update_time|get_date:更新时间,success_time|get_date:审核时间,change_status|get_change_status:审核状态,resp_desc:描述信息,is_effect|get_effect:是否有效"
+        actionlist="show_detail:查看详情" actionwidth="150px" actionidx="3" />
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,567 @@
+@charset "utf-8";
+* {
+  font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3", Microsoft YaHei, 'Microsoft YaHei', '微软雅黑', SimHei, 'SimHei', '黑体';
+}
+body {
+  zoom: 1;
+  width: 100%;
+  background-color: #f9f9f9 !important;
+}
+.btn_orange {
+  background-color: #e95d01;
+}
+.btn_orange:hover {
+  background-color: #f2650c;
+}
+.FloatLeft,
+.f_l {
+  float: left;
+}
+.FloatRight,
+.f_r {
+  float: right;
+}
+.Clear {
+  clear: both;
+}
+.CursorPointer {
+  cursor: pointer;
+}
+/*元素样式*/
+.DisplayNone,
+.hide {
+  display: none !important;
+}
+.DisplayBlock {
+  display: block;
+}
+.DisplayInline {
+  display: inline;
+}
+.DisplayInlineBlock,
+.show {
+  display: inline-block;
+}
+.VisibilityHidden {
+  visibility: hidden;
+}
+.VisibilityVisible {
+  visibility: visible;
+}
+.BoxRadius {
+  -moz--border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+}
+.BoxShadow {
+  -webkit-box-shadow: 1px 1px 3px #333;
+  -moz-box-shadow: 1px 1px 3px #333;
+  -ms-box-shadow: 1px 1px 3px #333;
+  box-shadow: 1px 1px 3px #333;
+}
+.Margin0 {
+  margin: 0;
+}
+.MarginLeft20 {
+  margin-left: 20px;
+}
+.MarginRight130 {
+  margin-right: 130px;
+}
+.wrap {
+  height: auto;
+  width: 1200px;
+  position: relative;
+  overflow: visible;
+}
+.blank0 {
+  clear: both;
+  height: 0px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank {
+  clear: both;
+  height: 10px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank1 {
+  clear: both;
+  height: 1px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank5 {
+  clear: both;
+  height: 5px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank10 {
+  clear: both;
+  height: 10px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank15 {
+  clear: both;
+  height: 15px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank20 {
+  clear: both;
+  height: 20px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank40 {
+  clear: both;
+  height: 40px;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank100 {
+  height: 102px;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+/*自动高对齐*/
+.clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+.ColorLightRed {
+  color: #ef5146 !important;
+}
+.ColorDarkRed {
+  color: #e24a40 !important;
+}
+.ColorLightYellow {
+  color: #ecaf09 !important;
+}
+.ColorDarkOrange {
+  color: #e95d01 !important;
+}
+.ColorLightBlue {
+  color: #47a2e3 !important;
+}
+.ColorDarkBlue {
+  color: #439ad8 !important;
+}
+.FontIconLeftAndRight {
+  font-family: Arial, 'Arial';
+}
+.sample_goal .goalProgress {
+  background-color: #cccccc ;
+  height: 8px;
+  width: 100%;
+  -moz--border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  position: relative;
+}
+.sample_goal .goalProgress div.progressBar {
+  position: absolute;
+  left: 0;
+  background-color: #47a2e3;
+  color: #fff;
+  font-weight: 700;
+  display: block;
+  overflow: hidden;
+  width: 20px;
+  height: 100%;
+  -moz--border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+}
+.sample_goal .goalProgress .ptc {
+  text-align: center;
+  color: #666666;
+  font-size: 14px;
+  padding-top: 10px;
+}
+i.upArrow,
+i.downArrow,
+i.leftArrow,
+i.rightArrow {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  position: relative;
+  top: -4px;
+  margin: 0 5px;
+}
+i.upArrow {
+  border-bottom: 5px solid #666666;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+i.downArrow {
+  border-top: 5px solid #666666;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+i.leftArrow {
+  border-right: 5px solid #666666;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+i.rightArrow {
+  border-left: 5px solid #666666;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+#lottery .banner {
+  width: 100%;
+  height: 3249px;
+  background: url(/front/images/activity/market_activities/back.jpg) no-repeat top center #26d7f7;
+  margin-bottom: -30px;
+}
+#lottery .banner .main {
+  width: 1200px;
+  margin: 0 auto;
+}
+#lottery .banner .main .kongbai {
+  width: 100%;
+  height: 1420px;
+}
+#lottery .banner .main .lottery {
+  width: 475px;
+  height: 406px;
+  padding: 22px 0px 10px 21px;
+}
+#lottery .banner .main .lottery table td {
+  width: 158px;
+  height: 133px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 24px;
+  color: #333;
+}
+#lottery .banner .main .lottery table td img {
+  display: block;
+  margin: 0 auto;
+}
+#lottery .banner .main .lottery table td .getbtnbox {
+  width: 162px;
+  height: 135px;
+  margin: 0 auto;
+}
+#lottery .banner .main .lottery table td .getbtnbox .getbtn {
+  width: 159px;
+  height: 132px;
+  display: block;
+  margin: 5px 0 0 5px;
+  background: url(/front/images/activity/market_activities/anniu.png) no-repeat;
+}
+
+#lottery .banner .main .lottery table .active {
+  background-color: #49d2ff;
+}
+#lottery .banner .huojiangjilu {
+  width: 300px;
+  margin-top: 64px;
+  height: 59px;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 25px;
+  -moz-border-radius: 25px;
+}
+#lottery .banner .huojiangjilu p {
+  font-weight: 400;
+  display: inline-block;
+  color: white;
+  font-size: 18px;
+}
+#lottery .banner .huojiangjilu p span {
+  color: red;
+  font-weight: 700;
+}
+#lottery .banner .huojiangjilu p a {
+  color: yellow;
+  font-weight: 400;
+}
+#lottery .banner .huojiangjilu p a:hover {
+  color: yellow;
+  text-decoration: underline;
+  font-weight: 700;
+}
+#lottery .banner #middle {
+  margin-top: 2px;
+  width: 100%;
+  height: 410px;
+  background: url(/front/images/activity/market_activities/hdgz.png) no-repeat top center;
+}
+#lottery .banner #showgift {
+  width: 100%;
+  height: 400px;
+  background: url(/front/images/activity/market_activities/lipin.png) no-repeat top center;
+}
+#lottery .banner .f_r {
+  width: 100%;
+  height: 450px;
+  background: url(/front/images/activity/market_activities/md.jpg) no-repeat top center;
+  margin-bottom: -28px;
+}
+#lottery .banner .f_r .winlist {
+  margin-left: 400px;
+  margin-top: 100px;
+  width: 500px;
+  height: 240px;
+  overflow: hidden;
+}
+#lottery .banner .f_r .winlist .title {
+  font-size: 30px;
+  text-align: center;
+  color: white;
+  line-height: 53px;
+}
+#lottery .banner .f_r .winlist .cont {
+  width: 400px;
+  height: 240px;
+  overflow: hidden;
+  margin: 0 auto;
+  font-size: 14px;
+  color: yellow;
+}
+#lottery .banner .f_r .winlist .cont .pbox span {
+  color: white;
+}
+#lottery .cover {
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: none;
+  opacity: 0.8;
+}
+#lottery .alertrecord {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 300;
+  display: none;
+}
+#lottery .alertrecord .main {
+  width: 480px;
+  height: 340px;
+  background: url(/front/images/activity/lottery/alert_record_bg.png);
+  position: relative;
+}
+#lottery .alertrecord .main .title {
+  font-size: 30px;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+#lottery .alertrecord .main .cont {
+  width: 460px;
+  margin: 0 auto;
+  background: #424a96;
+}
+#lottery .alertrecord .main .cont span {
+  line-height: 1em;
+}
+#lottery .alertrecord .main .cont .name {
+  float: left;
+  width: 300px;
+}
+#lottery .alertrecord .main .cont .date {
+  float: left;
+  width: 100px;
+}
+#lottery .alertrecord .main .cont dt,
+#lottery .alertrecord .main .cont dd {
+  padding: 13px 0;
+}
+#lottery .alertrecord .main .cont dt {
+  color: #828be1;
+  font-size: 18px;
+}
+#lottery .alertrecord .main .cont dt .name,
+#lottery .alertrecord .main .cont dt .date {
+  text-align: center;
+}
+#lottery .alertrecord .main .cont dd {
+  width: 442px;
+  margin: 0 auto;
+  border-bottom: 1px solid #4e57a4;
+}
+#lottery .alertrecord .main .cont dd .name {
+  color: #facc6f;
+  text-indent: 2em;
+}
+#lottery .alertrecord .main .cont dd .date {
+  color: white;
+  text-align: center;
+}
+#lottery .alertrecord .main .page {
+  text-align: center;
+}
+#lottery .alertrecord .main .page a {
+  color: #4e57a4;
+  padding: 0 3px;
+}
+#lottery .alertrecord .main .page .active {
+  text-decoration: underline;
+  color: white;
+}
+#lottery .alertrecord .main .closebtn {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: -46px;
+  width: 38px;
+  height: 38px;
+  padding-bottom: 10px;
+  background: url(/front/images/activity/lottery/alerty_close_btn.png) no-repeat center center;
+  border: 2px solid transparent;
+}
+#lottery .alertrecord .main .closebtn:hover {
+  border-bottom: 2px solid #f1f2ff;
+}
+#lottery .alertresult {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#lottery .alertresult .main {
+  width: 280px;
+  height: 240px;
+  background: url(/front/images/activity/lottery/alert_result_bg.png);
+}
+#lottery .alertresult .main .title {
+  font-size: 24px;
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+#lottery .alertresult .main .cont {
+  width: 260px;
+  height: 124px;
+  margin: 0 auto;
+  background: white;
+  margin-bottom: 10px;
+}
+#lottery .alertresult .main .cont img {
+  display: block;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+#lottery .alertresult .main .successbtn {
+  width: 260px;
+  margin: 0 auto;
+  background: #447ee7;
+  display: block;
+  height: 40px;
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  font-size: 16px;
+}
+#lottery .alertresult .main .successbtn:hover {
+  background: #719ded;
+}
+#lottery .alertshare {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#lottery .alertshare .main {
+  width: 320px;
+  height: 240px;
+  position: relative;
+  background: url(/front/images/activity/lottery/alert_getchance_bg.png);
+}
+#lottery .alertshare .main .title {
+  font-size: 24px;
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  padding: 6px;
+}
+#lottery .alertshare .main .cont {
+  width: 300px;
+  height: 90px;
+  margin: 0 auto;
+  background: white;
+  margin-bottom: 10px;
+}
+#lottery .alertshare .main .cont p {
+  text-align: center;
+  width: 300px;
+  font-size: 16px;
+  padding: 8px 0;
+}
+#lottery .alertshare .main .cont .bdsharebuttonbox {
+  margin: 0 auto;
+  width: 230px;
+}
+#lottery .alertshare .main .saomiao,
+#lottery .alertshare .main .goinvite {
+  width: 300px;
+  margin: 0 auto;
+  background: #447ee7;
+  display: block;
+  height: 40px;
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+#lottery .alertshare .main .saomiao:hover,
+#lottery .alertshare .main .goinvite:hover {
+  background: #719ded;
+}
+#lottery .alertshare .main .goinvite {
+  background: #d01504;
+}
+#lottery .alertshare .main .goinvite:hover {
+  background: #fa200d;
+}
+#lottery .alertshare .main .closebtn {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: -46px;
+  width: 38px;
+  height: 38px;
+  padding-bottom: 10px;
+  background: url(/front/images/activity/lottery/alerty_close_btn.png) no-repeat center center;
+  border: 2px solid transparent;
+}
+#lottery .alertshare .main .closebtn:hover {
+  border-bottom: 2px solid #f1f2ff;
+}
+#lottery .alertshare .main .erweima {
+  position: absolute;
+  top: 60px;
+  right: -180px;
+  display: none;
+  z-index: 5;
+}

@@ -1,0 +1,42 @@
+.popupbox{
+	background: yellow;
+	padding: 5px;
+	border-radius: 4px;
+}
+.popupbox .popupmain{
+	background: red;
+}
+.popupbox .popupmain .popupheader{
+	color: white;
+	padding: 10px;
+	border-bottom: 1px solid white;
+	font-size: 20px;
+	font-weight: bold;
+}
+.popupbox .popupmain .popupclose{
+	color: white;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-size: 20px;
+}
+.popupbox .popupmain .popupcontent{
+	color: white;
+	padding: 10px;
+}
+.popupbox .popupmain .popupbtns{
+	padding: 10px 0;
+}
+.popupbox .popupmain .popupbtns input{
+	margin: 0 6px;
+	width: 80px;
+	height: 30px;
+	background: red;
+	border: 2px solid yellow;
+	color: white;
+}
+.popupbox .popupmain .popupbtns input:hover{
+	color: red;
+	background: yellow;
+}

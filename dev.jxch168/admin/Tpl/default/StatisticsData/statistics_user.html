@@ -1,0 +1,231 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="/front/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/exporting.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/chart.js"></script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<php>
+    function get_date_url($date){
+    return "<a href=\"m.php?m=WebsiteStatistics&a=website_recharge_info&time=$date\">$date</a>";
+    }
+
+</php>
+<script type="text/javascript">
+    function export_statistics_user()
+    {
+	var query = $("#search_form").serialize();
+	var url = ROOT + "?" + VAR_MODULE + "=" + MODULE_NAME + "&" + VAR_ACTION + "=statistics_user" + "&" + query+"&xls=true&sumbit=1";
+	location.href = url;
+    }
+
+</script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+    <?php if($statistical_type){ ?>
+    <input type="submit" class="button" name="submit" value="点击返回平台报表统计" onclick="history.go(-1)" />
+    <?php } ?>
+    <div class="main_title">用户信息统计</div>
+    <div class="blank5"></div>
+
+    <form name="search" id = "search_form"  action="__APP__" method="get">	
+	<input type="hidden" value='{$q_date_diff}' name="q_date_diff" id="q_date_diff"  />
+	<label id="start_time_item_title">注册日期:</label><input class = "require textbox" type="text" name="u_start_time" id="q_start_time" value="{$u_start_time}" onfocus="return showCalendar('q_start_time', '%Y-%m-%d', false, false, 'q_start_time');" />
+	<label id="end_time_item_title">~</label><input class = "require textbox" type="text" name="u_end_time" id="q_end_time" value="{$u_end_time}" onfocus="return showCalendar('q_end_time', '%Y-%m-%d', false, false, 'q_end_time');" /><br />
+	<label id="start_time_item_title">交易日期:</label><input class = "require textbox" type="text" name="dl_start_time" id="dl_start_time" value="{$dl_start_time}" onfocus="return showCalendar('dl_start_time', '%Y-%m-%d', false, false, 'dl_start_time');" />
+	<label id="end_time_item_title">~</label><input class = "require textbox" type="text" name="dl_end_time" id="dl_end_time" value="{$dl_end_time}" onfocus="return showCalendar('dl_end_time', '%Y-%m-%d', false, false, 'dl_end_time');" />
+	<input type="checkbox" name="unlimited_dl" value="1" <if condition="$unlimited_dl eq 1">checked</if> />不限交易日期<br />
+        身份证号：<input type="text" name="idno" value="{:trim($_REQUEST['idno'])}"/>
+	手机号：<input type="text" name="mobile" value="{:trim($_REQUEST['mobile'])}" />
+	年龄：<input type="text" name="start_age" id="start_age" size="2" value="{:trim($_REQUEST['start_age'])}" />~
+	<input type="text" name="end_age" id="end_age" size="2" value="{:trim($_REQUEST['end_age'])}" /><br />
+	
+	账户：<input type="text" name="user_name" value="{:trim($_REQUEST['user_name'])}" />
+	手机归属地：<input type="text" name="city" value="{:trim($_REQUEST['city'])}" />
+	性别：<input type="checkbox" name="sex" value="-1"/>保密
+	<input type="checkbox" name="sex" value="0"/>女
+	<input type="checkbox" name="sex" value="1"/>男
+
+	<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+	<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" /><br/>
+	注册来源：<input type="checkbox"  name="all"  id="all"/>全部
+	<foreach name="statistical" item="v">
+	    <input class="select_all" type="checkbox" name="statistical[]" value="{$key}"<php>if(in_array($key,$statistical_arr)){echo "checked";}</php><php>if($statistical_type==$key){echo "checked";}</php> />{$v}
+	</foreach> 
+
+	<br>
+	注册渠道：<input type="checkbox" name="channel_all"  id="channel_all"/>全部
+	<div id="1">web：
+	<foreach name="conf_lists.web" item="v">
+	    <input type="checkbox"  id = "checkbox" class = "checkbox_choise 1" name="choise_web[]" value="{$key}" <php>if(in_array($key,$choise_web)){echo "checked";}</php> <php>if($channel_type==$key){echo "checked";}</php> />{$v}
+        </foreach><br />
+	</div>
+	<div id="2">wap：
+	<foreach name="conf_lists.wap" item="v">
+	    <input type="checkbox" id = "checkbox" class = "checkbox_choise 2" name="choise_wap[]" value="{$key}" <php>if(in_array($key,$choise_wap)){echo "checked";}</php> <php>if($channel_type==$key){echo "checked";}</php> />{$v}
+        </foreach><br />
+	</div>
+	<div id="3">Android：
+	<foreach name="conf_lists.Android" item="v">
+	    <input type="checkbox" id = "checkbox" class = "checkbox_choise 3" name="choise_Android[]" value="{$key}" <php>if(in_array($key,$choise_Android)){echo "checked";} </php> <php>if($channel_type==$key){echo "checked";}</php> />{$v}
+        </foreach><br />
+	</div>
+	<div id="4">ios：
+	<foreach name="conf_lists.ios" item="v">
+	    <input type="checkbox" id = "checkbox" class = "checkbox_choise 4" name="choise_ios[]" value="{$key}" <php>if(in_array($key,$choise_ios)){echo "checked";}</php> <php>if($channel_type==$key){echo "checked";}</php> />{$v}
+        </foreach><br />
+	</div>
+	<div>
+	    <input type="submit" class="button" name="submit" value="{%SEARCH}" />
+	    <input type="button" class="button" value="Excel导出" onclick="export_statistics_user();" /><br/>
+	</div>
+    </form>
+ <div class="blank5"></div>
+<div class="page">{$page}</div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	datasource="list" 
+	show="user_name:账户
+		,mobile:手机号
+		,city:手机归属地
+		,sex|get_sex_name:性别
+		,byear|get_age:年龄
+		,idno:身份证号
+		,money_sum:交易额
+		,name:购买理财产品
+		,u_create_time|to_date:注册时间
+		,dl_create_time|to_date:交易时间
+		,terminal|get_terminal_type:注册来源
+		,search_channel|get_search_channel_zh=$deal:注册渠道
+		"/>
+
+
+    <div class="blank5"></div>
+<div class="page">{$page}</div>
+   <php>
+       function get_search_channel_zh($search_channel,$deal){
+	    return $deal['search_channel_zh'];
+	}
+      function get_age($age){
+	if(!empty($age)){
+	  $date=to_date(time(),"Y-m-d");
+	  return $date-$age;
+	}
+      }
+       function get_mobile_homeaddress($mobile){
+	    $sql="select * from ".DB_PREFIX."user_mobile_homeaddress where mobile=$mobile";
+	    $info=$GLOBALS['db']->getRow($sql);
+	    //return $sql;
+	    return $info['city'].' '.$info['province'].' '.$info['telecom'];
+       }
+       function get_sex_name($sex){
+	    if($sex=="-1"){
+		return '保密';
+	    }
+	    if($sex=="0"){
+		return '女';
+	    }
+	    if($sex=="1"){
+		return '男';
+	    }
+       }
+       function get_terminal_type($data){
+	    if($data==1){
+		return 'web';
+	    }else if($data==2){
+		return 'wap';
+	    }else if($data==3){
+		return 'Android';
+	    }else if($data==4){
+		return 'ios';
+	    }else{
+		return '无来源';
+	    }
+       }
+       $statistical_conut=count($statistical);
+       $channel_conut=count($conf_list);
+   </php>
+  <script type="text/javascript">
+	$(".checkbox_choise").bind('click',channel_all_button);
+	$(".select_all").bind('click',checkAll);
+//	<if condition = "$all eq 1">
+//	$("#all").attr("checked", true);
+//	$("#channel_all").attr("checked", true);
+//	$("input[name='statistical[]']").attr("checked", true);
+//	$("input[name='choise[]']").attr("checked", true);
+//	</if>
+
+//	channel_all_button();
+//	checkAll();
+
+ $('.select_all:checked').each(function(){
+		var str=$(this).val();
+		$("#"+str).show();
+	    }); 
+	    $('.select_all').not("input:checked").each(function(){
+		var str=$(this).val();
+		$("#"+str).hide();
+	    });
+	    var statistical_conut=$(".select_all").length;
+	    if ($(".select_all:checked").length == statistical_conut){
+	    $("#all").attr("checked", true);
+	    } else{
+	    $("#all").attr("checked", false);
+	    }
+	    channel_all_button();
+	
+	function checkAll(){
+	    $('.select_all:checked').each(function(){
+		var str=$(this).val();
+		$("#"+str).show();
+//		$("."+str).attr("checked", false);
+	    }); 
+	    $('.select_all').not("input:checked").each(function(){
+		var str=$(this).val();
+		$("#"+str).hide();
+		$("."+str).attr("checked", false);
+	    });
+	    var statistical_conut=$(".select_all").length;
+	    if ($(".select_all:checked").length == statistical_conut){
+	    $("#all").attr("checked", true);
+	    } else{
+	    $("#all").attr("checked", false);
+	    }
+	    channel_all_button();
+	   
+	}
+	
+	function channel_all_button(){
+	var channel_conut=$(".checkbox_choise").length;
+	if ($(".checkbox_choise:checked").length == channel_conut){
+	$("#channel_all").attr("checked", true);
+	} else{
+	$("#channel_all").attr("checked", false);
+	}
+	}
+	//jQuery.attr  获取/设置对象的属性值,如：
+	$("#all").click(function(){
+	if ($("input[name='all']").attr("checked")){
+	$("input[name='statistical[]']").attr("checked", true);
+	} else{
+	$("input[name='statistical[]']").attr("checked", false);
+	}
+	checkAll();
+	});
+	$("#channel_all").click(function(){
+	if ($("#channel_all").attr("checked")){
+	$(".checkbox_choise").attr("checked", true);
+	} else{
+	$(".checkbox_choise").attr("checked", false);
+	}
+	});
+    </script>
+<style>
+    td{
+        text-align:center;
+    }
+</style>

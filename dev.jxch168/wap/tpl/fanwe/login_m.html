@@ -1,0 +1,290 @@
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<title></title>
+		<style type="text/css">
+			* {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			}
+
+			html,
+			body {
+				background-color: #f4f4f4;
+				color: #333;
+				font-size: 14px;
+				-webkit-text-size-adjust: none;
+			}
+
+			body {
+				color: #333;
+				background-color: #eee;
+				font-size: 16px;
+				width: 100%;
+				overflow: hidden;
+			}
+
+			body,
+			html {
+				min-height: 100%;
+				width: 100%;
+			}
+
+			input {
+				outline: 0;
+			}
+
+			a,
+			body,
+			dd,
+			div,
+			dl,
+			dt,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			html,
+			input,
+			li,
+			ol,
+			p,
+			span,
+			ul {
+				-moz-appearance: none;
+				-moz-text-size-adjust: none;
+				-ms-appearance: none;
+				-ms-text-size-adjust: none;
+				-o-appearance: none;
+				-o-text-size-adjust: none;
+				-webkit-appearance: none;
+				-webkit-text-size-adjust: none;
+				appearance: none;
+				font-family: -apple-system-font, simhei, "Helvetica Neue", "Hiragino Sans GB", "冬青黑体", 'Microsoft Yahei', Helvetica, Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				text-size-adjust: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex,
+			meter,
+			progress {
+				-webkit-writing-mode: horizontal-tb;
+				font-size: 100%;
+			}
+
+			input,
+			select,
+			textarea {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				-webkit-appearance: none;
+				border: none;
+				border-radius: 0;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			li,
+			ol,
+			ul {
+				list-style: none;
+			}
+
+			.mainborder {
+				border-color: #d7d7d7;
+			}
+
+			.Headerbackground_dark {
+				background: #e84f41;
+				color: #fff;
+			}
+
+			.login {
+				text-align: center;
+				padding: 10px;
+				font-size: 15px;
+			}
+
+			.login input {
+				height: 45px;
+				line-height: 45px;
+				border-radius: 5px;
+				padding: 0 10px;
+				border-width: 1px;
+				border-style: solid;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				font-size: 15px;
+				font-weight: 700;
+			}
+
+			.login .logininput {
+				width: 100%;
+				padding: 0 10px;
+				margin: 5px 0;
+			}
+
+			.login .ui-button_login {
+				height: 45px;
+				width: 100%;
+				margin: 5px 0;
+				text-align: center;
+				font-weight: bold;
+				cursor: pointer;
+				border: none;
+				font-size: 18px;
+			}
+
+			.forgetpw {
+				padding-top: 10px;
+				line-height: 100%;
+				font-size: 13px;
+				color: @font_a;
+			}
+
+			.rgst {
+				padding-top: 10px;
+				line-height: 100%;
+				font-size: 13px;
+				color: @contrast_color;
+			}
+
+			.login .logininput_getcode {
+				width: 65%;
+				margin: 5px 2% 5px 0;
+				float: left;
+			}
+
+			.login .ui-button_getcode {
+				width: 30%;
+				height: 45px;
+				margin: 5px 0;
+				text-align: center;
+				float: right;
+				color: #fff;
+				cursor: pointer;
+			}
+		</style>
+		<script type="text/javascript" src="/wap/tpl/fanwe/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+	<body>
+		<div class="login">
+			<form>
+				<input class="logininput mainborder " id="email" type="text" placeholder="输入用户名/邮箱/手机" />
+				<input class="logininput mainborder" type="password" id="pwd" placeholder="输入密码" />
+				<input class="ui-button_login Headerbackground_dark" type="button" value="登录" />
+				<div class="blank"></div>
+			</form>
+		</div>
+		<script type="text/javascript">
+			check_email();
+			check_pwd();
+
+			function check_email() {
+				$("#email").blur(function() {
+					var vlaue = $(this).val();
+					var val1 = '用户名';
+					check_null(vlaue, val1);
+				});
+			}
+
+			function check_pwd() {
+				$("#pwd").blur(function() {
+					var vlaue = $(this).val();
+					var val1 = '密码';
+					check_null(vlaue, val1);
+				});
+			}
+
+			function check_null(val, val1) {
+				if (!val) {
+					alert(val1 + '不能为空');
+					return false;
+				}
+			}
+			$(".ui-button_login").click(function() {
+				var email_val = $("#email").val();
+				var pwd = $("#pwd").val();
+				if (!email_val) {
+					alert("请填写用户名");
+					return false;
+				}
+				if (!pwd) {
+					alert("请填写密码");
+					return false;
+				}
+				var ajaxurl = '{wap_url a="index" r="login"}';
+				var query = new Object();
+				query.email = email_val;
+				query.pwd = pwd;
+				query.post_type = "json";
+				$.ajax({
+					url: ajaxurl,
+					data: query,
+					type: "Post",
+					dataType: "json",
+					success: function(data) {
+						alert(data.show_err);
+						if (data.response_code == 1) {
+							alert(1);
+							window.location.href = '/wap/member.php?ctl=uc_incharge_log&_m={$_m}';
+						}
+					},
+					error: function() {
+						alert("服务器很忙");
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

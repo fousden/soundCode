@@ -1,0 +1,257 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="/front/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/exporting.js"></script>
+<script type="text/javascript" src="/front/third_party/highcharts/chart.js"></script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<php>
+    function get_date_url($date){
+    return "<a href=\"m.php?m=WebsiteStatistics&a=website_recharge_info&time=$date\">$date</a>";
+    }
+
+</php>
+<script type="text/javascript">
+	    function export_csv_invest_total()
+	    {
+		    var query = $("#search_form").serialize();
+		    var url = ROOT + "?" + VAR_MODULE + "=" + MODULE_NAME + "&" + VAR_ACTION + "=statistics_terrace" + "&" + query+"&xls=true";
+		    location.href = url;
+	    }
+  
+</script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+    <div class="main_title">充值统计</div>
+    <div class="blank5"></div>
+
+    <form name="search" id = "search_form"  action="__APP__" method="get">	
+	<input type="hidden" value='{$q_date_diff}' name="q_date_diff" id="q_date_diff"  />
+	<label id="start_time_item_title">开始日期:</label><input class = "require textbox" type="text" name="start_time" id="q_start_time" value="{$start_time}" style=""  onfocus="return showCalendar('q_start_time', '%Y-%m-%d', false, false, 'q_start_time');" />
+	<label id="end_time_item_title">结束日期:</label><input class = "require textbox" type="text" name="end_time" id="q_end_time" value="{$end_time}" style=""  onfocus="return showCalendar('q_end_time', '%Y-%m-%d', false, false, 'q_end_time');" /><br />
+
+	<input type="hidden" value='<php>echo MODULE_NAME;</php>' name="m" />
+	<input type="hidden" value='<php>echo ACTION_NAME;</php>' name="a" />
+
+	注册来源：<input type="checkbox"  name="all"  id="all"/>全部 
+	<foreach name="statistical" item="v">
+	    <?php $i++?>
+	    <input class="select_all" type="checkbox" name="statistical[]" value="{$key}"<php>if(in_array($key,$statistical_arr)){echo "checked";}</php> />{$v}
+	</foreach>
+
+	<br>
+	注册渠道：<input type="checkbox" name="channel_all"  id="channel_all"/>全部
+	<div >
+	<div id="1" style="display:none">web：
+	<foreach name="conf_lists.web" item="v">
+	    <input type="checkbox"  id = "checkbox" class = "checkbox_choise 1" name="choise_web[]" value="{$key}" <php>if(in_array($key,$choise_web)){echo "checked";}</php>/>{$v}
+        </foreach><br />
+	</div>
+	<div id="2" style="display:none">wap：
+	<foreach name="conf_lists.wap" item="v">
+	    <input type="checkbox" id = "checkbox" class = "checkbox_choise 2" name="choise_wap[]" value="{$key}" <php>if(in_array($key,$choise_wap)){echo "checked";}</php>/>{$v}
+        </foreach><br />
+	</div>
+	<div id="3" style="display:none">Android：
+	<foreach name="conf_lists.Android" item="v">
+	    <input type="checkbox" id = "checkbox" class = "checkbox_choise 3" name="choise_Android[]" value="{$key}" <php>if(in_array($key,$choise_Android)){echo "checked";}</php>/>{$v}
+        </foreach><br />
+	</div>
+	<div id="4" style="display:none">ios：
+	<foreach name="conf_lists.ios" item="v">
+	    <input type="checkbox" id = "checkbox" class = "checkbox_choise 4" name="choise_ios[]" value="{$key}" <php>if(in_array($key,$choise_ios)){echo "checked";}</php>/>{$v}
+        </foreach><br />
+	</div>
+	</div>
+	<div style="float:right;">
+	    <input type="submit" class="button" name="submit" value="{%SEARCH}" />
+<!--	    <a href="m.php?m=StatisticsData&a=statistics_terrace&date=<?php echo to_date(time(),'Y-m-d')?>"><input type="button" class="button" onclik="get_one_data()" value="今天" /></a>-->
+	    <input type="button" class="button" value="Excel导出" onclick="export_csv_invest_total();" /><br/>
+	</div>
+    </form>
+    <div class="blank5"></div>
+
+	<div style="float:right;">
+	    <table id="gross" border='1'cellspacing="0" cellpadding="0">
+		<tr>
+		    <td>注册总数</td>
+		    <td>{$gross_info.user_reg_count}</td>
+		</tr>
+		<tr>
+		    <td>平安保险成功总数</td>
+		    <td>{$gross_info.pingan_count}</td>
+		</tr>
+		<tr>
+		    <td>激活总数</td>
+		    <td>{$gross_info.activation_count}</td>
+		</tr>
+		<tr>
+		    <td>总充值数</td>
+		    <td>{$gross_info.payment_sum}</td>
+		</tr>
+		<tr>
+		    <td>交易人数总数</td>
+		    <td>{$gross_info.deal_user_count}</td>
+		</tr>
+		<tr>
+		    <td>交易笔数总数</td>
+		    <td>{$gross_info.deal_count}</td>
+		</tr>
+		<tr>
+		    <td>总交易数</td>
+		    <td>{$gross_info.deal_month_sum}</td>
+		</tr>
+	    </table>
+	</div>
+  
+    <style>
+	#gross td{
+	    width:150px;
+	    height:30px;
+	}
+    </style>
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+
+    <html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal"
+	datasource="list"
+	show="date:时间
+	,activation_count:激活数
+	,user_reg_count:注册数
+	,pingan_count:平安保险成功数
+	,payment_sum:充值额
+	,deal_user_count:交易人数
+	,deal_count:交易笔数
+	,deal_month_sum:交易额
+	,statistical_type|get_statistical_type:注册来源
+	,channel_type|get_channel_type_zh=$deal:注册渠道
+	,deal_count|get_channel_type_info=$deal:操作
+	"/>
+
+    <!--action="true" actionlist="channel_type|get_channel_type_info:查看详情"
+		    actionwidth="220px"-->
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+    <php>
+	function get_channel_type_zh($channel_type,$deal){
+	    return $deal['channel_type_zh'];
+	}
+	function get_channel_type_info($channel_type,$data){
+	$date=$data['date'];
+	$channel_type=$data['channel_type'];
+	$statistical_type=$data['statistical_type'];
+        $temp= "<a href='m.php?m=StatisticsData&a=statistics_user&statistical_type=$statistical_type&channel_type=$channel_type&from=statistics_terrace&%s'>查看%s详情</a>";
+	if($data['deal_count']==0 && $data['user_reg_count']!=0){
+           $str=sprintf($temp,"u_start_time=$date&u_end_time=$date",'注册');
+	}else if($data['user_reg_count']==0 && $data['deal_count']!=0){
+            $str=sprintf($temp,"dl_start_time=$date&dl_end_time=$date",'交易');
+	}else if($data['user_reg_count']==0 && $data['deal_count']==0){
+	    $str="无注册交易记录";
+            return $str;
+	}else{
+            $str=sprintf($temp,"u_start_time=$date&u_end_time=$date",'注册');
+            $str.='&nbsp;'.sprintf($temp,"dl_start_time=$date&dl_end_time=$date",'交易');
+	}
+        unset($temp);
+	return $str;
+	}
+	function get_statistical_type($data){
+	if($data==1){
+	return 'web';
+	}else if($data==2){
+	return 'wap';
+	}else if($data==3){
+	return 'Android';
+	}else if($data==4){
+	return 'ios';
+	}else{
+	return '无来源';
+	}
+	}
+    </php>
+    <script type="text/javascript">
+        
+	$(".checkbox_choise").bind('click',channel_all_button);
+	$(".select_all").bind('click',checkAll);
+//	<if condition = "$all eq 1">
+//	$("#all").attr("checked", true);
+//	$("#channel_all").attr("checked", true);
+//	$("input[name='statistical[]']").attr("checked", true);
+//	$("input[name='choise[]']").attr("checked", true);
+//	</if>
+
+//	channel_all_button();
+//	checkAll();
+
+ $('.select_all:checked').each(function(){
+		var str=$(this).val();
+		$("#"+str).show();
+	    }); 
+	    $('.select_all').not("input:checked").each(function(){
+		var str=$(this).val();
+		$("#"+str).hide();
+	    });
+	    var statistical_conut=$(".select_all").length;
+	    if ($(".select_all:checked").length == statistical_conut){
+	    $("#all").attr("checked", true);
+	    } else{
+	    $("#all").attr("checked", false);
+	    }
+	    channel_all_button();
+	
+	function checkAll(){
+	    $('.select_all:checked').each(function(){
+		var str=$(this).val();
+		$("#"+str).show();
+//		$("."+str).attr("checked", false);
+	    }); 
+	    $('.select_all').not("input:checked").each(function(){
+		var str=$(this).val();
+		$("#"+str).hide();
+		$("."+str).attr("checked", false);
+	    });
+	    var statistical_conut=$(".select_all").length;
+	    if ($(".select_all:checked").length == statistical_conut){
+	    $("#all").attr("checked", true);
+	    } else{
+	    $("#all").attr("checked", false);
+	    }
+	    channel_all_button();
+	   
+	}
+	
+	function channel_all_button(){
+	var channel_conut=$(".checkbox_choise").length;
+	if ($(".checkbox_choise:checked").length == channel_conut){
+	$("#channel_all").attr("checked", true);
+	} else{
+	$("#channel_all").attr("checked", false);
+	}
+	}
+	//jQuery.attr  获取/设置对象的属性值,如：
+	$("#all").click(function(){
+	if ($("input[name='all']").attr("checked")){
+	$("input[name='statistical[]']").attr("checked", true);
+	} else{
+	$("input[name='statistical[]']").attr("checked", false);
+	}
+	checkAll();
+	});
+	$("#channel_all").click(function(){
+	if ($("#channel_all").attr("checked")){
+	$(".checkbox_choise").attr("checked", true);
+	} else{
+	$(".checkbox_choise").attr("checked", false);
+	}
+	});
+    </script>
+    <style>
+	td{
+	    text-align:center;
+	}
+    </style>

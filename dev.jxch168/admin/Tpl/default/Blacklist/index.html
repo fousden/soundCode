@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<php>
+
+    function get_date($create_time){
+    return to_date($create_time,"Y-m-d H:i:s");
+    }
+    function get_ip($mobile_ip){
+        if($mobile_ip==0){
+            $mobile_ip="未知IP地址";
+        }
+        return $mobile_ip;
+    }
+
+</php>
+
+<div class="main">
+    <div class="main_title">手机黑名单</div>
+    <div class="blank5"></div>
+    <div class="button_row">
+        <input type="button" class="button" value="批量添加黑名单" onclick="add();" />
+        <input type="button" class="button" value="批量移出黑名单" onclick="del();" />
+    </div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="blacklist" action="__APP__" method="get">
+            {%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+            <!--注册时间：-->
+            <!--<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />-->
+            <!-- - -->
+            <!--<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />-->
+
+            <input type="hidden" value="Blacklist" name="m" />
+            <input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+            &nbsp;<span style="font-size:15px">黑名单总数:<span style="color:red">{$list_count}</span></span>
+            &nbsp;<span style="font-size:15px">拉黑总次数:<span style="color:red">{$all_black_count}</span></span>
+        </form>
+    </div>
+    <div class="blank5"></div>
+     <div class="page">{$page}</div>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="list"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|50px
+            ,mobile:手机号
+            ,add_time|get_date:首次加入黑名单时间
+            ,update_time|get_date:最后加入黑名单时间
+            ,remove_time|get_date:移除黑名单时间
+            ,mobile_ip:ip地址
+            ,black_count:拉黑次数
+            "
+            actionlist = "del:移出黑名单"
+    />
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />
+</html>

@@ -1,0 +1,33 @@
+<div class="bdd bddf article_box clearfix" >
+
+    <!--普通文章不要文章标题和时间-->
+    {if $article.type_id eq 0 or $article.type_id eq 3}
+    <div class="bdd_article_list">
+        {$site_nav.1.name}
+    </div>
+    <div class="bdd_article_title_date">
+        <div class="article_title f16 b tc pt10">
+            {$article.title}
+        </div>
+        <div class="publish_time bbd clearfix pr">
+            发布时间：{function name="to_date" v=$article.create_time f="Y-m-d"}
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="blank0"></div>
+    <div class="article_info">
+        {$article.content}
+        <a href="javascript:{if $article.type_id eq 3}history.go(-1){else}window.location.href='{$site_nav.1.url}'{/if} " class="artical_back">【返回目录】</a>
+    </div> 
+    {else}
+    <div class="bdd_article_list">
+        {$article.title}
+    </div>
+    <div class="blank0"></div>
+    <div class="article_info">
+        {$article.content}
+    </div>
+    {/if}
+
+
+</div>

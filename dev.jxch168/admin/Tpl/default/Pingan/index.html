@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+ {// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+function address(user_id)
+{
+	location.href = ROOT + '?m=Pingan&a=index&id='+user_id;
+}
+</script>
+<php>
+
+
+	function user_company($id,$user){
+		if($user['user_type']==1){
+			return "<a href='javascript:user_company(".$id.");'>公司</a>&nbsp;";
+		}
+	}
+
+        function get_date($create_time){
+            return to_date($create_time,"Y-m-d H:i:s");
+        }
+
+</php>
+<div class="main">
+<div class="main_title">平安网银安全卫士</div>
+<div class="blank5"></div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="pingan" action="__APP__" method="get">
+                                   {%REAL_NAME}：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+		{%USER_MOBILE}：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+                                   {%STATUS}：<select name="status">
+                                                                <option value="0">请选择...</option>
+                                                                <option value="1"<if condition="intval($_REQUEST['status']) eq 1 ">selected</if>>投保成功</option>
+                                                                <option value="2"<if condition="intval($_REQUEST['status']) eq 2 ">selected</if>>投保失败</option>
+                                                                <option value="3"<if condition="intval($_REQUEST['status']) eq 3 ">selected</if>>未投保</option>
+                                                         </select>
+                                   未处理数量：<span style="color:red;font-weight:bold">&nbsp{$data['sum']}</span>
+		<div class="blank5"></div>
+		注册时间：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+
+		<input type="hidden" value="Pingan" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user"
+	checkbox="true"
+	datasource="data['list']"
+                  show="id:{%ID}|50px,uid|get_user_name_real:用户名,create_time|get_date:投保时间,mobile:手机号,sex:性别,birth:生日,policyNo:保单号,status:投保状态,message:反馈信息"
+/>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />
+</html>

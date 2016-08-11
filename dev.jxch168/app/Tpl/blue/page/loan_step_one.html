@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{include file="inc/header.html"}
+<div id="dk_index">
+	<div class="banner">
+		<div class="main">
+			<div class="formcover"></div>
+			<div class="form">
+				<p class="h1">贷款申请</p>
+				<p class="error">错误提示</p>
+				<p>
+					<label for="name" class="text dataname">您的姓名：</label>
+					<input id="name" type="text" name="name"></input>
+				</p>
+				<p>
+					<label for="mobile" class="text dataname">手机号码：</label>
+					<input id="mobile" type="text" name="mobile"></input>
+				</p>
+				<p>
+					<label class="text">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
+					<input id="male" type="radio" name="sex" value = "1">
+					<label for="male">先生</label>
+					<input id="female" type="radio" name="sex" value = "0">
+					<label  for="female" class="dataname">女士</label>
+				</p>
+				<p class="secret">
+					<input type="checkbox">
+					<label>已阅读并同意<a href="/index.php?ctl=sys&id=201">《安全条款》</a>营私信息将严格保密</label>
+				</p>
+				<a href="javascript:;" id="submit">马上申请</a>
+			</div>
+		</div>
+	</div>
+	<img src="./front/images/dk_index_main.jpg" height="721" width="1203" style="display: block; margin: 0 auto;">
+</div>
+<script>
+	$("#submit").on("click",function(){
+		var name = $("#name").val();
+		var mobile = $("#mobile").val();
+		var sex = $("input[name='sex']:checked").val();
+		var safe = $("input[type='checkbox']").prop("checked");
+		if(safe){
+			safe=1; // 已读安全条约
+		}else{
+			safe=0;// 未读安全条约
+		}
+		$.ajax({
+			type:"post",
+			url:APP_ROOT + "/index.php?ctl=loan&act=step_one&s_ajax=1",
+			data:{name:name,safe:safe,mobile:mobile,sex:sex},
+			success:function(msg){
+				if(msg==0){
+//					alert("请输入名字");
+					$(".error").addClass("errorshow").html("请输入名字");
+				}
+				if(msg==1){
+//					alert("名字为2-8个汉字");
+					$(".error").addClass("errorshow").html("名字为2-8个汉字");
+				}
+				if(msg==2){
+//					alert("请输入手机号");
+					$(".error").addClass("errorshow").html("请输入手机号");
+				}
+				if(msg==3){
+//					alert("手机号格式不正确");
+					$(".error").addClass("errorshow").html("手机号格式不正确");
+				}
+				if(msg==4){
+//					alert("请选择性别");
+					$(".error").addClass("errorshow").html("请选择性别");
+				}
+				if(msg==5){
+//					alert("请阅读《安全条款》");
+					$(".error").addClass("errorshow").html("请阅读《安全条款》");
+				}
+				if(msg==6){
+					$(".error").addClass("errorshow").html("此手机号已经注册过");
+				}
+				// 验证通过跳转到第二个页面
+				if(msg==-1){
+					$(".error").removeClass("errorshow");
+					location.href="/index.php?ctl=loan&act=step_two&s_ajax=1";
+				}
+			}
+		})
+	})
+</script>
+{include file="inc/footer.html"}

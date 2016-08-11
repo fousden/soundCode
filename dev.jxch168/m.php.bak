@@ -1,0 +1,16 @@
+<?php
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+
+
+define("ADMIN_ROOT",1);
+require "admin.php";
+
+// var_dump($_GET['dg'],$_GET['dg'] == 'jxch168');exit;
+if (isset($_GET['dg']) &&  $_GET['dg'] == 'jxch168')
+{
+    echo "<pre>";
+    var_dump(get_included_files());
+    echo "</pre>";
+}
+?>

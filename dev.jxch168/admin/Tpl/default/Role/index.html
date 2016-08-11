@@ -1,0 +1,140 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+	<input type="button" class="button act" value="展开↓"  />
+</div>
+	<div class="blank5"></div>
+<div class="search_row" id="search_row" style="">
+	<table>
+		<tr>
+
+			<td>
+				<span>
+				全选
+			</span>
+				<input type="checkbox" class="node_item" name="all" value="">
+				<foreach name="list" item="item">
+					<label style='padding:5px'>
+			<span>
+				{$item.name}
+			</span>
+						<input type="checkbox" class="node_item" name="role_name" value="{$item.id}">
+					</label>
+				</foreach>
+			</td>
+			<td >
+				分类：<select id="access" name="access">
+				<option value=''>======所有======</option>
+				<foreach name="access_list" item="item">
+					<option value="{$item.count}">{$item.name}</option>
+				</foreach>
+			</select>
+			</td>
+			<td id="node" style="width:700px">
+			</td>
+			<td>
+				<input type="button" value="批量授权" class="button empower">
+			</td>
+		</tr>
+	</table>
+
+
+
+</div>
+<div class="blank5"></div>
+	<div class="blank5"></div>
+	<html:list
+	id="dataTable" 
+	style="dataTable" 
+	name="role" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:{%NAME}:edit,is_effect|get_is_effect=$role['id']:{%IS_EFFECT}" 
+	actionlist="edit:{%EDIT}, del:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />
+<script>
+	$("#access").bind("change",function(){
+		var count = $(this).val();
+		$.ajax({
+			url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=get_access_list&count="+count,
+			data: "ajax=1",
+			dataType: "json",
+			success:function(data){
+				$("#node").html("<span>全选</span><input type='checkbox' class='node_item' name='access_all' value=''>");
+				$.each(data,function(k,v){
+					$("#node").append(
+							"<label style='padding:5px'><span title='"+v.action+"'>"+v.name+"</span> <input class='node_item' type='checkbox' name='role_access' value= '"+ v.module+"|"+v.action +"'></label>"
+							);
+				})
+			}
+		})
+	})
+
+
+	$(".act").toggle(function(){
+		$("#search_row").css("display","block");
+		$(this).attr("value","收起↑");
+	},function(){
+		$("#search_row").css("display","none");
+		$(this).attr("value","展开↑");
+	})
+
+	$(".empower").bind("click",function(){
+		var query = {};
+		var role_isc = get_checkbox("role_name"); // 获取选中的角色值
+		var access_isc = get_checkbox("role_access");// 获取选中的权限值
+		var access = $("select[name='access'] option:selected").val();
+		query.role_isc = role_isc;
+		query.access_isc = access_isc;
+		query.access = access;
+		$.ajax({
+			url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=ajaxUpdate",
+			data: query,
+			dataType: "json",
+			success: function(obj){
+				if(obj.response_code==0){
+					alert(obj.show_err);
+				}else{
+					alert(obj.show_err);
+				}
+			}
+		})
+	})
+
+	$("input[name='all']").click(function(){
+		$("input[name='role_name']").attr("checked",$(this).attr("checked"));
+	})
+
+	$("input[name='access_all']").live("click",function(){
+		$("input[name='role_access']").attr("checked",$(this).attr("checked"));
+	})
+
+	function get_checkbox(name){
+		var idsstr = "";
+		var isc = ""; // 选中的角色的值
+		var input_name = name;
+		$("input[name='"+input_name+"']").each(function(){
+			idsstr += $(this).val() + ","; //获取所有checkbox的值
+			if($(this).attr("checked")) //如果被选中
+				isc += $(this).val() + ","; //获取被选中的值
+		});
+		if(idsstr.length > 0){
+			idsstr = idsstr.substring(0, idsstr.length - 1); //全部的值把最后一个逗号去掉
+		} //如果获取到
+		if(isc.length > 0){
+			isc = isc.substring(0, isc.length - 1); //选中的值把最后一个逗号去掉
+		} //如果获取到
+		return isc;
+	}
+</script>

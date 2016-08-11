@@ -1,0 +1,177 @@
+{include file="./inc/header.html"}
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/Log_recharge.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/public.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+
+<div class="new_p-m">
+	{if $data.withdrawals==0}
+	<table class="Journal_table">
+		<tr>
+			<th>充值单号</th>
+			<th>应付金额</th>
+			<th>充值时间</th>
+			<th>状态</th>
+		</tr>
+		{foreach from=$data.item item="item"}
+		<tr>
+			<td>{$item.notice_sn}</td>
+			<td>{$item.money_format}</td>
+			<td>{$item.create_time_format}</td>
+			{if $item.is_paid == 0}
+			<td>失败</td>
+			{else}
+			<td>成功</td>
+			{/if}
+		</tr>
+		{/foreach}
+	</table>
+	{/if}
+	{if $data.withdrawals==1}
+	<table class="Journal_table">
+		<tr>
+			<th>金额</th>
+			<th>提现时间</th>
+			<th>银行卡号</th>
+			<th>状态</th>
+		</tr>
+		{foreach from=$data.item item="item"}
+		<tr>
+			<td>{function name="format_price" value=$item.money}</td>
+			<td>{function name="to_date" value=$item.create_time}</td>
+			<td><p>{$item.bank_name}</p>****{function name="msubstr" v=$item.bankcard s="-4" l="4" charset="utf-8" su=false}</td>
+			<td>{$item.status_format}</td>
+		</tr>
+
+		{/foreach}
+	</table>
+	{/if}
+</div>
+
+{if $pages}
+	<div class="fy">
+		{$pages}
+	</div>
+{/if}
+
+<div style="height: 3.571rem;"></div>
+
+
+<div class="foot-buttons">
+    {if $data.withdrawals == 0}
+    <span class="button" id="incharge">充值</span>
+    {/if}
+    {if $data.withdrawals == 1}
+    <span class="button" id="withdrawals">提现</span>
+    {/if}
+</div>
+
+<style type="text/css">
+	.tag-box{
+		width: 100%;
+		height:2.5rem;
+		text-align: center;
+		border-bottom: 1px solid #e3e3e3;
+	}
+	.tag{
+		font-size: 16px;
+		display: inline-block;
+		background-color: #f4f4f4;
+		height: 2.5rem;
+		line-height: 2.5rem;
+		width: 45%;
+		border: 1px #e3e3e3 solid;
+		border-bottom: none;
+		border-top: 0.3rem solid #bbb;
+		position: relative;
+		top:-0.2rem;
+		color: #bbb;
+		font-weight: bold;
+	}
+	.tag.activity{
+		border-top: 0.3rem solid #e84f41;
+		color: #e84f41 !important;
+		text-shadow: 1px 1px 3px #e3e3e3;
+	}
+	.foot-buttons{
+		position: fixed;
+		bottom: 0;
+		height: 3.571rem;
+		width: 100%;
+	}
+
+	.button{
+		float: left;
+		line-height: 3.571rem;
+		height: 3.571rem;
+		width: 100%;
+		text-align: center;
+		background-color: #e84f41;
+		color: white;
+		font-size: 16px;
+		font-weight: bold;
+	}
+</style>
+
+<script type="text/javascript">
+	function getUrlParam(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+		if (r != null) return unescape(r[2]); return null; //返回参数值
+	}
+
+	if('{$data.resp_code}'){
+		if('{$data.resp_code}' =='0000'){
+		    {if $data.withdrawals==1}
+		    alert("提现成功！");
+		    {else}
+		    alert("充值成功！");
+		    {/if}
+		    
+		}else if('{$data.resp_code}' !='0000'){
+		    alert('{$data.resp_desc}');
+		    {if $data.withdrawals==0}
+		    window.location.href="/wap/member.php?ctl=uc_incharge_feedback&mchnt_txn_ssn={$data.mchnt_txn_ssn}&email={$data.email}&pwd={$data.pwd}&_m={$_m}";
+		    {/if}
+		}
+	}
+
+	$("#withdrawals").click(function(){
+        if({$data.response_code} == 0){
+        	alert('{$data.show_err}');
+        }
+		else if({$data.response_code} == 2){
+			alert('{$data.show_err}');
+		}
+        else if({$data.response_code} == 3){
+			alert('{$data.show_err}');
+		}
+        else{
+			try{
+				Android.urlwebviewAcitvity('/wap/member.php?ctl=uc_withdrawals&_m={$_m}',"提现");
+			}catch(e){
+				document.location = "protocol:///wap/member.php?ctl=uc_withdrawals&_m={$_m}02";
+			}
+		}
+	});
+
+	$("#incharge").click(function(){
+                if({$data.response_code} == 0){
+                    alert('{$data.show_err}');
+                }
+		else if({$data.response_code} == 2){
+			alert('{$data.show_err}');
+		}
+                else if({$data.response_code} == 3){
+			alert('{$data.show_err}');
+		}
+                else{
+			try{
+				Android.urlwebviewAcitvity('/wap/member.php?ctl=uc_incharge&_m={$_m}',"充值");
+			}catch(e){
+				document.location = "protocol:///wap/member.php?ctl=uc_incharge&_m={$_m}01";
+			}
+		}
+	});
+</script>

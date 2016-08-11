@@ -1,0 +1,349 @@
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<title></title>
+		<style type="text/css">
+			* {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			}
+
+			html,
+			body {
+				background-color: #f4f4f4;
+				color: #333;
+				font-size: 14px;
+				-webkit-text-size-adjust: none;
+			}
+
+			body {
+				color: #333;
+				background-color: #eee;
+				font-size: 16px;
+				width: 100%;
+				overflow: hidden;
+			}
+
+			body,
+			html {
+				min-height: 100%;
+				width: 100%;
+			}
+
+			input {
+				outline: 0;
+			}
+
+			a,
+			body,
+			dd,
+			div,
+			dl,
+			dt,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			html,
+			input,
+			li,
+			ol,
+			p,
+			span,
+			ul {
+				-moz-appearance: none;
+				-moz-text-size-adjust: none;
+				-ms-appearance: none;
+				-ms-text-size-adjust: none;
+				-o-appearance: none;
+				-o-text-size-adjust: none;
+				-webkit-appearance: none;
+				-webkit-text-size-adjust: none;
+				appearance: none;
+				font-family: -apple-system-font, simhei, "Helvetica Neue", "Hiragino Sans GB", "冬青黑体", 'Microsoft Yahei', Helvetica, Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				text-size-adjust: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex,
+			meter,
+			progress {
+				-webkit-writing-mode: horizontal-tb;
+				font-size: 100%;
+			}
+
+			input,
+			select,
+			textarea {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				-webkit-appearance: none;
+				border: none;
+				border-radius: 0;
+			}
+
+			input,
+			textarea,
+			keygen,
+			select,
+			button,
+			isindex {
+				margin: 0em;
+				font: -webkit-small-control;
+				color: initial;
+				letter-spacing: normal;
+				word-spacing: normal;
+				text-transform: none;
+				text-indent: 0px;
+				text-shadow: none;
+				display: inline-block;
+				text-align: start;
+				border: none;
+			}
+
+			li,
+			ol,
+			ul {
+				list-style: none;
+			}
+
+			.mainborder {
+				border-color: #d7d7d7;
+			}
+
+			.Headerbackground_dark {
+				background: #e84f41;
+				color: #fff;
+			}
+
+			.specialbackground {
+				background: #ff9600;
+			}
+
+			.figure {
+				border-radius: 5px;
+				background: #fff;
+				border: 1px solid #d7d7d7;
+				position: relative;
+				margin: 10px;
+				height: 40px;
+				padding-left: 80px;
+			}
+
+			.figure span {
+				position: absolute;
+				line-height: 40px;
+				font-size: 15px;
+				color: @font_black;
+				padding: 0 10px;
+				left: 0px;
+			}
+
+			.figure input {
+				line-height: 40px;
+				width: 100%;
+				background: none;
+				font-size: 16px;
+				color: @font_main;
+			}
+
+			.pay_detail h5 {
+				font-size: 15px;
+				line-height: 25px;
+			}
+
+			.pay_detail {
+				color: @font_black;
+				padding: 5px;
+			}
+
+			.pay_detail .info .peoplo {
+				padding-right: 10px;
+			}
+
+			.pay_detail .info {
+				font-size: 12px;
+				line-height: 20px;
+			}
+
+			.pay_detail p {
+				font-size: 12px;
+				line-height: 20px;
+			}
+
+			.inline_pay_img_show {
+				float: left;
+				overflow: hidden;
+				height: 35px;
+				max-width: 50%;
+				margin: 15px 0 0 0px;
+			}
+
+			.inline_pay_name {
+				line-height: 65px;
+				font-size: 18px;
+				padding-left: 10px;
+				float: left;
+			}
+			/*橙色按钮css---本页定位*/
+
+			.mt {
+				position: absolute;
+				right: 10px;
+				top: 30px;
+			}
+
+			.figure {
+				height: auto;
+			}
+
+			.figure input,
+			select[name=bank_id] {
+				padding-left: 40px;
+			}
+
+			.figure select {
+				padding-left: 40px;
+				line-height: 40px;
+				background: none;
+				font-size: 16px;
+				color: #b6b6b6;
+				width: 100%;
+			}
+
+			.detail_foot {
+				padding: 8px 10px;
+				width: 100%;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				overflow: hidden;
+			}
+
+			.lookdetail {
+				border-radius: 5px;
+				display: inline-block;
+				width: 45%;
+				height: 40px;
+				line-height: 40px;
+				color: #fff;
+				font-size: 18px;
+				text-align: center;
+				background: #e84f41;
+				margin-right: 10%;
+				float: left;
+			}
+
+			.lookdetail .but_sure {
+				font-size: 18px;
+				font-weight: 700;
+				color: #fff;
+				background: none;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+			}
+		</style>
+		<script type="text/javascript" src="/wap/tpl/fanwe/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+	<body>
+		<div class="figure" group="edit">
+			<span><font color="red">*</font>银行：</span>
+			<select name="bank_id">
+				<option value="0">请选择银行</option>
+				<option value="0102">中国工商银行</option>
+				<option value="0103">中国农业银行</option>
+				<option value="0104">中国银行</option>
+				<option value="0105">中国建设银行</option>
+				<option value="0309">兴业银行</option>
+				<option value="0305">中国民生银行</option>
+				<option value="0306">广东发展银行</option>
+				<option value="0307">平安银行股份有限公司</option>
+				<option value="0403">国家邮政局邮政储汇局</option>
+				<option value="0303">中国光大银行</option>
+				<option value="0302">中信实业银行</option>
+			</select>
+		</div>
+
+		<div class="figure" group="edit">
+			<span><font color="red">*</font>原因：</span>
+			<select name="cause_id">
+				<option value="0">请选择原因</option>
+				<option value="1">超出充值限额</option>
+				<option value="2">账户信息不符</option>
+				<option value="3">网络异常</option>
+				<option value="4">其他</option>
+			</select>
+		</div>
+		<div class="figure" group="edit" style='padding-left:0px'>
+			<textarea name="feedback" style="width:95%;height:10rem;margin:2.5%;font-size: 1rem;resize: none;" placeholder='请留下您的问题及银行卡号，联系方式等。
+稍后客服会和您沟通解决。'></textarea>
+		</div>
+		<div class="detail_foot">
+			<div class="lookdetail" style=" width:100%;">
+				<button id="on_incharge_done" class="but_sure">确认提交</button>
+			</div>
+		</div>
+		<script>
+			$("#on_incharge_done").click(function() {
+				var ajaxurl = '/wap/member.php?ctl=uc_incharge_feedback&_m={$_m}&version={$_v}';
+				var query = new Object();
+				query.bank_id = $('select[name=bank_id]').val();
+				query.cause_id = $('select[name=cause_id]').val();
+				query.feedback = $('textarea[name=feedback]').val();
+				query.mchnt_txn_ssn = "{$data.mchnt_txn_ssn}";
+				query.email = "{$data.email}";
+				query.pwd = "{$data.pwd}";
+				query.ajax = 1;
+				query.post_type = "json";
+				$.ajax({
+					url: ajaxurl,
+					data: query,
+					type: "post",
+					dataType: "json",
+					success: function(data) {
+						if (data.response_code == 1) {
+							alert(data.show_err);
+							window.location.href = "/wap/member.php?ctl=uc_incharge&email={$data.email}&pwd={$data.pwd}&_m={$_m}";
+						} else {
+							alert(data.show_err);
+						}
+					}
+				});
+			});
+		</script>
+
+	</body>
+
+</html>
