@@ -1,0 +1,161 @@
+<include file="public/header" />
+<div class="wrap"><!--TODO 正式环境不要放此wrap begin-->
+<div id="investmentList">
+<!--当前页面导航 begin-->
+<div id="navBox">
+    <a href="/home/index/index" target="_blank">首页</a>
+    <span class="FontIconLeftAndRight">></span>
+    <a href="/home/deal/index" target="_blank" class="ColorLightBlue">投资列表</a>
+</div>
+<!--当前页面导航 end-->
+<!--过滤 begin-->
+<div id="FilterBox">
+    <dl class="item">
+        <dt>项目类型：</dt>
+        <foreach name="cate_list_url" id="cates" key=key>
+            <if condition="$cates['id'] neq 5">
+            <dd>
+                <a href="{$cates.url}" target="_self" <if condition="$cates['id'] eq $_REQUEST['cate_id']">class="current"</if>>{$cates.name}</a>
+            </dd>
+            </if>
+        </foreach>
+    </dl>
+    <div class="Clear"></div>
+    <!--TODO 默认只将 《项目类型》一直显示 其他的条件放 canHideBox 中-->
+    <!--可以隐藏的项 begin-->
+    <div class="canHideBox" style="display: block;">
+        <dl class="item">
+            <dt>项目状态：</dt>
+            <foreach name="$deal_status_url" id="status" key=key>
+            <dd>
+                <a href="{$status.url}" target="_self" <if condition="$status['key'] eq $_REQUEST['deal_status']">class="current"</if>>{$status.name}</a>
+            </dd>
+            </foreach>
+        </dl>
+        <dl class="item">
+            <dt>项目收益：</dt>
+            <foreach name="$interest_url" id="iinterest" key=key>
+            <dd>
+                <a href="{$iinterest.url}" target="_self" <if condition="$_REQUEST['rate_e2'] eq $iinterest['rate_e2']">class="current"</if>>{$iinterest.name}</a>
+            </dd>
+            </foreach>
+        </dl>
+        <dl class="item">
+            <dt>项目期限：</dt>
+            <foreach name="$months_type_url" id="months" key=key>
+            <dd>
+                <a href="{$months.url}" target="_self" <if condition="$months['value'] eq $_REQUEST['repay_time']">class="current"</if>>{$months.name}</a>
+            </dd>
+           </foreach>
+        </dl>
+        <div class="Clear"></div>
+    </div>
+    <!--可以隐藏的项 end-->
+<!--    <a href="javascript:void(0);" target="_self" class="ShowAndHide"><label class="txt">收起</label><i class="upArrow"></i></a>-->
+    <div class="Clear"></div>
+</div>
+<!--过滤 end-->
+<!--排序 begin-->
+<div id="orderBox">
+    <label class="name">排序：</label>
+    <foreach name="sort_url" id="sorts" key=key>
+    <a href="{$sorts.url}&sort_type=<?php echo $_GET['sort_type']=='desc'?'asc':'desc' ?>" class='sort_mine' target="_self">
+        {$sorts.name}
+        <if condition="$_REQUEST['sort_field'] eq $sorts['sort']">
+        <i class="<?php echo $_GET['sort_type']=='desc'?downArrow:upArrow ?>"></i>
+        </if>
+    </a><span>|</span>
+    </foreach>
+</div>
+<!--投资列表 begin-->
+<div id="investList">
+    <div class="wrap">
+        <!--注意 循环从 class="box" 开始 begin-->
+        <if condition="$deal_list">
+         <foreach name="deal_list" id="deal" key=key>
+            <div class="box <if condition='$deal["deal_status"] eq 1 AND $deal["remain_time"] gt 0'><else/>complete</if>">
+            <div class="p_info">
+                <div class="top">
+                    <label class="name"><a href="/home/deal/deal_info?id={$deal.id}" target="_blank">{$deal.name}</a></label>
+                    <if condition="$deal['is_wait'] eq 1 OR ($deal['deal_status'] eq 1 AND $deal['remain_time'] gt 0)">
+                        <div class="time f_r AdvLeftTime left_time" data="{$deal.remain_time}">
+                            剩余时间：
+                            <span class="s day">--</span>
+                            <span class="l">天</span>
+                            <span class="s hour">--</span>
+                            <span class="l">时</span>
+                            <span class="s min">--</span>
+                            <span class="l">分</span>
+                            <span class="s sec">--</span>
+                            <span class="l">秒</span>
+                        </div>
+                    </if>
+                </div>
+                <div class="bottom">
+                    <dl class="rate layout">
+                        <dt class="title">年化利率</dt>
+                        <dd class="content">{$deal['rate_e2']/100}%</dd>
+                    </dl>
+                    <dl class="timeLimit layout">
+                        <dt class="title">投资期限</dt>
+                        <dd class="content">
+                            {$deal.repay_time}
+                            <span class="unit">天</span>
+                        </dd>
+                    </dl>
+                    <dl class="prodAmount layout">
+                        <dt class="title">标的金额</dt>
+                        <dd class="content">
+                            {$deal['borrow_amount_e2']/100|number_format=2}
+                            <span class="unit">元</span>
+                        </dd>
+                    </dl>
+                    <dl class="security layout">
+                        <dt class="title">保障机构</dt>
+                        <dd class="content">
+                        <if condition="$deal['agency_info']['img']">
+                            <img src="{$deal['agency_info']['img']}" height="30" alt="{$deal.agency_info.name}" title="{$deal.agency_info.name}"/>
+                        </if>
+                        </dd>
+                    </dl>
+                    <dl class="opt_right layout">
+                        <dd class="progressbarbox">
+                            <!--TODO 此处为进度条 百分比数字直接填在ptc="" 即可 js自动运算 此文字请不要复制到页面-->
+                            <div class="sample_goal" ptc="<if condition='$deal["deal_status"] eq 4'>100<else/>{$deal.progress_point}</if>"></div>
+                            <div class="sample_text"><if condition="$deal['deal_status'] eq 4">100%<else/>{$deal.progress_point}%</if></div>
+                        </dd>
+                        <dd>
+                            <a class="btnInvest" href="/home/deal/deal_info?id={$deal.id}">
+                                <if condition="$deal['deal_status'] eq 0">
+                                            <span class="">待发布</span>
+                                    <elseif condition="$deal['is_wait'] eq 1"/>
+                                            <span class="">未开始</span>
+                                    <elseif condition="$deal['deal_status'] eq 4"/>
+                                            <span class="">还款完毕</span>
+                                    <elseif condition="$deal['deal_status'] eq 3"/>
+                                            <span class="">还款中</span>
+                                    <elseif condition="$deal['deal_status'] eq 1 AND $deal['remain_time'] gt 0"/>
+                                            <span class="">马上投标</span>
+                                    <elseif condition="$deal['deal_status'] eq 2"/>
+                                            <span class="">已满标</span>
+                                    <elseif condition="$deal['deal_status'] eq 1 AND $deal['remain_time'] elt 0"/>
+                                            <span class="">已过期</span>
+                                </if>
+				</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+         </foreach>
+        </if>
+    <div class="blank20"></div>
+    <div class="pages">{$page}</div>
+    <div class="blank20"></div>
+        <!--注意 循环从 class="box" 开始 end-->
+    </div>
+</div>
+<!--投资列表 end-->
+</div>
+</div><!--TODO 正式环境不要放此wrap begin-->
+<include file="public/footer" />

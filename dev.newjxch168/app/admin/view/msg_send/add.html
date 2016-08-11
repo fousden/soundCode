@@ -1,0 +1,115 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<load href='__ADMIN__/css/style.css' />
+<load href='__ADMIN__/js/msg_send.js' />
+<!--<script src="__ADMIN__/js/WdatePicker.js?t=20140830" type="text/javascript"></script>-->
+<div class="main">
+    <div class="main_title">新增</div>
+    <div class="blank5"></div>
+    <form name="edit" action="/admin/msg_send/add" method="post" enctype="multipart/form-data">
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+		<td class="item_title">发送方式:</td>
+                <td class="item_input">
+                    <select name='send_type'>
+                        <option value="0">短信</option>
+                        <option value="1">邮件</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+		<td class="item_title">信息类型:</td>
+		<td class="item_input">
+			<select id='sms_temp' name='msg_templet'>
+				<option value="0">=====普通=====</option>
+                                <foreach name='temp_tree[0]' item='vo' >
+                                    <option value="{$key}">{$vo}</option>
+                                </foreach>
+			</select>
+                    
+                        <select id='mail_temp' name='msg_templet'>
+				<option value="0">=====普通=====</option>
+				<foreach name='temp_tree[1]' item='vo' >
+                                    <option value="{$key}">{$vo}</option>
+                                </foreach>
+			</select>
+			
+			<span id="is_html">
+				超文本格式：
+				<select name="is_html">
+					<option value="0">否</option>
+					<option value="1">是</option>
+				</select>
+			</span>
+		</td>
+            </tr>
+<!--            <tr>
+		<td class="item_title">发送时间:</td>
+		<td class="item_input">
+                        <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:s'})"  type="text" id="start_date" name="create_time" class="Wdate" value="{$_REQUEST['create_time']}"/>
+		</td>
+            </tr>-->
+            <tr id="mail_title">
+		<td class="item_title">标题:</td>
+		<td class="item_input"><input type="text" class="textbox" name="title" /></td>
+            </tr>
+            <tr id="mail_content">
+		<td class="item_title">内容:</td>
+		<td class="item_input">
+                        <textarea class="textarea" name="content" id='cont'></textarea>
+		</td>
+            </tr>
+            <tr>
+		<td class="item_title">优先级:</td>
+		<td class="item_input">
+			 <select name="priority">
+			 	<option value="3"  selected = "selected" >普通</option>
+				<option value="2">高</option>
+				<option value="4">低</option>
+			 </select>
+                    </td>
+            </tr>
+            <tr>
+		<td class="item_title">发送对象:</td>
+		<td class="item_input">
+			 <select name="msg_type">
+			 	<option value="1">群发</option>
+				<option value="2">自定义</option>
+			 </select>
+		</td>
+            </tr>
+            <tr id="send_define_data">
+		<td class="item_title">自定义:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="send_define_data" ></textarea>
+			<span class="tip_span">用半角逗号分隔</span>
+		</td>
+            </tr>
+            <tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<input type="submit" class="button" value="发布" />
+			<input type="reset" class="button" value="重置" />
+		</td>
+            </tr>
+            <tr>
+		<td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form> 
+<div class="blank5"></div>
+<style>
+    .cg{
+        width:800px;
+        height:500px;
+    }
+</style>
+</div>
+<include file="public/footer" />

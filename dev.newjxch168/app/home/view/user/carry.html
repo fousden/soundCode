@@ -1,0 +1,103 @@
+<include file="public/header" />
+<div class="wrap">
+<div class="blank"></div>
+<div id="manageleft" class="f_l" style="width:192px;min-height:300px;">
+    <include file="public/uc_cate" />
+</div>
+<!--主题部分开始-->
+<div class="tabbox">
+    <div class="tab"><a href="/home/user/bank">银行卡列表</a></div>
+    <div class="tab cur"><a href="/home/user/carry">会员提现</a></div>
+    <div class="tab"><a href="/home/user/carry_log">提现日志</a></div>
+</div>
+<div class="uc_box u_incharge  bdd bt0">
+    <div class="prompt">
+        <p><i></i>请输入您要提现的金额，以及正确无误的银行帐号信息。</p>
+        <p><i></i>我们将在3个工作日后（双休日和法定节假日除外），将钱转入您指定的银行帐号 。</p>
+            </div>
+    <div class="total clearfix">
+        <div  class="b f_l">累计提现金额：</div>
+        <div class="f_l pl10"> 100000元 （备注：不含手续费，为实际到帐金额。）</div>
+    </div>
+    <div class="blank20"></div>
+    <div class="m_number clearfix">
+        <form name="Jcarry_From" target='_blank' id="Jcarry_From" action="/home/user/carry" method="post">
+              <div  class="b pb15">请输入你的提款金额：</div>
+            <div class="pr">
+                <div class="field">
+                    <label>可用余额：</label>
+                    <span class="f_l">{$user_info['money_e2']/100}元</span>
+                </div>
+                <div class="blank10"></div>
+                <div class="blank10"></div>
+                <div class="field">
+                    <label><span class="f_red b">*</span> 提取金额：</label>
+                    <span class="f_l"><input type="text" autocomplete="off" name="money" class="f-input ui-textbox w100" id="carry_money">&nbsp;&nbsp;元</span>
+                    &nbsp;
+                </div>
+                <div class="blank10"></div>
+                <div class="blank10"></div>
+                <div class="field">
+                    <label> 开户行：</label>
+                    <span class="f_l">{$user_info.bank_name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <div class="blank10"></div>
+                <div class="field">
+                    <label>开户名：</label>
+                    <span class="f_l">{$user_info.real_name}</span>
+                </div>
+                <div class="blank10"></div>
+                <div class="field">
+                    <label>卡号：</label>
+                    <span class="f_l">{$user_info.bank_card|hidden_str}</span>
+                </div>
+                <div class="blank10"></div>
+                <div class="field">
+                    <label>&nbsp;</label>
+                    <span class="f_gray f_l">提现时间以实际提现操作进度为准。</span>
+                </div>
+                <div class="blank10"></div>
+                <div class="field">
+                    <label>支付密码：</label>
+                    <span>
+                        <input type="password" autocomplete="off" value='' class="f-input ui-textbox w100" name="pay_pwd" id="pay_pwd" />
+                        &nbsp;&nbsp;<if condition="$user_info['pay_pwd'] eq ''">还未设置！<else/>忘记了？</if><a href="#" target="_blank" class='f_blue'>点这里</a>
+                    </span>
+                </div>
+		<span style="color:red">注意事项：<br>
+		1、点击提现按钮后，进入第三方资金平台。第三方资金平台的支付密码为您注册的手机号后6位！<br>
+		2、若您在平台已充值，只要体验了任意一笔项目，即可完成提现操作！</span>
+                <div class="blank10"></div>
+            </div>
+            <div class="blank20"></div>
+            <div class="tc">
+                <input type="submit" value="申请提现" id="carry_done" class="sub_btn w120">
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#carry_money').focus();
+    $(document).ready(function(){
+        $("#carry_done").click(function(){
+                if($("#carry_money").val() == '' || isNaN($("#carry_money").val()) || $("#carry_money").val() <= 0 )
+                {
+                        $.showErr("请输入正确的投资金额",function(){
+                                $("#carry_money").focus();
+                        });
+                        return false;
+                }
+                if(!$("#pay_pwd").val())
+                {
+                        $.showErr("请输入正确的支付密码",function(){
+                                $("#pay_pwd").focus();
+                        });
+                        return false;
+                }
+                return true;
+        });
+    });
+</script>
+</div>
+<!--主题部分开始-->
+<include file="public/footer" />

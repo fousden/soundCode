@@ -1,0 +1,51 @@
+<script>
+window.onload = function(){
+  var oTop = document.getElementById("go_top");
+  oTop.onclick = function(){
+    document.documentElement.scrollTop = document.body.scrollTop =0;
+  }
+}
+</script>
+<a target="_self" id="go_top"></a>
+<script>
+$(document).ready(function(){
+	//截断进步比的小数点后两位
+	$(".content_pic h1").each(function(){
+		var thisvalue=$(this).html();
+		$(this).html(Math.round(thisvalue*100)/100+"%")
+
+	});
+});
+</script>
+
+	<div class="fy">
+		
+	</div>
+
+<footer style="width: 100%; background-color: transparent; font-size: .8em; color: #666; padding-top: 20px; padding-bottom: 18px;">
+    <p style="width: 100%; height: 16px; line-height: 16px; text-align: center;">
+        <span style="margin-right: 10px;">©金享财行 jxch168.com</span>
+        <span> 沪ICP备15014770号</span>
+    </p>
+    <p style="width: 100%; height: 20px; line-height: 20px; text-align: center; padding-bottom: 10px;">
+        <a class="loadinglink" style="margin-right: 10px;" href="index.php">首页</a>
+        <a class="loadinglink" style="margin-right: 10px;" href="../index.php?is_pc=1">PC版</a>
+        <a href="tel://4000912828">客服电话：400-091-2828</a>
+    </p>
+    <div class="download-banner">
+        <div class="download-banner-bg"></div>
+        <div class="download-logop"></div>
+        <div class="download-p">
+            <span></span><span>下载APP投资领红包</span>
+        </div>
+        <div class="download-b"><a href="http://wap.jxch168.com" style="color:#fff">点击下载</a></div>
+        <div class="download-c close"></div>
+    </div>
+</footer>
+<script type="text/javascript">
+	$(".close").click(function(){
+		$(".download-banner").hide();
+	});
+</script>
+</body>
+</html>

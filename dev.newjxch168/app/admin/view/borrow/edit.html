@@ -1,0 +1,208 @@
+<include file="public/header" />
+<script src="__ADMIN__/js/conf.js" type="text/javascript"></script>
+<script src="__ADMIN__/js/WdatePicker.js?t=20140830" type="text/javascript"></script>
+<div class="main">
+    <div class="main_title">修改借款 <a href="/admin/borrow/index" class="back_list">借款列表</a></div>
+    <div class="blank5"></div>
+    <form name="edit" action="/admin/borrow/edit" method="post" enctype="multipart/form-data">
+        <div class="button_row">
+            <input type="button" class="button conf_btn" rel="1" value="借款信息" />&nbsp;
+            <input type="button" class="button conf_btn" rel="2" value="扩展配置" />&nbsp;
+            <input type="hidden"  name="id" class="textbox" value="{$deal_info.id}" />
+        </div>
+
+        <div class="blank5"></div>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">借款编号:</td>
+                <td class="item_input">
+                    <input type="text"  name="deal_sn" class="textbox require" value="{$deal_info.deal_sn}" <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if> />
+                    <span class="tip_span">此处编号用于合同处，不得重复</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">借款名称:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="name" value="{$deal_info.name}" style="width:500px;" <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if> />
+                </td>
+            </tr>
+           <tr>
+                <td class="item_title">借款人名称:</td>
+                <td class="item_input">
+                    <select name="borrower_id" class="require" <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if> >
+                        <option value="0">==请选择==</option>
+                        <foreach name="data.borrower" id="borower">
+                            <option <if condition="$deal_info['borrower_id'] eq $borower['id']" >selected="selected"</if> value="{$borower.id}">{$borower.user_name}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">借款分类:</td>
+                <td class="item_input">
+                    <select name="cate_id" class="require" <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if>>
+                        <option value="0">==请选择==</option>
+                        <foreach name="data.deal_cate" id="deal_cate" >
+                            <option <if condition="$deal_info['cate_id'] eq $deal_cate['id']" >selected="selected"</if>  value="{$deal_cate.id}">{$deal_cate.name}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">收益倍率:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" SIZE="15" name="yield_ratio" value="1"  <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if> />
+                    <span class="tip_span">［默认为1，如千倍收益此处为1000］</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">担保机构:</td>
+                <td class="item_input">
+                    <select name="agency_id" class="require">
+                        <option value="0">==请选择==</option>
+                            <foreach name="data.deal_agency" id="deal_agency">
+                                <option <if condition="$deal_info['agency_id'] eq $deal_agency['id']" >selected="selected"</if> value="{$deal_agency.id}">{$deal_agency.name}</option>
+                            </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">还款方式:</td>
+                <td class="item_input">
+                    <select name="repay_type" <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if>>
+                        <option value="1">到期还本息</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">借款合同范本:</td>
+                <td class="item_input">
+                    <select name="contract_id" class="require">
+                        <option value="1">借款合同范本</option>
+                        <foreach name="data.contract" id="contract">
+                            <option <if condition="$deal_info['contract_id'] eq $contract['id']" >selected="selected"</if> value="{$contract.id}">{$contract.title}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">借款总额:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="borrow_amount_e2" value="{$deal_info.borrow_amount}" <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if> />
+                </td>
+            </tr>
+            <tr class="uloadtype_0">
+                <td class="item_title">最低投资金额:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="min_loan_money_e2" value="{$deal_info.min_loan_money}" />
+                </td>
+            </tr>
+            <tr class="uloadtype_0">
+                <td class="item_title">最高投资金额:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="max_loan_money_e2"  value="{$deal_info.max_loan_money}" />
+                    <span class="tip_span">0为不限制</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">借款期限:</td>
+                <td class="item_input">
+                    <input type="text" id="repay_time" class="textbox require" SIZE="5"  name="repay_time" value="{$deal_info.repay_time}" <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if> />
+                    <select id="repay_time_type">
+                        <option value="0">天</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">年化收益率:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" SIZE="5" name="rate_e2"  value="{$deal_info.rate}"  <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if> />%
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">加息收益率:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" SIZE="5" name="increase_rate_e2"  value="{$deal_info.increase_rate}" <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if>  />%
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">筹标期限:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" SIZE="5" name="enddate" value="{$deal_info.enddate}"  <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if>/> 天
+                </td>
+            </tr>
+        <tr>
+            <td class="item_title">借款状态:</td>
+            <td class="item_input">
+                <label>待发布<input type="radio" name="deal_status" value="0" <if condition="$deal_info['deal_status'] eq '0'"> checked="checked"</if> /></label>
+                <label>筹标中<input type="radio" name="deal_status" value="1" <if condition="$deal_info['deal_status'] eq 1"> checked="checked" disabled="disabled"</if> /></label>
+                <label>满标<input type="radio" name="deal_status" value="2" <if condition="$deal_info['deal_status'] eq 2"> checked="checked" disabled="disabled"</if> /></label>
+                <label>还款中<input type="radio" name="deal_status" value="3" <if condition="$deal_info['deal_status'] eq 3"> checked="checked" disabled="disabled"</if> /></label>
+                <label>已还清<input type="radio" name="deal_status" value="4" <if condition="$deal_info['deal_status'] eq 4"> checked="checked" disabled="disabled"</if> /></label>
+            </td>
+        </tr>
+        <tr>
+            <td class="item_title">招标时间:</td>
+            <td class="item_input">
+                <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:s'})"  type="text" id="start_time" name="start_time" value="{$deal_info.start_time|date='Y-m-d H:i:s',###}" class="Wdate require" <if condition="$deal_info['deal_status'] neq 0">disabled="disabled"</if>/>
+            </td>
+        </tr>
+        <tr>
+                <td class="item_title">是否有效:</td>
+                <td class="item_input">
+        <lable>有效<input type="radio" name="is_effect" value="1" <if condition="$deal_info['is_effect'] eq 1"> checked="checked"</if> /></lable>
+                        <lable>无效<input type="radio" name="is_effect" value="0"  <if condition="$deal_info['is_effect'] eq 0"> checked="checked"</if> /></lable>
+                </td>
+        </tr>
+         <tr>
+            <td class="item_title">借款描述:</td>
+            <td class="item_input">
+                <textarea name="description">{$deal_info.description}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2 class="bottomTd"></td>
+        </tr>
+        </table>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="2">
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">借款SEO标题:</td>
+                <td class="item_input"><textarea class="textarea" name="seo_title" >{$deal_info.seo_title}</textarea></td>
+            </tr>
+            <tr>
+                <td class="item_title">借款SEO关键字:</td>
+                <td class="item_input"><textarea class="textarea" name="seo_keyword" >{$deal_info.seo_keyword}</textarea></td>
+            </tr>
+            <tr>
+                <td class="item_title">借款SEO描述:</td>
+                <td class="item_input"><textarea class="textarea" name="seo_description" >{$deal_info.seo_description}</textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+        <div class="blank5"></div>
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <input type="submit" class="button" value="修改" />
+                    <input type="reset" class="button" value="重置" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<include file="public/footer" />

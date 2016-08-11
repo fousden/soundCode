@@ -1,0 +1,57 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<script type="text/javascript">
+    function send(id){
+        $.ajax({ 
+            url: "/admin/msg_send/send&id="+id,
+            dataType: "json",
+            success: function(result){
+                alert(result.info);
+            }
+        });
+    }
+</script>
+<div class="main">
+    <div class="main_title">信息列表</div>
+    <div class="blank5"></div>
+
+    <div class="blank5"></div>
+    <div class="button_row" style="position:relative;top:5px;">
+        <input type="button" class="button" value="新增" onclick="add();" />
+    </div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="/admin/msg_send/index" method="post">
+            接收人：<input type="text" class="textbox" name="dest" value="{:trim($_REQUEST['dest'])}" />
+            内容：<input type="text" class="textbox" name="content" value="{:trim($_REQUEST['content'])}" />
+            <input type="submit" class="button" value="搜索" />
+        </form>
+    </div>
+    <div class="blank5"></div>
+    <html:list 
+        id="dataTable" 
+        style="dataTable" 
+        name="msg_send" 
+        checkbox="true" 
+        action="true" 
+        datasource="list" 
+        show="id:ID|50px
+        ,send_type:发送类型
+        ,title:标题
+        ,content:内容
+        ,create_time|get_date:创建时间
+        ,priority:优先级
+        ,status:发送状态"
+        actionlist="send:发送,edit:编辑" 
+    /> 
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+<div class="blank5"></div>
+</div>
+<include file="public/footer" />

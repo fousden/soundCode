@@ -1,0 +1,96 @@
+<include file="public/header" />
+<div id="dk_index">
+	<div class="banner">
+		<div class="main">
+			<div class="formcover"></div>
+			<div class="form">
+				<p class="h1">贷款申请</p>
+				<p class="error">错误提示</p>
+				<p>
+					<label for="name" class="text dataname">您的姓名：</label>
+					<input id="name" type="text" name="name"></input>
+				</p>
+				<p>
+					<label for="mobile" class="text dataname">手机号码：</label>
+					<input id="mobile" type="text" name="mobile"></input>
+				</p>
+				<p>
+					<label class="text">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
+					<input id="male" type="radio" name="sex" value = "1">
+					<label for="male">先生</label>
+					<input id="female" type="radio" name="sex" value = "0">
+					<label  for="female" class="dataname">女士</label>
+				</p>
+				<p class="secret">
+					<input type="checkbox">
+					<label>已阅读并同意<a href="/index.php?ctl=sys&id=201">《安全条款》</a>营私信息将严格保密</label>
+				</p>
+				<a href="javascript:;" id="submit">马上申请</a>
+			</div>
+		</div>
+	</div>
+	<img src="__HOME__/images/dk_index_main.jpg" height="721" width="1203" style="display: block; margin: 0 auto;">
+</div>
+<script>
+    function checkName(name){
+        var len = name.length;
+        if(name == ''){
+            $(".error").addClass("errorshow").html("请输入名字");
+            return false;
+        }
+        if(!name.match(/^[\u4e00-\u9fa5]+$/)||len > 8 || len < 2) { 
+            $(".error").addClass("errorshow").html("名字为2-8个汉字");
+            return false;
+        }
+        return true;
+    }
+    function checkMobile(mobile){
+        if(mobile == ''){
+            $(".error").addClass("errorshow").html("请输入手机号");
+            return false;
+        }
+        if(!mobile.match(/^1\d{10}$/)) { 
+            $(".error").addClass("errorshow").html("手机号格式不正确");
+            return false;
+        }
+        return true;
+    }
+</script>
+<script>
+	$("#submit").on("click",function(){
+		var name = $("#name").val();
+		var mobile = $("#mobile").val();
+		var sex = $("input[name='sex']:checked").val();
+		var safe = $("input[type='checkbox']").prop("checked");
+                if(!checkName(name)){
+                    return false;
+                }
+                if(!checkMobile(mobile)){
+                    return false;
+                }
+                if(sex != (0||1)){
+                    $(".error").addClass("errorshow").html("请选择性别");
+                    return false;
+                }
+                if(safe == ''){
+                    $(".error").addClass("errorshow").html("请阅读《安全条款》");
+                    return false;
+                }        
+		$.ajax({
+			type:"post",
+			url:"/home/loan/index",
+			data:{name:name,safe:safe,mobile:mobile,sex:sex},
+                        dataType: "json",
+			success:function(data){
+                            if(data.response_code){
+                                    $(".error").addClass("errorshow").html(data.show_err);
+                            }else{
+                                $(".error").removeClass("errorshow");
+				location.href="/home/loan/details";
+                            }
+				
+			}
+		}, 'json')
+	})
+</script>
+<include file="public/footer" />

@@ -1,0 +1,30 @@
+<include file="public/header" />
+<div class="wrap">
+<div class="blank"></div>
+<div id="manageleft" class="f_l" style="width:192px;min-height:300px;">
+    <include file="public/uc_cate" />
+</div>
+<!--主题部分开始-->
+<div class="tabbox clearfix">
+    <div class="tab cur"><a href="/home/user/bank">银行卡列表</a></div>
+    <div class="tab"><a href="/home/user/carry">会员提现</a></div>
+    <div class="tab"><a href="/home/user/carry_log">提现日志</a></div>
+</div>
+<div class="uc_box  bdd bt0">
+    <div class="p10">
+        <div class="cf" id="SITE_CARRY" onclick="window.location.href='/home/user/carry'">
+            <div class="t_name item_group">银行卡信息：</div>
+            <div class="item_bank">
+                 <div class="tip">
+                    <img src="__HOME__/images/bank/{$user_info.bank_id}.jpg" title="{$user_info.bank_name}" style="*margin-bottom:-4px;_margin-bottom:-6px;">
+                    <p>{$user_info.real_name|hidden_name}</p>
+                    <p>尾号：{$user_info.bank_card|hidden_str=4}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__HOME__/js/utils/jquery.bank.js"></script>
+<!--主题部分开始-->
+</div>
+<include file="public/footer" />

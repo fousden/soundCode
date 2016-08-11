@@ -1,0 +1,151 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<div class="main">
+    <div class="main_title">我要贷款列表</div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="/admin/article/index" method="get">
+            文章名称：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+            <input type="submit" class="button" value="搜索" />
+        </form>
+    </div>
+    <?php
+        function get_user_name_real($user_id){
+            if(!$user_id){
+                return "非注册用户";
+            }else{
+            $user_info =  M("User")->where("id=".$user_id." and is_delete = 0")->Field("user_name,real_name,user_type,mobile")->find();
+            if(!$user_info)
+		return "未知用户";
+            else
+		return "<a href=".u("User/".($user_info['user_type']==0? "index" : "company_index"),array("user_name"=>$user_info['user_name']))." target='_blank'>".$user_info['user_name'].($user_info['real_name']!="" ? "[".$user_info['real_name']."]"."[".$user_info['mobile']."]":"")."</a>";
+            }
+        }
+        function get_apply_time($time){
+            if($time){
+                return date("Y-m-d H:i:s",$time);
+            }else{
+                return "无";
+            }  
+        }
+        function get_sex($sex){
+            if($sex == 0){
+                return "女";
+            }else{
+                return "男";
+            }  
+        }
+        function get_live_time($time){
+            switch($time){
+                case 1:
+                    return "1~5个月";
+                case 2:
+                    return "6~12个月";
+                case 3:
+                    return "1年以上";
+                default:
+                    return "无";
+            }
+        }
+        function get_salary($salary){
+            switch($salary){
+                case 1:
+                    return "3000元以下";
+                case 2:
+                    return "3000~10000元";
+                case 3:
+                    return "10000~20000元";
+                case 4:
+                    return "20000元以上";
+                default:
+                    return "无";
+            }
+        }  
+        function get_salary_way($type){
+            switch($type){
+                case 0:
+                    return "银行转账";
+                case 1:
+                    return "现金发放";
+                default:
+                    return "无";
+            }
+        }
+        function get_loan_status($status){    
+            switch($status){
+                case 1:
+                    return "有";
+                default:
+                    return "无";
+            }
+        }
+        function get_repay($status){    
+            switch($status){
+                case 1:
+                    return "正在还贷款";
+                case 2:
+                    return "贷款已还清";
+                default:
+                    return "无贷款";
+            }
+        }
+        function get_periods($date){    
+            switch($date){
+                case 1:
+                    return "1~6个月";
+                case 2:
+                    return "7~12个月";
+                case 3:
+                    return "12个月以上";
+                default:
+                    return "无贷款";
+            }
+        }
+        function get_money($money){    
+            switch($money){
+                case 1:
+                    return "1万以下";
+                case 2:
+                    return "1~15万";
+                case 3:
+                    return "15~30万";
+                default:
+                    return "无";
+            }
+        }
+    ?>
+    <div class="blank5"></div>
+    <html:list
+    id="dataTable"
+    style="dataTable"
+    name="loan"
+    datasource="list"
+    show="id:编号|50px
+	,loan_name:贷款人
+        ,user_id|get_user_name_real:用户名
+	,mobile:手机号
+	,money|get_money:申请金额
+        ,apply_time|get_apply_time:申请时间
+	,sex|get_sex:性别
+	,age:年龄
+	,city:城市
+	,live_date|get_live_time:居住时间
+	,salary|get_salary:税后月薪
+	,salary_way|get_salary_way:发薪方式
+	,is_house|get_loan_status:房贷
+	,is_house_repay|get_repay:房贷情况
+	,house_periods|get_periods:已还款期数
+	,is_car|get_loan_status:车贷
+	,is_car_repay|get_repay:车贷情况
+	,car_periods|get_periods:已还款期数
+	,is_car_insurance|get_loan_status:车险保单
+	,is_life_insurance|get_loan_status:寿险保单
+	,is_credit_card|get_loan_status:信用卡"/>
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+</div>
+<include file="public/footer" />

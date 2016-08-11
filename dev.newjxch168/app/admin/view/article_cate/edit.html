@@ -1,0 +1,73 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<load href='__ADMIN__/css/style.css' />
+<div class="main">
+    <div class="main_title">新增</div>
+    <div class="blank5"></div>
+    <form name="edit" action="/admin/article_cate/update" method="post" enctype="multipart/form-data">
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+		<td class="item_title">文章标题:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="title"  value="{$vo.title}"/></td>
+            </tr>
+            <tr>
+		<td class="item_title">简单描述:</td>
+		<td class="item_input"><textarea class="textarea" name="brief" >{$vo.brief}</textarea></td>
+            </tr>
+            <tr>
+		<td class="item_title">分类:</td>
+		<td class="item_input">
+                <select name="pid">
+                        <option value="0">==顶级==</option>
+			<foreach name="cate_tree" item="cate_item">
+				<option value="{$cate_item.id}"<if condition="$vo['pid'] eq $cate_item['id']">selected="selected"</if>>{$cate_item.title}</option>
+			</foreach>
+		</select>    
+		</td>
+            </tr>
+            <tr>
+		<td class="item_title">文章类型:</td>
+		<td class="item_input">
+                    <select name="type_id">
+			<option value="0" <if condition="$vo['type_id'] eq 0">selected="selected"</if> >普通文章</option>
+			<option value="1" <if condition="$vo['type_id'] eq 1">selected="selected"</if> >帮助文章</option>
+			<option value="2" <if condition="$vo['type_id'] eq 2">selected="selected"</if> >公告文章</option>
+			<option value="3" <if condition="$vo['type_id'] eq 3">selected="selected"</if> >系统文章</option>
+                    </select>
+		</td>
+            </tr>
+            <tr>
+		<td class="item_title">排序:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort"  value="{$vo.sort}"/></td>
+            </tr>
+            
+            <tr>
+		<td class="item_title">状态:</td>
+                <td class="item_input">
+			<lable>有效<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if> /></lable>
+			<lable>无效<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></lable>
+		</td>
+            </tr>
+            <tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+                    <input type="hidden" name="id" value="{$vo.id}" />
+                    <input type="submit" class="button" value="更新" />
+                    <input type="reset" class="button" value="重置" />
+		</td>
+            </tr>
+            <tr>
+		<td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form> 
+<div class="blank5"></div>
+</div>
+<include file="public/footer" />

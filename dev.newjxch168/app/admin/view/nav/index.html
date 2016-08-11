@@ -1,0 +1,108 @@
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<script src="__ADMIN__/js/pinphp.js"></script>
+<script type="text/javascript">
+    function show_detail(id)
+    {
+        window.location.href = ROOT + '?m=Deal&a=show_detail&id=' + id;
+    }
+</script>
+<div class="main">
+    <div class="main_title">全部导航</div>
+    <div class="blank5"></div>
+    <div class="button_row" style="position:relative;top:5px;">
+        <a class="button" style="text-decoration:none;" href="/admin/nav/add">新增</a>
+        <a class="button" style="text-decoration:none;" onclick="publicDelete('nav','nav');">删除</a>
+    </div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="/admin/nav/index" method="post">
+            导航名称：<input type="text" class="textbox" name="name" value="{$_REQUEST['name']}" />
+            <input type="submit" class="button" value="搜索" />
+        </form>
+    </div>
+    <div class="blank5"></div>
+    <table id="dataTable" class="dataTable" cellpadding=0 cellspacing=0 >
+        <tr><td colspan="23" class="topTd" >&nbsp; </td></tr>
+        <tr class="row">
+            <th width="8">
+                <input type="checkbox" id="check" onclick="CheckAll('dataTable')">
+            </th>
+            <th width="50px">
+                <a  href="javascript:sortBy('id',{$sort})" id="bianhao" data="asc" title="按照编号升序排列">编号</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('name',{$sort})" title="按照导航名称升序排列">导航名称</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('url',{$sort})" title="按照导航URL升序排列">导航URL</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('param',{$sort})" title="按照导航参数升序排列">导航参数</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('blank',{$sort})" title="按照上级窗口打开升序排列">上级窗口</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('blank',{$sort})" title="按照新窗口打开升序排列">新窗口打开</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('status',{$sort})" title="按照状态升序排列">状态</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('sort',{$sort})" title="按照排序升序排列">排序</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('is_effect',{$sort})" title="按照是否有效升序排列">是否有效</a>
+            </th>
+            <th class="op_action">
+                <a href="javascript:void(0)" class="A_opration">操作</a>
+            </th>
+        </tr>
+        <foreach name="list" id="nav" key="key">
+        <tr class="row " >
+            <td>
+                <input type="checkbox" name="key" class="key" value="{$nav.id}">
+            </td>
+            <td>
+                &nbsp;{$nav.id}
+            </td>
+            <td>
+                &nbsp;<a href="#">{$nav.name}</a>
+            </td>
+            <td>
+                &nbsp;<a href="#">{$nav.url}</a>
+            </td>
+            <td>
+                &nbsp;<a href="#">{$nav.param}</a>
+            </td>
+            <td>
+                &nbsp;<a href="#"><if condition="$nav['pid_name']">{$nav.pid_name}<else/>顶级导航</if></a>
+            </td>
+            <td>
+                &nbsp;<span class='is_effect' onclick='set_deal_attr("nav","nav","blank",{$nav.id},this);'>{$nav.blank_desc}</span>
+            </td>
+            <td>
+                &nbsp;<span class='is_effect' onclick='set_deal_attr("nav","nav","status",{$nav.id},this);'>{$nav.status_desc}</span>
+            </td>
+            <td>
+                &nbsp;{$nav.sort}
+            </td>
+            <td>
+                &nbsp;<span class='is_effect' onclick='set_deal_attr("nav","nav","is_effect",{$nav.id},this);'>{$nav.is_effect_desc}</span>
+            </td>
+            <td class="op_action">
+                <div class="viewOpBox">
+                    <a href="javascript:edit('{$nav.id}')">编辑</a>&nbsp;
+                </div>
+                <a href="javascript:void(0);" class="opration">操作</a>
+            </td>
+        </tr>
+        </foreach>
+ </table>
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+</div>
+<include file="public/footer" />

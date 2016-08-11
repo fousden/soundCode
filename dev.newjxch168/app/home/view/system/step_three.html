@@ -1,0 +1,32 @@
+<include file="public/header">
+
+<if condition="$stay eq 0">
+<meta http-equiv="refresh" content="3" url="{$jump}" />
+
+</if>
+
+<div class="msg_box success_box mt10 mb10">
+<!--							<h2>
+								<div class="icon"><i></i></div>
+							</h2>-->
+
+							<div class="notice">
+                                                             <if condition="$checked eq 1">
+                                                                                                                                            <div style="width:100%;text-align:center;margin:50px auto;">
+                                                                                                                                               <img  alt="" src="__HOME__/images/pingan.png" style="width:350px;border:7px solid #ebebeb;padding:5px;border-radius:5px;" />
+                                                                                                                                            </div>
+                                                        </if>
+								<p>
+								{$msg}
+								</p>
+                                                                                                                                             <p>
+                                                                                                                                                 系统将在 3 秒后自动跳转<a href="/">这里</a> 跳转
+                                                                                                                                                 </p>
+							</div>
+
+
+</div>
+
+<div style="background:#f2f2f2; padding:30px;text-align:center" >
+    版权所有：上海金享财行投资管理有限公司 Copyright © All Rights Reserved
+</div>

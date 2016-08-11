@@ -1,0 +1,222 @@
+        .ftwLayout {
+            height: 260px;
+        }
+        .ftwLayout * {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        .ftwLayout>.left,.ftwLayout>.right,.ftwLayout>.center {
+            height: 100%;
+            float: left;
+            text-align: center;
+        }
+
+        .ftwLayout>.left {
+            width: 230px;
+        }
+             .ftwLayout>.left>img {
+                 margin-top: 50px;
+             }
+
+        .ftwLayout>.right {
+            width: 230px;
+        }
+            .ftwLayout>.right>img {
+                margin-top: 25px;
+            }
+            .ftwLayout>.right>p {
+                text-align: center;
+                margin: 0 auto;
+                margin-top: 25px;
+                width: 141px;
+            }
+        .ftwLayout>.center {
+            width: 740px;
+        }
+            .ftwLayout>.center >article,.ftwLayout>.center >nav {
+                width: 700px;
+                margin: 0 auto;
+             }
+            .ftwLayout>.center >article{
+                text-align: left;
+                margin-top: 30px;
+            }
+                 .ftwLayout>.center >article>a{
+                     font-family: SimSun;
+                     margin-right: 107.6px;
+                }
+                    .ftwLayout>.center >article>a:hover{
+                     color: white;
+                     text-decoration: underline;
+                }
+            .ftwLayout>.center >nav {
+                border: 1px dotted #525d5e;
+                width: 650px;
+                margin-top: 25px;
+                padding: 20px;
+                padding-bottom: 25px;
+                text-align: left;
+                color: #b3bac2;
+            }
+                .ftwLayout>.center >nav>img {
+                    position: relative;
+                    top: 7px;
+                    margin-left: 60px;
+                    margin-right: 20px;
+                }
+                .ftwLayout>.center >nav>.frist {
+                    margin-left: 60px;
+                }
+                .ftwLayout>.center >nav>label {
+                    font-size: 22px;
+                    font-family: SimSun;
+                    color: #b3bac2;
+                }
+                .ftwLayout>.center > article > p {
+                     width: 320px;
+                     display: inline-block;
+                    position: relative;
+                    top: 0px;
+                    font-size: 12px;
+                }
+                 .ftwLayout>.center > article > .img {
+                     width: 109px; 
+                     height: 50px;
+                     display: inline-block;
+                     margin-left: 13px;
+                }
+
+                 .ftwLayout>.center > article > .img1 {
+                     background-image: url(/app/Tpl/blue/images/footImges/1_17.png);
+                }
+                     .ftwLayout>.center > article > .img1:hover{
+                         background-image: url(/app/Tpl/blue/images/footImges/12_17.png);
+                    }
+                 .ftwLayout>.center > article > .img2 {
+                         background-image: url(/app/Tpl/blue/images/footImges/1_19.png);
+                 }
+                     .ftwLayout>.center > article > .img2:hover{
+                             background-image: url(/app/Tpl/blue/images/footImges/12_19.png);
+                     }
+                 .ftwLayout>.center > article > .img3 {
+                         background-image: url(/app/Tpl/blue/images/footImges/1_21.png);
+                 }
+                    .ftwLayout>.center > article > .img3:hover{
+                         background-image: url(/app/Tpl/blue/images/footImges/12_21.png);
+                    }
+        .ftwLayout {
+            height: 260px;
+        }
+        .ftwLayout * {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        .ftwLayout>.left,.ftwLayout>.right,.ftwLayout>.center {
+            height: 100%;
+            float: left;
+            text-align: center;
+        }
+
+        .ftwLayout>.left {
+            width: 230px;
+        }
+             .ftwLayout>.left>img {
+                 margin-top: 50px;
+             }
+
+        .ftwLayout>.right {
+            width: 230px;
+        }
+            .ftwLayout>.right>img {
+                margin-top: 25px;
+            }
+            .ftwLayout>.right>p {
+                text-align: center;
+                margin: 0 auto;
+                margin-top: 25px;
+                width: 141px;
+            }
+        .ftwLayout>.center {
+            width: 740px;
+        }
+            .ftwLayout>.center >article,.ftwLayout>.center >nav {
+                width: 700px;
+                margin: 0 auto;
+             }
+            .ftwLayout>.center >article{
+                text-align: left;
+                margin-top: 30px;
+            }
+                 .ftwLayout>.center >article>a{
+                     font-family: SimSun;
+                     margin-right: 107.6px;
+                }
+                    .ftwLayout>.center >article>a:hover{
+                     color: white;
+                     text-decoration: underline;
+                }
+            .ftwLayout>.center >nav {
+                border: 1px dotted #525d5e;
+                width: 650px;
+                margin-top: 25px;
+                padding: 20px;
+                padding-bottom: 25px;
+                text-align: left;
+                color: #b3bac2;
+            }
+                .ftwLayout>.center >nav>img {
+                    position: relative;
+                    top: 7px;
+                    margin-left: 60px;
+                    margin-right: 20px;
+                }
+                .ftwLayout>.center >nav>.frist {
+                    margin-left: 60px;
+                }
+                .ftwLayout>.center >nav>label {
+                    font-size: 22px;
+                    font-family: SimSun;
+                    color: #b3bac2;
+                }
+                .ftwLayout>.center > article > p {
+                     width: 320px;
+                     display: inline-block;
+                    position: relative;
+                    top: -6px;
+                }
+                 .ftwLayout>.center > article  .img {
+                     width: 109px;
+                     height: 50px;
+                     display: inline-block;
+                     margin-left: 13px;
+					 cursor:pointer;
+                }
+				
+				.ftwLayout>.center > article  a.aimg {
+                     border:0;
+					 margin:0;
+					 padding:0;
+                }
+
+                 .ftwLayout>.center > article  .img1 {
+                     background-image: url(/app/Tpl/blue/images/footImges/1_17.png);
+                }
+                     .ftwLayout>.center > article  .img1:hover{
+                         background-image: url(/app/Tpl/blue/images/footImges/12_17.png);
+                    }
+                 .ftwLayout>.center > article  .img2 {
+                         background-image: url(/app/Tpl/blue/images/footImges/1_19.png);
+                 }
+                     .ftwLayout>.center > article  .img2:hover{
+                             background-image: url(/app/Tpl/blue/images/footImges/12_19.png);
+                     }
+                 .ftwLayout>.center > article  .img3 {
+                         background-image: url(/app/Tpl/blue/images/footImges/1_21.png);
+                 }
+                    .ftwLayout>.center > article  .img3:hover{
+                         background-image: url(/app/Tpl/blue/images/footImges/12_21.png);
+                    }

@@ -1,0 +1,91 @@
+<include file="public/header" />
+<div class="wrap">
+<div class="blank"></div>
+<div id="manageleft" class="f_l" style="width:192px;min-height:300px;">
+    <include file="public/uc_cate" />
+</div>
+<!--主题部分开始-->
+<div class="tabbox clearfix">
+	<div class="tab cur"><a href="/home/user/invest">我的投资</a></div>
+</div>
+<div class="uc_box bdd bt0 clearfix">
+    <if condition="$list">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+            <tbody>
+                <tr  border="0">
+                        <th style="width:15%" class="tl pl10">标题</th>
+                        <th style="width:12%">投标金额</th>
+                        <th style="width:8%">抵现券</th>
+                        <th style="width:9%">年化利率</th>
+                        <th style="width:10%">总收益</th>
+                        <th style="width:13%">投标时间</th>
+                        <th style="width:10%">起息时间</th>
+                        <th style="width:10%">结息时间</th>
+                        <th style="width:90px">进度</th>
+                </tr>
+                <foreach name="list" id="item" key="key">
+                    <tr class="item <if condition='($key%2) eq 1'>item_1</if>">
+                        <td class="tl pl10">
+                            <a href="/home/borrow/index">
+                               <a href="/home/borrow/index">{$item.deal.name}<br/>（{$item.deal.repay_time}天）</a>
+                            </a>
+                        </td>
+                        <td>
+                                {$item['money_e2']/100|number_format=2}
+                        </td>
+                        <td>
+                                {$item['coupon_cash_e2']/100|number_format=2}
+                        </td>
+                        <td>
+                                {$item['rate_e2']/100|num_format}%
+                        </td>
+                        <td>
+                                {$item['all_interest_e2']|number_format=2}
+                        </td>
+                        <td>
+                            {$item.create_date}
+                        </td>
+                        <td>
+                            {$item.deal.qixi_date|date="Y-m-d",###}
+                        </td>
+                        <td>
+                            {$item.deal.jiexi_date|date="Y-m-d",###}
+                        </td>
+                        <td class="lh28 ">
+                            <div class="progressvar" style="position:relative;left:20px;">
+                                <if  condition="$item['deal']['deal_status'] eq 5">
+                                    <div class="progress w100 mt13">
+                                            <span class="pr bdr3" style="width:100%;">
+                                                    <img class="ps" title="100%" src="__HOME__/images/progressqiu.png" />
+                                            </span>
+                                    </div>
+                                <else/>
+                                    <div class="progress w100 mt13">
+                                            <span class="pr bdr3" title="{$item.deal.progress_point|num_format}%" style="width:{$item.deal.progress_point|num_format}%;">
+                                                    <img class="ps" src="__HOME__/images/progressqiu.png" />
+                                            </span>
+                                    </div>
+                                </if>
+                            </div>
+                            <div class="blank"></div>
+                            <div class="f_dgray">
+                                <if  condition="$item['deal']['deal_status'] eq 4 OR $item['deal']['deal_status'] eq 5">
+                                    <p>还款： {$item.deal.progress_point|num_format}%</p>
+                                    <a href="/home/user/invest_detail">详情</a>
+                                <else/>
+                                    <p>投标：{$item.deal.progress_point|num_format}%</p>
+                                </if>
+                            </div>
+                        </td>
+                    </tr>
+                </foreach>
+		</tbody>
+	</table>
+	<div class="pages">{$page}</div>
+    <else/>
+	<div align="center" style="padding:20px 0">暂无记录</div>
+    </if>
+</div>
+<!--主题部分开始-->
+</div>
+<include file="public/footer" />

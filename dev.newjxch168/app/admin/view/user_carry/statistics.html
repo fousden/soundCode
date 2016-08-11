@@ -1,0 +1,70 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery-1.8.3.min.js' />
+<load href='__ADMIN__/js/third_party/highcharts/highcharts.js' />
+<load href='__ADMIN__/js/third_party/highcharts/exporting.js' />
+<load href='__ADMIN__/js/third_party/highcharts/chart.js' />
+<script src="__ADMIN__/js/WdatePicker.js?t=20140830" type="text/javascript"></script>
+
+<div class="main">
+    <div class="main_title">提现日账单</div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="/admin/user_incharge/statistics" id ="search_form"  method="get">
+            <label>开始日期:</label><input onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  type="text" id="start_date" name="start_date" class="Wdate require" value="{$_REQUEST['start_date']}"/>
+            <label>结束日期:</label><input onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  type="text" id="end_date" name="end_date" class="Wdate require" value="{$_REQUEST['end_date']}"/>
+            <input type="button" id = "submit_date_0" class="button_none" value="今天" />
+            <input type="button" id = "submit_date_1" class="button_none" value="昨天" />
+            <input type="button" id = "submit_date_7" class="button_none" value="最近一周" />
+            <input type="button" id = "submit_date_30" class="button_none" value="最近一月" />
+            <input type="submit" class="button" value="搜索" />
+	</form>
+    </div>
+
+    <if condition="$type eq 'pie'">
+        <div id="pie_chart" style="min-width:700px;height:400px"></div>
+        <script>
+            var series_name = <?php echo $series_name;?>;
+            var data_name = <?php echo $data_name;?>;
+            var pie_data_array = <?php echo $pie_data_array;?>;
+            $(function(){
+                var abc = $('#pie_chart').highcharts(pie_plot(series_name,data_name,pie_data_array,'客户端'));
+            })
+        </script>
+    </if>
+    
+    <if condition="$type eq 'line'">
+        <div id="line_chart" style="min-width:700px;height:400px"></div>
+        <script>
+            var xAxis_pot = <?php echo $xAxis_pot;?>;
+            var yAxis_title = <?php echo $yAxis_title;?>;
+            var data_name = <?php echo $data_name;?>;
+            var data_array = <?php echo $data_array;?>;
+            var unit = <?php echo $unit?>;
+            $(function(){
+                var abc = $('#line_chart').highcharts(brokenline_plot(xAxis_pot,yAxis_title,data_name,data_array,unit,'提现统计'));
+            })
+        </script>
+    </if>
+    
+    <div style="clear:both"></div>
+    <div class="blank5"></div>
+    <html:list
+    id="dataTable"
+    style="dataTable"
+    name="user_incharge" 
+    datasource="list"
+    show="date:日期
+        ,money|number_format=2:金额
+        ,1|number_format=2:PC
+        ,2|number_format=2:wap
+        ,3|number_format=2:Android
+        ,4|number_format=2:IOS
+        ,people:人数" />
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+</div>
+<include file="public/footer" />

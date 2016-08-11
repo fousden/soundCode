@@ -1,0 +1,545 @@
+<include file="public/header" />
+<div class="regstep">
+    <ol class="ui-step ui-step-3">
+        <li class="ui-step-start ui-step-done">
+            <div class="ui-step-line">-</div>
+            <div class="ui-step-icon">
+                <i class="iconfont"></i>
+                <i class="ui-step-number">1</i>
+                <span class="ui-step-text">填写账户信息</span>
+            </div>
+        </li>
+        <li class="ui-step-active">
+            <div class="ui-step-line">-</div>
+            <div class="ui-step-icon">
+                <i class="iconfont"></i>
+                <i class="ui-step-number">2</i>
+                <span class="ui-step-text">实名信息</span>
+            </div>
+        </li>
+        <li class="ui-step-end">
+            <div class="ui-step-line">-</div>
+            <div class="ui-step-icon">
+                <i class="iconfont"></i>
+                <i class="ui-step-number">3</i>
+                <span class="ui-step-text">注册成功</span>
+            </div>
+        </li>
+    </ol>
+</div>
+<div class="blank20"></div>
+<div class="wrap">
+    <div class="bdd bddf">
+        <div class="user-lr-box f_l pt50 pl30 pb30" style="width:590px">
+            <form action="step_three" method="post"  id="re_name_and_id" onsubmit="return checkform()" autocomplete="off">
+                <!--                <div class='field username'>
+                                     <div class="f_l frbox pr">
+                                        <div class="u_icon">
+                                            <i class="iconfont">&#xe623;</i>
+                                        </div>
+                                    <label>开户名/真实姓名：</label>
+                                    <span><input type='text'  name='real_name' id='real_name' class='f-input ui-textbox ' holder='请输入姓名'></span>
+                                    <span class="f-input-tip"></span>
+                                        <span class="hint"></span>
+                                    </div>
+                                    <div class="blank0"></div>
+                                </div>
+                                <div class="blank10"></div>
+                                 <div class='field'>
+                                    <label>手机号：</label>
+                                    {$mobile}18651935745&nbsp;&nbsp;<span class='f_red'>(该手机号与您在银行预留的手机号码一致)</span>
+                                </div>
+                                <div class='blank1'></div>
+                                <div class='blank10'></div>
+                                <div class='field idno'>
+                                    <label><span class='f_red b'>*</span>身份证号：</label>
+                                    <span><input type="text" class="f-input ui-textbox" holder="输入身份证" id="idno" name="idno" size="30"></span>
+                                </div>
+                                <div class='blank0'></div>
+                                <div class='field'>
+                                    <label> 帐户类型：</label>
+                                    <label style='width:150px'>借记卡&nbsp;&nbsp;<span class='f_red'>(不支持信用卡)</span></label>
+                                </div>
+                                <div class='blank1'></div>
+                                <div class='field'>
+                                    <label><span class='f_red b'>*</span> 选择银行：</label>
+                                    <span>
+                                        <select name="bank_id"  height="300">
+                                            <option value=''>请选择</option>
+                                            <foreach name="bank_list"  item="item">
+                                                <option value='{$item.fuyou_bankid}' day='{$item.day}'>{$item.name}</option>
+                                            </foreach>
+                                            <option value='other'>其他</option>
+                                        </select>
+                                        <select name="otherbank" class="hide ui-select w140 select-w140">
+                                            <option value=''>请选择</option>
+                                            {foreach from='$bank_list' item='item'}
+                                            {if $item.is_rec eq 0}
+                                            <option value='{$item.id}' day='{$item.day}'>{$item.name}</option>
+                                            {/if}
+                                            {/foreach}
+                                        </select>
+                                    </span>
+                                </div>
+                                <div class='blank0'></div>
+                                <div class='field' >
+                                    <label for='settings-region'><span class='f_red b'>*</span> 开户行所在地：</label>
+                                    <select name='region_lv1'>
+                                        <option selected='selected'>请选择省</option>
+                                        <foreach name="region_lv1" item="lv1">
+                                            <option value='{$lv1.districtcode}'>{$lv1.districtname}</option>
+                                        </foreach>
+                                    </select>
+
+                                    <select name='region_lv2' height="300">
+                                        <option selected='selected'>请选择市</option>
+                                    </select>
+
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            $("select[name=region_lv1]").change(function () {
+                                                $("select[name=region_lv2] option:first").nextAll().remove();
+                                                $.get('get_city?act=get_city',
+                                                        {id: $(this).val()},
+                                                function (data) {
+                                                    $.each(data, function (index, item) {
+                                                        $("select[name=region_lv2]")
+                                                                .append(
+                                                                        $("<option/>")
+                                                                        .attr("value", item.districtcode)
+                                                                        .text(item.districtname));
+                                                    })
+                                                },
+                                                        'json'
+                                                        );
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class='blank1'></div>
+                                    <div class='field'>
+                                        <label for='settings-bankzone'><span class='f_red b'>*</span> 开户行网点：</label>
+                                        <span><input type='text' name='bankzone' id='Jbank_bankzone' class='f-input ui-textbox' style='width:270px;' value=''></span>
+                                        &nbsp;&nbsp;<a href='http://www.cardbaobao.com/bank/index.asp' target='_blank'>网点查询</a>
+                                    </div>
+                                <div class='blank1'></div>
+                                <div class='field'>
+                                    <label><span class='f_red b'>*</span> 银行卡号：</label>
+                                    <span><input type='text' name='bankcard' class='f-input ui-textbox' id='Jbank_bankcard' style='width:270px;font-weight:bolder;' value=''></span>
+                                </div>
+                                <div class='blank0'></div>
+                                <div class='blank10'></div>
+                                <div class='field'>
+                                    <label><span class='f_red b'>*</span> 确认卡号：</label>
+                                    <span><input type='text' name='reBankcard' class='f-input ui-textbox' id='Jbank_rebankcard' style='width:270px;font-weight:bolder;' value=''></span>
+                                </div>
+                                <div class='blank0'></div>
+                                <div class='field'>
+                                    <label><span class='f_red b'></span></label>
+                                    <span style="font-size:14px;"><input type="checkbox" name="agreement" id="J_agreement_account" value="1" checked="checked" style="position:relative;top:1.5px;" />&nbsp;同意<a href="{url x="index" r="sys" p="id=$PROFESSION"}" class="f_blue">《专业账户协议》</a></span>
+                                </div>
+                                <div class='blank10'></div>-->
+
+                <div class="field username ">
+                    <label for="real_name"><span class="f_red">*</span>开户名/姓名</label>
+                    <div class="f_l frbox pr">
+                        <div class="u_icon">
+                            <i class="iconfont">&#xe623;</i>
+                        </div>
+                        <input type="text" class="f-input ui-textbox" holder="输入真实姓名" id="real_name" name="real_name" size="30">
+                        <span class="f-input-tip"></span>
+                        <span class="hint"></span>
+                    </div>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank10"></div>
+
+                <div class="field idno">
+                    <label for="idno"><span class="f_red">*</span>身份证号</label>
+                    <div class="f_l frbox pr">
+                        <div class="u_icon">
+                            <i class="iconfont">&#xe60a;</i>
+                        </div>
+                        <input type="text" class="f-input ui-textbox" holder="输入身份证" id="idno" name="idno" size="30" onkeyup="idcheck(this);">
+                        <span class="f-input-tip"></span>
+                        <span class="hint"></span>
+                    </div>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank10"></div>
+                <!--选择银行-->
+                <div class="field">
+                    <label for="bank"><span class="f_red">*</span>选择银行</label>
+                    <div class="f_l frbox pr">
+                        <!--                        <div class="u_icon">
+                                                    <i class="iconfont">&#xe60a;</i>
+                                                </div>-->
+                        <select  name="bank_id" id="bank_id">
+                            <option value='0'>请选择</option>
+                            <foreach name='bank_list' item='item'>
+                                <option value='{$item.fuyou_bankid}' day='{$item.day}'>{$item.name}</option>
+                            </foreach>
+                            <!--<option value='other'>其他</option>-->
+                        </select>
+                        <span class="f-input-tip"></span>
+                        <span class="hint"></span>
+                    </div>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank10"></div>
+                <!--选择银行-->
+
+                <!--银行信息-->
+                <div class="field">
+                    <label for="bank"><span class="f_red">*</span>开户行所在地</label>
+                    <div class="f_l frbox pr">
+                        <!--                        <div class="u_icon">
+                                                    <i class="iconfont">&#xe60a;</i>
+                                                </div>-->
+                        <select name='region_lv1'>
+                            <option selected='selected' id="provice" value="0">请选择省</option>
+                            <foreach name='region_lv1' item='lv1'>
+                                <option value='{$lv1.districtcode}'>{$lv1.districtname}</option>
+                            </foreach>
+                        </select>
+
+                        <select name='region_lv2' height="300">
+                            <option selected='selected' id="city" value="0">请选择市</option>
+                        </select>
+
+                        <script type="text/javascript">
+                            $(function () {
+                                $("select[name=region_lv1]").change(function () {
+                                    $("select[name=region_lv2] option:first").nextAll().remove();
+                                    $.get('get_city?act=get_city',
+                                            {id: $(this).val()},
+                                    function (data) {
+                                        $.each(data, function (index, item) {
+                                            $("select[name=region_lv2]")
+                                                    .append(
+                                                            $("<option/>")
+                                                            .attr("value", item.districtcode)
+                                                            .text(item.districtname));
+                                        })
+                                    },
+                                            'json'
+                                            );
+                                });
+                            });
+                        </script>
+                        <!--<option value='other'>其他</option>-->
+                        <span class="f-input-tip"></span>
+                        <span class="hint"></span>
+                    </div>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank10"></div>
+
+                <!--银行信息-->
+
+                <!--手机号-->
+                <div class="field idno">
+                    <label for="idno"><span class="f_red">*</span>手机号</label>
+                    <div class="f_l frbox pr">
+                        <div class="u_icon">
+                            <i class="iconfont">&#xe60a;</i>
+                        </div>
+                        <input type="text" class="f-input ui-textbox" disabled="disabled" value="{$mobile}" id="mobile" name="mobile" size="30" >
+                        <span class="f-input-tip"></span>
+                        <span class="hint f_red">*与您在银行预留手机号一致，如有疑问请联系客服</span>
+                    </div>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank10"></div>
+                <!--手机号-->
+
+                <!--银行卡信息-->
+                <div class="field bank">
+                    <label for="bank_card"><span class="f_red">*</span>银行卡号</label>
+                    <div class="f_l frbox pr">
+                        <div class="u_icon">
+                            <i class="iconfont">&#xe60a;</i>
+                        </div>
+                        <input type="text" class="f-input ui-textbox" holder="请输入银行卡号" id="Jbank_bankcard" name="bank_card" size="30" onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')" >
+                        <span class="f-input-tip"></span>
+                        <span class="hint"></span>
+                    </div>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank10"></div>
+                <!--银行卡信息-->
+
+                <!--确认银行卡号-->
+                <div class="field rebank">
+                    <label for="idno"><span class="f_red">*</span>确认卡号</label>
+                    <div class="f_l frbox pr">
+                        <div class="u_icon">
+                            <i class="iconfont">&#xe60a;</i>
+                        </div>
+                        <input type="text" class="f-input ui-textbox" holder="请输入银行卡号" id="Jbank_rebankcard" name="rebank_card" size="30" onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')"  >
+                        <span class="f-input-tip"></span>
+                        <span class="hint"></span>
+                    </div>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank10"></div>
+                <!--确认银行卡号-->
+
+                <!--注册协议-->
+
+                <div class="field agreementf14">
+                    <label>&nbsp;</label>
+                    <label class="ui-checkbox mt5" rel="agreement" style="float:left!important;">
+                        <input type="checkbox" name="agreement_account" id="J_agreement_account" value="1" />
+                    </label>
+                    <div class="f_l">
+                        同意 <a href="https://www.jxch168.com/index.php?ctl=sys&id=159" class="f_blue">注册协议</a>
+                    </div>
+                    <div class="blank0"></div>
+                </div>
+                <!--注册协议-->
+
+
+
+                <div class="field agreementf14">
+                    <label>&nbsp;</label>
+                    <label class="ui-checkbox mt5" rel="agreement" style="float:left!important;">
+                        <input type="checkbox" name="agreement" id="J_agreement" value="1" />
+                    </label>
+                    <div class="f_l">
+                        同意 <a href="https://www.jxch168.com/index.php?ctl=sys&id=159" class="f_blue">《平安保险网银卫士》</a>资金安全担保条款
+                    </div>
+                    <div class="blank0"></div>
+                </div>
+                <!--                {/if}-->
+
+                <div class="blank10"></div>
+                <div class="alertCover" style="position: fixed;top: 0;left: 0;z-index:100;background: rgba(0,0,0,0.8); width: 100%; height: 100%;display:none;"></div>
+                <div class="alertTips" style="position: fixed;top: 0;left: 0;z-index:101; width: 100%; height: 100%;border-radius:4px;display:none">
+                    <div class="top" style="height:300px;"></div>
+                    <div class="main" style="width:360px; background:white;border:1px solid #999;margin: 0 auto; padding:10px 20px;">
+                        <p style="height:50px;font-size:20px;line-height:40px;font-weight:bold;text-indent:0em; border-bottom:1px solid gray;color:#439ad8"> 友情提示</p>
+                        <p style="height:80px;font-size:16px;text-indent:2em;color:#666;padding:30px 0;padding-top:40px;">可免费领取平安保险的《网银卫士》，保障投资过程中的资金安全</p>
+                        <a href="javascript:pinanCheck(0);"  style="float:left; width:80px;padding:10px 10px;text-align:center;background: #999; color: white; border-radius: 4px;margin-left:50px;margin-bottom:20px;">暂不领取</a>
+                        <a  href="javascript:pinanCheck(1);"  style="float:right; width:80px;padding:10px 10px;text-align:center; background: orange;color:white; border-radius:4px;margin-right:50px;margin-bottom:20px;">确认领取</a>
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
+                <div class="blank10"></div>
+
+
+                <div class="act">
+                    <input  type="submit" class="btn_blue w180 f_white f18 b p10 bdr3 reg-submit-btn" id="commit" name="commit" value="验证">
+                </div>
+                <div class="blank20"></div>
+            </form>
+        </div>
+        <div class="blank0"></div>
+    </div>
+</div>
+<script>
+
+    $("#real_name").on("blur", function () {
+        var obj = $(this);
+        var real_name = obj.val();
+        if (real_name.length == 0) {
+            if (window.PIE) {
+                formError(obj.parent(), "真实姓名不为空");
+            } else {
+                formError(obj, "真实姓名不为空");
+            }
+//            alert("真实姓名不为空");
+            obj.attr("datavalue", 0);
+            return false;
+        } else {
+            if (window.PIE) {
+                formSuccess(obj.parent(), "可以使用");
+            } else {
+                formSuccess(obj, "可以使用");
+            }
+            obj.attr("datavalue", 1);
+        }
+    })
+
+    $("#idno").on("blur", function () {
+        var obj = $(this);
+        var idno = obj.val();
+        if (idno.length == 0) {
+            if (window.PIE) {
+                formError(obj.parent(), "身份证号码不能为空");
+            } else {
+                formError(obj, "身份证号码不能为空");
+            }
+
+            obj.attr("datavalue", 0);
+            return false;
+        }
+        // 验证格式
+        if (!idcheck($(".idno #idno")))
+        {
+            if (window.PIE) {
+                formError($(".idno #idno").parent(), "身份证格式错误");
+            } else {
+                formError($(".idno #idno"), "身份证格式错误");
+            }
+            obj.attr("datavalue", 0);
+            return false;
+        }
+//        验证是否被占用
+        var ajaxurl = "ajax";
+        $.ajax({
+            url: ajaxurl,
+            data: {idno: obj.val(), act: "check_idno"},
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                if (data.response_code == 0) {
+                    if (window.PIE) {
+                        formError($(".idno #idno").parent(), data.show_err);
+                    } else {
+                        formError($(".idno #idno"), data.show_err);
+                    }
+//                        alert(data.info);
+                    obj.attr("datavalue", 0);
+                    return false;
+                } else {
+                    if (window.PIE) {
+                        formSuccess($(".idno #idno").parent(), data.show_err);
+                    } else {
+                        formSuccess($(".idno #idno"), data.show_err);
+                    }
+                    obj.attr("datavalue", 1);
+                }
+            }
+        })
+    })
+
+    $("#Jbank_bankcard").on("blur", function () {
+        var obj = $(this);
+        var bankcard = obj.val();
+        if (bankcard.length == 0) {
+            if (window.PIE) {
+                formError(obj.parent(), "最少输入十位账号信息");
+            } else {
+                formError(obj, "最少输入十位账号信息");
+            }
+//                        alert(data.info);
+            obj.attr("datavalue", 0);
+            return false;
+//            alert("最少输入十位账号信息");
+        }else{
+               if (window.PIE) {
+                formSuccess(obj.parent(), "可以使用");
+            } else {
+                formSuccess(obj, "可以使用");
+            }
+//                        alert(data.info);
+            obj.attr("datavalue", 1);
+        }
+    })
+    $("#Jbank_rebankcard").on("blur", function () {
+        var obj = $(this);
+        var bankcard = $("#Jbank_bankcard").val();
+        var rebankcard = obj.val();
+        if (rebankcard !== bankcard) {
+            if (window.PIE) {
+                formError(obj.parent(), "两次输入的账号信息不一致");
+            } else {
+                formError(obj, "两次输入的账号信息不一致");
+            }
+                        obj.attr("datavalue", 0);
+            return false;
+        }else if(rebankcard.length!=0){
+              if (window.PIE) {
+                formSuccess(obj.parent(), "可以使用");
+            } else {
+                formSuccess(obj, "可以使用");
+            }
+                        obj.attr("datavalue", 1);
+            return false;
+        }
+    })
+
+    function checkform() {
+        var real_name = $("#real_name").val();
+        var name_datevalue = $("#real_name").attr("datavalue");
+        var idno = $("#idno").val();
+        var idno_datevalue = $("#idno").attr("datavalue");
+        if (real_name.length == 0 || name_datevalue == 0) {
+            return false;
+        }
+        if (idno.length == 0 || idno_datevalue == 0) {
+            return false;
+        }
+        // 银行卡
+        var bank_card = $("Jbank_bankcard").val();
+        var bank_datavalue = $("Jbank_bankcard").attr("datavalue")
+        if (bank_card.length == 0 || bank_datavalue == 0) {
+            return false;
+        }
+        // 确认银行卡
+        var rebank_card = $("Jbank_rebankcard").val();
+        var rebank_datavalue = $("Jbank_rebankcard").attr("datavalue");
+        if (rebank_card.length == 0 || rebank_datavalue == 0) {
+            return false;
+        }
+
+        // 确认注册协议
+        var account_agreement = $("#J_agreement_account").prop("checked")
+        if(account_agreement==false){
+            $.showErr("请先同意《 注册协议》");
+            return false;
+        }
+
+        // 是否选择银行
+        var bank_id = $("#bank_id").val();
+        if(bank_id==0){
+            $.showErr("请选择银行");
+            return false;
+        }
+
+        // 是否选择省
+        var province = $("#provice").val();
+        if(province==0){
+            $.showErr("请选择省份");
+            return false;
+        }
+
+        // 是否选择市
+        var city = $("#city").val();
+        if(city==0){
+             $.showErr("请选择市");
+            return false;
+        }
+
+        if (!$("#J_agreement").attr("checked") && !$("#J_agreement").hasClass("nocheck")) {
+            //如果没有选择平安协议，则弹出提示框，并且打断submit方法
+            $(".alertCover").fadeIn(100);
+            $(".alertTips").fadeIn(100);
+            var winH = $(window).height();
+            var eleH = $(".alertTips .main").outerHeight();
+            var setH = (winH - eleH) / 2 + 50;
+            console.log(winH + "," + eleH + "," + setH)
+            $(".alertTips div:first").css("height", setH);
+            return false;
+        }
+        return true;
+    }
+    function  pinanCheck(flag)
+    {
+        if (flag > 0)
+        {
+            $("#J_agreement").attr("checked", true);
+            $("form#re_name_and_id").submit();
+        } else
+        {
+            $("#J_agreement").addClass("nocheck");
+            $("form#re_name_and_id").submit();
+        }
+    }
+</script>
+<noscript><img src="//stats.ipinyou.com/adv.gif?a=0zs..-KJOCUF75KmaLtzNy1ui1X&e=" style="display:none;"/></noscript>
+<script type="text/javascript" src="https://aw.kejet.net/t?p=gV&c=Iw"></script>
+<script type="text/javascript" src="https://aw.kejet.net/t?p=iV&c=Iw"></script>
+
+<include file="public/footer.html" />

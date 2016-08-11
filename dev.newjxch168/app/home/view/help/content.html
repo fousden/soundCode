@@ -1,0 +1,66 @@
+<div class="bdd bddf article_box clearfix" >
+    <?php
+        function date_formate($time){
+            return date("Y-m-d",$time);
+        }
+    ?>
+    <if condition="$_GET['type'] eq 2">
+        <div class="article_info">
+            <div style="font-size:20px;padding:10px 0px;border-bottom:1px solid #999999;">
+                    AAA
+            </div>
+            
+                <foreach name="article_list" item="vo" >
+                <div style="padding:20px 0;border-bottom:1px dashed #999999;">
+                    <a href="{$item.url}"><img src="{$item.icon}" style="width:200px;height:120px;float:left;" /></a>
+                    <div style="width:680px;float:right;">
+                        <div style="font-size:18px;weight:bold;color:#333333;padding:10px 0;">
+                            <span style="float:left;"><a href="/home/help?type=1&id={$vo.id}">{$vo.title}</span><span style="font-size:14px;font-weight:normal;color:#999999;float:right;">发布时间：{$vo['create_time']|date_formate}</span>
+                            <div style="clear:both;">
+                            </div>
+                        </div>
+                        <div style="color:#666666;">
+                            {$vo.brief}
+                        </div>
+                    </div>
+                    <div style="clear:both;">
+                    </div>
+                </div>
+                </foreach>
+                <div class="blank"></div>
+                <div class="pages">{$pages}</div>
+                <div class="blank"></div>
+
+
+        </div> 
+    <else />
+        <if condition="$article_content['cate_id'] eq 2">
+            <div class="bdd_article_list">
+                {$article_content.title}
+            </div>
+            <div class="blank0"></div>
+            <div class="article_info">
+               {$article_content.content}
+            </div>
+        <else />
+            <div class="bdd_article_list">
+       
+            </div>
+            <div class="bdd_article_title_date">
+                <div class="article_title f16 b tc pt10">
+                {$article_content.title}
+                </div>
+                 <div class="publish_time bbd clearfix pr">
+                发布时间：{$article_content['create_time']|date_formate}
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="blank0"></div>
+    <div class="article_info">
+        {$article_content.content}
+        <a href="javascript:{if $article.type_id eq 3}history.go(-1){else}window.location.href='/'{/if} " class="artical_back">【返回目录】</a>
+    </div> 
+        </if>
+    
+    </if>
+</div>

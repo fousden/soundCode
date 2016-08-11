@@ -1,0 +1,829 @@
+<include file="public/header" />
+<div id="indexBanner">
+        <!--注册框 begin-->
+        <div class="wrap">
+            <if !$user_info>
+                <div id="registerBox">
+                        <p class="title">金享财行最高年化利率：</p>
+                        <p class="percentage">18%</p>
+                        <p class="adv">成立至今<span class="count">{$user_count_all}</span>人已加入！</p>
+                        <a href="/index.php?ctl=user&act=register" target="_blank" class="registerbtn">注册有惊喜</a>
+                        <p class="bottomLinks">
+                                <span>已有账号？</span>
+                                <a href="/index.php?ctl=user&act=login" target="_blank">立即登录</a>
+                        </p>
+                </div>
+            <else />
+		<div id="loginBox">
+                    <p class="title">欢迎进入金享财行</p>
+                    <p class="info">当前登录账户：<span class="name">{$user_info.user_name}</span></p>
+                    <a href="/home/user/index" class="registerbtn">进入我的账户</a>
+                    <p class="bottomLinks">
+                            <a href="/home/system/login_out" target="_self">安全登出</a>
+                    </p>
+		</div>
+            </if>
+        </div>
+        <!--注册框 end-->
+        <!--banner begin-->
+        <div id="main_adv_box" class="main_adv_box">
+                <div id="main_adv_img" class="main_adv_img">
+                    <!--<foreach name="adv_info" id="adv" key="key">
+                        <span rel="{$key}">{$adv.code}</span>
+                    <foreach>-->
+                    <span rel="1">1</span>
+                    <span rel="2">2</span>
+                    <span rel="3">3</span>
+                    <span rel="4">4</span>
+                    <span rel="5">5</span>
+                </div>
+                <div id="main_adv_ctl" class="main_adv_ctl">
+                        <ul>
+                            <li rel="1">1</li>
+                            <li rel="2">2</li>
+                            <li rel="3">3</li>
+                            <li rel="4">4</li>
+                            <li rel="5">5</li>
+                            <!--<foreach name="adv_info" id="adv" key="key">
+                                <li rel="{$key}">{$key}</li>
+                            <foreach>-->
+                        </ul>
+                </div>
+                <div class="Clear"></div>
+
+        </div>
+        <!--banner end-->
+        <!--介绍 begin-->
+        <script type="text/javascript">
+                window.odometerOptions = {
+                        format: '(,ddd)',
+                        // auto: false,
+                        // duration: 10000,
+                };
+        </script>
+        <div id="showcase">
+                <div class="wrap">
+                        <a href="/index.php?ctl=novice&act=guidelines" target="_blank" class="left">
+                                <img src="__HOME__/images/daf_03.png" width="80" height="80" class="img" alt="" />
+                                <p class="info">
+                                        <span class="title">新手指引：</span>
+                                        <br/> &nbsp;欢迎入驻金享财行世界，轻松掌握享受互联网理财
+                                </p>
+                        </a>
+                        <a href="/index.php?ctl=platformdata" target="_blank" class="right">
+                                <img src="__HOME__/images/daf_05.png" width="80" height="80" class="img" alt="" />
+                                <p class="info">
+                                        <span class="title">平台数据：</span>
+                                        <br/>累积交易额：<span class="amount odometer odometer1"></span>万元&nbsp;&nbsp;&nbsp;为客户赚取收益：<span class="amount odometer odometer2"></span>万元
+                                </p>
+                        </a>
+                        <div class="Clear"></div>
+                </div>
+        </div>
+
+        <!--介绍 end-->
+</div>
+<div id="notice">
+	<div class="wrap">
+		<p class="name">最新公告</p>
+		<p class="cont" data-direction='left' data-gap='800' data-duration='10000' data-pauseOnHover="true" data-duplicated="true">
+			<a href="#" target="_blank">测试公告1</a>
+			<a href="#" target="_blank">测试公告2</a>
+			<a href="#" target="_blank">测试公告3</a>
+			<a href="#" target="_blank">测试公告4</a>
+			<a href="#" target="_blank">测试公告5</a>
+		</p>
+		<div class="Clear"></div>
+	</div>
+</div>
+<script src="__HOME__/js/jquery.marquee.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$("#notice .cont").marquee();
+</script>
+<div id="showcase">
+	<div class="wrap">
+		<div class="morenum">
+			<img src="__HOME__/images/index_morenum.png" alt="">
+			<a href="javaqscript:;">查看更多统计数据</a>
+		</div>
+
+		 <p class="tit">平台累计交易额</p>
+		<div class="item">
+			<p class="num">102,716</p>
+			<p class="title">投资人数</p>
+		</div>
+		<div class="item"></div>
+		<div class="item">
+			<p class="num">102,716</p>
+			<p class="title">标的期数</p>
+		</div>
+		<div class="item"></div>
+		<div class="item">
+			<p class="num">102,716</p>
+			<p class="title">平台累计交易额</p>
+		</div>
+		<div class="item"></div>
+		<div class="item">
+			<p class="num">102,716</p>
+			<p class="title">为客户赚取收益</p>
+		</div>
+
+	</div>
+</div>
+<div class="wrap">
+
+<!-- 首页引导层 begin -->
+<script type="text/javascript" src="__HOME__/js/jquery.flexslider-min.js"></script>
+<link rel="stylesheet" type="text/css" href="__HOME__/css/flexslider.css">
+<div id="indexguide">
+    <div id="indexguidecover"></div>
+    <div class="indexguidenone" style="height: 100px;"></div>
+    <div id="indexguidebox">
+        <div class="flexslider">
+            <ul class="slides">
+                <li><img src="__HOME__/images/g1.png" /></li>
+                <li><img src="__HOME__/images/g2.png" /></li>
+                <li><img src="__HOME__/images/g3.png" /></li>
+            </ul>
+        </div>
+        <div class="indexguideclose"></div>
+    </div>
+</div>
+<!-- 首页引导层 end -->
+
+<!--index beigin-->
+<div id="index">
+	<div id="floatlink">
+	    <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAyNDMwNF8zMDIzMDRfNDAwMDkxMjgyOF8yXw" target="_blank" class="esq">
+
+	    </a>
+
+	    <a href="/home/help/calculator" class="counter" target="_blank"></a>
+	    <a href="index.php?ctl=acate&id=22&type=1" class="active" target="_blank"></a>
+	    <a href="index.php?ctl=download" class="app" target="_blank"></a>
+	    <a href="javascript:;" class="wechat"></a>
+	    <img src="__HOME__/images/WechatQRCode.jpg" class="dingyue">
+	    <div class="esqcont">
+	    	<div class="hotline">
+	    		<p>全国服务热线：</p>
+	    		<p class="line">400-091-2828</p>
+	    		<p>工作日 09:00 - 18:00</p>
+	    	</div>
+	    	<div class="qun">
+	    		<p> 官方QQ交流群： </p>
+	    		<p> 242675907 </p>
+	    	</div>
+	    	<div class="kefuwechat">
+	    		<p> 官方微信交流群： </p>
+	    		<p> <img src="__HOME__/images/floatlink_wechat.png" /></p>
+	    	</div>
+	    </div>
+	    <script type="text/javascript">
+	    $(function(){
+	    	var isIpad = function(){
+	    		return navigator.userAgent.indexOf("iPad") > -1;
+	    	}
+	        if(!isIpad()){
+	        	setFloatLink();
+	        }
+
+
+	        $("#floatlink").on("mouseover mouseout",".wechat",function(){
+	            $("#floatlink .dingyue").fadeToggle(100);
+	            // alert();
+	        })
+	        $("#floatlink").on("mouseover mouseout",".esq",function(){
+	            $("#floatlink .esqcont").fadeToggle(100);
+	            // alert();
+	        })
+	        function setFloatLink(){
+	            var e = $("#floatlink"),
+	                winH = $(window).height(),
+	                f = $("#footer"),
+	                h = $("#index");
+                    var newT = (winH-e.outerHeight())/2;
+                    e.show(1)
+                    $("#floatlink").animate({"top":newT},1000);
+	        }
+	        $(document).scroll(function(){
+                if(!isIpad()){
+                	setFloatLink();
+                }
+	        })
+	    })
+	    </script>
+	</div>
+    <!--三大优势 begin-->
+    <div id="figure">
+		<div class="FloatLeft left">
+			<div class="container">
+				<span class="tit">金享财行的定义</span><a href="#" target="_blank" class=" more FloatRight">查看详情<span class="FontIconLeftAndRight">&gt;&gt;</span></a>
+				<p class="info">
+					金享财行是创新型互联网金融信息服务平台。秉承100% 保本保息的理念，金享财行平台只与银行、担保公司、大型央 企国企进行合作，严格控制风险，确保投资金享财行的用户都 能100%拿回投资本金和预期收益。
+				</p>
+			</div>
+
+		</div>
+		<div class="FloatRight right">
+			<img class="animate" src="__HOME__/images/index_animatebg.png">
+			<a href="#" target="_blank" class="f_box">
+				<img src="__HOME__/images/daf_18.png" alt="" />
+				<div class="text">
+					<p class="name">安全理财</p>
+					<p class="info">6大保障，第三方资金平台全程保证用户资金安全</p>
+				</div>
+			</a>
+			<a href="#" target="_blank" class="f_box">
+				<img src="__HOME__/images/daf_21.png" alt="" />
+				<div class="text">
+					<p class="name">本息保障</p>
+					<p class="info">高至18%年化收益<br/>50倍银行存款利息</p>
+				</div>
+
+			</a>
+			<a href="#" target="_blank" class="f_box">
+				<img src="__HOME__/images/daf_24.png" alt="" />
+				<div class="text">
+					<p class="name">高收益</p>
+					<p class="info">银行、担保公司、中央企业联合保障100%兑付本金利息</p>
+				</div>
+			</a>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				setInterval(function(){
+					$('#figure .animate').css({
+						'left': '-80px'
+					}).animate({
+						'left': '100%'
+					},3000)
+				},4000)
+			})
+		</script>
+	</div>
+    <!--  三大保障与标的margin10px  <div class="blank15"></div>-->
+
+    <if condition="$advance_deal_list gt 1">
+    <script type="text/javascript">
+	$(document).ready(function () {
+	    jQuery(".slideTxtBox").slide({mainCell:".bd ul", autoPage: true, effect:"leftLoop", autoPlay: true});
+	});
+    </script>
+    </if>
+    <!--投资列表 begin-->
+    <div id="investList">
+	<!--线上环境 请将HTML注释删除-->
+	<script type="text/javascript">
+	    // 进度条动画
+	    function progressbar() {
+		$(".progressbarbox").each(function () {
+		    var datawidth = $(this).find(".cont").attr("data-width");
+		    $(this).find(".cont").animate({"width": datawidth}, 500);
+		})
+	    }
+	    $(function () {
+		progressbar();//进度条动画
+
+		// 这里是投资包列表前面的拉伸动画 begin
+		$(".box .tips").hover(function () {
+		    var dataclass = ($(this).attr("data-class"));
+		    var ele = $(this).find(".more_" + dataclass);
+		    ele.stop(true, true).slideDown(200);
+		}, function () {
+		    var dataclass = ($(this).attr("data-class"));
+		    var ele = $(this).find(".more_" + dataclass);
+		    ele.slideUp(200);
+		})
+		// 这里是投资包列表前面的拉伸动画 end
+
+		// 计算预计收益 begin
+                    $(".investnum input").keyup(function() {
+                            var num1 = $(this).val();
+                            var getnum = $(this).parent(".investnum").parent(".f_r").prev(".f_l")
+                            var rate = getnum.find(".rate .sum");
+                            rate = parseFloat(rate.text()) / 100;
+                            var duration = getnum.find(".duration .cont").html();
+                            duration = parseInt(duration);
+                            var resultnum = (num1 * rate / 360 * duration).toFixed(2);
+                            if (isNaN(num1) || num1.substr(0,1)==0) {
+                                $(this).val("");
+                                $(this).parent(".investnum").next(".investresult").find("input").val("0.00");
+                                return false;
+                            } else {
+				$(this).parent(".investnum").next(".investresult").find("input").val(resultnum);
+
+                            }
+
+                        })
+                        // 计算预计收益 end
+
+
+	    })
+	</script>
+
+	<div class="box">
+	    <div class="tips piaohao" data-class="piaohao">
+		<!-- TODO 这里的header是根据后台发布的标的类型改变的,改变的同时给header添加对应的class -->
+		<div class="header">金享票号</div>
+		<div class="more more_piaohao">
+		    <P>银行票据</P>
+		    <P>保本保息</P>
+		    <P>银行承兑</P>
+		    <P>本息保障</P>
+		</div>
+	    </div>
+
+	    <div class="f_l">
+		<div class="header"><a href="index.php?ctl=deal&id={$deal_piaohao.id}" target="_blank">{$deal_piaohao.name}</a></div>
+		<div class="infotop">
+		    <div class="rate f_l">
+			<p class="title">年化利率</p>
+			<p class="cont"><span class="sum">18</span>%</p>
+		    </div>
+		    <div class="duration f_l">
+			<p class="title">投资期限</p>
+			<p class="cont">
+			    30天
+			</p>
+		    </div>
+		    <div class="safeperson f_l">
+			<p class="title">保障机构</p>
+			<!-- 这里img的src的地址 请根据融资包自行设置 -->
+                        容大担保
+                        <if condition="$ph_db.is_db_img" >
+                            <img class="cont" src="{$ph_db.is_db_img}" height="30" alt="{$ph_db.user_name}" title="{$ph_db.user_name}"/>
+                        </if>
+		    </div>
+		    <div class="other f_l">
+			<div class="progressbarbox">
+			    <!-- 这里获取到的百分比值请写在下面的data-width里面  -->
+			    <span class="cont" data-width="30%"></span>
+			</div>
+			<p class="surplus">
+			    可投：<span class="need_money">10000</span>元&nbsp;/&nbsp;总额：100000元
+			</p>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+
+		<div class="infobottom">
+		    <p class="f_l">
+			起投金额
+			<span class="min_loan_money">100</span>元/还款方式：
+			<span>到期还本息</span>
+		    </p>
+		    <div class="time f_r AdvLeftTime left_time f_r" data="50000000000">
+			剩余时间：
+			<span class="s day">--</span>
+			<span class="l">天</span>
+			<span class="s hour">--</span>
+			<span class="l">时</span>
+			<span class="s min">--</span>
+			<span class="l">分</span>
+			<span class="s sec">--</span>
+			<span class="l">秒</span>
+		    </div>
+		    <div class="Clear"></div>
+		</div>
+	    </div>
+	    <div class="f_r">
+		<div class="investnum">
+		    <span class="title">投资金额：</span>
+		    <input type="text">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<div class="investresult">
+		    <span class="title">预计收益：</span>
+		    <input type="text" readonly="readonly">
+		    <span class="unit">元</span>
+		    <div class="Clear"></div>
+		</div>
+		<a href="index.php?ctl=deal&id={$deal_piaohao.id}" class="investbtn" target="_blank">立即投资</a>
+	    </div>
+	    <div class="Clear"></div>
+	</div>
+
+
+        <div class="box">
+            <div class="tips baoli" data-class="baoli">
+                <!-- TODO 这里的header是根据后台发布的标的类型改变的,改变的同时给header添加对应的class -->
+                <div class="header">金享保理</div>
+                <div class="more more_baoli">
+                    <P>应收账款</P>
+                    <P>投资期短</P>
+                    <P>信誉度高</P>
+                    <P>本息保障</P>
+                </div>
+            </div>
+
+            <div class="f_l">
+                <div class="header"><a href="index.php?ctl=deal&id={$deal_baoli.id}" target="_blank">{$deal_baoli.name}</a>
+                </div>
+                <div class="infotop">
+                    <div class="rate f_l">
+                        <p class="title">年化利率</p>
+                        <p class="cont"><span class="sum">13.5%</sapn></p>
+                    </div>
+                    <div class="duration f_l">
+                        <p class="title">投资期限</p>
+                        <p class="cont">
+                            30天
+                        </p>
+                    </div>
+                    <div class="safeperson f_l">
+                        <p class="title">保障机构</p>
+                        <!-- 这里img的src的地址 请根据融资包自行设置 -->
+                        招商银行
+                        <!--<img class="cont" src="{$bl_db.is_db_img}" height="30" alt="{$bl_db.user_name}" title="{$bl_db.user_name}"/>-->
+                    </div>
+                    <div class="other f_l">
+                        <div class="progressbarbox">
+                            <!-- 这里获取到的百分比值请写在下面的data-width里面  -->
+                            <span class="cont" data-width="10%"></span>
+                        </div>
+                        <p class="surplus">
+                            可投：<span class="need_money">10000</span>元&nbsp;/&nbsp;总额：100000元
+                        </p>
+                    </div>
+                    <div class="Clear"></div>
+                </div>
+
+                <div class="infobottom">
+                    <p class="f_l">
+                        起投金额
+                        <span class="min_loan_money">1000</span>元/还款方式：
+                        <span>到期还本息</span>
+                    </p>
+                    <div class="time f_r AdvLeftTime left_time f_r" data="1000000">
+                        剩余时间：
+                        <span class="s day">--</span>
+                        <span class="l">天</span>
+                        <span class="s hour">--</span>
+                        <span class="l">时</span>
+                        <span class="s min">--</span>
+                        <span class="l">分</span>
+                        <span class="s sec">--</span>
+                        <span class="l">秒</span>
+                    </div>
+                    <div class="Clear"></div>
+                </div>
+            </div>
+            <div class="f_r">
+                <div class="investnum">
+                    <span class="title">投资金额：</span>
+                    <input type="text">
+                    <span class="unit">元</span>
+                    <div class="Clear"></div>
+                </div>
+                <div class="investresult">
+                    <span class="title">预计收益：</span>
+                    <input type="text" readonly="readonly">
+                    <span class="unit">元</span>
+                    <div class="Clear"></div>
+                </div>
+                <a href="index.php?ctl=deal&id={$deal_baoli.id}" class="investbtn" target="_blank">立即投资</a>
+            </div>
+            <div class="Clear"></div>
+        </div>
+
+        <div class="box">
+            <div class="tips zulin" data-class="zulin">
+                <!-- TODO 这里的header是根据后台发布的标的类型改变的,改变的同时给header添加对应的class -->
+                <div class="header">金享租赁</div>
+                <div class="more more_zulin">
+                    <P>设备租赁</P>
+                    <P>安享租金</P>
+                    <P>快速回本</P>
+                    <P>本息保障</P>
+                </div>
+            </div>
+
+            <div class="f_l">
+                <div class="header"><a href="index.php?ctl=deal&id={$deal_zulin.id}" target="_blank">{$deal_zulin.name}</a>
+                </div>
+                <div class="infotop">
+                    <div class="rate f_l">
+                        <p class="title">年化利率</p>
+                        <p class="cont"><span class="sum">14.5</span>%</p>
+                    </div>
+                    <div class="duration f_l">
+                        <p class="title">投资期限</p>
+                        <p class="cont">
+                            360天
+                        </p>
+                    </div>
+                    <div class="safeperson f_l">
+                        <p class="title">保障机构</p>
+                        <!-- 这里img的src的地址 请根据融资包自行设置 -->
+                        容大担保
+                        <!--<img class="cont" src="{$zl_db.is_db_img}" height="30" alt="{$zl_db.user_name}" title="{$zl_db.user_name}"/>-->
+
+                    </div>
+                    <div class="other f_l">
+                        <div class="progressbarbox">
+                            <!-- 这里获取到的百分比值请写在下面的data-width里面  -->
+                            <span class="cont" data-width="88%"></span>
+                        </div>
+                        <p class="surplus">
+                            可投：<span class="need_money">40000</span>元&nbsp;/&nbsp;总额：400000元
+                        </p>
+                    </div>
+                    <div class="Clear"></div>
+                </div>
+
+                <div class="infobottom">
+                    <p class="f_l">
+                        起投金额
+                        <span class="min_loan_money">10000</span>元/还款方式：
+                        <span>到期还本息</span>
+                    </p>
+                    <div class="time f_r AdvLeftTime left_time f_r" data="3000000">
+                        剩余时间：
+                        <span class="s day">--</span>
+                        <span class="l">天</span>
+                        <span class="s hour">--</span>
+                        <span class="l">时</span>
+                        <span class="s min">--</span>
+                        <span class="l">分</span>
+                        <span class="s sec">--</span>
+                        <span class="l">秒</span>
+                    </div>
+                    <div class="Clear"></div>
+                </div>
+            </div>
+            <div class="f_r">
+                <div class="investnum">
+                    <span class="title">投资金额：</span>
+                    <input type="text">
+                    <span class="unit">元</span>
+                    <div class="Clear"></div>
+                </div>
+                <div class="investresult">
+                    <span class="title">预计收益：</span>
+                    <input type="text" readonly="readonly">
+                    <span class="unit">元</span>
+                    <div class="Clear"></div>
+                </div>
+                <a href="index.php?ctl=deal&id={$deal_zulin.id}" class="investbtn">立即投资</a>
+            </div>
+            <div class="Clear"></div>
+        </div>
+
+
+        <div class="box">
+            <div class="tips yinhang" data-class="yinhang">
+                <!-- TODO 这里的header是根据后台发布的标的类型改变的,改变的同时给header添加对应的class -->
+                <div class="header">金享银行</div>
+                <div class="more more_yinhang">
+                    <P>银行理财</P>
+                    <P>专业保管</P>
+                    <P>捡漏机会</P>
+                    <P>本息保障</P>
+                </div>
+            </div>
+
+            <div class="f_l">
+                <div class="header"><a href="index.php?ctl=deal&id={$deal_yinhang.id}" target="_blank">{$deal_yinhang.name}</a>
+                </div>
+                <div class="infotop">
+                    <div class="rate f_l">
+                        <p class="title">年化利率</p>
+                        <p class="cont"><span class="sum">22.43</span>%</p>
+                    </div>
+                    <div class="duration f_l">
+                        <p class="title">投资期限</p>
+                        <p class="cont">
+                            360天
+                        </p>
+                    </div>
+                    <div class="safeperson f_l">
+                        <p class="title">保障机构</p>
+                        <!-- 这里img的src的地址 请根据融资包自行设置 -->
+                        南京银行
+                        <if condition="$yh_db.is_db_img" >
+                            <img class="cont" src="{$yh_db.is_db_img}" height="30" alt="{$yh_db.user_name}" title="{$yh_db.user_name}"/>
+                        </if>
+                    </div>
+                    <div class="other f_l">
+                        <div class="progressbarbox">
+                            <!-- 这里获取到的百分比值请写在下面的data-width里面  -->
+                            <span class="cont" data-width="50%"></span>
+                        </div>
+                        <p class="surplus">
+                            可投：<span class="need_money">500000</span>元&nbsp;/&nbsp;总额：1000000元
+                        </p>
+                    </div>
+                    <div class="Clear"></div>
+                </div>
+
+                <div class="infobottom">
+                    <p class="f_l">
+                        起投金额
+                        <span class="min_loan_money">10000</span>元/还款方式：
+                        <span><if condition="$deal_yinhang.loantype" >到期还本息</if></span>
+                    </p>
+                    <div class="time f_r AdvLeftTime left_time f_r" data="6000000">
+                        剩余时间：
+                        <span class="s day">--</span>
+                        <span class="l">天</span>
+                        <span class="s hour">--</span>
+                        <span class="l">时</span>
+                        <span class="s min">--</span>
+                        <span class="l">分</span>
+                        <span class="s sec">--</span>
+                        <span class="l">秒</span>
+                    </div>
+                    <div class="Clear"></div>
+                </div>
+            </div>
+            <div class="f_r">
+                <div class="investnum">
+                    <span class="title">投资金额：</span>
+                    <input type="text">
+                    <span class="unit">元</span>
+                    <div class="Clear"></div>
+                </div>
+                <div class="investresult">
+                    <span class="title">预计收益：</span>
+                    <input type="text" readonly="readonly">
+                    <span class="unit">元</span>
+                    <div class="Clear"></div>
+                </div>
+                <a href="index.php?ctl=deal&id={$deal_yinhang.id}" class="investbtn" target="_blank">立即投资</a>
+            </div>
+            <div class="Clear"></div>
+        </div>
+
+    </div>
+    <!--投资列表 end
+    <!--新闻、活动、公告 begin-->
+    <div id="news">
+        <div class="container">
+                <ul class="sub_nav">
+                        <li class="active" data-for="zixun"><a href="javascript:;">理财资讯</a></li>
+                        <li data-for="huodong"><a href="javascript:;">最新活动</a></li>
+                        <li data-for="gonggao"><a href="javascript:;">官方公告</a></li>
+                        <li><a href="javascript:;" class="morenews"><span>更多</span></a></li>
+                </ul>
+                <div class="newscont">
+                        <div class="zixun newslist active">
+                                <div class="item">
+                                        <div class="top">
+                                                <a href="javascript:;" class="title">金享财行首次亮相上海金博会次亮相上海金博会次亮相上海金博会</a>
+                                                <p class="date">2015-11-06</p>
+                                        </div>
+                                        <p class="cont">金享财行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首</p>
+                                </div>
+                                <div class="item">
+                                        <div class="top">
+                                                <a href="javascript:;" class="title">金享财行首次亮相上海金博会</a>
+                                                <p class="date">2015-11-06</p>
+                                        </div>
+                                        <p class="cont">金享财行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首次亮行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首</p>
+                                </div>
+                                <div class="item">
+                                        <div class="top">
+                                                <a href="javascript:;" class="title">金享财行首次亮相上海金博会</a>
+                                                <p class="date">2015-11-06</p>
+                                        </div>
+                                        <p class="cont">金享财行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首次亮相上海行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首</p>
+                                </div>
+                        </div>
+                        <div class="huodong newslist">
+                                <div class="item">
+                                        <div class="top">
+                                                <a href="javascript:;" class="title">活动金享财行首次亮相上海金博会次亮相上海金博会次亮相上海金博会</a>
+                                                <p class="date">2015-11-06</p>
+                                        </div>
+                                        <p class="cont">金享财行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首</p>
+                                </div>
+                                <div class="item">
+                                        <div class="top">
+                                                <a href="javascript:;" class="title">金享财行首次亮相上海金博会</a>
+                                                <p class="date">2015-11-06</p>
+                                        </div>
+                                        <p class="cont">金享财行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首次亮行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首</p>
+                                </div>
+                                <div class="item">
+                                        <div class="top">
+                                                <a href="javascript:;" class="title">金享财行首次亮相上海金博会</a>
+                                                <p class="date">2015-11-06</p>
+                                        </div>
+                                        <p class="cont">金享财行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首次亮相上海行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首</p>
+                                </div>
+                        </div>
+                        <div class="gonggao newslist">
+                                <div class="item">
+                                        <div class="top">
+                                                <a href="javascript:;" class="title">公告金享财行首次亮相上海金博会次亮相上海金博会次亮相上海金博会</a>
+                                                <p class="date">2015-11-06</p>
+                                        </div>
+                                        <p class="cont">金享财行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首</p>
+                                </div>
+                                <div class="item">
+                                        <div class="top">
+                                                <a href="javascript:;" class="title">金享财行首次亮相上海金博会</a>
+                                                <p class="date">2015-11-06</p>
+                                        </div>
+                                        <p class="cont">金享财行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首次亮行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首</p>
+                                </div>
+                                <div class="item">
+                                        <div class="top">
+                                                <a href="javascript:;" class="title">金享财行首次亮相上海金博会</a>
+                                                <p class="date">2015-11-06</p>
+                                        </div>
+                                        <p class="cont">金享财行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首次亮相上海行首次亮相上海金博会金享财行首次亮相上海金博会金享财行首</p>
+                                </div>
+                        </div>
+                </div>
+                <div class="subimg">
+                        <a href="javascript:;"><img src="__HOME__/images/loginpagebg.jpg"  alt=""></a>
+                </div>
+                <script type="text/javascript">
+                $(function(){
+                        $('#news').find('.sub_nav li[data-for]').mouseenter(function(){
+                                var flag = '.'+$(this).attr('data-for');
+                                // console.log(flag);
+                                $('#news').find('.sub_nav li').removeClass('active');
+                                $(this).addClass('active');
+                                $('.newscont').find('.newslist').stop(true,true).removeClass('active');
+                                $(flag).stop(true,true).addClass('active');
+                                // alert();
+                        })
+                })
+                </script>
+        </div>
+    </div>
+    <!--新闻、活动、公告 end-->
+    <!--合作媒体 begin-->
+    <div id="co-media">
+		<p class="name">合作机构</p>
+		<div id="co-media-container" class="container slide">
+			<ul class="slidebox">
+				<li>
+					<ul>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link01.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link02.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link03.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link04.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link05.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link06.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link07.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link08.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link09.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link10.jpg"></a></li>
+					</ul>
+				</li>
+				<li>
+					<ul>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link11.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link12.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link13.jpg"></a></li>
+						<li class="item"><a href="javascript:;"><img src="__HOME__/images/link14.jpg"></a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="__HOME__/js/jquery.flexslide/jquery.flexslides.js"></script>
+	<script type="text/javascript">
+	$(function(){
+	$('#co-media-container').slide();
+	})
+	</script>
+    <!--合作媒体 end-->
+    <!-- 友情链接 begin -->
+
+    <div id="friendlink">
+    	<div class="box">
+    	    <label class="name">
+    		<img src="__HOME__/images/friendlinkicon.png" width="29" height="20" class="icon" alt="" />
+    		友情链接
+    		<a href="javascript:void()" class="more FloatRight morelink">
+    		    更多<span class="FontIconLeftAndRight">&gt;&gt;</span></a>
+    	    </label>
+            <script type="text/javascript">
+    		$(function () {
+    		    $("#friendlink .box .name .more").click(function () {
+    			$("#friendlink .box .morecont").toggle(100);
+    			// alert();
+    		    })
+    		})
+            </script>
+    	    <div class="content">
+    		<a href="http://www.baidu.com" target="_blank">百度</a>
+    		<a href="http://www.sina.com" target="_blank">新浪</a>
+    		<div class="Clear"></div>
+    	    </div>
+    	    <div class="morecont">
+                <a href="http://www.aiqiyi.com" target="_blank">爱奇艺</a>
+    		<a href="http://www.Tmall.com" target="_blank">天猫</a>
+    	    </div>
+    	</div>
+    </div>
+    <!-- 友情链接 end -->
+</div>
+<!--index end-->
+</div>
+<include file="public/footer" />

@@ -1,0 +1,30 @@
+<taglib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/js/script.js' /> 
+<load href='__ADMIN__/css/weebox.css' />
+<head>
+    <title>后台地图</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<html> 
+<body>
+    <div class="main">
+    <div class="main_title">后台地图</div>
+    <div class="blank5"></div>
+    <html:list 
+    id="dataTable" 
+    style="dataTable" 
+    name="tree_list" 
+    datasource="menu_list" 
+    show="name|get_menu_name=$tree_list['menu_level']:菜单名称
+    "
+    />
+</div>
+</body> 
+
+</html>
+
+ 

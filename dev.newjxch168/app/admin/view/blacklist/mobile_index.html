@@ -1,0 +1,51 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<div class="main">
+    <div class="main_title">手机黑名单</div>
+    <div class="blank5"></div>
+    <div class="button_row" style="position:relative;top:5px;">
+        <input type="button" class="button" value="新增" onclick="add();" />
+        <input type="button" class="button" value="移除" onclick="del();" />
+    </div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="/admin/blacklist/mobile_index" method="post">
+            手机号：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" />
+            <input type="submit" class="button" value="搜索" />
+            <span class='ls'>黑名单总数:<span style="color:red">22</span></span>
+            <span class='ls'>拉黑总次数:<span style="color:red">23</span></span>
+        </form>  
+    </div>
+    
+    <div class="blank5"></div>
+    <html:list 
+        id="dataTable" 
+        style="dataTable" 
+        name="blacklist" 
+        checkbox="true" 
+        action="true" 
+        datasource="list" 
+        show="id:编号|50px
+        ,dest:手机号
+        ,create_time|get_date:创建时间
+        ,update_time|get_date:更新时间
+        ,remove_time|get_date:移除时间
+        ,times:次数
+        ,ip:IP地址"
+        actionlist="del:移除" 
+    /> 
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+<div class="blank5"></div>
+</div>
+<style>
+    .ls{
+      font-size: 15px;
+      margin-left: 20px;
+    }  
+</style>
+<include file="public/footer" />

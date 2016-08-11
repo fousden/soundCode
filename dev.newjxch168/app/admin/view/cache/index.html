@@ -1,0 +1,45 @@
+<taglib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/js/script.js' /> 
+<load href='__ADMIN__/css/weebox.css' />
+<head>
+    <title>清除缓存处理</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<html> 
+<body>
+	<div class="main">
+	<div class="main_title">清除缓存处理 </div>
+	<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title" style="width:200px;">
+				<input type="button" class="button ajaxclear" value="清空所有数据缓存"  rel="/admin/cache/clear_all"/>
+			</td>
+			<td class="item_input">
+				清空程序的所有数据缓存
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table>	
+	</div>
+</body>
+<script>
+    $(document).ready(function(){
+	$(".ajaxclear").bind("click",function(){
+		var url = $(this).attr("rel");		
+		$.weeboxs.open(url, {contentType:'ajax',showButton:false,title:"请勿刷新本页，请稍候...",width:300,height:80});
+	});
+});
+</script>
+</html>
+
+ 

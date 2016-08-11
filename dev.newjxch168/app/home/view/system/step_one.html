@@ -1,0 +1,633 @@
+<include file="public/header" />
+<div class="blank20"></div>
+<div class="regstep regstep_t">
+    <ol class="ui-step ui-step-3">
+        <li class="ui-step-start ui-step-active">
+            <div class="ui-step-line">-</div>
+            <div class="ui-step-icon">
+                <i class="iconfont"></i>
+                <i class="ui-step-number">1</i>
+                <span class="ui-step-text">填写账户信息</span>
+            </div>
+        </li>
+        <li>
+            <div class="ui-step-line">-</div>
+            <div class="ui-step-icon">
+                <i class="iconfont"></i>
+                <i class="ui-step-number">2</i>
+                <span class="ui-step-text">实名信息</span>
+            </div>
+        </li>
+        <li class="ui-step-end">
+            <div class="ui-step-line">-</div>
+            <div class="ui-step-icon">
+                <i class="iconfont"></i>
+                <i class="ui-step-number">3</i>
+                <span class="ui-step-text">注册成功</span>
+            </div>
+        </li>
+    </ol>
+</div>
+
+<div class="blank20"></div>
+<div class="wrap">
+    <div class="bdd bddf">
+        <div class="user-lr-box f_l pt50 pl30 pb30">
+            <!--手机和邮箱注册表单-->
+            <form action="register" method="post" id="signup-user-form" onsubmit="return checkform()" autocomplete="off">
+            <input type="hidden" name="user_type" value="0" />
+            <div class="blank10"></div>
+            <div class="field username">
+                <label for="signup-username"><span class="f_red">*</span> 昵称</label>
+                <div class="f_l frbox pr">
+                    <div class="u_icon">
+                        <i class="iconfont">&#xe623;</i>
+                    </div>
+                    <input type="text" value="{$user_name}" class="f-input ui-textbox" holder="输入注册帐号" id="signup-username" name="user_name" size="30">
+                    <span class="f-input-tip"></span>
+                    <span class="hint">3-15个字符，一个汉字为两个字符</span>
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            <div class="field mobile">
+                <label for="signup-mobile"><span class="f_red">*</span>手机号码</label>
+                <div class="f_l frbox pr">
+                    <div class="u_icon">
+                        <i class="iconfont">&#xe626;</i>
+                    </div>
+                    <input type="text" value="{$mobile}" holder="输入手机号码" class="f-input ui-textbox"  id="settings-mobile" name="mobile" size="30">
+                    <span class="f-input-tip"></span>
+                    <span class="hint"> 投标信息将通过短信发到手机上</span>
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            <div class="field verify">
+                <label >手机验证码</label>
+                <div class="f_l frbox pr">
+                    <input type="text" value="" class="f-input ui-textbox" id="verify_msg"  name="sms_code" >
+                    <input type="button" value="获取验证码" class="sendsms_button f_l btn_disable " id="get_regsms_code" class="ml5 f_l"  />
+                    <span class="f-input-tip"></span>
+                    <span class="hint"> 输入收到的手机验证码</span>
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            <!--        <input type='hidden' name='admin_id' value='{$admin_id}' >    -->
+            <!--<div class="field email">-->
+                <!--<label for="signup-email-address"><span class="f_red">*</span> {$LANG.USER_TITLE_EMAIL}</label>-->
+                <!--<div class="f_l frbox pr">-->
+                    <!--<div class="u_icon">-->
+                        <!--<i class="iconfont">&#xe624;</i>-->
+                    <!--</div>-->
+                    <!--<input type="text" value="" class="f-input ui-textbox" holder="输入常用的邮箱" id="signup-email-address" name="email" size="30">-->
+                    <!--<span class="f-input-tip"></span>-->
+                    <!--<span class="hint">{$LANG.USER_TITLE_EMAIL_TIP}</span>-->
+                <!--</div>-->
+                <!--<div class="blank0"></div>-->
+            <!--</div>-->
+            <!--<div class="blank10"></div>-->
+            <!--<div class="field verify ">-->
+                <!--<label >邮箱验证码</label>-->
+                <!--<div class="f_l frbox pr">-->
+                    <!--<input type="text" value="" class="f-input ui-textbox"  name="emsms_code" >-->
+                    <!--<input type="button" value="获取验证码" class="sendsms_button f_l btn_disable " id="get_emregsms_code" class="ml5 f_l"  />-->
+                    <!--<span class="f-input-tip"></span>-->
+                    <!--<span class="hint"> 输入收到的邮箱验证码</span>-->
+                <!--</div>-->
+                <!--<div class="blank0"></div>-->
+            <!--</div>-->
+
+            <div class="blank10"></div>
+
+
+
+            <div class="field password">
+                <label for="signup-password"><span class="f_red">*</span>密码</label>
+                <div class="f_l frbox pr">
+                    <div class="u_icon">
+                        <i class="iconfont">&#xe625;</i>
+                    </div>
+                    <input type="password" name="user_pwd" class="f-input ui-textbox" holder="输入密码" autocomplete="off" id="signup-password" size="30">
+                    <span class="f-input-tip"></span>
+                    <input type="hidden" id="signup-password-ipt" name="user_pwd1">
+                    <span class="hint">最少6个字符 </span>
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            <div class="field password">
+                <label for="signup-password-confirm"><span class="f_red">*</span>确认密码</label>
+                <div class="f_l frbox pr">
+                    <div class="u_icon">
+                        <i class="iconfont">&#xe625;</i>
+                    </div>
+                    <input type="password" class="f-input ui-textbox" holder="再次输入密码" autocomplete="off" id="signup-password-confirm"size="30">
+                    <input type="hidden" id="signup-password-confirm-ipt" name="user_pwd_confirm">
+                    <span class="f-input-tip"></span>
+                    <span class="hint">请再次填写密码</span>
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            <div class="field weibo">
+                <label from="settings-referer">推荐人</label>
+                <div class="f_l frbox pr">
+                    <input type='hidden' name='admin_id' value='{$admin_id}' >
+                    <input type="text" value="{$referer}" holder="输入推荐人手机号/会员名/销售编号" class="f-input ui-textbox" id="settings-referer" name="referer" >
+                    <span class="f-input-tip">&nbsp;</span>
+                    <span class="hint">可输入推荐人手机号码或会员名，或者销售编号。</span>
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+
+            <div class="field agreementf14">
+                <label>&nbsp;</label>
+                <label class="ui-checkbox mt5" rel="agreement" style="float:left!important;">
+                    <input type="checkbox" name="agreement" id="J_agreement" value="1" checked="checked" />
+                </label>
+                <div class="f_l">
+                    同意 <a href="javascript:;" class="f_blue">注册协议</a>
+                </div>
+                <div class="blank0"></div>
+            </div>
+            <div class="blank10"></div>
+            <div class="act">
+                <input type="submit" class="btn_blue w180 f_white f18 b p10 bdr3 reg-submit-btn"  id="signup-mobile-submit" name="commit" value="注册">
+            </div>
+            <div class="blank20"></div>
+            <div class="blank20"></div>
+            </form>
+        </div>
+        <div class="f_l" style="width:600px;">
+            <div class="has_account tc pb15 f14" style="margin-left:320px;">已有帐号？<a href="login" class="f_blue">直接登录</a></div>
+            <img alt="" src="__HOME__/images/user_regest_rightimg.png" style="width:100%;" />
+        </div>
+        <div class="blank0"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    var regsiter_vy_time = null;  	//定义时间
+    var is_lock_send_vy = false;	//解除锁定
+    var left_rg_time = 0;			//开始时间
+
+    function left_time_to_send_regvy(){
+        clearTimeout(regsiter_vy_time);
+        if(left_rg_time > 0){
+            regsiter_vy_time = setTimeout(left_time_to_send_regvy,1000);
+            $("#get_regsms_code").val(left_rg_time+"秒后重新获取验证码");
+            $("#get_regsms_code").addClass("btn_disable");
+            left_rg_time -- ;
+        }
+        else{
+            is_lock_send_vy = false;
+            $("#get_regsms_code").removeClass("btn_disable");
+            $("#get_regsms_code").val("重新获取验证码");
+
+            left_rg_time = 0;
+        }
+    }
+
+    var regsiter_vy_times = null;  	//定义时间
+    var is_lock_send_vys = false;	//解除锁定
+    var left_rg_times = 0;			//开始时间
+    function left_time_to_send_regvys(){
+        clearTimeout(regsiter_vy_times);
+        if(left_rg_times > 0){
+            regsiter_vy_times = setTimeout(left_time_to_send_regvys,1000);
+            $("#get_emregsms_code").val(left_rg_times+"秒后重新获取验证码");
+            $("#get_emregsms_code").addClass("btn_disable");
+            left_rg_times -- ;
+        }
+        else{
+            is_lock_send_vys = false;
+            $("#get_emregsms_code").removeClass("btn_disable");
+            $("#get_emregsms_code").val("重新获取验证码");
+            left_rg_times = 0;
+        }
+    }
+
+
+    $(document).ready(function(){
+        //XCM发送短信验证码开始
+        $("#get_regsms_code").click(function(){
+                if(is_lock_send_vy || $(this).hasClass(".btn_disable")){
+                return false;
+            }
+            is_lock_send_vy = true;
+            if(!$.maxLength($("#settings-mobile").val(),11,true))
+            {
+                is_lock_send_vy = false;
+                if (window.ActiveXObject) {
+                    formError($("#settings-mobile").parent(),"长度不能超过11位");
+                }else{
+                    formError($("#settings-mobile"),"长度不能超过11位");
+                }
+
+                return false;
+            }
+
+            if($.trim($("#settings-mobile").val()).length == 0)
+            {
+                is_lock_send_vy = false;
+                if (window.ActiveXObject) {
+
+                    formError($("#settings-mobile").parent(),"手机号码不能为空");
+                }else{
+                    formError($("#settings-mobile"),"手机号码不能为空");
+                }
+
+                return false;
+            }
+
+            if(!$.checkMobilePhone($("#settings-mobile").val()))
+            {
+                is_lock_send_vy = false;
+                if (window.ActiveXObject) {
+                    formError($("#settings-mobile").parent(),"手机号码格式不正确");
+
+                }else{
+
+                    formError($("#settings-mobile"),"手机号码格式不正确");
+                }
+                return false;
+            }
+            var ajaxurl = "ajax";
+//            var query = new Object();
+            var mobile =  $.trim($("#settings-mobile").val());
+            $.ajax({
+                url: ajaxurl,
+                data:{mobile:mobile,act:"get_register_verify_code"},
+                type: "POST",
+                dataType: "json",
+                success: function(result){
+                    if(result.response_code==1)
+                    {
+                        left_rg_time = 60;
+                        left_time_to_send_regvy();
+                        $.showSuccess(result.show_err,function(){
+                            to_send_msg = true;
+                        });
+                    }
+                    else
+                    {
+                        is_lock_send_vy = false;
+
+                        if (window.ActiveXObject) {
+
+                            formError($("#settings-mobile").parent(),result.show_err);
+                        }else{
+
+                            formError($("#settings-mobile"),result.show_err);
+                        }
+
+
+
+                        return false;
+                    }
+                },error:function(){
+                    is_lock_send_vy = false;
+                }
+            });
+        }); //发送手机验证码
+//XCM发送手机验证码结束
+// XCM使用 手机验证开始
+        $("#settings-mobile").bind("blur",function(){
+            var obj = $(this);
+            $("#get_regsms_code").addClass("btn_disable");
+            if(!$.checkMobilePhone(obj.val()))
+            {
+                if (window.ActiveXObject) {
+                    formError(obj.parent(),"手机号码格式错误，请重新输入");
+                }else{
+                    formError(obj,"手机号码格式错误，请重新输入");
+                }
+                obj.attr("datavalue","0");
+                return false;
+            }
+            if($.trim(obj.val()).length == 0)
+            {
+                if (window.ActiveXObject) {
+                    formError(obj.parent(),"手机号码不能为空");
+                }else{
+                    formError(obj,"手机号码不能为空");
+                }
+                obj.attr("datavalue","0");
+                return false;
+            }
+            var ajaxurl = "ajax";
+            var mobile = $.trim(obj.val());
+            $.ajax({
+                url: ajaxurl,
+                data:{mobile:mobile,act:"check_mobile"},
+                type: "POST",
+                dataType: "json",
+                success: function(data){
+                    if(data.response_code==1)
+                    {
+                        if(mobile!='')
+                            if (window.ActiveXObject) {
+                                formSuccess(obj.parent(),data.show_err);
+                                obj.attr("datavalue","1");
+                            }else{
+                                formSuccess(obj,data.show_err);
+                                obj.attr("datavalue","1");
+                            }
+                        else
+                        if (window.ActiveXObject) {
+                            formSuccess(obj.parent(),"");
+                        }else{
+                            formSuccess(obj,"");
+                        }
+                        $("#get_regsms_code").removeClass("btn_disable");
+                        return false;
+                    }
+                    else
+                    {
+                        if (window.ActiveXObject) {
+                            formError(obj.parent(),data.show_err);
+                        }else{
+                            formError(obj,data.show_err);
+                        }
+                        obj.attr("datavalue","0");
+                        return false;
+                    }
+                }
+            });
+        });
+// XCM使用 手机验证结束
+//XCM使用 用户名验证开始
+
+
+        $("#signup-user-form #signup-username").bind("blur",function(){
+            var obj = $(this);
+            if(!$.minLength(obj.val(),3,true))
+            {
+                if (window.ActiveXObject) {
+                    formError(obj.parent(),"昵称格式错误，请重新输入");
+                }else{
+                    formError(obj,"昵称格式错误，请重新输入");
+                }
+                obj.attr("datavalue","0");
+                return false;
+            }
+
+            if(!$.maxLength(obj.val(),16,true))
+            {
+                if (window.ActiveXObject) {
+                    formError(obj.parent(),"昵称格式错误，请重新输入");
+                }else{
+                    formError(obj,"昵称格式错误，请重新输入");
+                }
+                obj.attr("datavalue","0");
+                return false;
+            }
+
+            var ajaxurl = "ajax";
+            var user_name = $.trim(obj.val());
+            $.ajax({
+                url: ajaxurl,
+                data:{user_name:user_name,act:"check_user_name"},
+                type: "POST",
+                dataType: "json",
+                success: function(data){
+                    if(data.response_code==1)
+                    {
+                        if (window.ActiveXObject) {
+                            formSuccess(obj.parent(),data.show_err);
+                        }else{
+                            formSuccess(obj,data.show_err);
+                        }
+                        obj.attr("datavalue","1");
+                        return false;
+                    }
+                    else
+                    {
+                        if (window.ActiveXObject) {
+                            formError(obj.parent(),data.show_err);
+                        }else{
+                            formError(obj,data.show_err);
+                        }
+                        obj.attr("datavalue","0");
+                        return false;
+                    }
+                }
+            });
+        });
+
+// XCM使用用户名验证结束
+        // XCM使用验证码验证开始
+        $("#signup-user-form #verify_msg").on("blur",function(){
+            var obj = $(this);
+            var verify_code = $.trim(obj.val());
+            var mobile = $.trim($("#settings-mobile").val());
+            if(verify_code==''){
+                if (window.ActiveXObject) {
+                    formError(obj.parent(),"验证码不能为空");
+                }else{
+                    formError(obj,"验证码不能为空");
+                }
+                obj.attr("datavalue","0");
+                return false;
+            }else {
+                var ajaxurl = "ajax";
+                $.ajax({
+                    url: ajaxurl,
+                    data: {verify_code: verify_code,mobile:mobile ,act: "verify_msg"},
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.response_code == 1) {
+                            if (window.ActiveXObject) {
+                                formSuccess(obj.parent(),data.show_err );
+                            } else {
+                                formSuccess(obj,data.show_err );
+                            }
+                            obj.attr("datavalue","1");
+                        }
+                        else {
+                            if (window.ActiveXObject) {
+                                formError(obj.parent(), data.show_err);
+                            } else {
+                                formError(obj, data.show_err);
+                            }
+                            obj.attr("datavalue","0");
+                            return false;
+                        }
+                    }
+                })
+            }
+        })
+        // XCM验证码结束
+
+        // XCM密码开始
+        $("#signup-user-form #signup-password").bind("blur",function(){
+            var obj = $(this);
+            var name;
+            name=$.trim(obj.val())
+            var reg=/^[a-zA-z0-9]{6,}$/;
+            var regs=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+                if(regs.test(name)){
+                    if (window.ActiveXObject) {
+                        formSuccess(obj.parent(),"可以使用");
+                    }else{
+                        formSuccess(obj,"可以使用");
+                    }
+                    obj.attr("datavalue","1");
+                }
+                else{
+                    if (window.ActiveXObject) {
+                        formError(obj.parent(),"长度在6~16之间，只能包含字符、数字和下划线。");
+                    }else{
+                        formError(obj,"长度在6~16之间，只能包含字符、数字和下划线。");
+                    }
+                    obj.attr("datavalue","0");
+                    return false;
+                }
+        });
+        // XCM密码结束
+        // XCM重复密码开始
+        $("#signup-user-form #signup-password-confirm").bind("blur",function(){
+            var obj = $(this);
+            if(obj.val()!==""){
+                if (window.ActiveXObject) {
+                    if(obj.val() != $("#signup-password").val())
+                    {
+                        formError(obj.parent(),"两次密码输入不一致");
+                        obj.attr("datavalue","0");
+                        return false;
+                    }
+                }else{
+                    if(obj.val() != $("#signup-password").val())
+                    {
+                        formError(obj,"两次密码输入不一致");
+                        obj.attr("datavalue","0");
+                        return false;
+                    }
+
+                }
+            }
+            else{
+                if (window.ActiveXObject) {
+                    formError(obj.parent(),"请输入确认密码");
+                }else{
+                    formError(obj,"请输入确认密码");
+                }
+                obj.attr("datavalue","0");
+                return false;
+            }
+
+            if (window.ActiveXObject) {
+                obj.parent().parent().find("#signup-password-confirm-ipt").val(obj.val());
+                formSuccess(obj.parent(),"密码验证正确");
+            }else{
+                obj.parent().find("#signup-password-confirm-ipt").val(obj.val());
+                formSuccess(obj,"密码验证正确");
+            }
+            obj.attr("datavalue","1");
+        });
+        //XCM重复密码结束
+        checkReferer();
+        $("#settings-referer").bind("blur",function(){
+            checkReferer();
+        });
+    });
+
+    function  checkReferer(){
+        var referer = $.trim($("#settings-referer").val());
+        if(referer==""){
+            formSuccess($("#settings-referer"),"");
+            return;
+        }
+        var ajaxurl = "ajax";
+        $.ajax({
+            url: ajaxurl,
+            data:{referer:referer,act:"check_referer"},
+            type: "POST",
+            dataType: "json",
+            success: function(data){
+                if(data.response_code==1)
+                {
+                    formSuccess($("#settings-referer"),data.show_err);
+                    obj.attr("datavalue","1");
+                    return false;
+                }
+                else
+                {
+                    formError($("#settings-referer"),data.show_err);
+                    obj.attr("datavalue","0");
+                    return false;
+                }
+            }
+        });
+    }
+    function checkform(){
+        // 先判断表单是否有空数据
+        // 用户名为空或发生错误
+        var user_name = $("#signup-username").val();
+        var name_datavalue = $("#signup-username").attr("datavalue");
+        if(user_name=='' || name_datavalue==0){
+            return false;
+        }
+        // 手机号为空或者发生错误
+        var mobile = $("#settings-mobile").val();
+        var mobile_datavalue = $("#settings-mobile").attr("datavalue");
+        if(mobile=='' || mobile_datavalue==0){
+            return false;
+        }
+        // 手机验证码为空或者发生错误
+        var code = $("#verify_msg").val();
+        var code_datavalue = $("#verify_msg").attr("datavalue");
+        if(code=='' || code_datavalue==0){
+            return false;
+        }
+        //密码为空或者发生错误
+        var pwd = $("#signup-password").val();
+        var pwd_datavalue = $("#signup-password").attr("datavalue");
+        if(pwd=='' || pwd_datavalue==0){
+            return false;
+        }
+        // 重复密码为空或者发生错误
+        var confirm_pwd = $("#signup-password-confirm").val();
+        var confirm_pwd_datavalue = $("signup-password-confirm").attr("datavalue");
+        if(confirm_pwd=='' || confirm_pwd_datavalue==0){
+            return false;
+        }
+        // 推荐人错误
+        var referer_datevalue = $("#settings-referer").attr("datavalue");
+        if(referer_datevalue==0){
+            return false;
+        }
+        // 判断是否勾选注册协议
+        var agreement = $("#J_agreement").prop("checked");
+        if(agreement==false){
+            $.showErr("请先同意《 注册协议》和 《隐私条款》");
+            return false;
+        }
+        return true;
+    }
+
+</script>
+<div class="blank20"></div>
+<script type="text/javascript">
+    var _py = _py || [];
+    _py.push(['a', '0zs..-KJOCUF75KmaLtzNy1ui1X']);
+    _py.push(['domain','stats.ipinyou.com']);
+    _py.push(['e','']);
+    -function(d) {
+        var s = d.createElement('script'),
+                e = d.body.getElementsByTagName('script')[0]; e.parentNode.insertBefore(s, e),
+                f = 'https:' == location.protocol;
+        s.src = (f ? 'https' : 'http') + '://'+(f?'fm.ipinyou.com':'fm.p0y.cn')+'/j/adv.js';
+    }(document);
+</script>
+<noscript><img src="//stats.ipinyou.com/adv.gif?a=0zs..-KJOCUF75KmaLtzNy1ui1X&e=" style="display:none;"/></noscript>
+<script type="text/javascript" src="https://aw.kejet.net/t?p=gV&c=Iw"></script>
+<script type="text/javascript" src="https://aw.kejet.net/t?p=iV&c=Iw"></script>
+
+<include file="public/footer.html" />

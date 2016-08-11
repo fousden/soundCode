@@ -1,0 +1,122 @@
+{
+    "response_code": 1,
+    "kf_phone": "400-091-2828",
+    "kf_email": "kefu@chhmt.com",
+    "about_info": 70,
+    "version": 1,
+    "page_size": 10,
+    "program_title": "金享财行-开发版",
+    "site_domain": "dch.dev.jxch168.com",
+    "red_bonus": 105,
+    "share_msg": "金享财行理财平台，超高收益，100%本息保障，现在投资还可领取现金红包！",
+    "virtual_money_1": "64585.48",
+    "virtual_money_2": "8278.86",
+    "virtual_money_3": "1000.00",
+    "index_list": {
+        "adv_list": [],
+        "deal_list": [
+            {
+                "id": "114",
+                "name": "test22(满标)",
+                "sub_name": "test22",
+                "rate": "13.00",
+                "repay_time": "3",
+                "repay_time_type": "0",
+                "risk_rank": "0",
+                "min_loan_money": "100.00",
+                "loantype": "2",
+                "jiexi_time": "2015-09-01",
+                "qixi_time": "2015-08-29",
+                "last_mback_time": "2015-09-03",
+                "benxibaozhang": "112",
+                "agency_id": "7",
+                "start_time": "1440325756",
+                "enddate": "180",
+                "titlecolor": "",
+                "apart_borrow_amount": "0",
+                "borrow_amount": "100000.00",
+                "load_money": "100000.00",
+                "create_time": "1440412173",
+                "cate_id": "1",
+                "type_id": "2",
+                "deal_status": "2",
+                "next_repay_time": "0",
+                "impose_fee_day1": "0.05",
+                "impose_fee_day2": "0.1",
+                "manage_impose_fee_day1": "0.1",
+                "manage_impose_fee_day2": "0.5",
+                "publish_wait": "0",
+                "last_time": "1440325756",
+                "progress_point": "100.00",
+                "yield_ratio": "1",
+                "remain_time": 2439692,
+                "is_wait": 0,
+                "color_name": "test22",
+                "borrow_amount_format": "10.00万",
+                "load_money_format": "10.00万",
+                "rate_foramt": "13.00",
+                "create_time_format": "2015-08-24",
+                "rate_foramt_w": "13.00%",
+                "month_repay_money": 47.125,
+                "last_month_repay_money": 43547.125,
+                "month_repay_money_format": "47.12",
+                "month_manage_money": 0,
+                "month_manage_money_format": "0.00",
+                "all_manage_money": 0,
+                "true_month_repay_money": 47.125,
+                "true_last_month_repay_money": 43547.125,
+                "true_month_repay_money_format": "47.12",
+                "need_money": "0.00",
+                "user": false,
+                "remain_time_format": "0天0时0分",
+                "min_loan_money_format": "100.00",
+                "publish_time_format": "2015-08-24 18:29",
+                "share_url": "http://dch.dev.jxch168.com/mapi/mapi/index.php?ctl=deal&id=114",
+                "url": "/mapi/index.php?ctl=deal&id=114",
+                "app_url": "http://dch.dev.jxch168.com/index.php?ctl=deal&act=mobile&is_sj=1&id=114",
+                "guarantee": "担保机构2",
+                "bfinish_time": 1
+            }
+        ]
+    },
+    "deal_cate_list": [
+        {
+            "id": "6",
+            "pid": "0",
+            "name": "浮动收益",
+            "icon": ""
+        },
+        {
+            "id": "5",
+            "pid": "0",
+            "name": "新手任务",
+            "icon": "./public/images/dealcate/sdrzb.png"
+        },
+        {
+            "id": "1",
+            "pid": "0",
+            "name": "金享票号",
+            "icon": "./public/images/dealcate/sdrzb.png"
+        },
+        {
+            "id": "2",
+            "pid": "0",
+            "name": "金享保理",
+            "icon": "./public/images/dealcate/sdrzb.png"
+        },
+        {
+            "id": "4",
+            "pid": "0",
+            "name": "金享银行",
+            "icon": "./public/images/dealcate/zhibt.png"
+        },
+        {
+            "id": "3",
+            "pid": "0",
+            "name": "金享租赁",
+            "icon": "./public/images/dealcate/jgdbb.png"
+        }
+    ],
+    "act": "home",
+    "act_2": ""
+}

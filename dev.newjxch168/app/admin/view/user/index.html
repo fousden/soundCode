@@ -1,0 +1,174 @@
+<taglib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/js/script.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<script src="__ADMIN__/js/WdatePicker.js?t=20140830" type="text/javascript"></script>
+<!--<script type="text/javascript" src="__ADMIN__/js/calendar/calendar.php?lang=zh-cn" ></script>-->
+<!--<load href='__ADMIN__/js/calendar/calendar.css' />-->
+<!--<load href='__ADMIN__/js/calendar/calendar.js' />-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>普通会员</title>
+</head>
+<body>
+<php>
+    function get_user_group($group_id)
+    {
+    $group_name = M("UserGroup")->where("id=".$group_id)->getField("name");
+    if($group_name)
+    {
+    return $group_name;
+    }
+    else
+    {
+    return l("NO_GROUP");
+    }
+    }
+    function get_user_level($id)
+    {
+    $level_name = M("UserLevel")->where("id=".$id)->getField("name");
+    if($level_name)
+    {
+    return $level_name;
+    }
+    else
+    {
+    return "<span style='color:red'>无</span>";
+    }
+    }
+    function get_referrals_name($user_id)
+    {
+    $user_name = M("User")->where("id=".$user_id)->getField("user_name");
+    if($user_name)
+    return $user_name;
+    else
+    return '无';
+    }
+
+
+
+    function ips_status($ips_acct_no){
+    if($ips_acct_no==""){
+    return "未同步";
+    }
+    else{
+    return "已同步";
+    }
+    }
+    function user_type_status($type){
+    if($type==1){
+    return "企业";
+    }
+    else{
+    return "普通";
+    }
+    }
+    function user_company($id,$user){
+    if($user['user_type']==1){
+    return "<a href='javascript:user_company(".$id.");'>公司</a>&nbsp;";
+    }
+    }
+    function get_is_black($tag,$id){
+    if($tag)
+    {
+    return "<span class='is_black' data='".$tag."' onclick='set_black(".$id.",this);'>是</span>";
+    }
+    else
+    {
+    return "<span class='is_black' data='".$tag."' onclick='set_black(".$id.",this);'>否</span>";
+    }
+    }
+    function deal_cl($null,$id){
+    return "<span class='is_black' onclick='cash_synchro(".$id.",this);'>同步</span>";
+    }
+    function bank_synchro($null,$id){
+    return "<span class='is_black' onclick='bank_synchro(".$id.",this);'>同步</span>";
+    }
+</php>
+<div class="main">
+    <div class="main_title">普通会员列表</div>
+    <div class="blank5"></div>
+    <div class="button_row">
+        <if condition="$Think.ACTION_NAME eq 'index' or ACTION_NAME eq 'company_index'"><input type="button" class="button" value="增加" onclick="add();" /></if>
+        <input type="button" class="button" value="删除" onclick="del();" />
+    </div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="index" method="get">
+            真实姓名：<input type="text" class="textbox" name="real_name" value="{:trim($_REQUEST['real_name'])}" style="width:100px;" />
+            会员名称：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+            <!--{%USER_EMAIL}：<input type="text" class="textbox" name="email" value="{:trim($_REQUEST['email'])}" style="width:100px;" />-->
+            手机号：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" />
+            注册来源：<input type="text" class="textbox" name="search_channel" value="{:trim($_REQUEST['search_channel'])}" style="width:100px;" />
+            销售：<input type="text" class="textbox" name="admin_name" value="{:trim($_REQUEST['admin_name'])}" style="width:100px;" />
+            模糊查询:<input type="checkbox" name="is_mohu" value="1" <if condition="intval($_REQUEST['is_mohu']) eq 1">checked="checked"</if> />
+            <if condition="ACTION_NAME eq 'index' or ACTION_NAME eq 'company_index'">
+                <select name="is_effect">
+                    <option value="-1" <if condition="$_REQUEST['is_effect'] eq -1 or $_REQUEST['is_effect'] eq ''">selected="selected"</if>>所有</option>
+                    <option value="1" <if condition="intval($_REQUEST['is_effect']) eq 1">selected="selected"</if>>有效</option>
+                    <option value="0" <if condition="intval($_REQUEST['is_effect']) eq 0 && isset($_REQUEST['is_effect'])">selected="selected"</if>>无效</option>
+
+                </select>
+            </if>
+            <div class="blank5"></div>
+            推荐人：<input type="text" class="textbox" name="pid_name" value="{:trim($_REQUEST['pid_name'])}" style="width:100px;" />
+            注册时间：
+            <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  type="text" id="start_time" name="start_time" class="Wdate" value="{$_REQUEST['start_time']}" style="width:135px"/>至
+            <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  type="text" id="end_time" name="end_time" class="Wdate" value="{$_REQUEST['end_time']}" style="width:135px"/>
+
+            <input type="hidden" name="user_type" value="<if condition="ACTION_NAME eq 'index' or ACTION_NAME eq 'register'">0<else/>1</if>" />
+            <!--<input type="button" class="button" value="送福利" onclick="send_welfare();" />-->
+            <input type="submit" class="button" value="搜索" />
+            <input type="button" class="button" value="导出" onclick="export_csv();" />
+        </form>
+        <html:list
+                id="dataTable"
+                style="dataTable"
+                name="user"
+                checkbox="true"
+                action="true"
+                datasource="list"
+                show="id:编号|50px,user_name:会员:edit,create_time|get_date:注册时间,mobile|hideMobile:手机号,email|hideEmail:邮箱,idno|hideIdCard:身份证号,money|format_price:余额,lock_money:冻结,deal|format_price:累积投标金额,payment|format_price:累积充值金额,success_num:充值成功次数,error_num:充值失败次数,search_channel:注册来源,pid|get_referrals_name:推荐人,is_effect|get_is_effect=$user['id']:状态,is_black|get_is_black=$user['id']:黑名单"
+                actionlist="edit:编辑,del:删除,trading_record:富友交易记录,incharge_carry_record:富友充值提现记录" actionwidth="150px" actionidx="3" />
+
+
+        <div class="blank5"></div>
+        <div class="page">{$page}</div>
+    </div>
+    <script>
+        function send_welfare(){
+            var chk_value =[];
+            $('input[name="key"]:checked').each(function(){
+                chk_value.push($(this).val());
+            });
+            if(chk_value=='' || chk_value<=0){
+                alert("请选择发放的用户！");
+                return;
+            }
+            var type=$(".welfare").find("option:selected").val();
+            if(type==0){
+                alert("请选择发送的类型！");
+            }else{
+                var remark = prompt('请输入备注信息');
+                if(remark.indexOf(' ') > -1 ){
+                    alert("请输入备注信息");
+                    return;
+                }
+                var url="/m.php?m=User&a=send_welfare";
+                var query = new Object();
+                query.type = type;
+                query.remark = remark;
+                query.user_id = chk_value;
+                query.type_name = type=$(".welfare").find("option:selected").text();
+                $.get(url,query,function(data){
+                    $("#info").css("display","none");
+                    alert(data.info);
+                },'json');
+            }
+        }
+    </script>
+    </div>
+</body>
+<include file="public/footer" />

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>金享财行后台页面</title>
+        <load href='__ADMIN__/css/style.css' />
+        <link rel="stylesheet" type="text/css" href="__ADMIN__/css/bootstrap.css">
+        <load href='__ADMIN__/css/weebox.css' />
+        <script src="__ADMIN__/js/jquery-1.8.3.min.js" type="text/javascript"></script>
+        <script src="__ADMIN__/js/jquery.shCircleLoader-min.js" type="text/javascript"></script>
+        <load href='__ADMIN__/js/jquery.timer.js' />
+        <load href='__ADMIN__/js/jquery.weebox.js' />
+        <load href='__ADMIN__/js/script.js' />
+        <div id="shclKeyframes" style="width:200px; height:200px; position:absolute; top:40%; left:40%;display: none;"></div>
+        <script type="text/javascript">
+            var CURRENT_URL = "{:trim($_SERVER['REQUEST_URI'])}";
+            var MODULE_NAME = "<?php echo MODULE_NAME;?>";
+            var CONTROLLER_NAME = '<php>echo CONTROLLER_NAME;</php>';
+            var ACTION_NAME = '<php>echo ACTION_NAME;</php>';
+            var ROOT = '/';
+            $('#shclKeyframes').shCircleLoader({keyframes: "0%{background:black}40%{background:transparent}60%{background:transparent}100%{background:black}"});
+        </script>
+        <style type="text/css">
+            table tr td{text-align:center}
+            table tr th{text-align:center}
+            a {cursor:pointer;}
+        </style>
+    </head>
+    <body>
+        <div id="info"></div>

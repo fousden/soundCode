@@ -1,0 +1,154 @@
+<div id="vipcenter">
+                <div class="top">
+                    <!--<img src="__HOME__/images/personpic.png" class="f_l">-->
+                    <div class="f_l">
+                        <p class="smname">昵称：<span><a href="/home/user/index">你好，{$user_info['user_name']}</a></span></p>
+                        <p class="jifen">总积分：<span>{$user_info.score}</span></p>
+                    </div>
+                    <div class="Clear"></div>
+                </div>
+                <div class="bottom">
+                    <div class="safeimg">
+                        <a class='credit pr' style="top:-1px" href='{url x="index" r="uc_account#security"}' title='实名认证，<if condition="$user_data['idcardpassed'] eq 1">已认证<else/>未认证</if>' >
+                            <!--<i class="iconfont {if $user_info.idcardpassed eq 1}f_blue{/if}">&#xe633;</i>-->
+                            <if condition="$user_info['idcardpassed'] eq 1">
+                                <img src="__HOME__/images/safe_name2.png" alt="">
+                                <else />
+                                <img src="__HOME__/images/safe_name1.png" alt="">
+                            </if>
+                        </a>
+
+                        <a class='credit' href='{url x="index" r="uc_account#security"}' title="手机认证，<if condition="$user_data['mobilepassed'] eq 1">已认证<else/>未认证</if>">
+                            <!--<i class="iconfont {if $user_info.mobilepassed eq 1}f_blue{/if}">&#xe632;</i>-->
+                            <if condition="$user_info['mobilepassed'] eq 1">
+                                <img src="__HOME__/images/safe_phone2.png" alt="">
+                            <else />
+                                <img src="__HOME__/images/safe_phone1.png" alt="">
+                            </if>
+                        </a>
+                         <a class='credit' href='{url x="index" r="uc_account#security"}' title="邮箱认证，<if condition="$user_data['emailpassed'] eq 1">已认证<else/>未认证</if>">
+                            <!--<i class="iconfont {if $user_info.emailpassed eq 1}f_blue{/if}">&#xe636;</i>-->
+                            <if condition="$user_info['emailpassed'] eq 1">
+                                <img src="__HOME__/images/safe_mail2.png" alt="">
+                            <else />
+                                <img src="__HOME__/images/safe_mail1.png" alt="">
+                            </if>
+                        </a>
+                        <a class='credit pr' href='{url x="index" r="uc_account#security"}' title="支付密码，<if condition="$user_data['paypassword'] eq 1">已认证<else/>未认证</if>">
+                            <!--<i class="iconfont ps small {if $$user_info.paypassword neq ''}f_blue{/if}">&#xe604;</i>-->
+                            <!--<i class="iconfont {if $user_info.paypassword neq ''}f_blue{/if}">&#xe634;</i>-->
+                            <if condition="$user_info['paypassword'] eq 1">
+                                <img src="__HOME__/images/safe_word2.png" alt="">
+                            <else />
+                                <img src="__HOME__/images/safe_word1.png" alt="">
+                            </if>
+                        </a>
+                        <a class='credit ' href="{url x="index" r="uc_account"}" title="个人资料">
+                                <!--<i class="iconfont f_blue">&#xe60c;</i>-->
+                                <img src="__HOME__/images/safe_set2.png" alt="">
+                        </a>
+                    </div>
+                    <p class="safelv">
+                        安全等级
+                        <span class="level">
+                            <if condition="$user_info['mobilepassed'] eq 1 AND $user_info['idcardpassed'] eq 1 AND $user_info['emailpassed'] eq 1 AND $user_info['paypassword'] neq '' ">
+                                高
+                                <elseif condition="$user_info['mobilepassed'] eq 1 AND $user_info['emailpassed eq 1']" />
+                                中
+                                <elseif condition="$user_info['mobilepassed'] eq 1 AND $user_info['paypassword'] neq ''" />
+                                中
+                                <elseif condition="$user_info['mobilepassed'] eq 1 AND $user_info['idcardpassed'] eq 1" />
+                                中
+                                <else/>
+                                低
+                            </if>
+                        </span>
+                        <a href="/member.php?ctl=uc_account&act=security" class="addsafe">提升></a>
+                    </p>
+                </div>
+            </div>
+
+        <!-- 导航部分要把每一个navcontent元素的display值，传到url地址中，并且根据 url中的字符串，传值到新打开的页面 -->
+            <div id="managenav">
+                <if condition="$user_data['user_name'] neq '李明明' AND $user_data['is_auto'] neq 1">
+                    <div class="capital managelist">
+                        <p class="title">
+                            <img src="__HOME__/images/资金管理.png">
+                            <span>资金管理</span>
+                            <i>-</i>
+                            <div class="Clear"></div>
+                        </p>
+                        <ul class="capitalnav navcontent">
+                            <a class="uc_cate" href="/home/user/incharge" title="充值"><li  class="act" >充值</li></a>
+                            <a class="uc_cate" href="/home/user/carry" title="提现"><li>提现</li></a>
+                            <a class="uc_cate" href="/home/user/bank" title="银行卡列表"><li>银行卡列表</li></a>
+                        </ul>
+                    </div>
+                </if>
+                <div class="invest managelist">
+                    <p class="title">
+                        <img src="__HOME__/images/投资管理.png">
+                        <span>投资管理</span>
+                        <i>-</i>
+                        <div class="Clear"></div>
+                    </p>
+                    <ul class="investnav navcontent">
+                        <a class="uc_cate" href="/home/user/invest" title="我的投资"><li class='act' > 我的投资</li></a>
+                        <a class="uc_cate" href="/home/user/collection" title="我关注的标"><li> 我关注的标</li></a>
+                    </ul>
+                </div>
+                <div class="account managelist">
+                    <p class="title">
+                        <img src="__HOME__/images/loginname.png">
+                        <span>账户管理</span>
+                        <i>-</i>
+                        <div class="Clear"></div>
+                    </p>
+                    <ul class="accountnav navcontent">
+                        <a class="uc_cate" href="/home/user/material" title="个人资料"><li class="act" > 个人资料</li></a>
+                        <a class="uc_cate" href="/home/user/security" title="安全信息"><li class="act" > 安全信息</li></a>
+                    </ul>
+                </div>
+                <div class="activity managelist">
+                    <p class="title">
+                        <img src="__HOME__/images/活动管理.png">
+                        <span>活动管理</span>
+                        <i>-</i>
+                        <div class="Clear"></div>
+                    </p>
+                    <ul class="activitynav navcontent">
+                        <a class="uc_cate" href="#" title="我的邀请"><li class="act" >我的邀请</li></a>
+                        <a class="uc_cate" href="#" title="我的红包"><li>我的红包</li></a>
+                        <a class="uc_cate" href="#" title="我的优惠券"><li>我的优惠券</li></a>
+                    </ul>
+                </div>
+                <div class="activity managelist">
+                    <p class="title">
+                        <img src="__HOME__/images/消息管理.png">
+                        <span>消息管理</span>
+                        <i>-</i>
+                        <div class="Clear"></div>
+                    </p>
+                    <ul class="activitynav navcontent">
+                        <a class="uc_cate" href="/home/user/inner_mail" title="站内通知"><li class="act">站内通知</li></a>
+                    </ul>
+                </div>
+            </div>
+
+        <script type="text/javascript">
+        // 左侧导航栏交互js
+        $(document).ready(function(){
+            $(".managelist .title").click(function(){
+                var $thisproperty=$(this).parent().find(".navcontent");
+                var result=$thisproperty.css("display");
+                if(result == "block"){
+                    // alert(2);
+                    $thisproperty.slideUp(300);
+                    $(this).find("i").html("+");
+                }else{
+                    $thisproperty.slideDown(300);
+                    $(this).find("i").html("-");
+                };
+            })
+        })
+        </script>

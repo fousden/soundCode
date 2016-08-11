@@ -1,0 +1,242 @@
+<include file="public/header" />
+<div class="wrap">
+    <div class="blank"></div>
+    <div id="manageleft" class="f_l" style="width:192px;min-height:300px;">
+        <include file="public/uc_cate" />
+    </div>
+    <!--主题部分开始-->
+    <div class="tabbox">
+        <div class="tab cur"><a href="/home/user/material">个人资料</a></div>
+    </div>
+    <div class="uc_box clearfix">
+        <style>
+            .field{ width:520px}
+        </style>
+        <div class="blank"></div>
+        <form method="post" action="/home/user/material_save" name="modify">
+            <table width="800px" class="user_info_table">
+                <tr>
+                    <td class="pt10" valign="top" style="width:120px; text-align:center">
+                        <img id="avatar" src="__HOME__/images/noavatar_middle.gif" />
+                        <div class="blank"></div>
+                        <div class="hide account-edit-box">
+                            <label class="fileupload" onclick="upd_file(this, 'avatar_file', {$user_info.id});">
+                                <input type="file" class="filebox" name="avatar_file" id="avatar_file"/>
+                            </label>
+                            <label class="fileuploading hide" ></label>
+                        </div>
+                    </td>
+                    <td class="pt10" >
+                        <div class="field username">
+                            <label for="settings-username">昵称</label>
+                            <span class="f_l">{$user_info.user_name}</span>
+                        </div>
+                        <div class="blank10"></div>
+                        <div class="field email">
+                            <label for="settings-email-address">Email</label>
+                            <span class="f_l">{$user_info.email|hidden_str=6}</span>
+                            <if condition="$user_info['email'] neq ''">
+                                <span class="passed yes">已绑定</span>
+                                <else/>
+                                <span class="passed"><a href="/home/security/index">去设置</a></span>
+                            </if>
+                        </div>
+                        <div class="blank10"></div>
+                        <div class="field real_name">
+                            <label for="settings-real_name"><span class="red">*</span><if condition="$user_info['user_type'] eq 1">法人姓名<else/>真实姓名</if></label>
+                            <span class="f_l">{$user_info.real_name}</span>
+                            <if condition="$user_info['real_name']">
+                                <span class="passed yes">已认证</span>
+                                <else/>
+                                <span class="passed"><a href="/home/security/index">去认证</a></span>
+                            </if>
+                        </div>
+                        <div class="blank10"></div>
+                        <div class="field idno">
+                            <label for="settings-idno"><span class="red">*</span><if condition="$user_info['user_type'] eq 1">法人</if>身份证</label>
+                            <span class="f_l">{$user_info.idno}</span>
+                            <if condition="$user_info['idno']">
+                                <span class="passed yes">已认证</span>
+                                <else/>
+                                <span class="passed"><a href="/home/security/index">去认证</a></span>
+                            </if>
+                        </div>
+                        <div class="blank10"></div>
+                        <div class="field mobile">
+                            <label for="settings-mobile"><span class="red">*</span>手机号码</label>
+                            <span class="f_l">{$user_info.mobile}</span>
+                            <if condition="$user_info['mobile']">
+                                <span class="passed yes">已绑定</span>
+                                <else/>
+                                <span class="passed"><a href="/home/security/index">去绑定</a></span>
+                            </if>
+                        </div>
+                        <div class="blank10"></div>
+                        <div class="field">
+                            <label>性别</label>
+                            <span class="f_l">
+                                <if condition="$user_info['mobile'] eq 1">
+                                    女
+                                    <elseif condition="$user_info['mobile'] eq 2"/>
+                                    男
+                                    <else/>
+                                    保密
+                                </if>
+                            </span>
+                        </div>
+                        <div class="blank10"></div>
+                        <div class="field clearfix">
+                            <label for="settings-birthday">出生日期</label>
+                            <div class="f_l">
+                                {$user_info.byear}
+                                -
+                                {$user_info.bmonth}
+                                -
+                                {$user_info.bday}
+
+                            </div>
+                        </div>
+                        <!--显示框开始-->
+                        <div class="account-view-box">
+                            <div class="blank10"></div>
+                            <div class="field">
+                                <label for="settings-region">户口所在地</label>
+                                <span class="f_l">
+                                    {$user_info.region}
+                                </span>
+                            </div>
+                            <div class="blank10"></div>
+                            <div class="field address">
+                                <label for="settings-address">居住地址</label>
+                                <span class="f_l">{$user_info.address}</span>
+                            </div>
+                            <div class="blank10"></div>
+                            <div class="field phone">
+                                <label for="settings-phone">手机</label>
+                                <span class="f_l">{$user_info.mobile}</span>
+                            </div>
+                        </div>
+                        <!--显示框结束-->
+
+                    </td>
+
+                </tr>
+            </table>
+            <div class="blank20"></div>
+            <div class="blank"></div>
+        </form>
+    </div>
+    <script type="text/javascript" src="{$TMPL}/js/ajaxupload.js"></script>
+    <script type="text/javascript">
+//                                        function setPhone(){
+//                                        var frphone = $.trim($("#frphone").val());
+//                                                var numphone = $.trim($("#numphone").val());
+//                                                if (frphone != "" && numphone != ""){
+//                                        $("#phone").val(frphone + "-" + numphone);
+//                                        }
+//                                        else{
+//                                        $("#phone").val("");
+//                                        }
+//                                        }
+//                                $(document).ready(function(){
+//                                $(".account-edit-box").addClass("hide");
+//                                        $("#settings-submit").click(function(){
+//                                {if $user_info.email eq ''}
+//                                if ($.trim($("#settings-email-address").val()).length == 0)
+//                                {
+//                                $("#settings-email-address").focus();
+//                                        $.showErr("{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.USER_TITLE_EMAIL}");
+//                                        return false;
+//                                }
+//
+//                                if (!$.checkEmail($("#settings-email-address").val()))
+//                                {
+//                                $("#settings-email-address").focus();
+//                                        $.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_EMAIL}");
+//                                        return false;
+//                                }
+//                                {/if}
+
+//                                {foreach from = $field_list item = field_item}
+//                                {if $field_item.is_must eq 1}
+//                                if ($("#settings-{$field_item.field_name}").val() == '')
+//                                {
+//                                $.showErr("{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$field_item.field_show_name}");
+//                                        $("#settings-{$field_item.field_name}").focus();
+//                                        return false;
+//                                }
+//                                {/if}
+//                                {/foreach}
+//
+//                                        if ($("select[name='province_id']").val() == 0 || $("select[name='city_id']").val() == 0)
+//                                {
+//                                $("select[name='province_id']").focus();
+//                                        $.showErr("{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.USER_REGION}");
+//                                        return false;
+//                                }
+//
+//                                if ($.trim($("#settings-address").val()).length == 0){
+//                                $("#settings-address").focus();
+//                                        $.showErr("{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.ADDRESS}");
+//                                        return false;
+//                                }
+//
+//                                });
+//                                        });
+//                                        function upd_file(obj, file_id, uid)
+//                                                {
+//                                                $("input[name='" + file_id + "']").bind("change", function(){
+//                                                $(obj).hide();
+//                                                        $(obj).parent().find(".fileuploading").removeClass("hide");
+//                                                        $(obj).parent().find(".fileuploading").removeClass("show");
+//                                                        $(obj).parent().find(".fileuploading").addClass("show");
+//                                                        $.ajaxFileUpload
+//                                                        (
+//                                                        {
+//                                                        url:APP_ROOT + '/index.php?ctl=avatar&act=upload&uid=' + uid,
+//                                                                secureuri:false,
+//                                                                fileElementId:file_id,
+//                                                                dataType: 'json',
+//                                                                success: function (data, status)
+//                                                                {
+//                                                                $(obj).show();
+//                                                                        $(obj).parent().find(".fileuploading").removeClass("hide");
+//                                                                        $(obj).parent().find(".fileuploading").removeClass("show");
+//                                                                        $(obj).parent().find(".fileuploading").addClass("hide");
+//                                                                        if (data.status == 1)
+//                                                                {
+//                                                                document.getElementById("avatar").src = data.middle_url + "?r=" + Math.random();
+//                                                                }
+//                                                                else
+//                                                                {
+//                                                                $.showErr(data.msg);
+//                                                                }
+//
+//                                                                },
+//                                                                error: function (data, status, e)
+//                                                                {
+//                                                                $.showErr(data.responseText); ;
+//                                                                        $(obj).show();
+//                                                                        $(obj).parent().find(".fileuploading").removeClass("hide");
+//                                                                        $(obj).parent().find(".fileuploading").removeClass("show");
+//                                                                        $(obj).parent().find(".fileuploading").addClass("hide");
+//                                                                }
+//                                                        }
+//                                                        );
+//                                                        $("input[name='" + file_id + "']").unbind("change");
+//                                                });
+//                                                        }
+//
+//    //切换地区
+//                                        $(document).ready(function(){
+//                                        $("select[name='province_id']").bind("change", function(){
+//                                        load_city($("select[name='province_id']"), $("select[name='city_id']"));
+//                                        });
+//                                        });
+
+
+
+    </script>
+    <!--主题部分开始-->
+</div>
+<include file="public/footer" />

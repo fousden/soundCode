@@ -1,0 +1,1095 @@
+<include file="public/header" />
+<div id="investbag">
+    <p class="webplace wrap">
+        <span class="place1"><a href="/" target="_blank">首页</a></span>&nbsp;>
+        <span class="place2"><a href="/home/deal/index" target="_blank">投资列表</a></span>&nbsp;>
+        <span class="place3">投资详情</span></p>
+    <div class="topcont wrap">
+        <div class="topconttitle">
+            <div style='width:800px;float:left;'>
+                <div class="bagname" style='width:610px;float:left;'>{$deal.name}</div>
+                <!-- 分享插件 -->
+                <!--                <div id='share'  style="float:left; margin-top: 13px;">
+                                   {$show_share_code}
+                                </div>-->
+                <script type="text/javascript">
+                    var qr_url = "{$qr_code_url}";
+                            function shareTo(site){
+                            var e = encodeURIComponent, s = screen, d = document, wd = 640, hg = 480, u = d.location;
+                                    d.title = '新老用户福利多多！年化收益8%-18%，全额本息担保，投资就送现金红包，快来注册吧！';
+                                    var uuid = '';
+                                    var img = "https://www.jxch168.com/public/images/logo.png";
+                                    var ctxt = '投越多返利越多，快来加入金享财行吧！';
+                                    var url = "http://api.bshare.cn/share/" + site + "?url=" + e("" + qr_url + "") + "&title=" + e(d.title) + "&publisherUuid=" + uuid + "&summary=" + ctxt + "&pic=" + img;
+                                    window.open(url, 'bshare', ['toolbar=0,status=0,resizable=1,width=' + wd + ',height=' + hg + ',left=' + (s.width - wd) / 2 + ',top=' + (s.height - hg) / 2]);
+                            }
+                </script>
+            </div>
+            <div style='float:left;position:relative;left:4px;'>
+                <div style='float:left' class="bagnum">投资编号：<em>#{$deal.deal_sn}</em></div>
+                <a href="javascript:;"  id='get_attention' onclick="collect_deal('{$deal.id}');" data="{$deal.is_faved}" class="follow">{$deal['is_faved']?'取消关注':'关注+'}</a>
+            </div>
+        </div>
+        <div class="bagcont 
+             <if condition="$deal['is_wait'] eq 1"> load_before
+             <elseif condition="$deal['deal_status'] eq 1 && $deal['remain_time'] gt 0" /> load
+            <elseif condition="$deal['deal_status'] eq 2" />load_full
+            <elseif condition="$deal['deal_status'] eq 3" />load_fail
+            <elseif condition="$deal['deal_status'] eq 4" />load_in_progress
+            <elseif condition="$deal['deal_status'] eq 5" />load_done
+            </if>
+            ">
+            <div class="leftlist">
+                <div class="rate">
+                    <p class="name">年化利率</p>
+                    <p class="cont">{$deal.rate}%</p>
+                </div>
+            </div>
+            <div class="middlelist">
+                <div class="middleup">
+                    <div class="duration otherlist">
+                        <p class="name">投资期限</p>
+                        <p class="cont"><span>{$deal.repay_time}</span>天</p>
+                    </div>
+                    <div class="money otherlist">
+                        <p class="name">标的金额（元）</p>
+                        <p class="cont"><span>{$deal.borrow_amount_format}</span></p>
+                    </div>
+                    <div class="interest otherlist">
+                        <p class="name">到期利息（元）</p>
+                        <p class="cont">1212.12</p>
+                    </div>
+                </div>
+                <div class="middledown">
+                    <div class="mode otherlist">
+                        <p class="name">还款方式</p>
+                        <p class="cont">{:getLoantypeName($deal['loantype'])}</p>
+                    </div>
+                    <div class="safeperson otherlist">
+                        <p class="name">本息保障方</p>
+                        <span class="cont">{$deal.guarantee}</span>
+                        <!--			{if $deal.guarantee}
+                                                <img class="cont" src="{$deal.guarantee}">
+                                                {/if}-->
+                    </div>
+                    <div class="deadline otherlist">
+                        <p class="name">最迟还款日</p>
+                        <p class="cont">{$deal.last_mback_time}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="rightlist">
+                <ul>
+                    <li style="margin-top: 15px;">
+                        <span class="title">完成</span>
+                        <span class="persentnum">{$deal['deal_status']>=4?'100':$deal['progress_point']}%</span>
+                        <div class="Clear"></div>
+
+                    </li>
+                    <li style="height:30px;">
+                        <p class="progressbarbox">
+
+                            <span class="sample_goal" ptc="{$deal['deal_status']>=4?100:$deal['progress_point']}" style="width: 80.5%;"></span>
+
+                        </p>
+                    </li>
+
+
+                    <li>
+                        <span class="title">账户余额&nbsp;&nbsp;</span>
+
+                    <if condition="$user_info">
+                        <a href="/home/user/incharge" class="recharge">充值</a>
+                        <span class="balance">￥{$user_info['money_e2']/100}</span>
+                        <else />
+                        <a href="javascript:void(0);" onclick="ajax_login();" style="float:right;"> 请先登录</a>
+                    </if>
+                    <div class="Clear"></div>
+
+                    </li>
+                    <li>
+                        <span class="title">可投金额</span>
+                        <span class="bagbalance" id="bag_balance">￥{$deal.need_money}</span>
+                        <div class="Clear"></div>
+
+                    </li>
+
+                    <li style="margin-bottom: 10px; position: relative">
+
+                    <input id="J_BIDMONEY" placeholder="{$deal.min_loan_money}元起投" <if condition="$deal['deal_status'] neq 1">disabled="disabled"</if>>
+                    <span style="position:absolute; top:5px; right:10px;"></span>
+                    <div class="Clear"></div>
+
+                    </li>
+
+                    <if condition="$user_info">
+                        <if condition="$deal['deal_status'] eq 1">
+                            <if condition="$coupon_list">
+                                <li>
+                                    <select class="coupon_id">
+                                        <option value="0">选择优惠劵．．．</option>
+                                        <foreach name="coupon_list" item="coupon">
+                                            <option value="{$coupon.id}">{$coupon.coupon_name}</option>
+                                        </foreach>
+                                    </select>
+                                </li>
+                            </if>
+                            <li>
+                                <span class="title">预计收益</span>
+                                <span class="earnings J_u_money_sy">￥0.00</span>
+                                <div class="Clear"></div>
+                            </li>
+                            <li style="margin-top: -10px;">
+                                <span class="title">实际扣款</span>
+                                <span class="actual">￥<span id="act_money">0.00</span></span>
+                                <div class="Clear"></div>
+                            </li>
+                            <li style="margin-bottom: 10px; position: relative">
+                                请输入支付密码<br>&nbsp;↓&nbsp;↓&nbsp;↓&nbsp;↓&nbsp;↓&nbsp;↓&nbsp;↓&nbsp;↓&nbsp;↓
+                                <input id="pay_pwd" placeholder="请输入支付密码" type="password">
+                                <span style="position:absolute; top:5px; right:10px;"></span>
+                                <div class="Clear"></div>
+                            </li>
+                        </if>
+                        <else/>
+                        <li>
+                            <span class="title">预计收益</span>
+                            <span class="earnings J_u_money_sy">￥0.00</span>
+                            <div class="Clear"></div>
+                        </li>
+                    </if>
+                    <li>
+                    <if condition="$user_info">
+                        <if condition="$deal['deal_status'] neq 1">
+                            <a class="investbtn" href="{url x="index" r="deals"}" target="_blank">查看其它标的</a>
+                            <else />
+                            <a href="javascript:void" class="investbtn" id="tz_link" >立即投资</a>
+                        </if>
+                        <else>
+                            <div class="touz-login tc f18 b">
+                                <a href="javascript:void(0);" onclick="ajax_login();" class="f_blue">您还没登录，请点击登录</a>
+                            </div>
+                    </if>
+                    </li>
+
+
+                </ul>
+            </div>
+            <style>
+                select {
+                    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+                    /*                    border: solid 1px #000;*/
+
+                    /*很关键：将默认的select选择框样式清除*/
+                    appearance:none;
+                    -moz-appearance:none;
+                    -webkit-appearance:none;
+
+                    /*在选择框的最右侧中间显示小箭头图片*/
+                    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+
+
+                    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+                    padding-right: 160px;
+                }
+                select,option{
+                    border: solid 1px #ccc;
+                    font-size:16px; 
+                    font-family: 微软雅黑;
+
+                }
+                option{
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                }
+                /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+                select::-ms-expand { display: none; }
+            </style>
+            <script type="text/javascript">
+
+                        $("#tz_link").click(function(){
+                var query = new Object();
+                        query.deal_id = "{$deal.id}";
+                        query.bid_money = $("#J_BIDMONEY").val();
+                        query.pay_pwd = $("#pay_pwd").val();
+                        query.coupon_id = $(".coupon_id").val();
+                        $.ajax({
+                        url:'/home/deal_load/to_load',
+                                data:query,
+                                type:"POST",
+                                dataType:"json",
+                                success:function(result){
+                                alert(result.show_err);
+                                        if (result.response_code == 1){
+                                location.reload();
+                                }
+                                }
+                        });
+                });</script>
+            <script type="text/javascript">
+                        function checkBidMoney(coupon_id){
+                        //ajax检测优惠券信息
+                        var query = new Object();
+                                query.coupon_id = coupon_id;
+                                $.ajax({
+                                url:'{url x="index" r="ajax#checkBidMoney"}',
+                                        data:query,
+                                        type:"POST",
+                                        dataType:"json",
+                                        success:function(result){
+                                        var act_money = "";
+                                                var J_BIDMONEY_MONEY = !parseFloat($("#J_BIDMONEY").val()) ? 0.00 : parseFloat($("#J_BIDMONEY").val());
+                                                var coupon_name_type = "";
+                                                if (result){
+                                        var face_value = parseFloat(result.face_value);
+                                                var min_limit = parseFloat(result.min_limit);
+                                                if (J_BIDMONEY_MONEY < min_limit){
+                                        var text = "选择优惠券";
+                                                $("#dropdown_menu").hide();
+                                                $("#select_coupon").html(text);
+                                                $("#coupon_id").val("");
+                                                if (result.status == 1){
+                                        coupon_name_type = "收益券，且不作为激活红包的条件";
+                                        } else if (result.status == 2){
+                                        coupon_name_type = "抵现券，且不作为激活红包的条件";
+                                        }
+                                        $.showErr("单笔投资金额必须大于等于" + min_limit + "元，才能使用" + coupon_name_type + "！");
+                                                act_money = 0.00;
+                                                $("#act_money").text(act_money);
+                                                return false;
+                                        }
+                                        if (result.status == 1){
+                                        //收益券
+                                        act_money = J_BIDMONEY_MONEY;
+                                                loadSy();
+                                        } else if (result.status == 2){
+                                        //抵现券
+                                        act_money = J_BIDMONEY_MONEY - face_value;
+                                        } else{
+                                        //不使用优惠券
+                                        act_money = J_BIDMONEY_MONEY;
+                                                loadSy();
+                                        }
+                                        $("#act_money").text(act_money); 　
+                                        } else{
+
+                                        if (!J_BIDMONEY_MONEY){
+                                        act_money = 0.00;
+                                        } else{
+                                        act_money = J_BIDMONEY_MONEY;
+                                        }
+                                        $("#act_money").text(act_money); 　
+                                        }
+                                        }
+                                });
+                        }
+                $(function(){
+                // 展开下拉列表框
+                $(".dropdown_toggle").click(function(){
+                $(this).parent(".btn_group").find(".dropdown_menu").show();
+                })
+                        $(".dropdown_menu li").click(function(){
+                var text = $(this).find(".title").text();
+                        $(this).parent(".dropdown_menu").hide();
+                        $(this).parent(".dropdown_menu").parent(".btn_group").find(".dropdown_toggle").html(text);
+                        $("#coupon_id").val($(this).find(".coupon_id").val());
+                        var coupon_id = $("#coupon_id").val();
+                        checkBidMoney(coupon_id);
+                })
+                        $(".dropdown_menu").mouseleave(function(){
+                $(this).hide();
+                })
+                        $("#J_BIDMONEY").keyup(function(){
+
+                if (parseFloat($("#J_BIDMONEY").val()) > {$deal.need_money}){
+                $.showErr("您输入的金额超过可投金额，请重新输入", function(){
+                $("#J_BIDMONEY").focus();
+                });
+                        return false;
+                }
+
+                var parent = $(this).parent("li").parent("ul").parent(".rightlist").parent(".bagcont");
+                        // 投资金额
+                        var investnum = !$(this).val() ? 0.00 : $(this).val();
+                        // 收益率
+                        var rate = parseFloat(parent.find(".leftlist .rate .cont").text()) / 100;
+                        // 投资期限
+                        var duration = parseFloat(parent.find(".middlelist .duration .cont span").text());
+                        // 预计收益
+                        var earnings = $(this).parent("li").next("li").find(".earnings");
+                        // 优惠券
+                        var coupons = $(this).parent("li").next("li").next("li").find(".btn_group .dropdown_toggle").text();
+                        //检测优惠券信息
+                        var coupon_id = $("#coupon_id").val();
+                        checkBidMoney(coupon_id);
+                        // 实际扣款
+                        var actual = $(this).parent("li").parent("ul").parent(".rightlist").find(".actual");
+                        var investnumstr = investnum;
+                        actual.find("#act_money").text(investnumstr);
+                });
+                })
+            </script>
+            <div class="Clear"></div>
+
+        </div>
+    </div>
+
+    <div class="midcont wrap">
+        <div class="text">
+            <!-- 下面的data要获取到当前融资包的融资进度 -->
+            <div class="step1 step f_orange">
+                <p class="time">{:date("Y-m-d",$deal['start_time'])}<br/>{:date("H:i:s",$deal['start_time'])}</p>
+                <p class="stepnum currentbg">1</p>
+                <p class="title">标的开始</p>
+            </div>
+            <div class="step2 step">
+                <p class="time">{:date("Y-m-d",$deal['end_time'])}<br/>{:date("H:i:s",$deal['end_time'])}</p>
+                <p class="stepnum">2</p>
+                <p class="title">标的结束</p>
+            </div>
+            <div class="step3 step">
+                <p class="time">{$deal.qixi_time}<br/>&nbsp;</p>
+                <p class="stepnum">3</p>
+                <p class="title">标的起息</p>
+            </div>
+            <div class="step4 step">
+                <p class="time">{$deal.jiexi_time}<br/>&nbsp;</p>
+                <p class="stepnum">4</p>
+                <p class="title">标的结息</p>
+            </div>
+            <div class="step5 step" style="margin-right: 0px;">
+                <p class="time">三个工作日内<br/>&nbsp;</p>
+                <p class="stepnum">5</p>
+                <p class="title">本息到账</p>
+            </div>
+        </div>
+        <script type="text/javascript">
+            //页面一加载执行函数，该页面js用函数的形式定义
+            window.onload=function(){
+            deal_progress_point();
+            };
+            
+            //投标进度
+            function deal_progress_point(){
+            var rongzidata = $(".midcont .map .step1").attr("data");
+                    $(".midcont .map .step1 span").css({"width":rongzidata + "%"});
+                    if (rongzidata == "100"){
+            $(".midcont .text .step2").addClass("f_orange");
+                    $(".midcont .text .step2 .stepnum").addClass("currentbg");
+                    //标的结束后进度
+                    var shenhedata = $(".midcont .map .step2").attr("data");
+                    $(".midcont .map .step2 span").css({"width":shenhedata + "%"});
+                    if (shenhedata == "100"){
+            $(".midcont .map .step2 span").css({"width":shenhedata + "%"});
+                    $(".midcont .text .step3").addClass("f_orange");
+                    $(".midcont .text .step3 .stepnum").addClass("currentbg");
+                    //标的起息后进度
+                    var jiexidata = $(".midcont .map .step3").attr("data");
+                    $(".midcont .map .step3 span").css({"width":jiexidata + "%"});
+                    if (jiexidata == "100"){
+            $(".midcont .map .step3 span").css({"width":jiexidata + "%"});
+                    $(".midcont .text .step4").addClass("f_orange");
+                    $(".midcont .text .step4 .stepnum").addClass("currentbg");
+                    //标的结息后进度
+                    var daozhangdata = $(".midcont .map .step4").attr("data");
+                    $(".midcont .map .step4 span").css({"width":daozhangdata + "%"});
+                    if (daozhangdata == "100"){
+            $(".midcont .text .step5").addClass("f_orange");
+                    $(".midcont .text .step5 .stepnum").addClass("currentbg");
+            };
+            };
+            };
+            };
+            }
+        </script>
+
+        <div class="map">
+
+            <div class="step1 stepbar progressbarbox" data="50">
+                <span class="progressimg"></span>
+            </div>
+            <div class="step2  stepbar" data="{$deal.qixi_course}">
+                <span class="progressimg"></span>
+            </div>
+            <div class="step3  stepbar" data="{$deal.jiexi_course}">
+                <span class="progressimg"></span>
+            </div>
+            <div class="step4  stepbar" data="{$deal.end_course}">
+                <span class="progressimg"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bottomcont wrap">
+        <div class="f_l">
+            <div class="bagcontnav">
+                <a class="item nav currentnav" data="item">
+                    <span></span> 项目详情
+                </a>
+                <a class="risk nav" data="risk" >
+                    <span></span> 风险控制
+                </a>
+                <a class="ensure nav" data="ensure">
+                    <span></span> 担保详情
+                </a>
+            </div>
+            <script type="text/javascript">
+                $(".bagcontnav .nav").hover(function() {
+                $(".bagcontnav .nav").removeClass("currentnav");
+                        $(this).addClass("currentnav");
+                        var box = "." + $(this).attr("data") + "box";
+                        // document.title= box;
+                        $(".xqbox").css({
+                "display": "none"
+                });
+                        $(box).css({
+                "display": "block"
+                });
+                });</script>
+            <div class="itembox xqbox">
+                <h6 class="title">项目描述</h6>
+                <p class="cont">{$deal.description}</p>
+            </div>
+            <div class="riskbox xqbox">
+                <h6 class="title">风险控制</h6>
+                <p class="cont">{$deal.risk_security}</p>
+            </div>
+
+            <if condition="$deal['agency_id'] gt 0">
+            <div class="ensurebox xqbox" >
+                <h6 class="title">担保详情</h6>
+                <p class="cont">{$deal.agency_info.brief}</p>
+            </div>
+            </if>
+        </div>
+        <div class="assurebox">
+            <div class="titlebox">
+                <p class="title">担保凭证</p>
+                <div class="f_r">
+                    <a href="javascript:;" class="prevbtn"></a>
+                    <p class="imgnav">
+                        <!-- <a class="currentnav"></a> -->
+                    </p>
+                    <a href="javascript:;" class="nextbtn"></a>
+                    <div class="Clear"></div>
+                </div>
+                <div class="Clear"></div>
+            </div>
+            <div class="imgbox">
+                <div class="imgpage" style="display: block;">
+                                      <a class="imgitem">
+                       <img width="534" height="729" alt="" src="http://www.jxch168.com/public/attachment/201601/28/13/imgFile_201601281307461453957666.png" class="imgcurrent">
+                   </a>
+                                      <a class="imgitem" style="margin-right: 0px;">
+                       <img width="534" height="729" alt="" src="http://www.jxch168.com/public/attachment/201509/16/17/imgFile_201509161750421442397042.png">
+                   </a>
+                                      <a class="imgitem">
+                       <img width="534" height="729" alt="" src="http://www.jxch168.com/public/attachment/201509/16/17/imgFile_201509161750261442397026.png">
+                   </a>
+                                      <a class="imgitem" style="margin-right: 0px;">
+                       <img width="534" height="729" alt="" src="http://www.jxch168.com/public/attachment/201509/16/17/imgFile_201509161750491442397049.png">
+                   </a>
+                                      <a class="imgitem">
+                       <img width="534" height="729" alt="" src="http://www.jxch168.com/public/attachment/201509/16/17/imgFile_201509161749531442396993.png">
+                   </a>
+                                      <a class="imgitem" style="margin-right: 0px;">
+                       <img width="534" height="729" alt="" src="http://www.jxch168.com/public/attachment/201509/16/17/imgFile_201509161751111442397071.png">
+                   </a>
+                                  </div>
+
+<!--                <div class="imgpage">
+                    {foreach from=$icon_img_1 item=img1}
+                    <a class="imgitem">
+                        <img src="{$img1}" height="729" width="534" alt="" />
+                    </a>
+                    {/foreach}
+                </div>-->
+
+                {if $icon_img_count gte 7}
+                <div class="imgpage">
+                    {foreach from=$icon_img_2 item=img2}
+                    <a class="imgitem">
+                        <img src="{$img2}" height="729" width="534" alt="" />
+                    </a>
+                    {/foreach}
+                </div>
+                {/if}
+
+
+                {if $icon_img_count gte 13}
+                <div class="imgpage">
+                    {foreach from=$icon_img_3 item=img3}
+                    <a class="imgitem">
+                        <img src="{$img3}" height="729" width="534" alt="" />
+                    </a>
+                    {/foreach}
+                </div>
+                {/if}
+
+
+                <div class="Clear"></div>
+            </div>
+            <div class="alertimgcover"></div>
+            <div class="alertimgshow">
+                <div class="titlebox">
+                    <p class="title">担保凭证</p>
+                    <p class="closebtn"></p>
+                    <div class="Clear"></div>
+                </div>
+                <div class="main">
+                    <img src="../front/images/mobile-header-bg.png" />
+                </div>
+
+                <div class="smimg">
+                    {foreach from=$icon_img_url item=img}
+                    <img src="{$img}" >
+                    {/foreach}
+                </div>
+                <div class="lastbtn"></div>
+                <div class="nextbtn"></div>
+            </div>
+        </div>
+        <div class="Clear"></div>
+    </div>
+    <script type="text/javascript">
+                $(function() {
+
+                var count = "{$icon_img_count}";
+                        // 根据图片数量设置导航数量
+                        setimgnavlength()
+                        function setimgnavlength(){
+                        var imgnav = $(".assurebox .titlebox .imgnav");
+                                var imgbox = $(".assurebox .imgbox");
+                                var imglength = count;
+                                var navlength = parseInt((imglength - 1) / 6);
+                                for (i = 0; i <= navlength; i++){
+                        imgnav.append("<a></a>");
+                        }
+                        imgnav.find("a").eq(0).addClass("currentnav");
+                                imgbox.find(".imgitem:odd").css({"margin-right":"0"})
+                                imgbox.find(".imgpage").hide();
+                                imgbox.find(".imgpage").eq(0).show();
+                        }
+                // 点击图片导航两边按钮切换缩略图展示层
+                $(".assurebox").on("click", ".titlebox .prevbtn", function(){
+                var imgbox = $(".assurebox").find(".imgbox");
+                        var imgnav = $(".assurebox").find(".imgnav");
+                        var currentitem = imgbox.find(".imgpage").index(imgbox.find(".imgpage:not(:hidden)"));
+                        // document.title = currentitem;
+                        var newitem;
+                        if (imgnav.find("a").length == 1){
+                return false;
+                } else if (currentitem == 0){
+                newitem = imgnav.find("a").length - 1;
+                } else{
+                newitem = currentitem - 1;
+                }
+                imgbox.find(".imgpage").eq(currentitem).hide(10);
+                        imgbox.find(".imgpage").eq(newitem).fadeIn(500);
+                        imgnav.find("a").removeClass("currentnav");
+                        imgnav.find("a").eq(newitem).addClass("currentnav");
+                })
+                        $(".assurebox").on("click", ".titlebox .nextbtn", function(){
+                var imgbox = $(".assurebox").find(".imgbox");
+                        var imgnav = $(".assurebox").find(".imgnav");
+                        var currentitem = imgbox.find(".imgpage").index(imgbox.find(".imgpage:not(:hidden)"));
+                        // document.title = currentitem;
+                        var newitem;
+                        if (imgnav.find("a").length == 1){
+                return false;
+                } else if (currentitem == imgnav.find("a").length - 1){
+                newitem = 0;
+                } else{
+                newitem = currentitem + 1;
+                }
+                imgbox.find(".imgpage").eq(currentitem).hide(10);
+                        imgbox.find(".imgpage").eq(newitem).fadeIn(500);
+                        imgnav.find("a").removeClass("currentnav");
+                        imgnav.find("a").eq(newitem).addClass("currentnav");
+                })
+                        // 点击图片导航切换图片
+                        $(".imgnav").on("click", "a", function(){
+                var imgnav = $(".assurebox .titlebox .imgnav");
+                        var imgbox = $(".assurebox .imgbox");
+                        var clickitem = $(".imgnav a").index($(this));
+                        imgnav.find("a").removeClass("currentnav");
+                        $(this).addClass("currentnav");
+                        imgbox.find(".imgpage").hide();
+                        imgbox.find(".imgpage").eq(clickitem).fadeIn();
+                })
+                        // 自动获取图片的标题
+                        // getsmtitle();
+                        // function getsmtitle(){
+                        //     var imgitem = $(".assurebox").find(".imgbox .imgitem");
+                        //     imgitem.each(function(){
+                        //         var data_smtitle = $(this).attr("data_smtitle");
+                        //         imgitem.find(".smtitle").html(data_smtitle);
+                        //         // alert(data_smtitle);
+                        //         // setimgmain();
+                        //     })
+                        // }
+                        // 点击担保凭证的图片弹出图片展示框
+                        $(".assurebox .imgitem").click(function(){
+                var imgshowbox = $(".alertimgshow");
+                        var item = $(".assurebox .imgitem").index(this);
+                        var itemurl = imgshowbox.find(".smimg img").eq(item).attr("src");
+                        imgshowbox.find(".smimg img").removeClass("currentimg");
+                        imgshowbox.find(".smimg img").eq(item).addClass("currentimg");
+                        imgshowbox.find(".main img").attr({"src":itemurl});
+                        imgshowbox.find(".main img").get(0).onload = function(){
+                // alert();
+                $(".alertimgcover").fadeIn(300);
+                        $(".alertimgshow").fadeIn(300);
+                        setimgmain();
+                        setsmimgcenterH();
+                        setimgcenterW();
+                }
+                })
+                        // 打开新图片设置水平居中
+                                function setimgcenterW(){
+                                var winW = $(window).width();
+                                        var imgshowbox = $(".alertimgshow");
+                                        var imgW = imgshowbox.find(".main img").outerWidth();
+                                        imgshowbox.find(".main img").css({"margin-left":(winW - imgW) / 2 + "px"});
+                                }
+                        // 设置图片展示窗主图片高度、位置
+                        // setimgmain();
+                        function setimgmain(){
+                        var winH = $(window).height();
+                                var imgshowbox = $(".alertimgshow");
+                                var titleboxH = imgshowbox.find(".titlebox").outerHeight();
+                                var smimgH = imgshowbox.find(".smimg").outerHeight() + 20;
+                                var setH = winH - titleboxH - smimgH;
+                                imgshowbox.find(".main img").removeClass("imgbig");
+                                var imgH = imgshowbox.find(".main img").outerHeight();
+                                imgshowbox.find(".main").css({"top":titleboxH + "px"});
+                                imgshowbox.find(".main").css({"height":setH + "px"});
+                                if (imgH > setH * 0.9){
+                        imgshowbox.find(".main img").addClass("imgbig");
+                        } else{
+                        imgshowbox.find(".main img").removeClass("imgbig");
+                        }
+                        var newimgH = imgshowbox.find(".main img").outerHeight();
+                                // alert("imgH:"+imgH+"winH"+winH+"titleboxH:"+titleboxH+"smimgH:"+smimgH+"setH:"+setH+"newimgH:"+newimgH);
+                                // document.title = winH+","+titleboxH+","+smimgH+","+setH+","+imgH;
+                                imgshowbox.find(".main").css({"padding-top":(setH - newimgH) / 2 + "px"});
+                        }
+                        // 设置图片展示窗下方居中
+                        // setsmimgcenterH()
+                        function setsmimgcenterH(){
+                        var imgshowbox = $(".alertimgshow");
+                                var imgW = imgshowbox.find(".smimg img").outerWidth() + 16;
+                                var smimgW = imgshowbox.find(".smimg img").length * imgW;
+                                var winW = $(window).width();
+                                if (smimgW > winW){
+                        imgshowbox.find(".smimg").addClass("smimg_scroll");
+                                smimgW = imgshowbox.find(".smimg").outerWidth();
+                                // imgshowbox.find(".smimg").css({"margin-left":(winW-smimgW)/2+"px"});
+                        }
+                        imgshowbox.find(".smimg").css({"left":(winW - smimgW) / 2 + "px"});
+                        }
+                        // 关闭图片展示窗
+                        $(".alertimgshow .closebtn,.alertimgshow .main").click(function(){
+                        $(".alertimgshow").fadeOut(300);
+                                $(".alertimgcover").fadeOut(300);
+                        })
+                                // 点击图片展示窗下方图片切换图片
+                                $(".alertimgshow .smimg img").click(function(){
+                        $(".alertimgshow").find(".main img").stop(true, true);
+                                var lastimgW = $(".alertimgshow .main img").outerWidth();
+                                toggleimg($(this), lastimgW);
+                        })
+                                function toggleimg(e, lastimgW){
+                                var winW = $(window).width();
+                                        var imgshowbox = $(".alertimgshow");
+                                        var imgmain = imgshowbox.find(".main img");
+                                        var clickitem = imgshowbox.find(".smimg img").index(e);
+                                        var lastitem = imgshowbox.find(".smimg img").index(imgshowbox.find(".smimg img").filter(".currentimg"));
+                                        if (clickitem > lastitem){
+                                imgmain.animate({"margin-left":"-" + lastimgW + "px"}, 200, function(){
+                                imgmain.css({"margin-left":winW});
+                                        var newurl = e.attr("src");
+                                        imgmain.attr({"src":newurl});
+                                        imgmain.get(0).onload = function(){
+                                // document.title = newurl;
+                                setimgmain();
+                                        // alert(newimgW);
+                                        var newimgW = imgmain.outerWidth();
+                                        var newimgH = imgmain.outerHeight();
+                                        // // document.title = newimgW+","+newimgH;
+                                        imgmain.animate({"margin-left":(winW - newimgW) / 2 + "px"}, 200);
+                                        // // alert();
+                                }
+
+                                });
+                                }
+                                if (clickitem < lastitem){
+                                imgmain.animate({"margin-left":winW + lastimgW + "px"}, 200, function(){
+                                imgmain.css({"margin-left":"-" + lastimgW + "px"});
+                                        var newurl = e.attr("src");
+                                        imgmain.attr({"src":newurl});
+                                        imgmain.get(0).onload = function(){
+                                // document.title = newurl;
+                                setimgmain();
+                                        // alert(newimgW);
+                                        var newimgW = imgmain.outerWidth();
+                                        var newimgH = imgmain.outerHeight();
+                                        // // document.title = newimgW+","+newimgH;
+                                        imgmain.animate({"margin-left":(winW - newimgW) / 2 + "px"}, 200);
+                                        // // alert();
+                                }
+
+                                });
+                                }
+                                imgshowbox.find(".smimg img").removeClass("currentimg");
+                                        e.addClass("currentimg");
+                                }
+                        // 点击左右按钮切换图片
+                        $(".alertimgshow .lastbtn").click(function(){
+                        $(".alertimgshow").find(".main img").stop(true, true);
+                                var imgshowbox = $(".alertimgshow");
+                                var lastimgW = $(".alertimgshow .main img").outerWidth();
+                                var lastitem = imgshowbox.find(".smimg img").index(imgshowbox.find(".smimg img").filter(".currentimg"));
+                                turnleft($(this), lastimgW, lastitem)
+                        })
+                                function turnleft(e, lastimgW, lastitem){
+                                var imgshowbox = $(".alertimgshow");
+                                        var imgmain = imgshowbox.find(".main img");
+                                        var winW = $(window).width();
+                                        var newitem;
+                                        // alert(imgshowbox.find(".smimg img").length)
+                                        if (lastitem == 0){
+                                newitem = imgshowbox.find(".smimg img").length - 1;
+                                } else{
+                                newitem = lastitem - 1;
+                                }
+                                imgshowbox.find(".smimg img").removeClass("currentimg");
+                                        imgshowbox.find(".smimg img").eq(lastitem - 1).addClass("currentimg");
+                                        // alert(newurl)
+                                        imgmain.animate({"margin-left":winW + "px"}, 200, function(){
+                                        imgmain.css({"margin-left":"-" + lastimgW + "px"});
+                                                var newurl = imgshowbox.find(".smimg img").eq(newitem).attr("src");
+                                                imgmain.attr({"src":newurl});
+                                                imgmain.get(0).onload = function(){
+                                        setimgmain();
+                                                var newimgW = imgshowbox.find(".main img").outerWidth();
+                                                // document.title = newimgW;
+                                                imgmain.animate({"margin-left":(winW - newimgW) / 2 + "px"}, 200);
+                                        }
+
+                                        });
+                                }
+                        $(".alertimgshow .nextbtn").click(function(){
+                        $(".alertimgshow").find(".main img").stop(true, true);
+                                var imgshowbox = $(".alertimgshow");
+                                var lastimgW = $(".alertimgshow .main img").outerWidth();
+                                var lastitem = imgshowbox.find(".smimg img").index(imgshowbox.find(".smimg img").filter(".currentimg"));
+                                turnright($(this), lastimgW, lastitem)
+                        })
+                                function turnright(e, lastimgW, lastitem){
+                                var imgshowbox = $(".alertimgshow");
+                                        var imgmain = imgshowbox.find(".main img");
+                                        var winW = $(window).width();
+                                        var newitem;
+                                        // alert(imgshowbox.find(".smimg img").length)
+                                        if (lastitem == imgshowbox.find(".smimg img").length - 1){
+                                newitem = 0;
+                                } else{
+                                newitem = lastitem + 1;
+                                }
+                                imgshowbox.find(".smimg img").removeClass("currentimg");
+                                        imgshowbox.find(".smimg img").eq(newitem).addClass("currentimg");
+                                        imgmain.animate({"margin-left":"-" + lastimgW + "px"}, 200, function(){
+                                        imgmain.css({"margin-left":winW + "px"});
+                                                var newurl = imgshowbox.find(".smimg img").eq(newitem).attr("src");
+                                                imgmain.attr({"src":newurl});
+                                                imgmain.get(0).onload = function(){
+                                        setimgmain();
+                                                var newimgW = imgmain.outerWidth();
+                                                // // alert(lastimgW+","+newimgW);
+                                                imgmain.animate({"margin-left":(winW - newimgW) / 2 + "px"}, 200);
+                                        }
+
+                                        });
+                                }
+                        })
+    </script>
+</div>
+<script type="text/javascript">
+                    $(function(){
+                    //刷新置空
+                    $("#coupon_id").val('');
+                            var firstimgsrc = $(".assurebox img:first").attr("src");
+                            $(".assurebox img:first").addClass("imgcurrent");
+                            $("#imgshowbox").find("img").attr({"src":firstimgsrc});
+                            // alert(firstimgsrc);
+
+                            $(".assurebox img").click(function(){
+                    var imgsrc = $(this).attr("src");
+                            $(".assurebox img").removeClass("imgcurrent");
+                            $(this).addClass("imgcurrent");
+                            $("#imgshowbox").slideDown(1);
+                            $("#imgshowbox").find("img").attr({"src":imgsrc});
+                    })
+
+                            $(".toright").click(function(){
+                    $(".imgboxcont").stop(true, false);
+                            var boxwidth = 0;
+                            $(".imgboxcont>img").each(function(k, v){
+                    boxwidth += $(v).outerWidth()
+                    });
+                            var imglength = $(".imgboxcont img").length;
+                            var imgspacewidth = 5 * imglength;
+                            var boxleft = $(".imgboxcont").css("left");
+                            var intboxleft = parseInt(boxleft);
+                            var absboxleft = Math.abs(intboxleft);
+                            var parentwidth = $(".imgboxcont").parent().width();
+                            if (absboxleft < boxwidth + imgspacewidth - parentwidth){
+                    $(".imgboxcont").animate({"left":intboxleft - 400}, 1000);
+                    } else{
+                    return false;
+                            // alert("已经没有了");
+                    }
+                    })
+                            $(".toleft").click(function(){
+                    $(".imgboxcont").stop(true, false);
+                            var boxwidth = 0;
+                            $(".imgboxcont>img").each(function(k, v){
+                    boxwidth += $(v).outerWidth()
+                    });
+                            var imglength = $(".imgboxcont img").length;
+                            var imgspacewidth = 5 * imglength;
+                            var boxleft = $(".imgboxcont").css("left");
+                            var intboxleft = parseInt(boxleft);
+                            var absboxleft = Math.abs(intboxleft);
+                            var parentwidth = $(".imgboxcont").parent().width();
+                            if (intboxleft >= 0){
+                    // alert(0)
+                    return false;
+                    } else{
+                    // return false;
+                    $(".imgboxcont").animate({"left":intboxleft + 400}, 1000);
+                    }
+                    })
+                    })
+</script>
+<script type="text/javascript">
+                    function fav_result(o)
+                    {
+                    var str = $(o).html("<a href='javascript:;' onclick='cancel_deal(this, '{$deal.id}', cancel_result);' class='follow'>取消关注</a>");
+                    }
+            var is_submit_lock = false;
+                    var bid_paypassword = "";
+                    var bid_calculate = null;
+                    jQuery(function(){
+                    {if $deal.uloadtype eq 1}
+                    $("a.c_number").click(function(){
+                    var rel = $(this).attr("rel");
+                            var obj = $(this);
+                            var number = parseInt($("#J_BIDMONEY").val());
+                            switch (rel){
+                    case "-":
+                            if (number - 1 > 1){
+                    $("#J_BIDMONEY").val(number - 1);
+                    }
+                    else{
+                    $("#J_BIDMONEY").val(1);
+                    }
+                    break;
+                            case "+":
+                            var max_portion = {if $deal.max_portion gt 0} < ?php echo $this - > _var['deal']['max_portion'] - $this - > _var['has_bid_portion']; ? > { else}{$deal.need_portion}{/if};
+                            if (number + 1 <= max_portion){
+                    $("#J_BIDMONEY").val(number + 1);
+                    }
+                    else{
+                    $("#J_BIDMONEY").val(max_portion);
+                    }
+                    break
+                    }
+                    loadSy();
+                    });
+                    {/if}
+
+
+                            $("#tz_link").click(function(){
+
+                    {if $user_info}
+                    { else}
+                    ajax_login();
+                            return false;
+                    {/if}
+                    {if $deal.uloadtype eq 0}
+                    if ($.trim($("#J_BIDMONEY").val()) == "" || !$.checkNumber($("#J_BIDMONEY").val()) || parseFloat($("#J_BIDMONEY").val()) <= 0){
+                    $.showErr(LANG.BID_MONEY_NOT_TRUE, function(){
+                    $("#J_BIDMONEY").focus();
+                    });
+                            return false;
+                    }
+                    if (parseFloat($("#J_BIDMONEY").val()) > {$deal.need_money}){
+                    $.showErr("您输入的金额超过可投金额，请重新输入", function(){
+                    $("#J_BIDMONEY").focus();
+                    });
+                            return false;
+                    }
+                    if (parseFloat($("#J_BIDMONEY").val()) < {$deal.min_loan_money}){
+                    $.showErr("您输入的金额小于起投金额，请重新输入", function(){
+                    $("#J_BIDMONEY").focus();
+                    });
+                            return false;
+                    }
+                    { else}
+                    if ($.trim($("#J_BIDMONEY").val()) == "" || !$.checkNumber($("#J_BIDMONEY").val()) || parseInt($.trim($("#J_BIDMONEY").val())) <= 0 || parseFloat($.trim($("#J_BIDMONEY").val())) % parseInt($.trim($("#J_BIDMONEY").val())) != 0){
+                    is_submit_lock = false;
+                            $.showErr("请输入正确的份数", function(){
+                            $("#J_BIDMONEY").focus();
+                            });
+                            return false;
+                    }
+
+                    {if $deal.max_portion gt 0}
+                    if (parseInt($.trim($("#J_BIDMONEY").val())) > < ?php echo $this - > _var['deal']['max_portion'] - $this - > _var['has_bid_portion']; ? > ){
+                    is_submit_lock = false;
+                            $.showErr("您已经购买了{$has_bid_portion}份，还能购买<?php echo $this->_var['deal']['max_portion'] - $this->_var['has_bid_portion'];  ?>份", function(){
+                            $("#J_BIDMONEY").focus();
+                            });
+                            return false;
+                    }
+                    { else}
+                    if (parseInt($.trim($("#J_BIDMONEY").val())) > {$deal.need_portion}){
+                    is_submit_lock = false;
+                            $.showErr("您已经购买了{$has_bid_portion}份，还能购买{$deal.need_portion}份", function(){
+                            $("#J_BIDMONEY").focus();
+                            });
+                            return false;
+                    }
+                    {/if}
+                    {/if}
+                            if ($("#coupon_id").val() == ""){
+                    $.showErr("优惠券必须选择，如果没有请选择不使用优惠券！");
+                            return false;
+                    }
+                    //ajax检测用户信息真实性
+                    var query = new Object();
+                            query.check_money = $.trim($("#J_BIDMONEY").val());
+                            query.coupon_id = $.trim($("#coupon_id").val());
+                            $.ajax({
+                            url:'{url x="index" r="ajax#check_user_real_info"}',
+                                    data:query,
+                                    type:"POST",
+                                    dataType:"json",
+                                    success:function(result){
+                                    if (result.status == 0){
+                                    $.showErr(result.info);
+                                            setTimeout(function(){window.location.href = result.skip_url}, 3000);
+                                            return false;
+                                    } else{
+                                    var html = '<div class="tc p15">';
+                                            html += '支付密码：<input type="password" class="f-input ui-textbox" id="J_bid_password" />';
+                                            html += '<div class="blank5"></div>';
+                                            html += '{if $user_info.paypassword eq ''}还未设置！{else}忘记了？{/if}<a href="{url x="index" r="uc_account#security"}" target="_blank" class="f_blue">点这里</a>';
+                                            html += '<div class="blank5"></div>';
+                                            html += '<input type="button" class="sub_btn" id="J_bindpassword_btn" value="确定">&nbsp;&nbsp;';
+                                            html += '<input type="button" class="reset_btn"  id="J_bindpassword_rbtn" value="取消">';
+                                            html += "</div>";
+                                            $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"支付密码", width:380, height:140, type:'wee'});
+                                            init_ui_textbox();
+                                    }
+                                    }
+                            });
+                    });
+                            $("#J_bindpassword_btn").live("click", function(){
+                    if ($.trim($("#J_bid_password").val()) != ""){
+                    bid_paypassword = $.trim($("#J_bid_password").val());
+                            to_load();
+                            //投标以后 不能重复点击 造成多次投标
+                            $("#J_bindpassword_btn").attr('disabled', 'disabled');
+                    } else{
+                    $.showErr("请输入支付密码", function(){
+                    $("#J_bid_password").focus();
+                    });
+                    }
+                    });
+                            $("#J_bindpassword_rbtn").live("click", function(){
+                    $.weeboxs.close("paypass-box");
+                    });
+                            $("#J_BIDMONEY").keyup(function(){
+                    loadSy();
+                    });
+                            loadSy();
+                    {if $deal.ips_bill_no neq "" && $user_info.id gt 0}
+                    checkIpsBalance(0, {$user_info.id}, function(result){
+                    if (result.pErrCode == "0000"){
+                    $(".J_u_money_0").html(result.pBalance + "<span class='f_red '>[绑]</span>");
+                    }
+                    });
+                    {/if}
+
+                    });
+                            function loadSy(){
+                            var query = new Object();
+                                    query.uloantype = '{$deal.uloadtype}';
+                                    query.minmoney = '{$deal.min_loan_money}';
+                                    query.deal_id = '{$deal.id}';
+                                    query.loantype = '{$deal.loantype}';
+                                    query.rate = '{$deal.rate}';
+                                    query.repay_time = '{$deal.repay_time}';
+                                    query.repay_time_type = '{$deal.repay_time_type}';
+                                    query.money = $.trim($("#J_BIDMONEY").val());
+                                    query.coupon_id = $.trim($("#coupon_id").val());
+                                    query.user_loan_manage_fee = '{$deal.user_loan_manage_fee}';
+                                    query.yield_ratio = '{$deal.yield_ratio}';
+                                    query.user_loan_interest_manage_fee = '{$deal.user_loan_interest_manage_fee}';
+                                    if (bid_calculate) bid_calculate.abort(); /*终止之前所有的未结束的ajax请求，然后重新开始新的请求  */
+                                    bid_calculate = $.ajax({
+                                    url:'{url x="index" r="ajax#bid_calculate"}',
+                                            data:query,
+                                            type:"post",
+                                            dataType:"text",
+                                            success:function(result){
+                                            $(".J_u_money_sy").html('￥' + result);
+                                            }
+                                    });
+                            }
+                    function to_load(){
+                    if (is_submit_lock)
+                    {
+                    return false;
+                    }
+                    is_submit_lock = true;
+                            var query = new Object();
+                            query.bid_money = $.trim($("#J_BIDMONEY").val())
+                            query.id = "{$deal.id}";
+                            query.coupon_id = $.trim($("#coupon_id").val());
+                            query.bid_paypassword = FW_Password(bid_paypassword);
+                            query.ajax = 1;
+                            $.ajax({
+                            url:'{url x="index" r="deal#dobid"}',
+                                    data:query,
+                                    type:"POST",
+                                    dataType:"json",
+                                    success:function(result){
+                                    if (result.status == 1){
+                                    is_submit_lock = false;
+                                            $.showSuccess(result.info.show_err, function(){
+                                            window.location.reload();
+                                                    if (result.info.url){
+                                            window.open(result.info.url);
+                                            }
+                                            });
+                                    }
+                                    else if (result.status == 2){
+                                    window.location.href = result.jump;
+                                    }
+                                    else{
+                                    is_submit_lock = false;
+                                            $.showErr(result.info);
+                                            setTimeout(function(){window.location.reload()}, 3000);
+                                    }
+                                    },
+                                    error:function(ajaxobj)
+                                    {
+                                    }
+                            });
+                    }
+</script>

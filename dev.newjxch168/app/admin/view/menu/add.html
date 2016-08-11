@@ -1,0 +1,94 @@
+<taglib name="html" />{// 引入标签库 }
+<include file="public/header" />
+<load href='__ADMIN__/css/jquery.autocomplete.css' />
+<load href='__ADMIN__/js/jquery.autocomplete.min.js' />
+
+<div class="main">
+    <div class="main_title">菜单{:get_submit_name()} <a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/index" class="back_list">返回上一步</a></div>
+    <div class="blank5"></div>
+    <form name="edit" action="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/{$Think.ACTION_NAME}" method="post" enctype="multipart/form-data">
+        <div class="blank5"></div>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">上级菜单:</td>
+                <td class="item_input">
+                    <select name="pid">
+                        <option value='0'>根菜单</option>
+                        <foreach name='menu_list' id='v'>
+                            <option value="{$v.id}" <if condition="$v['menu_level']=='3'">disabled </if> <if condition="$v['id']==$menu_info['pid']">selected </if>>{$v.name|get_menu_name=$v.menu_level}</option>
+                        </foreach>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">菜单名称:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="name" value='{$menu_info.name}' /></td>
+            </tr>
+            <tr>
+                <td class="item_title">模块:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="module_name" value='{$menu_info.module_name}' /></td>
+            </tr>
+            <tr>
+            <tr>
+                <td class="item_title">控制器:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="controller" value='{$menu_info.controller}' /></td>
+            </tr>
+            <tr>
+                <td class="item_title">方法:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="action_name" value='{$menu_info.action_name}' /></td>
+            </tr>
+            <tr>
+                <td class="item_title">参数:</td>
+                <td class="item_input"><input type="text" class="textbox" name="param" value='{$menu_info.param}' />（格式：?参数名=参数值&参数名=参数值...）</td>
+            </tr>
+            <tr>
+                <td class="item_title">排序:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="sort" value='{$menu_info.sort}' /></td>
+            </tr>
+            <tr>
+                <td class="item_title">是否显示:</td>
+                <td class="item_input">
+                    <select name="display">
+                        <option value='1' <if condition="$menu_info['display']==1">selected </if>>显示</option>
+                        <option value='0' <if condition="$menu_info['display']==0">selected </if>>隐藏</option>
+                    </select>
+                </td>
+            </tr>
+
+                <tr>
+                <td class="item_title">是否激活:</td>
+                <td class="item_input">
+                    <select name="status">
+                        <option value='1' <if condition="$menu_info['status']==1">selected </if>>是</option>
+                        <option value='0' <if condition="$menu_info['status']==0">selected </if>>否</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="bad_info_box">
+                <td class="item_title">备注:</td>
+                <td class="item_input">
+                    <textarea type="text" class="textbox" name="remark" id="bad_msg" rows="3" cols="20">{$menu_info.remark}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <input type="hidden" name="id" value="{$menu_info.id}"/>
+                    <input type="submit" name="submit" class="button" value="{:get_submit_name()}" />
+                    <input type="reset" class="button" value="重置" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+
+        </table>
+        <div class="blank5"></div>
+
+    </form>
+</div>
+<include file="public:footer" />

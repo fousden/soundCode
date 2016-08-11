@@ -1,0 +1,47 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<script src="__ADMIN__/js/WdatePicker.js?t=20140830" type="text/javascript"></script>
+<?php
+
+    function get_user_name_real($user_id){
+	$user_info =  M("User")->where("id=".$user_id." and is_delete = 0")->Field("user_name,real_name,user_type,mobile")->find();
+	if(!$user_info)
+		return "未知用户";
+	else
+		return "<a href=".u("User/".($user_info['user_type']==0? "index" : "company_index"),array("user_name"=>$user_info['user_name']))." target='_blank'>".$user_info['user_name'].($user_info['real_name']!="" ? "[".$user_info['real_name']."]"."[".$user_info['mobile']."]":"")."</a>";
+    }
+
+    
+?>
+<div class="main">
+    <div class="main_title">充值排行榜</div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="/admin/user_incharge/rank" method="get">
+            开始时间： <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:s'})"  type="text" id="start_date" name="start_time" class="Wdate" value="{$_REQUEST['start_time']}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            结束时间： <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:s'})"  type="text" id="end_date" name="end_time" class="Wdate" value="{$_REQUEST['end_time']}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            会员名： <input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" />&nbsp;&nbsp;&nbsp;&nbsp;
+            手机号： <input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" class="button" value="搜索" />
+        </form>
+    </div>
+    <div class="blank5"></div>
+    <html:list
+    id="dataTable"
+    style="dataTable"
+    name="article"
+    datasource="list"
+    show="id:编号|50px
+        ,user_id:会员ID
+        ,user_id|get_user_name_real:会员名称
+        ,money|num_format:金额"/>
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+</div>
+<include file="public/footer" />

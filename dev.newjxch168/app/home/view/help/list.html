@@ -1,0 +1,13 @@
+<div class="tree-box clearfix">
+    <div class="tree">
+        <foreach name="article_cate_tree" item="vo" >
+        <div class="hd"><a href="/home/help?type=1&id={$vo.id}">{$vo.title}</a></div>
+        </foreach>
+        <div class="hd lasthd">最新资讯</div>
+        <div class="aboutnews">
+        <foreach name="lastest_news_tree" item="vo1" >
+            <div class="item"><a href="/home/help?type=2&id={$vo1.id}">{$vo1.title}</a></div>
+        </foreach>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+{// 引入标签库 }
+<taglib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/user_edit.js' />
+<load href='__ADMIN__/js/conf.js' />
+<load href='__ADMIN__/js/region.js' />
+<div class="main">
+    <div class="main_title">新增<a href="index" class="back_list">返回列表</a></div>
+    <div class="blank5"></div>
+    <form name="add" action="insert" method="post" enctype="multipart/form-data">
+
+        <div class="blank5"></div>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">会员类型:</td>
+                <td class="item_input">
+                    <label><input type="radio" name="user_type" value="0" checked="checked" />普通会员</label>
+                    <label><input type="radio" name="user_type" value="1" />企业会员</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">会员名称:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="user_name" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">会员邮件:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="email" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">手机号:</td>
+                <td class="item_input"><input type="text" class="textbox" name="mobile" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">会员密码:</td>
+                <td class="item_input"><input type="password" class="textbox require" name="user_pwd" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">确认密码:</td>
+                <td class="item_input"><input type="password" class="textbox require" name="user_confirm_pwd" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="item_title" style="text-align:center;"></td>
+            </tr>
+            <tr>
+                <td class="item_title">是否有效:</td>
+                <td class="item_input">
+                    <lable>有效<input type="radio" name="is_effect" value="1" checked="checked" /></lable>
+                    <lable>无效<input type="radio" name="is_effect" value="0" /></lable>
+                </td>
+            </tr>
+            <foreach name="field_list" item="field_item">
+                <tr>
+                    <td class="item_title">{$field_item['field_show_name']}:</td>
+                    <td class="item_input">
+                        <if condition="$field_item['input_type'] eq 0">
+                            <input type="text" class="textbox " name="{$field_item['field_name']}" />
+                        </if>
+
+                        <if condition="$field_item['input_type'] eq 1">
+                            <select name="{$field_item['field_name']}">
+                                <foreach name="field_item.value_scope" item="value_item">
+                                    <option value="{$value_item}">{$value_item}</option>
+                                </foreach>
+                            </select>
+                        </if>
+                    </td>
+                </tr>
+            </foreach>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+
+        <div class="blank5"></div>
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <input type="submit" class="button" value="新增" />
+                    <input type="reset" class="button" value="重置" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+</div>

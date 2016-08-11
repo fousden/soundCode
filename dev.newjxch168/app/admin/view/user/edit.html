@@ -1,0 +1,131 @@
+{// 引入标签库 }
+<taglib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/user_edit.js' />
+<load href='__ADMIN__/js/conf.js' />
+<load href='__ADMIN__/js/region.js' />
+<php>
+    function t_date($date){
+        return date("Y-m-d H:i:s",$date);
+    }
+</php>
+<div class="main">
+    <div class="main_title">编辑 <a href="index" class="back_list">返回列表</a></div>
+    <div class="blank5"></div>
+    <form name="edit" action="update" method="post" enctype="multipart/form-data">
+        <div class="blank5"></div>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">最后登录IP</td>
+                <td class="item_input"><if condition="empty($vo_ext.login_ip)">暂无登录IP信息<else />{$vo_ext.login_ip}</if></td>
+            </tr>
+            <tr>
+                <td class="item_title">最后登录时间</td>
+                <td class="item_input"><if condition="empty($vo_ext.login_time)">{$vo.create_time|t_date}<else />{$vo_ext.login_time|t_date}</if></td>
+            </tr>
+            <tr>
+                <td class="item_title">注册时间</td>
+                <td class="item_input">{$vo.create_time|t_date}</td>
+            </tr>
+            <tr>
+                <td class="item_title">会员类型:</td>
+                <td class="item_input">
+                    <label><input type="radio" name="user_type" value=0 <if condition="$vo['user_type'] eq 0">checked="checked"</if> />普通会员</label>
+                    <label><input type="radio" name="user_type" value=1 <if condition="$vo['user_type'] eq 1">checked="checked"</if> />企业会员</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">会员名称:</td>
+                <td class="item_input"><input type="hidden" class="textbox require" name="user_name" value="{$vo.user_name}" />{$vo.user_name}</td>
+            </tr>
+            <tr>
+                <td class="item_title">会员邮件:</td>
+                <td class="item_input">
+                    <input type="<if condition="$vo['email'] eq ''">text<else />hidden</if>" class="textbox require" name="email" value="{$vo.email}" />
+                    {$vo.email}
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">手机号:</td>
+                <td class="item_input"><input type="text" class="textbox"  name="mobile" value="{$vo.mobile}" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">会员密码:</td>
+                <td class="item_input"><input type="password" class="textbox" name="user_pwd" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">确认密码:</td>
+                <td class="item_input"><input type="password" class="textbox" name="user_confirm_pwd" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="item_title" style="text-align:center;"><b>身份信息</b></td>
+            </tr>
+            <tr>
+                <td class="item_title">姓名:</td>
+                <td class="item_input"><input type="text" value="{$vo.real_name}" disabled="disabled" class="textbox" name="real_name" /></td>
+            </tr>
+            <tr>
+                <td class="item_title">身份证号码:</td>
+                <td class="item_input"><input type="text hidden" disabled="disabled" value="{$vo.idno}" class="textbox" name="idno" /></td>
+            </tr>
+
+            <tr>
+                <td class="item_title">出生日期:</td>
+                <td class="item_input">
+                    <input type="text hidden" name="byear" class="textbox" value="{$vo_ext.byear}" disabled="disabled" style="width:40px" maxlength="4"  />年
+                    <input type="text hidden" name="bmonth" class="textbox" value="{$vo_ext.bmonth}" disabled="disabled" style="width:20px" maxlength="2"/>月
+                    <input type="text hidden" name="bday" class="textbox" value="{$vo_ext.bday}"  disabled="disabled" style="width:20px" maxlength="2" />日
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">性别:</td>
+                <td class="item_input">
+                    <!--<select name="sex">-->
+                        <!--<option value="0" <if condition="$vo['sex'] eq 0">selected="selected"</if>>女</option>-->
+                        <!--<option value="1" <if condition="$vo['sex'] eq 1">selected="selected"</if>>男</option>-->
+                    <!--</select>-->
+                    <if condition="$vo['sex'] eq 0">女</if>
+                    <if condition="$vo['sex'] eq 1">男</if>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="item_title" style="text-align:center;"></td>
+            </tr>
+
+            <tr>
+                <td class="item_title">是否有效:</td>
+                <td class="item_input">
+                    <lable>有效<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if> /></lable>
+                    <lable>无效<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></lable>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+
+        <div class="blank5"></div>
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <input type="hidden" name="id" value="{$vo.id}" />
+                    <!--隐藏元素-->
+                    <input type="submit" class="button" value="更新" />
+                    <input type="reset" class="button" value="重置" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<include file="Public/footer" />

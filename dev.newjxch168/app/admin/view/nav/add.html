@@ -1,0 +1,106 @@
+<include file="public/header" />
+<script src="__ADMIN__/js/conf.js" type="text/javascript"></script>
+<script src="__ADMIN__/js/WdatePicker.js?t=20140830" type="text/javascript"></script>
+<div class="main">
+    <div class="main_title">新增导航 <a href="/admin/nav/index" class="back_list">导航列表</a></div>
+    <div class="blank5"></div>
+    <form name="edit" action="/admin/nav/<if condition='$nav_now'>edit<else/>add</if>" method="post" enctype="multipart/form-data">
+        <div class="button_row">
+            <input type="button" class="button conf_btn" rel="1" value="导航信息" />
+            <if condition="$nav_now"><input type="hidden" class="textbox" name="id" value="{$nav_now.id}"/></if>
+        </div>
+        <div class="blank5"></div>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">导航名称:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="name" value="{$nav_now.name}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">导航分类</td>
+                <td class="item_input">
+                    <select name="pid" class="require">
+                        <foreach name='nav_list' id='nav' key="key">
+                            <option value="{$nav.id}" <if condition="$nav['id'] eq $nav_now['id']">selected</if> >{$nav.name}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">导航模块</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="module"  value="{$nav_now.module}" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">导航控制器</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="controller" value="{$nav_now.controller}" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">导航操作</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="action" value="{$nav_now.action}" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">导航参数</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="param" value="{$nav_now.param}" />
+                </td>
+            </tr>
+            <tr>
+                    <td class="item_title">是否新窗口打开:</td>
+                    <td class="item_input">
+                        <lable>是<input type="radio" name="blank" value="1" <if condition="$nav_now['blank'] eq 1">checked="checked"</if> /></lable>
+                        <lable>否<input type="radio" name="blank" value="0" <if condition="$nav_now['blank'] neq 1">checked="checked"</if> /></lable>
+                    </td>
+            </tr>
+            <tr>
+                    <td class="item_title">是否启用:</td>
+                    <td class="item_input">
+                            <lable>启用<input type="radio" name="status" value="1" <if condition="$nav_now['status'] eq 1">checked="checked"</if> /></lable>
+                            <lable>关闭<input type="radio" name="status" value="0" <if condition="$nav_now['status'] neq 1">checked="checked"</if> /></lable>
+                    </td>
+            </tr>
+            <tr>
+                    <td class="item_title">是否有效:</td>
+                    <td class="item_input">
+                            <lable>有效<input type="radio" name="is_effect" value="1" <if condition="$nav_now['is_effect'] eq 1">checked="checked"</if> /></lable>
+                            <lable>无效<input type="radio" name="is_effect" value="0" <if condition="$nav_now['is_effect'] neq 1">checked="checked"</if> /></lable>
+                    </td>
+            </tr>
+            <tr>
+                    <td class="item_title">排序</td>
+                    <td class="item_input">
+                            <input type="text" class="textbox" name="sort" value="{$nav_now.sort}" />
+                    </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+        <div class="blank5"></div>
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <input type="submit" class="button" value="新增" />
+                    <input type="reset" class="button" value="重置" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<include file="public/footer" />

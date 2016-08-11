@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml/">
+    <head>
+        <meta name="Generator" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>金享财行首页</title>
+        <link rel="icon" href="favicon.ico" type="/image/x-icon" />
+        <link rel="shortcut icon" href="favicon.ico" type="/image/x-icon" />
+        <meta name="keywords" content="金享财行首页关键词" />
+        <meta name="description" content="金享财行首页描述" />
+
+        <link rel="stylesheet" type="text/css" href="__HOME__/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="__HOME__/css/footer.css" />
+        <link rel="stylesheet" type="text/css" href="__HOME__/css/dealss.css" />
+        <link rel="stylesheet" type="text/css" href="__HOME__/css/weebox.css" />
+        <link rel="stylesheet" type="text/css" href="__HOME__/css/btn.css" />
+        <script type="text/javascript" src="__HOME__/js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="__HOME__/js/jquery.bgiframe.js"></script>
+        <script type="text/javascript" src="__HOME__/js/jquery.weebox.js"></script>
+        <script type="text/javascript" src="__HOME__/js/jquery.pngfix.js"></script>
+        <script type="text/javascript" src="__HOME__/js/des.js"></script>
+        <script type="text/javascript" src="__HOME__/js/kefu.js"></script>
+        <script type="text/javascript" src="__HOME__/js/fanweUI.js"></script>
+        <script type="text/javascript" src="__HOME__/js/script.js"></script>
+
+        <if condition="CONTROLLER_NAME eq 'index'" >
+            <link rel="stylesheet" type="text/css" href="__HOME__/css/index.css" />
+            <script type="text/javascript" src="__HOME__/js/utils/adv.js"></script>
+            <script type="text/javascript" src="__HOME__/js/utils/jquery.SuperSlide.2.1.source.js"></script>
+        </if>
+        <if condition="CONTROLLER_NAME eq 'user'" >
+            <link rel="stylesheet" type="text/css" href="__HOME__/css/user_login_regiter.css" />
+            <!--<script type="text/javascript" src="__HOME__/js/utils/user.js"></script>-->
+        </if>
+
+        <if condition="(CONTROLLER_NAME eq 'user') OR (CONTROLLER_NAME eq 'authorized') OR (CONTROLLER_NAME eq 'agency_money')" >
+            <if condition="(ACTION_NAME eq 'login') OR (ACTION_NAME eq 'register') OR (ACTION_NAME eq 'getpassword') OR (ACTION_NAME eq 'steptwo')" >
+                <link rel="stylesheet" type="text/css" href="__HOME__/css/user_login_regiter.css" />
+                <else/>
+                <link rel="stylesheet" type="text/css" href="__HOME__/css/m.css" />
+            </if>
+        </if>
+        <if condition="CONTROLLER_NAME eq 'deal'" >
+            <link rel="stylesheet" type="text/css" href="__HOME__/css/deal.css" />
+        </if>
+        <if condition="(CONTROLLER_NAME eq 'transfer') AND (ACTION_NAME eq 'detail')" >
+            <link rel="stylesheet" type="text/css" href="__HOME__/css/transfer.css" />
+        </if>
+        <if condition="CONTROLLER_NAME eq 'guide'" >
+            <link rel="stylesheet" type="text/css" href="__HOME__/css/guide.css" />
+        </if>
+        <link rel="stylesheet" type="text/css" href="__HOME__/css/uc.css" />
+        <link rel="stylesheet" type="text/css" href="__HOME__/css/kefu.css" />
+        <script type="text/javascript" src="__HOME__/js/u.js"></script>
+        <script type="text/javascript">
+            var APP_ROOT = "APP_ROOT";
+            var LOADER_IMG = '__HOME__/images/lazy_loading.gif';
+            var ERROR_IMG = '__HOME__/images/image_err.gif';
+            var TMPL = '__HOME__/';
+            var CURRENT_URL = "{:trim($_SERVER['REQUEST_URI'])}";
+            var MODULE_NAME = "<?php echo MODULE_NAME;?>";
+            var CONTROLLER_NAME = "<?php echo CONTROLLER_NAME; ?>";
+            var ACTION_NAME = "<?php echo ACTION_NAME; ?>";
+            var ROOT = '/';
+        </script>
+        <!--[if lt IE 10]>
+        <script type="text/javascript" src=" __HOME__/js/PIE.js"></script>
+        <![endif]-->
+        <script language="javascript">
+            $(function () {
+                if (window.PIE) {
+                    $('.bdr3,.bdr5,.user_info_d a,.main_adv_ctl li,.after_login .user_money A,.listbtn SPAN').each(function () {
+                        PIE.attach(this);
+                    });
+                }
+            });
+        </script>
+        <script type="text/javascript" src="__HOME__/js/Global.min.js"></script>
+        <script type="text/javascript" src="__HOME__/js/entry.js"></script>
+        <link rel="stylesheet" type="text/css" href="__HOME__/js/jquery.flexslide/jquery.flexslide.css">
+            <link type="text/css" href="__HOME__/css/StyleSheet.css" rel="stylesheet" />
+            <link type="text/css" href="__HOME__/css/odometer-theme-default.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!--header beigin-->
+        <div class="header" id="header">
+            <div class="constr">
+                <div class="wrap">
+                    <div class="app_down f_l" id="J_APP_DOWN">
+                        <label class="item"><img src="__HOME__/images/top-phone.png" width="20" height="20" class="icon" alt="" />客服热线：400-091-2828</label>
+                        <label class="item">在线客服：<img src="__HOME__/images/top-qq.png" width="20" height="20" class="icon CursorPointer" alt="" onclick="window.open('http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAyNDMwNF8zMDIzMDRfNDAwMDkxMjgyOF8yXw');" /></label>
+                        <label class="item">手机客户端：<span class="ShowQRCode"><img src="__HOME__/images/IosAndAnd.png" width="40" height="20" class="icon" style="margin: 0;" alt=""/>
+                                <label class="box" style="left: -65px;"><img src="__HOME__/images/AppQRCode.jpg" width="160" height="160" alt=""/></label></span></label>
+                        <label class="item">关注我们：<span class="ShowQRCode"><img src="__HOME__/images/weixin.png" width="20" height="20" class="icon" alt=""/>
+                                <label class="box"><img src="__HOME__/images/WechatQRCode.jpg" width="160" height="160" alt=""/></label></span></label>
+                    </div>
+                    <div class="f_r lh30">
+                        <div id="user_head_tip" class="pr f_r">
+                            <span class="li li_no" id="J_account">
+                                <a href="/index.php?ctl=novice&act=guidelines" target="_blank">新手指引</a><i>|</i>
+                                <a href="index.php?ctl=helpcenter&id=14" target="_blank">帮助中心</a><i>|</i>
+                                <if condition="$_SESSION['user_info']">
+                                    <span class="f14">您好,</span>
+                                    <a href="/home/user/index">{$_SESSION['user_info']['user_name']}</a><i>|</i>
+                                    <a class="rrd-dimgray" href="/home/system/login_out">退出</a>
+                                    <else />
+                                    <span><a href="/home/system/login">立即登录</a><i>|</i></span>
+                                    <span><a href="/home/system/step_one">免费注册</a><i>|</i></span>
+                                </if>
+                                <!--<ul class="ui-nav-dropdown ui-nav-dropdown-account">
+                                    <li class="ui-nav-dropdown-angle" style="_top: -13px;"><span></span></li>
+
+                                    <li class="ui-nav-dropdown-separator"></li>
+                                    <li class="ui-nav-dropdown-item"><a class="rrd-dimgray" href="#">充值</a></li>
+                                    <li class="ui-nav-dropdown-item"><a class="rrd-dimgray" href="#">提现</a></li>
+                                    <li class="ui-nav-dropdown-separator"></li>
+                                    <li class="ui-nav-dropdown-item"><a class="rrd-dimgray" href="#">资金管理</a></li>
+                                    <li class="ui-nav-dropdown-item"><a class="rrd-dimgray" href="#">投资管理</a></li>
+                                     <li class="ui-nav-dropdown-item"><a class="rrd-dimgray" href="#">借款管理</a></li>
+                                    <li class="ui-nav-dropdown-separator"></li>
+                                    <li class="ui-nav-dropdown-item"><a class="rrd-dimgray" href="#">退出</a></li>
+                                </ul>-->
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Clear"></div>
+            <!--1加载菜单div-->
+            <div class="main_bars">
+                <div class="main_bar wrap">
+                    <div class="logo mr15">
+                        <a class="link f_l" href="{$APP_ROOT}/">
+                            <span style="display:inline-block;width:188px;height:50px; background: url(__HOME__/images/logo.png) no-repeat;_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=Images/logo.png,sizingMethod=scale); _background-image: none; margin-top: 12px;"></span>
+                            <if condition="CONTROLLER_NAME eq 'loan'" >
+                                <img src='__HOME__/images/dk_logo.jpg' />
+                                <else/>
+                                <img src='__HOME__/images/slogan.png' />
+                            </if>
+                        </a>
+                    </div>
+                    <ul class="main_nav">
+                        <foreach name="nav_list" id="nav" key="key">
+                            <li class='ml5 bdr3 pr <if condition="$nav['sec_nav']">jcur</if>  <if condition="CONTROLLER_NAME eq $nav['controller']">current</if>' rel='{$key+1}'>
+                                <a href="/{$nav.module}/{$nav.controller}/{$nav.action}{$nav.param}" target='<if condition="$nav['blank'] eq 1">_blank</if>'  >{$nav.name}</a>
+                                <div class="sub_main_nav ps hide">
+                                    <foreach name="nav.sec_nav" id="sec_nav">
+                                        <a href="/{$sec_nav.module}/{$sec_nav.controller}/{$sec_nav.action}{$sec_nav.param}" <if condition="$sec_nav['controller'] eq CONTROLLER_NAME">class="current" </if>  target='<if condition="$sec_nav['blank'] eq 1">_blank</if>' >{$sec_nav.name}</a>
+                                    </foreach>
+                                </div>
+                            </li>
+                        </foreach>
+                    </ul>
+                    <!--加载菜单END{else}-->
+                    <!--{/if}-->
+                </div>
+            </div>
+            <!--1加载菜单div END-->
+        </div>
+        <script type="text/javascript">
+            $("#header .item .ShowQRCode .icon").hover(
+                    function () {
+                        $(this).parent().find(".box").fadeIn(parms.FadeTime);
+                    },
+                    function () {
+                        $(this).parent().find(".box").fadeOut(parms.FadeTime);
+                    });
+        </script>
+        <!--因为header为可浮动 此blank100的作用为将头部浮动的区域撑开 请勿去掉 begin-->
+        <div class="blank100"></div>
+        <!--因为header为可浮动 此blank100的作用为将头部浮动的区域撑开 请勿去掉 end-->
+        <!--header end-->

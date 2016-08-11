@@ -1,0 +1,41 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<div class="main">
+    <div class="main_title">文章列表</div>
+    <div class="blank5"></div>
+    <div class="button_row" style="position:relative;top:5px;">
+        <input type="button" class="button" value="新增" onclick="add();" />
+        <input type="button" class="button" value="删除" onclick="del();" />
+    </div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="/admin/article_cate/index" method="get">
+            文章分类名称：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+            <input type="submit" class="button" value="搜索" />
+        </form>
+    </div>
+    <div class="blank5"></div>
+    <html:list
+	id="dataTable"
+	style="dataTable"
+	name="article_cate"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:ID|50px
+        ,title:标题
+        ,type:文章类型
+        ,is_effect|get_is_effect=$article_cate['id']:是否有效
+        ,sort:排序"
+	actionlist="edit:编辑, del:删除" />
+
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+</div>
+<include file="public/footer" />

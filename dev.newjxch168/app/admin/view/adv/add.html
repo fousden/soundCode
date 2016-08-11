@@ -1,0 +1,74 @@
+<taglib name="html" />{// 引入标签库 }
+<include file="public/header" />
+<script src="__ADMIN__/js/conf.js" type="text/javascript"></script>
+<script src="__ADMIN__/js/WdatePicker.js?t=20140830" type="text/javascript"></script>
+
+<div class="main">
+    <div class="main_title">{:get_submit_name()}广告 <a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/index" class="back_list">返回上一步</a></div>
+    <div class="blank5"></div>
+    <form name="edit" action="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/{$Think.ACTION_NAME}" method="post" enctype="multipart/form-data">
+        <div class="blank5"></div>
+        <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">广告名称:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="name" value='{$adv_info.sort}' /></td>
+            </tr>
+            <tr>
+                <td class="item_title">是否客户端:</td>
+                <td class="item_input">
+                    <input type="radio" name="is_pc" value="1" checked />是
+                    <input type="radio" name="is_pc" value="0" <if condition="$adv_info['is_pc']==='0'">checked</if> />否
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">有效时间:</td>
+                <td class="item_input">
+                    <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  type="text" id="start_time" name="start_time" class="Wdate require" value="{:get_date($adv['start_time'])}"/>至
+                    <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  type="text" id="end_time" name="end_time" class="Wdate require" value="{:get_date($adv['end_time'])}"/>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="item_title">URL:</td>
+                <td class="item_input"><input type="text" size="50" class="textbox" name="url" value='{$adv_info.url}' /></td>
+            </tr>
+            <tr>
+                <td class="item_title">是否有效:</td>
+                <td class="item_input">
+                    <input type="radio" name="is_effect" value="1" checked>是
+                    <input type="radio" name="is_effect" value="0" <if condition="$adv_info['is_effect']==='0'">checked</if>>否
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">图片上传:</td>
+                <td class="item_input">
+                    <input type="file" name="icon">
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="item_title">排序:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="sort" value='{$adv_info.sort}' /></td>
+            </tr>
+            
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <input type="hidden" name="id" value="{$menu_info.id}"/>
+                    <input type="submit" name="submit" class="button" value="{:get_submit_name()}" />
+                    <input type="reset" class="button" value="重置" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+
+        </table>
+        <div class="blank5"></div>
+
+    </form>
+</div>
+<include file="public:footer" />

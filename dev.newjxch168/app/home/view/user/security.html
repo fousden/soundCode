@@ -1,0 +1,554 @@
+<include file="public/header" />
+<div class="wrap">
+    <div class="blank"></div>
+    <div id="manageleft" class="f_l" style="width:192px;min-height:300px;">
+        <include file="public/uc_cate" />
+    </div>
+    <!--主题部分开始-->
+    <div class="tabbox clearfix">
+	<div class="tab cur">
+		<a href="home/user/security">安全信息</a>
+	</div>
+</div>
+
+<div class="uc_box bdd bt0 clearfix">
+	<ul class="security-ul">
+		<!--昵称设置-->
+		<li>
+			<div class="it cf clearfix">
+				<div class="icon">
+					<i class="iconfont f_blue">&#xe605;</i>
+				</div>
+				<h3>昵称</h3>
+				<if condition="$user_info['user_name']">
+				<p>已设置</p>
+				<else />
+				<p class="f_red">未设置</p>
+				</if>
+				<div class="update">{$user_info.user_name}</div>
+			</div>
+		</li>
+		<!--昵称设置-->
+		<!--实名认证-->
+		<li>
+			<div class="it cf clearfix" >
+				<div class="icon">
+					<i class="iconfont f_blue">&#xe633;</i>
+				</div>
+				<h3>实名认证</h3>
+				<if condition="$user_info['idno']!=''">
+					<p>已认证</p>
+					<div class="update">{$user_info.real_name}</div>
+				<else/>
+					<p class="f_red">未认证</p>
+					<div class="update">
+						<a href="javascript:void(0);" id="J_setting_idno" rel="认证">
+							认证
+						</a>
+					</div>
+				</if>
+			</div>
+			<div id="setting-idno-box" style="display:none" >
+				<div class="inc_main">
+					<div class="lh22 f14" style="margin-bottom:20px;padding-left:52px;padding-top:50px;">
+						<div class="field password">
+							<label for="real_name"><span class="red">*</span>开户名/姓名</label>
+							<input type="text" value="" class="f-input  ui-textbox"  name="real_name" id="real_name">
+							<span class="hint f_red"></span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field idno">
+							<label for="idno"><span class="red">*</span>身份证号</label>
+							<input type="text" value="" class="f-input ui-textbox" name="idno" id="idno">
+							<span class="hint f_red"></span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field mobile">
+							<label for="mobile"><span class="red">*</span>手机号</label>
+							<input type="text" value="{$user_info.mobile}" disabled="disabled" class="f-input ui-textbox" name="mobile" id="mobile">
+							<span class="hint f_red"></span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field bank">
+							<label for="bank_id"><span class="red">*</span>选择银行</label>
+							<select  name="bank_id" id="bank_id">
+								<option value='0'>请选择</option>
+								<foreach name='bank_list' item='item'>
+									<option value='{$item.fuyou_bankid}' day='{$item.day}'>{$item.name}</option>
+								</foreach>
+								<!--<option value='other'>其他</option>-->
+							</select>
+							<span class="f-input-tip"></span>
+							<span class="hint"></span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field bank">
+							<label for="bank"><span class="red">*</span>开户行所在地</label>
+							<select name='region_lv1' id="region_lv1">
+								<option selected='selected' id="provice" value="0">请选择省</option>
+								<foreach name='region_lv1' item='lv1'>
+									<option value='{$lv1.districtcode}'>{$lv1.districtname}</option>
+								</foreach>
+							</select>
+
+							<select name='region_lv2' id="region_lv2" height="300">
+								<option selected='selected' id="city" value="0">请选择市</option>
+							</select>
+
+							<script type="text/javascript">
+								$(function () {
+									$("select[name=region_lv1]").change(function () {
+										$("select[name=region_lv2] option:first").nextAll().remove();
+										$.get('/home/system/get_city?act=get_city',
+												{id: $(this).val()},
+												function (data) {
+													$.each(data, function (index, item) {
+														$("select[name=region_lv2]")
+																.append(
+																		$("<option/>")
+																				.attr("value", item.districtcode)
+																				.text(item.districtname));
+													})
+												},
+												'json'
+										);
+									});
+								});
+							</script>
+							<!--<option value='other'>其他</option>-->
+							<span class="f-input-tip"></span>
+							<span class="hint"></span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field bank-card">
+							<label for="bank_card"><span class="red">*</span>卡号</label>
+							<input type="text" value=""  class="f-input ui-textbox" name="bank_card" id="bank_card" onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')">
+							<span class="hint f_red"></span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field rebank_card">
+							<label for="rebank_card"><span class="red">*</span>重复卡号</label>
+							<input type="text" value=""  class="f-input ui-textbox" name="rebank_card" id="rebank_card" onkeyup="this.value=this.value.replace(/\D/g,'').replace(/....(?!$)/g,'$& ')">
+							<span class="hint f_red"></span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field pinan_agreement">
+							<label>&nbsp;</label>
+							<label class="ui-checkbox mt5" rel="agreement" style="float:left!important;">
+								<input type="checkbox" name="agreement" id="J_agreement" value="1" />
+							</label>
+							<div class="f_l">
+								同意 <a href="https://www.jxch168.com/index.php?ctl=sys&id=159" class="f_blue">《平安保险网银卫士》</a>资金安全担保条款
+							</div>
+						</div>
+
+						<div class="blank20"></div>
+						<div style="padding-left:190px;_padding-left:180px;">
+							<input type="button" class="sub_btn" id="settings_idno_commit" name="commit" value="保存更改">
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+		<!--实名认证-->
+		<li>
+			<div class="it cf clearfix">
+				<div class="icon">
+					<i class="iconfont f_blue">&#xe634;</i>
+				</div>
+				<h3>登录密码</h3>
+				<if condition="$user_info['user_pwd']">
+				<p>已设置</p>
+				<else />
+				<p class="f_red">未设置</p>
+				</if>
+				<div class="update"><a href="javascript:void(0);" id="J_setting_pwd">修改</a></div>
+			</div>
+			<div id="setting-pwd-box"  style="display:none;">
+				<div class="inc_main">
+					<div class="lh22 f14" style="margin-bottom:20px;padding-left:52px;padding-top:50px;">
+						<div class="field password">
+							<label for="settings-old-password"><span class="red">*</span>旧密码</label>
+							<input type="password" value="" class="f-input  ui-textbox"  name="old_password" id="settings-old-password">
+						</div>
+						<div class="blank10"></div>
+
+
+						<div class="field password">
+							<label for="settings-password"><span class="red">*</span>新密码</label>
+							<input type="password" value="" class="f-input ui-textbox" name="password" id="settings-password">
+							<span class="hint f_red"></span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field passwrod">
+							<label for="settings-password-confirm"><span class="red">*</span>确认密码</label>
+							<input type="password" value="" class="f-input ui-textbox" name="password-confirm" id="settings-password-confirm">
+						</div>
+						<div class="blank20"></div>
+						<div style="padding-left:190px;_padding-left:180px;">
+							<input type="button" class="sub_btn" id="settings-password-submit" name="commit" value="保存更改">
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+
+
+
+
+
+
+		<li>
+			<div class="it cf clearfix">
+				<div class="icon">
+					<i class="iconfont f_blue">&#xe636;</i>
+				</div>
+				<h3>绑定邮箱</h3>
+				<if condition="$user_info.email neq ''" >
+				<p>已绑定</p>
+				<else />
+				<p class="f_red">未设置</p>
+				</if>
+				<div class="update">
+					<if condition="$user_info[email] neq ''">
+						{:hideEmail($user_info['email'])}
+					<else />
+						<a href="javascript:void(0);" id="J_setting_email">修改</a>
+					</if>
+				</div>
+			</div>
+
+			<div id="setting-email-box" style="display:none;"></div>
+		</li>
+
+
+		<li>
+			<div class="it cf clearfix">
+				<div class="icon">
+					<i class="iconfont f_blue">&#xe632;</i>
+				</div>
+				<h3>绑定手机</h3>
+				<if condition="$user_info['mobile']">
+				<p>{:hideMobile($user_info['mobile'])}</p>
+				<else />
+				<p class="f_red">未绑定</p>
+				</if>
+<!--				<div class="update"><a href="{url x="index" r="uc_account#mobile"}" id="J_setting_mobile">修改</a></div>-->
+			</div>
+			<div id="setting-mobile-box" style="display:none;"></div>
+		</li>
+
+		<li>
+			<div class="it cf clearfix">
+				<div class="icon pr">
+					<i class="iconfont ps small f_blue">&#xe604;</i>
+					<i class="iconfont f_blue">&#xe634;</i>
+				</div>
+				<h3>支付密码</h3>
+				<if condition="$user_info['pay_pwd'] neq '' ">
+				<p>已设置</p>
+				<else />
+				<p class="f_red">未设置</p>
+				</if>
+				<div class="update"><a href="javascript:;" id="J_setting_paypwd">设置</a></div>
+			</div>
+			<div id="setting-paypwd-box" style="display:none">
+				<div class='tip-h clearfix'>
+					<div class='lh22 f14' style='margin-bottom:20px;padding-left:102px;padding-top:50px;'>
+						<if condition="$user_info['pay_pwd'] eq ''" >
+						<p>尚未设置支付密码</p>
+						<div class="blank1"></div>
+						<p>若您希望设置支付密码，请输入以下信息：</p>
+						<else />
+						<p>已设置支付密码</p>
+						<div class="blank1"></div>
+						<p>若您希望重新设置支付密码，请输入以下信息：</p>
+						</if>
+					</div>
+					<form method='post' name='bind_mobile' id='j_bind_mobile_0'>
+						<table width='470' border='0' style='padding:0;margin:0 auto;'>
+							<tbody>
+							<tr>
+								<td width='80'>
+									<div align="left" class="f14">支付密码：</div>
+								</td>
+								<td>
+									<input type="password" id="J_Vpaypassword" name="paypassword" class="f-input ui-textbox">
+								</td>
+								<td height="35" colspan="2" class="f_gray">
+
+								</td>
+							</tr>
+							<tr>
+								<td width="70">
+									<div align="left" class="f14">确认密码：</div>
+								</td>
+								<td>
+									<input type="password" id="J_Vrpaypassword" name="repaypassword" class="f-input ui-textbox">
+								</td>
+								<td height="35" colspan="2" class="f_gray">
+
+								</td>
+							</tr>
+							<tr>
+								<td class="f14 lh28">手机号：</td>
+								<td>{:hideMobile($user_info['mobile'])}</td>
+								<td><input type="button" id="reveiveActiveCode" class="btn_blue f_white lh26 reveiveActiveCode" value="发送手机验证码" onclick="sendPhoneCode0(this,'#J_Vphone_0');"></td>
+							</tr>
+							<tr>
+								<td>
+									<div align="left" class="f14"> 验证码：</div>
+								</td>
+								<td>
+									<input name="validateCode_0" id="validateCode_0" class="f-input ui-textbox">
+								</td>
+								<td class="f_gray f14 pl10 w200">请输入您获取的手机验证码</td>
+							</tr>
+							<tr style="margin-top:20px;">
+								<td></td>
+								<td colspan="2">
+									<div class="b mt20;">
+										<input type="submit" name="submit" value="提交" class="sub_btn">
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+    <!--主题部分开始-->
+</div>
+<script>
+	$(function(){
+		$("#J_setting_idno").click(function(){
+			if($(this).hasClass("v")){
+				$(this).removeClass("v");
+				$(this).html("认证");
+				$("#setting-idno-box").slideUp();
+			}
+			else{
+				$(this).addClass("v");
+				$(this).html("认证");
+				$("#setting-idno-box").slideDown();
+			}
+		});
+
+		// 保存更改事件
+		$("#settings_idno_commit").on("click",function(){
+			var query = {};
+			var real_name = query.real_name = $("#real_name").val(); //  用户真实姓名
+			var idno = query.idno = $("#idno").val(); //  用户身份证号
+			var bank_id = query.bank_id = $("#bank_id").val(); // 银行
+			var region_lv1 = query.region_lv1 = $("#region_lv1").val();// 省
+			var region_lv2 = query.region_lv2 = $("#region_lv2").val();// 市
+			var bank_card = query.bank_card = $("#bank_card").val();// 卡号
+			var rebank_card = query.rebank_card = $("#rebank_card").val();// 重复卡号
+			var pinan_staus = query.pinan_staus = Number($("#J_agreement").prop("checked")); // 是否选择平安保险
+			// 判断是否填信息\
+			 //真实姓名
+			if(real_name.length==0){
+				$("#real_name").next().html("*请输入真实姓名");
+				return; // 在此终止掉js
+			}else{
+				$("#real_name").next().html("");
+			}
+			// 身份证号
+			if(idno.length==0){
+				$("#idno").next().html("*请输入身份证号");
+				return; // 在此终止掉js
+			}else{
+				$("#idno").next().html("");
+			}
+
+			//是否选择银行
+			if(bank_id==0){
+				alert("请选择银行");
+				return;
+			}
+
+			//是否选择省市
+			if(region_lv1==0 || region_lv2==0){
+				alert("请选择开户行所在地");
+				return;
+			}
+
+			// 卡号
+			if(bank_card.length==0){
+				$("#bank_card").next().html("*请输入银行卡信息");
+				return; // 在此终止掉js
+			}else{
+				$("#bank_card").next().html("");
+			}
+
+			// 重复卡号
+			if(rebank_card != bank_card){
+				$("#rebank_card").next().html("两次银行卡号输入不一致");
+				return; // 在此终止掉js
+			}else{
+				$("#rebank_card").next().html("");
+			}
+
+			// 上面通过则ajax传到后台验证
+			$.ajax({
+				url:"check_idno",
+				dataType:"JSON",
+				data:query,
+				type:"post",
+				success:function(data){
+					if(data.response_code==1){
+						alert("开户成功");
+					}else{
+						alert("错误代码:"+data.show_err);
+					}
+				}
+			})
+		});
+
+
+		// 设置修改密码
+		$("#J_setting_pwd").click(function(){
+			if($(this).hasClass("v")){
+				$(this).removeClass("v");
+				$(this).html("修改");
+				$("#setting-pwd-box").slideUp();
+			}
+			else{
+				$(this).addClass("v");
+				$(this).html("取消修改");
+				$("#setting-pwd-box").slideDown();
+			}
+		});
+
+		// 修改密码
+		$("#settings-password-submit").on("click",function(){
+			var query = {};
+			var old_pwd = query.old_pwd = $("#settings-old-password").val();
+			var new_pwd = query.new_pwd = $("#settings-password").val();
+			var renew_pwd = query.renew_pwd = $("#settings-password-confirm").val();
+			// 先判断old_pwd是否正确
+			$.ajax({
+				url:"reset_pwd",
+				type:"post",
+				data:query,
+				dataType:"JSON",
+				success:function(data){
+					alert(data.show_err);
+					if(data.response_code==1){
+						location.href="home/system/login";
+					}
+				}
+			})
+		})
+
+		// 设置邮箱
+		$("#J_setting_email").click(function(){
+			if($(this).hasClass("v")){
+				$(this).removeClass("v");
+				$(this).html("修改");
+				$("#setting-email-box").slideUp();
+			}
+			else{
+				$(this).addClass("v");
+				$(this).html("取消修改");
+				if($.trim($("#setting-email-box").html())==""){
+					var ajaxurl = '{url x="index" r="uc_account#email"}';
+					$.ajax({
+						url:ajaxurl,
+						data:"&step=1",
+						type:"post",
+						dataType:"text",
+						success:function(ajaxobj){
+							$("#setting-email-box").html(ajaxobj);
+							$("#setting-email-box").slideDown();
+							init_ui_textbox();
+						}
+					});
+				}
+				else
+					$("#setting-email-box").slideDown();
+			}
+		});
+
+		// 设置支付密码
+		$("#J_setting_paypwd").click(function(){
+			if($(this).hasClass("v")){
+				$(this).removeClass("v");
+				$(this).html("设置");
+				$("#setting-paypwd-box").slideUp();
+			}
+			else{
+				$(this).addClass("v");
+				$(this).html("取消设置");
+				if($.trim($("#setting-paypwd-box").html())==""){
+					var ajaxurl = $(this).attr("href");
+					$.ajax({
+						url:ajaxurl,
+						data:"&is_ajax=1",
+						type:"post",
+						dataType:"json",
+						success:function(ajaxobj){
+							if(ajaxobj.status==1){
+								$("#setting-paypwd-box").html(ajaxobj.info);
+								$("#setting-paypwd-box").slideDown();
+								init_ui_textbox();
+							}
+							else
+								$.showErr(ajaxobj.info);
+						}
+					});
+				}
+				else
+					$("#setting-paypwd-box").slideDown();
+			}
+			return false;
+		});
+
+		// 设置支付密码
+		$("#j_bind_mobile_0").submit(function(){
+			if($.trim($("#J_Vpaypassword").val())==""){
+				$.showErr("请输入支付密码");
+				return false;
+			}
+			if($.trim($("#J_Vpaypassword").val())!=$.trim($("#J_Vrpaypassword").val())){
+				$.showErr("确认密码错误");
+				return false;
+			}
+			if($.trim($("#validateCode_0").val())==""){
+				$.showErr("请输入验证码");
+				return false;
+			}
+			var query = {};
+			query.paypassword = $("#J_Vpaypassword").val();
+			query.rpaypassword = $("#J_Vrpaypassword").val();
+			query.verify = $("#validateCode_0").val();
+			$.ajax({
+				url : "check_submit",
+				data:query,
+				type:"post",
+				dataType:"json",
+				success: function(obj){
+					if(obj.response_code)
+					{
+						$.showSuccess(obj.show_err,function(){
+							window.location.reload();
+						});
+					}
+					else
+						$.showErr(obj.show_err);
+				},
+				error:function(ajaxobj)
+				{
+					/*if(ajaxobj.responseText!='')
+					 alert(ajaxobj.responseText);*/
+				}
+			});
+			return false;
+		});
+	})
+
+</script>
+<include file="public/footer" />

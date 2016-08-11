@@ -1,0 +1,86 @@
+<include file="public/header" />
+<div class="wrap">
+<div class="blank"></div>
+<div id="manageleft" class="f_l" style="width:192px;min-height:300px;">
+    <include file="public/uc_cate" />
+</div>
+<!--主题部分开始-->
+<div class="tabbox">
+	<div class="tab cur">
+		<a href="/home/user/incharge">会员充值</a>
+	</div>
+	<div class="tab">
+		<a href="/home/user/incharge_log">充值记录</a>
+	</div>
+</div>
+<div class="u_incharge uc_box bdd bt0 pt10">
+	<div class="prompt">
+		<p><i></i>请注意您的银行卡充值限制，以免造成不便。</p>
+		<p><i></i>如绑卡、充值、提现过程中遇到任何问题，请拨打客服电话：400-091-2828。</p>
+		<p><i></i>温馨提示：使用招商银行卡充值限额5000元，使用农业银行卡单笔充值限额1000元。如您的充值金额较大，建议使用其他银行网银进行充值。</p>
+	</div>
+	<div class="blank1"></div>
+	<form name="incharge_form" id="incharge_form" target="_blank" action="/home/user/incharge" method="post" />
+		<div class="sect cf">
+			<div class="clearfix uc-table">
+                            <div class="m_number clearfix">
+                                <div class=" f_l w80">充值金额：</div>
+                                <input type="text" class="f-input ui-textbox f_l w100 " id="money" name="money" /> &nbsp;元
+                            </div>
+                            <div class="J_online">
+                                    <div  id="J_online_pay" class="clearfix" >
+                                            <div class="f_l  w80">充值接口：</div>
+                                            <div class="f_l pt10" style="width:800px">
+                                                <foreach name="payment_list" id="payment">
+                                                        <label class='f_l ui-radiobox' id='pay_now' rel='common_payment' style="background:url({$payment.logo})" title='{$payment.name}'>
+                                                            <input type='radio' name='payment' value="{$payment.id}" />&nbsp;<if condition="$payment['logo'] eq ''">{$payment.name}</if>
+                                                        </label>
+                                                        <div class="blank"></div>
+                                                </foreach>
+                                            </div>
+                                    </div>
+                                    <if condition="$below_payment">
+                                        <div  id="J_below_pay" class="clearfix" style="display:none;">
+                                                {$below_payment.display_code}
+                                                <div class="blank"></div>
+                                        </div>
+                                    </if>
+                                    <div class="pay_btn">
+                                            <input type="submit" id="incharge_done" value="确定充值" class="sub_btn">
+                                    </div>
+                            </div>
+			</div>
+
+		</div><!--end sect-->
+	</form>
+</div>
+<script type="text/javascript">
+        $('#pay_now').click();
+        $('#money').focus();
+	var payType = 0;
+	var ips_submit_lock = true;
+	$(document).ready(function(){
+		$("#incharge_done").click(function(){
+			if(!($("input[name='money']").val()!='' && !isNaN($("input[name='money']").val())&&$("input[name='money']").val()>0))
+			{
+				$.showErr("请输入正确的充值金额",function(){
+					$("input[name='money']").focus();
+				});
+				return false;
+			}
+			else
+			{
+                            if($("#J_online_pay input[name='payment']:checked").length == 0){
+                                    $.showErr("选择支付方式");
+                                    return false;
+                            }
+			}
+			return true;
+		});
+	});
+
+
+</script>
+</div>
+<!--主题部分开始-->
+<include file="public/footer" />

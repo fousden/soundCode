@@ -1,0 +1,36 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<style type="text/css">
+    table tr td{text-align:center}
+    table tr th{text-align:center}
+    a {cursor:pointer;}
+</style>
+<div class="main">
+    <div class="main_title">文章列表</div>
+    <div class="blank5"></div>
+    <div class="button_row" style="position:relative;top:5px;">
+        <input type="button" class="button" value="彻底删除" onclick="publicDelete('article_cate','article_cate');" />
+        <input type="button" class="button" value="恢复" onclick="restore();" />
+    </div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="article_cate" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:ID|50px
+        ,title:标题" 
+	actionlist="publicDelete:彻底删除, restore:恢复" /> 
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+</div>
+<include file="public/footer" />

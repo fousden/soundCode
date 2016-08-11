@@ -1,0 +1,134 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<load href='__ADMIN__/css/style.css' />
+<load href='__ADMIN__/js/msg_send.js' />
+<!--<script src="__ADMIN__/js/WdatePicker.js?t=20140830" type="text/javascript"></script>-->
+<div class="main">
+    <div class="main_title">编辑</div>
+    <div class="blank5"></div>
+    <form name="edit" action="/admin/msg_send/edit" method="post" enctype="multipart/form-data">
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+		<td class="item_title">发送方式:</td>
+                <td class="item_input">
+                    <if condition="$msgInfo['send_type'] eq 0">短信</if>
+                    <if condition="$msgInfo['send_type'] eq 1">邮件</if>
+                </td>
+            </tr>
+            <tr id='mail_temp'>
+		<td class="item_title">超文本格式:</td>
+		<td class="item_input" id="is_html">
+                    <if condition="$msgInfo['status'] eq 0">
+                        <select name="is_html">
+                            <option value="0" <if condition="$msgInfo['is_html'] eq 0">selected="selected"</if>>否</option>
+                            <option value="1" <if condition="$msgInfo['is_html'] eq 1">selected="selected"</if>>是</option>
+                        </select>
+                    <else />
+                        <if condition="$msgInfo['is_html'] eq 0">否</if>
+                        <if condition="$msgInfo['is_html'] eq 1">是</if>
+                    </if>
+                    
+                </td>
+            </tr>
+<!--            <tr>
+		<td class="item_title">发送时间:</td>
+		<td class="item_input">
+                        <input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:s'})"  type="text" id="start_date" name="create_time" class="Wdate" value="{$_REQUEST['create_time']}"/>
+		</td>
+            </tr>-->
+            <tr id="mail_title">
+		<td class="item_title">标题:</td>
+		<td class="item_input">
+                <if condition="$msgInfo['status'] eq 0">
+                    <input type="text" class="textbox" name="title" value="{$msgInfo['title']}" />
+                <else />
+                    {$msgInfo['title']}
+                </if>   
+                </td>
+            </tr>
+            <tr id="mail_content">
+		<td class="item_title">内容:</td>
+		<td class="item_input">
+                <if condition="$msgInfo['status'] eq 0">
+                    <textarea class="textarea" name="content">{$msgInfo['content']}</textarea>
+                <else />
+                    {$msgInfo['content']}
+                </if>   
+                   
+		</td>
+            </tr>
+            <tr>
+		<td class="item_title">优先级:</td>
+		<td class="item_input">
+                    <if condition="$msgInfo['status'] eq 0">
+                        <select name="priority">
+			 	<option value="3" <if condition="$msgInfo['priority'] eq 3">selected="selected"</if>>普通</option>
+				<option value="2" <if condition="$msgInfo['priority'] eq 2">selected="selected"</if>>高</option>
+				<option value="4" <if condition="$msgInfo['priority'] eq 4">selected="selected"</if>>低</option>
+			 </select>
+                    <else />
+                        <if condition="$msgInfo['priority'] eq 3">普通</if>
+                        <if condition="$msgInfo['priority'] eq 2">高</if>
+                        <if condition="$msgInfo['priority'] eq 4">低</if>
+                    </if>  
+			 
+		</td>
+            </tr>
+            <tr>
+		<td class="item_title">发送对象:</td>
+		<td class="item_input">
+                    <if condition="$msgInfo['status'] eq 0">
+                        <select name="msg_type">
+                            <option value="1" <if condition="$msgInfo['dest'] eq ''">selected="selected"</if>>群发</option>
+                            <option value="2" <if condition="$msgInfo['dest'] neq ''">selected="selected"</if>>自定义</option>
+			 </select>
+                    <else />
+                        <if condition="$msgInfo['dest'] eq ''">群发</if>
+                        <if condition="$msgInfo['dest'] neq ''">自定义</if>
+                    </if>
+			 
+		</td>
+            </tr>
+            <tr id="send_define_data">
+		<td class="item_title">自定义:</td>
+		<td class="item_input">
+                    <if condition="$msgInfo['status'] eq 0">
+                        <textarea class="textarea" name="send_define_data" >{$msgInfo['dest']}</textarea>
+                        <span class="tip_span">用半角逗号分隔</span>
+                    <else />
+                        {$msgInfo['dest']}
+                    </if>
+		</td>
+            </tr>
+            <if condition="$msgInfo['status'] eq 0">
+            <tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+                        <input type="hidden" name="id" value="{$msgInfo['id']}" />
+			<input type="submit" class="button" value="更新" />
+			<input type="reset" class="button" value="重置" />
+                          
+		</td>
+            </tr>
+            </if>
+            <tr>
+		<td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form> 
+<div class="blank5"></div>
+<style>
+    .cg{
+        width:800px;
+        height:500px;
+    }
+</style>
+</div>
+<include file="public/footer" />

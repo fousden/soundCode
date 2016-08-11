@@ -1,0 +1,55 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<script type="text/javascript">
+    function show_content(id){
+	$.weeboxs.open('/admin/msg_send/show_content&id='+id, {contentType:'ajax',showButton:false,title:'查看内容',width:600});
+    }
+</script>
+<div class="main">
+    <div class="main_title">信息队列</div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <html:list 
+        id="dataTable" 
+        style="dataTable" 
+        name="msg_send_list" 
+        datasource="list" 
+        show="id:ID|50px
+        ,msg_id:信息ID
+        ,send_type:发送类型
+        ,dest:收件人
+        ,user_id|get_user_name_real:会员|200px
+        ,title:标题
+        ,content|show_content=$msg_send_list['id']:内容
+        ,create_time|get_date:创建时间
+        ,send_time|get_date:发送时间
+        ,priority:优先级
+        ,status:发送状态"
+    /> 
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+</div>
+<?php
+    function get_user_name_real($user_id){
+        if($user_id){
+            $user_info =  M("User")->where("id=".$user_id." and is_delete = 0")->field("user_name,real_name,user_type,mobile")->find();
+            if(!$user_info)
+		return "没有该会员";
+            else
+		return "<a href=".u("User/".($user_info['user_type']==0? "index" : "company_index"),array("user_name"=>$user_info['user_name']))." target='_blank'>".$user_info['user_name'].($user_info['real_name']!="" ? "[".$user_info['real_name']."]"."[".$user_info['mobile']."]":"")."</a>";
+        }else{
+            return "没有该会员";
+        }
+	
+    }
+    
+    function show_content($content,$id){
+	return "<a title='查看内容' href='javascript:void(0);' onclick='show_content(".$id.")'>查看</a>";
+    }
+?>
+
+<include file="public/footer" />

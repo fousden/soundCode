@@ -1,0 +1,87 @@
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<script src="__ADMIN__/js/pinphp.js"></script>
+<script type="text/javascript">
+    function show_detail(id)
+    {
+        window.location.href = ROOT + '?m=Deal&a=show_detail&id=' + id;
+    }
+</script>
+<div class="main">
+    <div class="main_title">全部合同范本</div>
+    <div class="blank5"></div>
+    <div class="button_row" style="position:relative;top:5px;">
+        <a class="button" style="text-decoration:none;" href="/admin/contract/add">新增</a>
+        <a class="button" style="text-decoration:none;" onclick="publicDelete('contract','contract');">删除</a>
+    </div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="blank5"></div>
+    <div class="search_row">
+        <form name="search" action="/admin/contract/index" method="post">
+            合同范本标题：<input type="text" class="textbox" name="title" value="{$_REQUEST['title']}" />
+            合同范本内容（模糊查询）：
+            <input type="text" class="textbox" name="content" value="{$_REQUEST['content']}" size="10" />
+            <input type="submit" class="button" value="搜索" />
+        </form>
+    </div>
+    <div class="blank5"></div>
+    <table id="dataTable" class="dataTable" cellpadding=0 cellspacing=0 >
+        <tr><td colspan="23" class="topTd" >&nbsp; </td></tr>
+        <tr class="row">
+            <th width="8">
+                <input type="checkbox" id="check" onclick="CheckAll('dataTable')">
+            </th>
+            <th width="50px">
+                <a  href="javascript:sortBy('id',{$sort})" id="bianhao" data="asc" title="按照编号升序排列">编号</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('title',{$sort})" title="按照贷款名称升序排列">合同范本标题</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('content',{$sort})" title="按照借款人升序排列">合同范本内容</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('is_effect',{$sort})" title="按照状态升序排列">是否有效</a>
+            </th>
+            <th>
+                <a href="javascript:sortBy('is_delete',{$sort})" title="按照状态升序排列">是否删除</a>
+            </th>
+            <th class="op_action">
+                <a href="javascript:void(0)" class="A_opration">操作</a>
+            </th>
+        </tr>
+        <foreach name="list" id="contract" key="key">
+        <tr class="row " >
+            <td>
+                <input type="checkbox" name="key" class="key" value="{$contract.id}">
+            </td>
+            <td>
+                &nbsp;{$contract.id}
+            </td>
+            <td>
+                &nbsp;<a href="/admin/contract/show_contract?id={$contract.id}">{$contract.title}</a>
+            </td>
+            <td>
+                &nbsp;{$contract.content_desc}
+            </td>
+            <td>
+                &nbsp;<span class='is_effect' onclick='set_deal_attr("contract","contract","is_effect",{$contract.id},this);'><if condition="$contract['is_effect'] eq 1">有效<else/>无效</if></span>
+            </td>
+            <td>
+                &nbsp;<span class='is_advance' onclick='set_deal_attr("contract","contract","is_delete",{$contract.id},this);'><if condition="$contract['is_delete'] eq 1">是<else/>否</if></span>
+            </td>
+            <td class="op_action">
+                <div class="viewOpBox">
+                    <a href="javascript:edit('{$contract.id}')">编辑</a>&nbsp;
+                    <a href="/admin/contract/show_contract?id={$contract.id}">合同范本详情</a>&nbsp;
+                </div>
+                <a href="javascript:void(0);" class="opration">操作</a>
+            </td>
+        </tr>
+        </foreach>
+ </table>
+<div class="blank5"></div>
+<div class="page" style="text-align:center;">{$page}</div>
+</div>
+<include file="public/footer" />

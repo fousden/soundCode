@@ -1,0 +1,70 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<load href='__ADMIN__/js/jquery.weebox.js' />
+<load href='__ADMIN__/css/weebox.css' />
+<div class="main">
+<div class="main_title">短信接口列表</div>
+<div class="blank5"></div>
+<table cellspacing="0" cellpadding="0" class="dataTable" id="dataTable">
+    <tbody>
+        <tr>
+            <td class="topTd" colspan="3">&nbsp; </td>
+	</tr>
+	<tr>
+            <th>接口名称</th>
+            <th>描述</th>		
+            <th>选择接口</th>
+	</tr>
+        <foreach name="sms_list" item="vo">
+            <tr>
+                <td>{$vo.name}</td>
+                <td>{$vo.money}</td>
+                <td><input type="radio" name="sms_interface" value="{$vo.class_name}" <if condition="$vo.is_effect eq 1">checked="checked"</if>/></td>
+            </tr>
+                
+        </foreach>
+<!--				<foreach name="sms_list" item="sms_item">
+				<tr class="row">
+					<td>{$sms_item.name}</td>
+					<td>{$sms_item.description}</td>				
+					<td>
+						<if condition="$sms_item['installed'] eq 0">
+						<a href="{:u("Sms/install",array("class_name"=>$sms_item['class_name']))}">{%INSTALL}</a>
+						<else />
+							<a href="javascript:uninstall({$sms_item.id});" >{%UNINSTALL}</a>
+							<a href="javascript:edit({$sms_item.id});" >{%EDIT}</a>
+							<if condition="$sms_item['is_effect'] eq 0">
+								<a href="{:u("Sms/set_effect",array("id"=>$sms_item['id']))}">{%USE_THIS_SMS}</a>
+							<else />
+								{%SMS_USING}
+							</if>
+						</if>
+					</td>
+				</tr>
+				</foreach>-->
+				<tr><td class="bottomTd" colspan="3"> &nbsp;</td></tr>
+	</tbody>
+</table>
+<script>
+    $(function(){
+        $("input[name='sms_interface']").change(function(){
+            var alias = $("input[name='sms_interface']:checked ").val();
+            $.ajax({
+                url: "/admin/msg_send/sms_interface&alias="+alias,
+                dataType: "json",
+                success: function(result){
+                    if(result){
+                        alert('修改成功');
+                    }else{
+                        alert('修改失败');
+                    }
+
+                }
+            })
+        })
+    })
+</script>
+</div>
+<include file="public/footer" />

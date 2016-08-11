@@ -1,0 +1,41 @@
+<taglib name="html" />
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<head>
+    <title>菜单管理</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<html>
+<body>
+    <div class="main">
+    <div class="main_title">菜单管理</div>
+    <div class="blank5"></div>
+    <div class="button_row">
+        <input type="button" class="button" value="新增" onclick="add();" />
+        <input type="button" class="button" value="删除" onclick="del();" />
+    </div>
+    <div class="blank5"></div>
+    <html:list
+    id="dataTable"
+    style="dataTable"
+    name="tree_list"
+    checkbox="true"
+    action="true"
+    datasource="list"
+    show="id:编号|50px
+    ,sort:排序权重|100px
+    ,name|get_menu_name=$tree_list['menu_level']:菜单名称|class=left
+    ,status|global_get_status=$tree_list['id']:状态|100px
+    ,display|global_get_display=$tree_list['id']:显示|100px
+    "
+    actionlist="edit:编辑,add:添加子菜单"
+    actionwidth="150px"
+    actionidx="3"
+    />
+</div>
+</body>
+
+</html>
+
+

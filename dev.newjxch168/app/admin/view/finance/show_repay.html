@@ -1,0 +1,246 @@
+<include file="public/header" />
+<load href='__ADMIN__/js/jquery.bgiframe.js' />
+<script src="__ADMIN__/js/pinphp.js"></script>
+<load href='__ADMIN__/js/show_loads.js' />
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+    table {color:#2191C3;}
+    table th{color:black;}
+    ul{margin:0px;padding:0px;}
+    ul li {margin:0px;padding:0px;float:left;list-style:none;line-height:40px;margin-left:20px;}
+    ul li a{font-size:16px;}
+    .sub_btn{cursor:pointer; margin:0; padding:0; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; overflow:visible; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .sub_btn:hover{background-color:#0087E5;}
+    .reset_btn{cursor:pointer; background:none; border:none; background-color:#ddd; color:#666; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+    .true_btn{cursor:pointer; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:30px; line-height:30px; padding:0 20px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+</style>
+<div class="main">
+    <div class="main_title" style="height:30px;">
+        <div style="width:28%;float:left;">
+            <span style="font-size:16px;line-height:30px;font-weight:bold;">还款审核　　<a href="javascript:history.go(-1);">返回上一页</a></span>
+        </div>
+        <div style="float:left;">
+            <a style="font-size:16px;text-decoration: none;line-height:30px;font-weight:bold;text-align:center;" href="/admin/finance/show_repay?jiexi_date={$pre_jiexi_date}">前一天</a></span>
+        </div>
+        <div style="width:28%;float:left;text-align:center;">
+            <span style="font-size:16px;line-height:30px;font-weight:bold;text-align:center;">{$jiexi_date}</span>
+        </div>
+        <div style="float:left;">
+            <a style="font-size:16px;text-decoration: none;line-height:30px;font-weight:bold;text-align:center;" href="/admin/finance/show_repay?jiexi_date={$next_jiexi_date}">后一天</a></span>
+        </div>
+        <div style="width:30%;float:right;">
+            <button style="float:right;position:relative;top:4px;" onclick='export_all_load("","{$jiexi_date}");' class="button" >导出全部</button>
+        </div>
+    </div>
+    <div style="width:auto;height:38px;background-color:#c9c9c9;margin-top:6px;padding-left:10px;padding-top:15px;font-size:16px;line:38px;">企业账号：<span style="color:red;background-color:white;height:40px;">　{$FUYOU_MCHNT_FR}　</span>　　可用金额（元）<span style="color:red;background-color:white;height:40px;">　{$ca_balance|number_format=2}　</span>　—　预计还款金额（元）<span style="color:red;background-color:white;height:40px;">　{$result['remain_repay_money']/100|number_format=2}　</span>　＝　预计总额（元）<span style="color:red;background-color:white;height:40px;">　{$account_all_money|number_format=2}　</span></div>
+<table  class="form conf_tab dataTable" cellpadding=0 cellspacing=0>
+        <tr>
+        <td colspan="17">
+            <!-- <input type="button" class="button" value="导出每期计划列表" onclick="do_allrepay_plan_export_load({$deal_id});"> -->
+        </td>
+        </tr>
+        <tr>
+            <th>编号</th>
+            <th>标的名称</th>
+            <th>标的类型</th>
+            <th>标的总额</th>
+            <th>投资期限</th>
+            <th>投标数</th>
+            <th title="该标的下所有投标金额之和">应还本金总额</th>
+            <th>　利率（%）　</th>
+            <th title="应还利息 = 应还本金总额 * 标的利率 * 标的期限">&nbsp;应还纯利息&nbsp;</th>
+            <th title="该标的下所有投标使用的抵现券面值之和">&nbsp;&nbsp;抵现券总额&nbsp;&nbsp;</th>
+            <th title="收益券总收益 = 该标的下每个投标所获得的收益券收益之和。单个投资收益券收益 = 投资金额 * 标的利率 * 标的期限 * 收益券收益百分比">&nbsp;&nbsp;收益券总收益&nbsp;&nbsp;</th>
+            <th title="活动总收益 = 该标的下每个投标所获得的活动收益之和。单个投资活动收益 = 投资金额 * 标的利率 * 标的期限 * 活动收益百分比">&nbsp;活动总收益&nbsp;</th>
+            <th title="应还总利息 = 应还利息 + 收益券总收益 + 活动总收益">应还总利息</th>
+            <th title="实际还款总额 = 应还本金总额 + 应还总利息">实际还款总额（元）</th>
+            <th>起息时间</th>
+            <th>还款日期</th>
+            <th style="width:280px;">操作</th>
+        </tr>
+        <foreach name="result.deal_lists" item="item" >
+        <tr>
+            <td>{$item.id}</td>
+            <td>{$item.name}</td>
+            <td>{$item.cate_name}</td>
+            <td style="text-align:right;">{$item['borrow_amount_e2']/100|number_format=2}</td>
+            <td>{$item.repay_time_name}</td>
+            <td>{$item.loads_passengers}</td>
+            <td style="text-align:right;">{$item['load_money_e2']/100|number_format=2}</td>
+            <td>{$item['rate_e2']/100}</td>
+            <td style="text-align:right;">{$item['deal_all_pure_interest']/100|number_format=2}</td>
+            <td style="text-align:right;">{$item['deal_all_coupon_cash']/100|number_format=2}</td>
+            <td style="text-align:right;">{$item['deal_all_coupon_interest']/100|number_format=2}</td>
+            <td style="text-align:right;">{$item['deal_all_active_interest']/100|number_format=2}</td>
+            <td style="text-align:right;">{$item['deal_all_interest']/100|number_format=2}</td>
+            <td style="text-align:right;">{$item['deal_all_repay_money']/100|number_format=2}</td>
+            <td><a style="text-decoration:none;" title="点我进入入金详情页" href="/admin/finance/show_loads?qixi_date={$item.qixi_date}">{$item.qixi_date}</a></td>
+            <td>{$item.jiexi_date}</td>
+            <td>
+                <ul style="width:90%;margin:0px 0px 0px 3px;padding:0px;">
+                     <if condition="$item['deal_status'] neq 4" >
+                     <li style="margin:0px 0px 0px 3px;padding:0px;">
+                         <button class="button" style="line-height:10px;"  onclick="inputRepayPwd({$item.id});">确认还款</button>
+                     </li>
+                     <else/>
+                         <li style="margin:0px 0px 0px 3px;padding:0px;">
+                         <button  style="line-height:10px;background-color:#C9C9C9;width:98px;height:27px;border-radius:6px;color:black" disabled="disabled">已&nbsp;还&nbsp;清&nbsp;</button>
+                         </li>
+                     </if>
+                     <li style="margin:0px 0px 0px 3px;padding:0px;">
+                         <button class="button" style="line-height:10px;" onclick='export_all_load({$item.id},"{$jiexi_date}");' >导出</button>
+                     </li>
+                     <li style="margin:0px 0px 0px 3px;padding:0px;">
+                          <a style="color:#2191C3" href="javascript:void(0);" onclick="viewLoanItem('.Text-{$item.id}',{$item.id},{$item.id});">展开详情</a>
+                     </li>
+                 </ul>
+           </td>
+        </tr>
+        <tr>
+                <td colspan=16 class="hide Text-{$item.id}">
+                </td>
+        </tr>
+    </foreach>
+        <tr>
+            <td></td>
+            <td style="color:#C40000;">{$jiexi_date}&nbsp;统计信息：</td>
+            <td style="color:#C40000;">总计：</td>
+            <td style="color:#C40000;text-align:right;">{$result['date_borrow_amount']/100|number_format=2}</td>
+            <td></td>
+            <td></td>
+            <td style="color:#C40000;text-align:right;">{$result['date_all_capital']/100|number_format=2}</td>
+            <td></td>
+            <td style="color:#C40000;text-align:right;">{$result['date_all_pure_interest']/100|number_format=2}</td>
+            <td style="color:#C40000;text-align:right;">{$result['date_all_coupon_cash']/100|number_format=2}</td>
+            <td style="color:#C40000;text-align:right;">{$result['date_all_coupon_interest']/100|number_format=2}</td>
+            <td style="color:#C40000;text-align:right;">{$result['date_all_active_interest']/100|number_format=2}</td>
+            <td style="color:#C40000;text-align:right;">{$result['date_all_interest']/100|number_format=2}</td>
+            <td style="color:#C40000;text-align:right;">{$result['date_all_repay_money']/100|number_format=2}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="17">
+                    当前 {$page}/{$page_all} 页 , {$rs_count} 条记录
+                    <if condition="$page gt 1">
+                    <a href="/admin/finance/show_repay?jiexi_date={$jiexi_date}&p=1" >第一页  </a>
+                    </if>
+                    <if condition="$page_prev gt 0"><a href="//admin/finance/show_repay?jiexi_date={$jiexi_date}&p={$page_prev}" >上一页 </a></if>
+                    <if condition="$page_next elt $page_all"><a href="/admin/finance/show_repay?jiexi_date={$jiexi_date}&p={$page_next}" >下一页  </a></if>
+                    <if condition="$page_next elt $page_all"><a href="/admin/finance/show_repay?jiexi_date={$jiexi_date}&p={$page_all}" >末一页  </a></if>
+            </td>
+        </tr>
+</table>
+</div>
+<script type="text/javascript">
+    function inputRepayPwd(deal_id){
+        var repay_pwd ='{$admin_info.repay_pwd}';
+        if(repay_pwd){
+           var html = '<div class="tc p15">';
+                html += '<div style="height:100px;margin-top:30px;font-size:22px;color:red;font-weight:bold;text-align:center">确认还款操作</div>';
+                html += '<div style="height:40px;font-size:22px;margin:-40px 0px 0px 50px;">密码：<input type="password" placeholder="请输入还款操作密码" style="line-height:40px;font-size:16px;width:160px;height:40px;" class="f-input ui-textbox" value="" id="repay_pwd" /></div>';
+                html += '<div class="blank5"></div>';
+                html += '<input style="position:relative;left:90px;top:40px;" type="button" class="sub_btn" id="do_site_password_btn" onclick="do_site_repay('+deal_id+');" value="确定还款">&nbsp;&nbsp;';
+                html += '<input style="position:relative;left:110px;top:40px;" type="button" class="reset_btn" onclick="closeWindow();" id="J_cancel_rbtn" value="取消">';
+                html += "</div>";
+                $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"输入还款操作密码", width:380, height:240, type:'wee'});
+                //init_ui_textbox();
+        }else{
+            var html = '<div class="tc p15">';
+                html += '<div style="height:100px;margin-top:30px;font-size:22px;color:red;font-weight:bold;text-align:center">您未设置还款操作密码</div>';
+                html += '<div style="height:40px;font-size:22px;margin:-50px 0px 0px 50px;">　　密码：<input type="password" placeholder="请设置还款操作密码" style="line-height:40px;font-size:16px;width:160px;height:40px;" class="f-input ui-textbox" value="" id="set_repay_pwd" /></div>';
+                html += '<div class="blank5"></div>';
+                html += '<div class="blank5"></div>';
+                html += '<div style="height:40px;font-size:22px;margin:10px 0px 0px 50px;">确认密码：<input type="password" placeholder="请确认还款操作密码" style="line-height:40px;font-size:16px;width:160px;height:40px;" class="f-input ui-textbox" value="" id="confirm_set_repay_pwd" /></div>';
+                html += '<div class="blank5"></div>';
+                html += '<input style="position:relative;left:90px;top:35px;" type="button" class="sub_btn" id="J_oper_password_btn" onclick="set_repay_pwd();" value="确定设置">&nbsp;&nbsp;';
+                html += '<input style="position:relative;left:110px;top:35px;" type="button" class="reset_btn" onclick="closeWindow();" id="J_cancel_rbtn" value="取消">';
+                html += "</div>";
+                $.weeboxs.open(html, {boxid:"paypass-box", contentType:'text', showButton:false, title:"设置还款操作密码", width:400, height:280, type:'wee'});
+                //init_ui_textbox();
+        }
+
+    }
+    function set_repay_pwd(){
+        var repay_pwd = $.trim($("#set_repay_pwd").val());
+        var confirm_repay_pwd = $.trim($("#confirm_set_repay_pwd").val());
+
+        if(repay_pwd != confirm_repay_pwd){
+            alert("两次输入的还款操作密码不一致，请重新输入！");
+            return false;
+        }
+        var query = new Object();
+        query.repay_pwd = repay_pwd;
+        query.confirm_repay_pwd = confirm_repay_pwd;
+        query.type = "repay";
+        query.ajax = 1;
+        $.ajax({
+                 url:'/admin/finance/savePwd',
+                data:query,
+                type:"POST",
+                dataType:"json",
+                success:function(result){
+                    if (result.status == 1){
+                        $.pinphp.tip({content:result.info, icon:'success'});
+                        setTimeout("window.location.reload();",1000);
+                    }else{
+                        $.pinphp.tip({content:result.info, icon:'alert'});
+                        setTimeout("window.location.reload();",1000);
+                        return false;
+                    }
+                }
+        });
+    }
+
+    /**
+    * 网站代还款
+    */
+    var is_do_flag_lock = true;
+    function do_site_repay(id){
+           var repay_pwd = $("#repay_pwd").val();
+           if(!repay_pwd){
+               alert("请输入还款操作密码！");
+               return false;
+           }
+
+           if(!confirm("是否替借款者还款？")){
+               return false;
+           }
+
+           //置灰色
+           $("#do_site_password_btn").css("background-color","#C9C9C9");
+           $("#do_site_password_btn").val("处理中...");
+           $("#do_site_password_btn").attr("disabled","disabled");
+
+           var query=new Object();
+           query.id = id;
+           query.repay_pwd = repay_pwd;
+           query.l_key = 0;
+           query.ca_balance = "{$ca_balance}";
+           $.ajax({
+                   url:"/admin/finance/do_site_repay",
+                   data:query,
+                   type:"post",
+                   dataType:"json",
+                   async:false,
+                   success:function(result){
+                        if(result.status == 1){
+                             $.pinphp.tip({content:result.info, icon:'success'});
+                             setTimeout("window.location.reload();",1000);
+                        }else{
+                            $.pinphp.tip({content:result.info, icon:'alert'});
+                        }
+                   }
+           });
+    }
+
+    //export_all_load 导出还款计划记录
+    function export_all_load(id,deal_time){
+       window.location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_all_load&deal_id="+id+"&deal_time="+deal_time+"&type=jiexi";
+    }
+</script>
+<include file="public/footer" />
